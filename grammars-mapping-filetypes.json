@@ -1,0 +1,4920 @@
+[
+  {
+    "grammar": "actionscript",
+    "grammar_repo": "https://github.com/Rileran/tree-sitter-actionscript",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "actionscript",
+    "match_type": null
+  },
+  {
+    "grammar": "ada",
+    "grammar_repo": "https://github.com/briot/tree-sitter-ada",
+    "nvim_parser": "ada",
+    "nvim_repo": "https://github.com/briot/tree-sitter-ada",
+    "nvim_filetype": "ada",
+    "effective_filetype": "ada",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "adb",
+      "ads"
+    ],
+    "helix_language_name": "ada"
+  },
+  {
+    "grammar": "agda",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-agda",
+    "nvim_parser": "agda",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-agda",
+    "nvim_filetype": "agda",
+    "effective_filetype": "agda",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "agda"
+    ],
+    "helix_language_name": "agda"
+  },
+  {
+    "grammar": "angular",
+    "grammar_repo": "https://github.com/dlvandenberg/tree-sitter-angular",
+    "nvim_parser": "angular",
+    "nvim_repo": "https://github.com/dlvandenberg/tree-sitter-angular",
+    "nvim_filetype": "htmlangular",
+    "effective_filetype": "htmlangular",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "apex",
+    "grammar_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_parser": "apex",
+    "nvim_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_filetype": "apex",
+    "effective_filetype": "apex",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "arduino",
+    "grammar_repo": "https://github.com/ObserverOfTime/tree-sitter-arduino",
+    "nvim_parser": "arduino",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-arduino",
+    "nvim_filetype": "arduino",
+    "effective_filetype": "arduino",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "asm",
+    "grammar_repo": "https://github.com/rush-rs/tree-sitter-asm",
+    "nvim_parser": "asm",
+    "nvim_repo": "https://github.com/RubixDev/tree-sitter-asm",
+    "nvim_filetype": "asm",
+    "effective_filetype": "asm",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "astro",
+    "grammar_repo": "https://github.com/virchau13/tree-sitter-astro",
+    "nvim_parser": "astro",
+    "nvim_repo": "https://github.com/virchau13/tree-sitter-astro",
+    "nvim_filetype": "astro",
+    "effective_filetype": "astro",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "astro"
+    ],
+    "helix_language_name": "astro"
+  },
+  {
+    "grammar": "authzed",
+    "grammar_repo": "https://github.com/mleonidas/tree-sitter-authzed",
+    "nvim_parser": "authzed",
+    "nvim_repo": "https://github.com/mleonidas/tree-sitter-authzed",
+    "nvim_filetype": "authzed",
+    "effective_filetype": "authzed",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "awk",
+    "grammar_repo": "https://github.com/Beaglefoot/tree-sitter-awk",
+    "nvim_parser": "awk",
+    "nvim_repo": "https://github.com/Beaglefoot/tree-sitter-awk",
+    "nvim_filetype": "awk",
+    "effective_filetype": "awk",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "awk",
+      "gawk",
+      "nawk",
+      "mawk"
+    ],
+    "helix_language_name": "awk"
+  },
+  {
+    "grammar": "bash",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-bash",
+    "nvim_parser": "bash",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-bash",
+    "nvim_filetype": "sh",
+    "effective_filetype": "sh",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "sh",
+      "bash",
+      "ash",
+      "dash",
+      "ksh",
+      "mksh",
+      "zsh",
+      "zshenv",
+      "zlogin",
+      "zlogout",
+      "zprofile",
+      "zshrc",
+      "eclass",
+      "ebuild",
+      "bazelrc",
+      "Renviron",
+      "zsh-theme",
+      "cshrc",
+      "tcshrc",
+      "bashrc_Apple_Terminal",
+      "zshrc_Apple_Terminal",
+      {
+        "glob": "i3/config"
+      },
+      {
+        "glob": "sway/config"
+      },
+      {
+        "glob": ".tmux.conf"
+      },
+      {
+        "glob": "tmux.conf"
+      },
+      {
+        "glob": ".sh_history"
+      },
+      {
+        "glob": ".bash_history"
+      },
+      {
+        "glob": ".bash_login"
+      },
+      {
+        "glob": ".bash_logout"
+      },
+      {
+        "glob": ".bash_profile"
+      },
+      {
+        "glob": ".bashrc"
+      },
+      {
+        "glob": ".profile"
+      },
+      {
+        "glob": ".zshenv"
+      },
+      {
+        "glob": ".zlogin"
+      },
+      {
+        "glob": ".zlogout"
+      },
+      {
+        "glob": ".zprofile"
+      },
+      {
+        "glob": ".zshrc"
+      },
+      {
+        "glob": ".zimrc"
+      },
+      {
+        "glob": "APKBUILD"
+      },
+      {
+        "glob": ".bash_aliases"
+      },
+      {
+        "glob": "bash_completion"
+      },
+      {
+        "glob": "bash-completion/completions/*"
+      },
+      {
+        "glob": "bash_completion.d/*"
+      },
+      {
+        "glob": ".Renviron"
+      },
+      {
+        "glob": ".xprofile"
+      },
+      {
+        "glob": ".xsession"
+      },
+      {
+        "glob": ".xsessionrc"
+      },
+      {
+        "glob": ".yashrc"
+      },
+      {
+        "glob": ".yash_profile"
+      },
+      {
+        "glob": ".hushlogin"
+      },
+      {
+        "glob": ".xinitrc"
+      },
+      {
+        "glob": "xinitrc"
+      },
+      {
+        "glob": ".xserverrc"
+      },
+      {
+        "glob": "xserverrc"
+      }
+    ],
+    "helix_shebangs": [
+      "sh",
+      "bash",
+      "dash",
+      "zsh"
+    ],
+    "helix_language_name": "bash"
+  },
+  {
+    "grammar": "bass",
+    "grammar_repo": "https://github.com/vito/tree-sitter-bass",
+    "nvim_parser": "bass",
+    "nvim_repo": "https://github.com/vito/tree-sitter-bass",
+    "nvim_filetype": "bass",
+    "effective_filetype": "bass",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "bass"
+    ],
+    "helix_language_name": "bass"
+  },
+  {
+    "grammar": "beancount",
+    "grammar_repo": "https://github.com/polarmutex/tree-sitter-beancount",
+    "nvim_parser": "beancount",
+    "nvim_repo": "https://github.com/polarmutex/tree-sitter-beancount",
+    "nvim_filetype": "beancount",
+    "effective_filetype": "beancount",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "beancount",
+      "bean"
+    ],
+    "helix_language_name": "beancount"
+  },
+  {
+    "grammar": "bibtex",
+    "grammar_repo": "https://github.com/latex-lsp/tree-sitter-bibtex",
+    "nvim_parser": "bibtex",
+    "nvim_repo": "https://github.com/latex-lsp/tree-sitter-bibtex",
+    "nvim_filetype": "bib",
+    "effective_filetype": "bib",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "bib"
+    ],
+    "helix_language_name": "bibtex"
+  },
+  {
+    "grammar": "bicep",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-bicep",
+    "nvim_parser": "bicep",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-bicep",
+    "nvim_filetype": "bicep",
+    "effective_filetype": "bicep",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "bicep",
+      "bicepparam"
+    ],
+    "helix_language_name": "bicep"
+  },
+  {
+    "grammar": "bitbake",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-bitbake",
+    "nvim_parser": "bitbake",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-bitbake",
+    "nvim_filetype": "bitbake",
+    "effective_filetype": "bitbake",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "bb",
+      "bbappend",
+      "bbclass",
+      {
+        "glob": "conf/*.conf"
+      },
+      {
+        "glob": "conf/*/*.{inc,conf}"
+      },
+      {
+        "glob": "recipe-*/*/*.inc"
+      }
+    ],
+    "helix_language_name": "bitbake"
+  },
+  {
+    "grammar": "blade",
+    "grammar_repo": "https://github.com/EmranMR/tree-sitter-blade",
+    "nvim_parser": "blade",
+    "nvim_repo": "https://github.com/EmranMR/tree-sitter-blade",
+    "nvim_filetype": "blade",
+    "effective_filetype": "blade",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "*.blade.php"
+      },
+      "blade"
+    ],
+    "helix_language_name": "blade"
+  },
+  {
+    "grammar": "blueprint",
+    "grammar_repo": "https://gitlab.com/gabmus/tree-sitter-blueprint.git",
+    "nvim_parser": "blueprint",
+    "nvim_repo": "https://gitlab.com/gabmus/tree-sitter-blueprint.git",
+    "nvim_filetype": "blueprint",
+    "effective_filetype": "blueprint",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "blp"
+    ],
+    "helix_language_name": "blueprint"
+  },
+  {
+    "grammar": "bp",
+    "grammar_repo": "https://github.com/ambroisie/tree-sitter-bp",
+    "nvim_parser": "bp",
+    "nvim_repo": "https://github.com/ambroisie/tree-sitter-bp",
+    "nvim_filetype": "bp",
+    "effective_filetype": "bp",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "bpftrace",
+    "grammar_repo": "https://github.com/sgruszka/tree-sitter-bpftrace",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "bpftrace",
+    "match_type": null
+  },
+  {
+    "grammar": "brightscript",
+    "grammar_repo": "https://github.com/ajdelcimmuto/tree-sitter-brightscript",
+    "nvim_parser": "brightscript",
+    "nvim_repo": "https://github.com/ajdelcimmuto/tree-sitter-brightscript",
+    "nvim_filetype": "brightscript",
+    "effective_filetype": "brightscript",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "c",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-c",
+    "nvim_parser": "c",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-c",
+    "nvim_filetype": "c",
+    "effective_filetype": "c",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "c"
+    ],
+    "helix_language_name": "c"
+  },
+  {
+    "grammar": "c_sharp",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-c-sharp",
+    "nvim_parser": "c_sharp",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-c-sharp",
+    "nvim_filetype": "cs",
+    "effective_filetype": "csharp",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "cs",
+      "csx",
+      "cake"
+    ],
+    "helix_language_name": "c-sharp"
+  },
+  {
+    "grammar": "c3",
+    "grammar_repo": "https://github.com/c3lang/tree-sitter-c3",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "c3",
+    "match_type": null
+  },
+  {
+    "grammar": "caddy",
+    "grammar_repo": "https://github.com/opa-oz/tree-sitter-caddy",
+    "nvim_parser": "caddy",
+    "nvim_repo": "https://github.com/opa-oz/tree-sitter-caddy",
+    "nvim_filetype": "caddy",
+    "effective_filetype": "caddy",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "cairo",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-cairo",
+    "nvim_parser": "cairo",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-cairo",
+    "nvim_filetype": "cairo",
+    "effective_filetype": "cairo",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "cairo"
+    ],
+    "helix_language_name": "cairo"
+  },
+  {
+    "grammar": "capnp",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-capnp",
+    "nvim_parser": "capnp",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-capnp",
+    "nvim_filetype": "capnp",
+    "effective_filetype": "capnp",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "capnp"
+    ],
+    "helix_language_name": "capnp"
+  },
+  {
+    "grammar": "chatito",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-chatito",
+    "nvim_parser": "chatito",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-chatito",
+    "nvim_filetype": "chatito",
+    "effective_filetype": "chatito",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "circom",
+    "grammar_repo": "https://github.com/Decurity/tree-sitter-circom",
+    "nvim_parser": "circom",
+    "nvim_repo": "https://github.com/Decurity/tree-sitter-circom",
+    "nvim_filetype": "circom",
+    "effective_filetype": "circom",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "circom"
+    ],
+    "helix_language_name": "circom"
+  },
+  {
+    "grammar": "clarity",
+    "grammar_repo": "https://github.com/xlittlerag/tree-sitter-clarity",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "clarity",
+    "match_type": null,
+    "helix_file_types": [
+      "clar"
+    ],
+    "helix_language_name": "clarity"
+  },
+  {
+    "grammar": "clojure",
+    "grammar_repo": "https://github.com/sogaiu/tree-sitter-clojure",
+    "nvim_parser": "clojure",
+    "nvim_repo": "https://github.com/sogaiu/tree-sitter-clojure",
+    "nvim_filetype": "clojure",
+    "effective_filetype": "clojure",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "clj",
+      "cljs",
+      "cljc",
+      "clje",
+      "cljr",
+      "cljx",
+      "edn",
+      "boot"
+    ],
+    "helix_language_name": "clojure"
+  },
+  {
+    "grammar": "cmake",
+    "grammar_repo": "https://github.com/uyha/tree-sitter-cmake",
+    "nvim_parser": "cmake",
+    "nvim_repo": "https://github.com/uyha/tree-sitter-cmake",
+    "nvim_filetype": "cmake",
+    "effective_filetype": "cmake",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "cmake",
+      {
+        "glob": "CMakeLists.txt"
+      }
+    ],
+    "helix_language_name": "cmake"
+  },
+  {
+    "grammar": "comment",
+    "grammar_repo": "https://github.com/stsewd/tree-sitter-comment",
+    "nvim_parser": "comment",
+    "nvim_repo": "https://github.com/stsewd/tree-sitter-comment",
+    "nvim_filetype": "comment",
+    "effective_filetype": "comment",
+    "match_type": "exact_url_with_name",
+    "helix_language_name": "comment"
+  },
+  {
+    "grammar": "commonlisp",
+    "grammar_repo": "https://github.com/theHamsta/tree-sitter-commonlisp",
+    "nvim_parser": "commonlisp",
+    "nvim_repo": "https://github.com/theHamsta/tree-sitter-commonlisp",
+    "nvim_filetype": "lisp",
+    "effective_filetype": "lisp",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "cooklang",
+    "grammar_repo": "https://github.com/addcninblue/tree-sitter-cooklang",
+    "nvim_parser": "cooklang",
+    "nvim_repo": "https://github.com/addcninblue/tree-sitter-cooklang",
+    "nvim_filetype": "cook",
+    "effective_filetype": "cook",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "corn",
+    "grammar_repo": "https://github.com/jakestanger/tree-sitter-corn",
+    "nvim_parser": "corn",
+    "nvim_repo": "https://github.com/jakestanger/tree-sitter-corn",
+    "nvim_filetype": "corn",
+    "effective_filetype": "corn",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "cpon",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-cpon",
+    "nvim_parser": "cpon",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-cpon",
+    "nvim_filetype": "cpon",
+    "effective_filetype": "cpon",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "cpon",
+      "cp"
+    ],
+    "helix_language_name": "cpon"
+  },
+  {
+    "grammar": "cpp",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-cpp",
+    "nvim_parser": "cpp",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-cpp",
+    "nvim_filetype": "cpp",
+    "effective_filetype": "cpp",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "cc",
+      "hh",
+      "c++",
+      "cpp",
+      "hpp",
+      "h",
+      "ipp",
+      "tpp",
+      "cxx",
+      "hxx",
+      "ixx",
+      "txx",
+      "ino",
+      "C",
+      "H",
+      "cu",
+      "cuh",
+      "cppm",
+      "h++",
+      "ii",
+      "inl",
+      {
+        "glob": ".hpp.in"
+      },
+      {
+        "glob": ".h.in"
+      }
+    ],
+    "helix_language_name": "cpp"
+  },
+  {
+    "grammar": "css",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-css",
+    "nvim_parser": "css",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-css",
+    "nvim_filetype": "css",
+    "effective_filetype": "css",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "css"
+    ],
+    "helix_language_name": "css"
+  },
+  {
+    "grammar": "csv",
+    "grammar_repo": "https://github.com/amaanq/tree-sitter-csv",
+    "nvim_parser": "csv",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-csv",
+    "nvim_filetype": "csv",
+    "effective_filetype": "csv",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "csv"
+    ],
+    "helix_language_name": "csv"
+  },
+  {
+    "grammar": "cuda",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-cuda",
+    "nvim_parser": "cuda",
+    "nvim_repo": "https://github.com/theHamsta/tree-sitter-cuda",
+    "nvim_filetype": "cuda",
+    "effective_filetype": "cuda",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "cue",
+    "grammar_repo": "https://github.com/eonpatapon/tree-sitter-cue",
+    "nvim_parser": "cue",
+    "nvim_repo": "https://github.com/eonpatapon/tree-sitter-cue",
+    "nvim_filetype": "cue",
+    "effective_filetype": "cue",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "cue"
+    ],
+    "helix_language_name": "cue"
+  },
+  {
+    "grammar": "cylc",
+    "grammar_repo": "https://github.com/elliotfontaine/tree-sitter-cylc",
+    "nvim_parser": "cylc",
+    "nvim_repo": "https://github.com/elliotfontaine/tree-sitter-cylc",
+    "nvim_filetype": "cylc",
+    "effective_filetype": "cylc",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "cylc",
+      {
+        "glob": "suite.rc"
+      }
+    ],
+    "helix_language_name": "cylc"
+  },
+  {
+    "grammar": "d",
+    "grammar_repo": "https://github.com/gdamore/tree-sitter-d",
+    "nvim_parser": "d",
+    "nvim_repo": "https://github.com/gdamore/tree-sitter-d",
+    "nvim_filetype": "d",
+    "effective_filetype": "d",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "d",
+      "dd"
+    ],
+    "helix_language_name": "d"
+  },
+  {
+    "grammar": "dart",
+    "grammar_repo": "https://github.com/UserNobody14/tree-sitter-dart",
+    "nvim_parser": "dart",
+    "nvim_repo": "https://github.com/UserNobody14/tree-sitter-dart",
+    "nvim_filetype": "dart",
+    "effective_filetype": "dart",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "dart"
+    ],
+    "helix_language_name": "dart"
+  },
+  {
+    "grammar": "desktop",
+    "grammar_repo": "https://github.com/ValdezFOmar/tree-sitter-desktop",
+    "nvim_parser": "desktop",
+    "nvim_repo": "https://github.com/ValdezFOmar/tree-sitter-desktop",
+    "nvim_filetype": "desktop",
+    "effective_filetype": "desktop",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "devicetree",
+    "grammar_repo": "https://github.com/joelspadin/tree-sitter-devicetree",
+    "nvim_parser": "devicetree",
+    "nvim_repo": "https://github.com/joelspadin/tree-sitter-devicetree",
+    "nvim_filetype": "dts",
+    "effective_filetype": "dts",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "dts",
+      "dtsi"
+    ],
+    "helix_language_name": "devicetree"
+  },
+  {
+    "grammar": "dhall",
+    "grammar_repo": "https://github.com/jbellerb/tree-sitter-dhall",
+    "nvim_parser": "dhall",
+    "nvim_repo": "https://github.com/jbellerb/tree-sitter-dhall",
+    "nvim_filetype": "dhall",
+    "effective_filetype": "dhall",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "dhall"
+    ],
+    "helix_language_name": "dhall"
+  },
+  {
+    "grammar": "diff",
+    "grammar_repo": "https://github.com/the-mikedavis/tree-sitter-diff",
+    "nvim_parser": "diff",
+    "nvim_repo": "https://github.com/the-mikedavis/tree-sitter-diff",
+    "nvim_filetype": "gitdiff",
+    "effective_filetype": "gitdiff",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "diff",
+      "patch",
+      "rej"
+    ],
+    "helix_language_name": "diff"
+  },
+  {
+    "grammar": "disassembly",
+    "grammar_repo": "https://github.com/ColinKennedy/tree-sitter-disassembly",
+    "nvim_parser": "disassembly",
+    "nvim_repo": "https://github.com/ColinKennedy/tree-sitter-disassembly",
+    "nvim_filetype": "disassembly",
+    "effective_filetype": "disassembly",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "djot",
+    "grammar_repo": "https://github.com/treeman/tree-sitter-djot",
+    "nvim_parser": "djot",
+    "nvim_repo": "https://github.com/treeman/tree-sitter-djot",
+    "nvim_filetype": "djot",
+    "effective_filetype": "djot",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "dj",
+      "djot"
+    ],
+    "helix_language_name": "djot"
+  },
+  {
+    "grammar": "dockerfile",
+    "grammar_repo": "https://github.com/camdencheek/tree-sitter-dockerfile",
+    "nvim_parser": "dockerfile",
+    "nvim_repo": "https://github.com/camdencheek/tree-sitter-dockerfile",
+    "nvim_filetype": "dockerfile",
+    "effective_filetype": "dockerfile",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "Dockerfile",
+      {
+        "glob": "Dockerfile"
+      },
+      {
+        "glob": "Dockerfile.*"
+      },
+      "dockerfile",
+      {
+        "glob": "dockerfile"
+      },
+      {
+        "glob": "dockerfile.*"
+      },
+      "Containerfile",
+      {
+        "glob": "Containerfile"
+      },
+      {
+        "glob": "Containerfile.*"
+      },
+      "containerfile",
+      {
+        "glob": "containerfile"
+      },
+      {
+        "glob": "containerfile.*"
+      }
+    ],
+    "helix_language_name": "dockerfile"
+  },
+  {
+    "grammar": "dot",
+    "grammar_repo": "https://github.com/rydesun/tree-sitter-dot",
+    "nvim_parser": "dot",
+    "nvim_repo": "https://github.com/rydesun/tree-sitter-dot",
+    "nvim_filetype": "dot",
+    "effective_filetype": "dot",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "dot"
+    ],
+    "helix_language_name": "dot"
+  },
+  {
+    "grammar": "doxygen",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-doxygen",
+    "nvim_parser": "doxygen",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-doxygen",
+    "nvim_filetype": "doxygen",
+    "effective_filetype": "doxygen",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "dtd",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-xml",
+    "nvim_parser": "dtd",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-xml",
+    "nvim_filetype": "dtd",
+    "effective_filetype": "dtd",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "dtd",
+      "ent"
+    ],
+    "helix_language_name": "dtd"
+  },
+  {
+    "grammar": "earthfile",
+    "grammar_repo": "https://github.com/glehmann/tree-sitter-earthfile",
+    "nvim_parser": "earthfile",
+    "nvim_repo": "https://github.com/glehmann/tree-sitter-earthfile",
+    "nvim_filetype": "earthfile",
+    "effective_filetype": "earthfile",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "Earthfile"
+      }
+    ],
+    "helix_language_name": "earthfile"
+  },
+  {
+    "grammar": "ebnf",
+    "grammar_repo": "https://github.com/RubixDev/ebnf",
+    "nvim_parser": "ebnf",
+    "nvim_repo": "https://github.com/RubixDev/ebnf",
+    "nvim_filetype": "ebnf",
+    "effective_filetype": "ebnf",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "editorconfig",
+    "grammar_repo": "https://github.com/ValdezFOmar/tree-sitter-editorconfig",
+    "nvim_parser": "editorconfig",
+    "nvim_repo": "https://github.com/ValdezFOmar/tree-sitter-editorconfig",
+    "nvim_filetype": "editorconfig",
+    "effective_filetype": "editorconfig",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "eds",
+    "grammar_repo": "https://github.com/uyha/tree-sitter-eds",
+    "nvim_parser": "eds",
+    "nvim_repo": "https://github.com/uyha/tree-sitter-eds",
+    "nvim_filetype": "eds",
+    "effective_filetype": "eds",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "eex",
+    "grammar_repo": "https://github.com/connorlay/tree-sitter-eex",
+    "nvim_parser": "eex",
+    "nvim_repo": "https://github.com/connorlay/tree-sitter-eex",
+    "nvim_filetype": "eelixir",
+    "effective_filetype": "eelixir",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "eex"
+    ],
+    "helix_language_name": "eex"
+  },
+  {
+    "grammar": "elisp",
+    "grammar_repo": "https://github.com/Wilfred/tree-sitter-elisp",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "elisp",
+    "match_type": null,
+    "helix_file_types": [
+      "el"
+    ],
+    "helix_language_name": "elisp"
+  },
+  {
+    "grammar": "elixir",
+    "grammar_repo": "https://github.com/elixir-lang/tree-sitter-elixir",
+    "nvim_parser": "elixir",
+    "nvim_repo": "https://github.com/elixir-lang/tree-sitter-elixir",
+    "nvim_filetype": "elixir",
+    "effective_filetype": "elixir",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ex",
+      "exs",
+      {
+        "glob": "mix.lock"
+      }
+    ],
+    "helix_shebangs": [
+      "elixir"
+    ],
+    "helix_language_name": "elixir"
+  },
+  {
+    "grammar": "elm",
+    "grammar_repo": "https://github.com/razzeee/tree-sitter-elm",
+    "nvim_parser": "elm",
+    "nvim_repo": "https://github.com/elm-tooling/tree-sitter-elm",
+    "nvim_filetype": "elm",
+    "effective_filetype": "elm",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "elm"
+    ],
+    "helix_language_name": "elm"
+  },
+  {
+    "grammar": "elsa",
+    "grammar_repo": "https://github.com/glapa-grossklag/tree-sitter-elsa",
+    "nvim_parser": "elsa",
+    "nvim_repo": "https://github.com/glapa-grossklag/tree-sitter-elsa",
+    "nvim_filetype": "elsa",
+    "effective_filetype": "elsa",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "elvish",
+    "grammar_repo": "https://github.com/elves/tree-sitter-elvish",
+    "nvim_parser": "elvish",
+    "nvim_repo": "https://github.com/elves/tree-sitter-elvish",
+    "nvim_filetype": "elvish",
+    "effective_filetype": "elvish",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "elv"
+    ],
+    "helix_shebangs": [
+      "elvish"
+    ],
+    "helix_language_name": "elvish"
+  },
+  {
+    "grammar": "embedded_template",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-embedded-template",
+    "nvim_parser": "embedded_template",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-embedded-template",
+    "nvim_filetype": "eruby",
+    "effective_filetype": "eruby",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "enforce",
+    "grammar_repo": "https://github.com/simonvic/tree-sitter-enforce",
+    "nvim_parser": "enforce",
+    "nvim_repo": "https://github.com/simonvic/tree-sitter-enforce",
+    "nvim_filetype": "enforce",
+    "effective_filetype": "enforce",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "erlang",
+    "grammar_repo": "https://github.com/WhatsApp/tree-sitter-erlang",
+    "nvim_parser": "erlang",
+    "nvim_repo": "https://github.com/WhatsApp/tree-sitter-erlang",
+    "nvim_filetype": "erlang",
+    "effective_filetype": "erlang",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "erl",
+      "hrl",
+      "app",
+      {
+        "glob": "rebar.config"
+      },
+      {
+        "glob": "rebar.lock"
+      },
+      {
+        "glob": "*.app.src"
+      }
+    ],
+    "helix_shebangs": [
+      "escript"
+    ],
+    "helix_language_name": "erlang"
+  },
+  {
+    "grammar": "facility",
+    "grammar_repo": "https://github.com/FacilityApi/tree-sitter-facility",
+    "nvim_parser": "facility",
+    "nvim_repo": "https://github.com/FacilityApi/tree-sitter-facility",
+    "nvim_filetype": "fsd",
+    "effective_filetype": "fsd",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "faust",
+    "grammar_repo": "https://github.com/khiner/tree-sitter-faust",
+    "nvim_parser": "faust",
+    "nvim_repo": "https://github.com/khiner/tree-sitter-faust",
+    "nvim_filetype": "dsp",
+    "effective_filetype": "faust",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "fennel",
+    "grammar_repo": "https://github.com/TravonteD/tree-sitter-fennel",
+    "nvim_parser": "fennel",
+    "nvim_repo": "https://github.com/alexmozaidze/tree-sitter-fennel",
+    "nvim_filetype": "fennel",
+    "effective_filetype": "fennel",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "fnl",
+      "fnlm"
+    ],
+    "helix_shebangs": [
+      "fennel"
+    ],
+    "helix_language_name": "fennel"
+  },
+  {
+    "grammar": "fidl",
+    "grammar_repo": "https://github.com/google/tree-sitter-fidl",
+    "nvim_parser": "fidl",
+    "nvim_repo": "https://github.com/google/tree-sitter-fidl",
+    "nvim_filetype": "fidl",
+    "effective_filetype": "fidl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "fidl"
+    ],
+    "helix_language_name": "fidl"
+  },
+  {
+    "grammar": "firrtl",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-firrtl",
+    "nvim_parser": "firrtl",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-firrtl",
+    "nvim_filetype": "firrtl",
+    "effective_filetype": "firrtl",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "fish",
+    "grammar_repo": "https://github.com/ram02z/tree-sitter-fish",
+    "nvim_parser": "fish",
+    "nvim_repo": "https://github.com/ram02z/tree-sitter-fish",
+    "nvim_filetype": "fish",
+    "effective_filetype": "fish",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "fish"
+    ],
+    "helix_shebangs": [
+      "fish"
+    ],
+    "helix_language_name": "fish"
+  },
+  {
+    "grammar": "foam",
+    "grammar_repo": "https://github.com/FoamScience/tree-sitter-foam",
+    "nvim_parser": "foam",
+    "nvim_repo": "https://github.com/FoamScience/tree-sitter-foam",
+    "nvim_filetype": "foam",
+    "effective_filetype": "foam",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "forth",
+    "grammar_repo": "https://github.com/AlexanderBrevig/tree-sitter-forth",
+    "nvim_parser": "forth",
+    "nvim_repo": "https://github.com/AlexanderBrevig/tree-sitter-forth",
+    "nvim_filetype": "forth",
+    "effective_filetype": "forth",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "fs",
+      "forth",
+      "fth",
+      "4th"
+    ],
+    "helix_language_name": "forth"
+  },
+  {
+    "grammar": "fortran",
+    "grammar_repo": "https://github.com/stadelmanma/tree-sitter-fortran",
+    "nvim_parser": "fortran",
+    "nvim_repo": "https://github.com/stadelmanma/tree-sitter-fortran",
+    "nvim_filetype": "fortran",
+    "effective_filetype": "fortran",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "f",
+      "for",
+      "f90",
+      "f95",
+      "f03",
+      "F",
+      "F90",
+      "F95",
+      "F03"
+    ],
+    "helix_language_name": "fortran"
+  },
+  {
+    "grammar": "fsh",
+    "grammar_repo": "https://github.com/mgramigna/tree-sitter-fsh",
+    "nvim_parser": "fsh",
+    "nvim_repo": "https://github.com/mgramigna/tree-sitter-fsh",
+    "nvim_filetype": "fsh",
+    "effective_filetype": "fsh",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "fsharp",
+    "grammar_repo": "https://github.com/ionide/tree-sitter-fsharp",
+    "nvim_parser": "fsharp",
+    "nvim_repo": "https://github.com/ionide/tree-sitter-fsharp",
+    "nvim_filetype": "fsharp",
+    "effective_filetype": "fsharp",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "fs",
+      "fsx",
+      "fsi",
+      "fsscript"
+    ],
+    "helix_language_name": "fsharp"
+  },
+  {
+    "grammar": "fsharp_signature",
+    "grammar_repo": "https://github.com/ionide/tree-sitter-fsharp",
+    "nvim_parser": "fsharp",
+    "nvim_repo": "https://github.com/ionide/tree-sitter-fsharp",
+    "nvim_filetype": "fsharp",
+    "effective_filetype": "fsharp",
+    "match_type": "exact_url",
+    "helix_file_types": [
+      "fs",
+      "fsx",
+      "fsi",
+      "fsscript"
+    ],
+    "helix_language_name": "fsharp"
+  },
+  {
+    "grammar": "func",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-func",
+    "nvim_parser": "func",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-func",
+    "nvim_filetype": "func",
+    "effective_filetype": "func",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "fusion",
+    "grammar_repo": "https://gitlab.com/jirgn/tree-sitter-fusion.git",
+    "nvim_parser": "fusion",
+    "nvim_repo": "https://gitlab.com/jirgn/tree-sitter-fusion.git",
+    "nvim_filetype": "fusion",
+    "effective_filetype": "fusion",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "gap",
+    "grammar_repo": "https://github.com/gap-system/tree-sitter-gap",
+    "nvim_parser": "gap",
+    "nvim_repo": "https://github.com/gap-system/tree-sitter-gap",
+    "nvim_filetype": "gap",
+    "effective_filetype": "gap",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "gaptst",
+    "grammar_repo": "https://github.com/gap-system/tree-sitter-gaptst",
+    "nvim_parser": "gaptst",
+    "nvim_repo": "https://github.com/gap-system/tree-sitter-gaptst",
+    "nvim_filetype": "gaptst",
+    "effective_filetype": "gaptst",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "gdscript",
+    "grammar_repo": "https://github.com/PrestonKnopp/tree-sitter-gdscript",
+    "nvim_parser": "gdscript",
+    "nvim_repo": "https://github.com/PrestonKnopp/tree-sitter-gdscript",
+    "nvim_filetype": "gdscript",
+    "effective_filetype": "gdscript",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "gd"
+    ],
+    "helix_language_name": "gdscript"
+  },
+  {
+    "grammar": "gdshader",
+    "grammar_repo": "https://github.com/airblast-dev/tree-sitter-gdshader",
+    "nvim_parser": "gdshader",
+    "nvim_repo": "https://github.com/GodOfAvacyn/tree-sitter-gdshader",
+    "nvim_filetype": "gdshaderinc",
+    "effective_filetype": "gdshaderinc",
+    "match_type": "repo_name_with_name"
+  },
+  {
+    "grammar": "git_config",
+    "grammar_repo": "https://github.com/the-mikedavis/tree-sitter-git-config",
+    "nvim_parser": "git_config",
+    "nvim_repo": "https://github.com/the-mikedavis/tree-sitter-git-config",
+    "nvim_filetype": "gitconfig",
+    "effective_filetype": "gitconfig",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "gitconfig",
+      {
+        "glob": ".gitmodules"
+      },
+      {
+        "glob": "gitconfig"
+      },
+      {
+        "glob": ".gitconfig"
+      },
+      {
+        "glob": ".git/config"
+      },
+      {
+        "glob": ".config/git/config"
+      }
+    ],
+    "helix_language_name": "git-config"
+  },
+  {
+    "grammar": "git_rebase",
+    "grammar_repo": "https://github.com/the-mikedavis/tree-sitter-git-rebase",
+    "nvim_parser": "git_rebase",
+    "nvim_repo": "https://github.com/the-mikedavis/tree-sitter-git-rebase",
+    "nvim_filetype": "gitrebase",
+    "effective_filetype": "gitrebase",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "git-rebase-todo"
+      }
+    ],
+    "helix_language_name": "git-rebase"
+  },
+  {
+    "grammar": "gitattributes",
+    "grammar_repo": "https://github.com/ObserverOfTime/tree-sitter-gitattributes",
+    "nvim_parser": "gitattributes",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-gitattributes",
+    "nvim_filetype": "gitattributes",
+    "effective_filetype": "gitattributes",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "gitcommit",
+    "grammar_repo": "https://github.com/gbprod/tree-sitter-gitcommit",
+    "nvim_parser": "gitcommit",
+    "nvim_repo": "https://github.com/gbprod/tree-sitter-gitcommit",
+    "nvim_filetype": "gitcommit",
+    "effective_filetype": "gitcommit",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "gitignore",
+    "grammar_repo": "https://github.com/shunsambongi/tree-sitter-gitignore",
+    "nvim_parser": "gitignore",
+    "nvim_repo": "https://github.com/shunsambongi/tree-sitter-gitignore",
+    "nvim_filetype": "gitignore",
+    "effective_filetype": "gitignore",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "gleam",
+    "grammar_repo": "https://github.com/gleam-lang/tree-sitter-gleam",
+    "nvim_parser": "gleam",
+    "nvim_repo": "https://github.com/gleam-lang/tree-sitter-gleam",
+    "nvim_filetype": "gleam",
+    "effective_filetype": "gleam",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "gleam"
+    ],
+    "helix_language_name": "gleam"
+  },
+  {
+    "grammar": "glimmer",
+    "grammar_repo": "https://github.com/ember-tooling/tree-sitter-glimmer",
+    "nvim_parser": "glimmer",
+    "nvim_repo": "https://github.com/ember-tooling/tree-sitter-glimmer",
+    "nvim_filetype": "handlebars",
+    "effective_filetype": "handlebars",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "{app,addon}/{components,templates}/*.hbs"
+      }
+    ],
+    "helix_language_name": "glimmer"
+  },
+  {
+    "grammar": "glimmer_javascript",
+    "grammar_repo": "https://github.com/NullVoxPopuli/tree-sitter-glimmer-javascript",
+    "nvim_parser": "glimmer_javascript",
+    "nvim_repo": "https://github.com/NullVoxPopuli/tree-sitter-glimmer-javascript",
+    "nvim_filetype": "javascript.glimmer",
+    "effective_filetype": "javascript.glimmer",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "glimmer_typescript",
+    "grammar_repo": "https://github.com/NullVoxPopuli/tree-sitter-glimmer-typescript",
+    "nvim_parser": "glimmer_typescript",
+    "nvim_repo": "https://github.com/NullVoxPopuli/tree-sitter-glimmer-typescript",
+    "nvim_filetype": "typescript.glimmer",
+    "effective_filetype": "typescript.glimmer",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "glsl",
+    "grammar_repo": "https://github.com/theHamsta/tree-sitter-glsl",
+    "nvim_parser": "glsl",
+    "nvim_repo": "https://github.com/theHamsta/tree-sitter-glsl",
+    "nvim_filetype": "glsl",
+    "effective_filetype": "glsl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "glsl",
+      "vert",
+      "tesc",
+      "tese",
+      "geom",
+      "frag",
+      "comp"
+    ],
+    "helix_language_name": "glsl"
+  },
+  {
+    "grammar": "gn",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-gn",
+    "nvim_parser": "gn",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-gn",
+    "nvim_filetype": "gn",
+    "effective_filetype": "gn",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "gn",
+      "gni"
+    ],
+    "helix_language_name": "gn"
+  },
+  {
+    "grammar": "gnuplot",
+    "grammar_repo": "https://github.com/dpezto/tree-sitter-gnuplot",
+    "nvim_parser": "gnuplot",
+    "nvim_repo": "https://github.com/dpezto/tree-sitter-gnuplot",
+    "nvim_filetype": "gnuplot",
+    "effective_filetype": "gnuplot",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "go",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-go",
+    "nvim_parser": "go",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-go",
+    "nvim_filetype": "go",
+    "effective_filetype": "go",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "go"
+    ],
+    "helix_language_name": "go"
+  },
+  {
+    "grammar": "goctl",
+    "grammar_repo": "https://github.com/chaozwn/tree-sitter-goctl",
+    "nvim_parser": "goctl",
+    "nvim_repo": "https://github.com/chaozwn/tree-sitter-goctl",
+    "nvim_filetype": "goctl",
+    "effective_filetype": "goctl",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "godot_resource",
+    "grammar_repo": "https://github.com/PrestonKnopp/tree-sitter-godot-resource",
+    "nvim_parser": "godot_resource",
+    "nvim_repo": "https://github.com/PrestonKnopp/tree-sitter-godot-resource",
+    "nvim_filetype": "gdresource",
+    "effective_filetype": "gdresource",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tscn",
+      "tres",
+      "godot",
+      "gdextension"
+    ],
+    "helix_language_name": "godot-resource"
+  },
+  {
+    "grammar": "gomod",
+    "grammar_repo": "https://github.com/camdencheek/tree-sitter-go-mod",
+    "nvim_parser": "gomod",
+    "nvim_repo": "https://github.com/camdencheek/tree-sitter-go-mod",
+    "nvim_filetype": "gomod",
+    "effective_filetype": "gomod",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "go.mod"
+      }
+    ],
+    "helix_language_name": "gomod"
+  },
+  {
+    "grammar": "gosum",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-go-sum",
+    "nvim_parser": "gosum",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-go-sum",
+    "nvim_filetype": "gosum",
+    "effective_filetype": "gosum",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "gotmpl",
+    "grammar_repo": "https://github.com/ngalaiko/tree-sitter-go-template",
+    "nvim_parser": "gotmpl",
+    "nvim_repo": "https://github.com/ngalaiko/tree-sitter-go-template",
+    "nvim_filetype": "gotmpl",
+    "effective_filetype": "gotmpl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "gotmpl"
+    ],
+    "helix_language_name": "gotmpl"
+  },
+  {
+    "grammar": "gowork",
+    "grammar_repo": "https://github.com/omertuc/tree-sitter-go-work",
+    "nvim_parser": "gowork",
+    "nvim_repo": "https://github.com/omertuc/tree-sitter-go-work",
+    "nvim_filetype": "gowork",
+    "effective_filetype": "gowork",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "go.work"
+      }
+    ],
+    "helix_language_name": "gowork"
+  },
+  {
+    "grammar": "gpg",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-gpg-config",
+    "nvim_parser": "gpg",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-gpg-config",
+    "nvim_filetype": "gpg",
+    "effective_filetype": "gpg",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "graphql",
+    "grammar_repo": "https://github.com/bkegley/tree-sitter-graphql",
+    "nvim_parser": "graphql",
+    "nvim_repo": "https://github.com/bkegley/tree-sitter-graphql",
+    "nvim_filetype": "graphql",
+    "effective_filetype": "graphql",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "gql",
+      "graphql",
+      "graphqls"
+    ],
+    "helix_language_name": "graphql"
+  },
+  {
+    "grammar": "gren",
+    "grammar_repo": "https://github.com/MaeBrooks/tree-sitter-gren",
+    "nvim_parser": "gren",
+    "nvim_repo": "https://github.com/MaeBrooks/tree-sitter-gren",
+    "nvim_filetype": "gren",
+    "effective_filetype": "gren",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "gren"
+    ],
+    "helix_language_name": "gren"
+  },
+  {
+    "grammar": "groovy",
+    "grammar_repo": "https://github.com/Decodetalkers/tree-sitter-groovy",
+    "nvim_parser": "groovy",
+    "nvim_repo": "https://github.com/murtaza64/tree-sitter-groovy",
+    "nvim_filetype": "groovy",
+    "effective_filetype": "groovy",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "gradle",
+      "groovy",
+      "jenkinsfile",
+      {
+        "glob": "Jenkinsfile"
+      },
+      {
+        "glob": "Jenkinsfile.*"
+      }
+    ],
+    "helix_shebangs": [
+      "groovy"
+    ],
+    "helix_language_name": "groovy"
+  },
+  {
+    "grammar": "groq",
+    "grammar_repo": "https://github.com/ajrussellaudio/tree-sitter-groq",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "groq",
+    "match_type": null
+  },
+  {
+    "grammar": "gstlaunch",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-gstlaunch",
+    "nvim_parser": "gstlaunch",
+    "nvim_repo": "https://github.com/theHamsta/tree-sitter-gstlaunch",
+    "nvim_filetype": "gstlaunch",
+    "effective_filetype": "gstlaunch",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "hack",
+    "grammar_repo": "https://github.com/slackhq/tree-sitter-hack",
+    "nvim_parser": "hack",
+    "nvim_repo": "https://github.com/slackhq/tree-sitter-hack",
+    "nvim_filetype": "hack",
+    "effective_filetype": "hack",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "hare",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-hare",
+    "nvim_parser": "hare",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-hare",
+    "nvim_filetype": "hare",
+    "effective_filetype": "hare",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "ha"
+    ],
+    "helix_language_name": "hare"
+  },
+  {
+    "grammar": "haskell",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-haskell",
+    "nvim_parser": "haskell",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-haskell",
+    "nvim_filetype": "haskell",
+    "effective_filetype": "haskell",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "hs",
+      "hs-boot",
+      "hsc"
+    ],
+    "helix_shebangs": [
+      "runhaskell",
+      "stack"
+    ],
+    "helix_language_name": "haskell"
+  },
+  {
+    "grammar": "haskell_persistent",
+    "grammar_repo": "https://github.com/MercuryTechnologies/tree-sitter-haskell-persistent",
+    "nvim_parser": "haskell_persistent",
+    "nvim_repo": "https://github.com/MercuryTechnologies/tree-sitter-haskell-persistent",
+    "nvim_filetype": "haskellpersistent",
+    "effective_filetype": "haskellpersistent",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "persistentmodels"
+    ],
+    "helix_language_name": "haskell-persistent"
+  },
+  {
+    "grammar": "haxe",
+    "grammar_repo": "https://github.com/vantreeseba/tree-sitter-haxe",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "haxe",
+    "match_type": null,
+    "helix_file_types": [
+      "hx"
+    ],
+    "helix_language_name": "haxe"
+  },
+  {
+    "grammar": "hcl",
+    "grammar_repo": "https://github.com/MichaHoffmann/tree-sitter-hcl",
+    "nvim_parser": "hcl",
+    "nvim_repo": "https://github.com/MichaHoffmann/tree-sitter-hcl",
+    "nvim_filetype": "hcl",
+    "effective_filetype": "hcl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "hcl",
+      "tf",
+      "nomad"
+    ],
+    "helix_language_name": "hcl"
+  },
+  {
+    "grammar": "heex",
+    "grammar_repo": "https://github.com/phoenixframework/tree-sitter-heex",
+    "nvim_parser": "heex",
+    "nvim_repo": "https://github.com/connorlay/tree-sitter-heex",
+    "nvim_filetype": "heex",
+    "effective_filetype": "heex",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "heex"
+    ],
+    "helix_language_name": "heex"
+  },
+  {
+    "grammar": "helm",
+    "grammar_repo": "https://github.com/ngalaiko/tree-sitter-go-template",
+    "nvim_parser": "helm",
+    "nvim_repo": "https://github.com/ngalaiko/tree-sitter-go-template",
+    "nvim_filetype": "helm",
+    "effective_filetype": "helm",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "templates/*.yaml"
+      },
+      {
+        "glob": "templates/*.yml"
+      },
+      {
+        "glob": "templates/_*.tpl"
+      },
+      {
+        "glob": "templates/NOTES.txt"
+      }
+    ],
+    "helix_language_name": "helm"
+  },
+  {
+    "grammar": "hexdump",
+    "grammar_repo": "https://github.com/rush-rs/tree-sitter-hexdump",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "hexdump",
+    "match_type": null
+  },
+  {
+    "grammar": "hjson",
+    "grammar_repo": "https://github.com/winston0410/tree-sitter-hjson",
+    "nvim_parser": "hjson",
+    "nvim_repo": "https://github.com/winston0410/tree-sitter-hjson",
+    "nvim_filetype": "hjson",
+    "effective_filetype": "hjson",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "hlsl",
+    "grammar_repo": "https://github.com/theHamsta/tree-sitter-hlsl",
+    "nvim_parser": "hlsl",
+    "nvim_repo": "https://github.com/theHamsta/tree-sitter-hlsl",
+    "nvim_filetype": "hlsl",
+    "effective_filetype": "hlsl",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "hlsplaylist",
+    "grammar_repo": "https://github.com/Freed-Wu/tree-sitter-hlsplaylist",
+    "nvim_parser": "hlsplaylist",
+    "nvim_repo": "https://github.com/Freed-Wu/tree-sitter-hlsplaylist",
+    "nvim_filetype": "hlsplaylist",
+    "effective_filetype": "hlsplaylist",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "hocon",
+    "grammar_repo": "https://github.com/antosha417/tree-sitter-hocon",
+    "nvim_parser": "hocon",
+    "nvim_repo": "https://github.com/antosha417/tree-sitter-hocon",
+    "nvim_filetype": "hocon",
+    "effective_filetype": "hocon",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "**/src/*/resources/**/*.conf"
+      },
+      {
+        "glob": "*scalafmt*.conf"
+      },
+      {
+        "glob": "*scalafix*.conf"
+      }
+    ],
+    "helix_language_name": "hocon"
+  },
+  {
+    "grammar": "hoon",
+    "grammar_repo": "https://github.com/urbit-pilled/tree-sitter-hoon",
+    "nvim_parser": "hoon",
+    "nvim_repo": "https://github.com/urbit-pilled/tree-sitter-hoon",
+    "nvim_filetype": "hoon",
+    "effective_filetype": "hoon",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "hoon"
+    ],
+    "helix_language_name": "hoon"
+  },
+  {
+    "grammar": "html",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-html",
+    "nvim_parser": "html",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-html",
+    "nvim_filetype": "html",
+    "effective_filetype": "html",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "html",
+      "htm",
+      "shtml",
+      "xhtml",
+      "xht",
+      "jsp",
+      "asp",
+      "aspx",
+      "jshtm",
+      "volt",
+      "rhtml",
+      "cshtml"
+    ],
+    "helix_language_name": "html"
+  },
+  {
+    "grammar": "htmldjango",
+    "grammar_repo": "https://github.com/interdependence/tree-sitter-htmldjango",
+    "nvim_parser": "htmldjango",
+    "nvim_repo": "https://github.com/interdependence/tree-sitter-htmldjango",
+    "nvim_filetype": "htmldjango",
+    "effective_filetype": "htmldjango",
+    "match_type": "exact_url_with_name",
+    "helix_language_name": "htmldjango"
+  },
+  {
+    "grammar": "http",
+    "grammar_repo": "https://github.com/rest-nvim/tree-sitter-http",
+    "nvim_parser": "http",
+    "nvim_repo": "https://github.com/rest-nvim/tree-sitter-http",
+    "nvim_filetype": "http",
+    "effective_filetype": "http",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "hurl",
+    "grammar_repo": "https://github.com/pfeiferj/tree-sitter-hurl",
+    "nvim_parser": "hurl",
+    "nvim_repo": "https://github.com/pfeiferj/tree-sitter-hurl",
+    "nvim_filetype": "hurl",
+    "effective_filetype": "hurl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "hurl"
+    ],
+    "helix_language_name": "hurl"
+  },
+  {
+    "grammar": "hyprlang",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang",
+    "nvim_parser": "hyprlang",
+    "nvim_repo": "https://github.com/luckasRanarison/tree-sitter-hyprlang",
+    "nvim_filetype": "hyprlang",
+    "effective_filetype": "hyprlang",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "hypr/*.conf"
+      }
+    ],
+    "helix_language_name": "hyprlang"
+  },
+  {
+    "grammar": "idl",
+    "grammar_repo": "https://github.com/cathaysia/tree-sitter-idl",
+    "nvim_parser": "idl",
+    "nvim_repo": "https://github.com/cathaysia/tree-sitter-idl",
+    "nvim_filetype": "idl",
+    "effective_filetype": "idl",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "idris",
+    "grammar_repo": "https://github.com/kayhide/tree-sitter-idris",
+    "nvim_parser": "idris",
+    "nvim_repo": "https://github.com/kayhide/tree-sitter-idris",
+    "nvim_filetype": "idris2",
+    "effective_filetype": "idris2",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "idr"
+    ],
+    "helix_language_name": "idris"
+  },
+  {
+    "grammar": "ini",
+    "grammar_repo": "https://github.com/justinmk/tree-sitter-ini",
+    "nvim_parser": "ini",
+    "nvim_repo": "https://github.com/justinmk/tree-sitter-ini",
+    "nvim_filetype": "ini",
+    "effective_filetype": "ini",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ini",
+      "desktop",
+      {
+        "glob": "mimeapps.list"
+      },
+      "container",
+      "volume",
+      "kube",
+      "network",
+      {
+        "glob": ".editorconfig"
+      },
+      {
+        "glob": ".npmrc"
+      },
+      {
+        "glob": "hgrc"
+      },
+      {
+        "glob": "npmrc"
+      },
+      {
+        "glob": "rclone.conf"
+      },
+      {
+        "glob": ".aws/config"
+      },
+      "properties",
+      "cfg",
+      "directory",
+      {
+        "glob": ".wslconfig"
+      }
+    ],
+    "helix_language_name": "ini"
+  },
+  {
+    "grammar": "inko",
+    "grammar_repo": "https://github.com/inko-lang/tree-sitter-inko",
+    "nvim_parser": "inko",
+    "nvim_repo": "https://github.com/inko-lang/tree-sitter-inko",
+    "nvim_filetype": "inko",
+    "effective_filetype": "inko",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "inko"
+    ],
+    "helix_language_name": "inko"
+  },
+  {
+    "grammar": "ispc",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-ispc",
+    "nvim_parser": "ispc",
+    "nvim_repo": "https://github.com/fab4100/tree-sitter-ispc",
+    "nvim_filetype": "ispc",
+    "effective_filetype": "ispc",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "janet",
+    "grammar_repo": "https://github.com/GrayJack/tree-sitter-janet",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "janet",
+    "match_type": null,
+    "helix_file_types": [
+      "cgen",
+      "janet",
+      "jdn"
+    ],
+    "helix_shebangs": [
+      "janet"
+    ],
+    "helix_language_name": "janet"
+  },
+  {
+    "grammar": "janet_simple",
+    "grammar_repo": "https://github.com/sogaiu/tree-sitter-janet-simple",
+    "nvim_parser": "janet_simple",
+    "nvim_repo": "https://github.com/sogaiu/tree-sitter-janet-simple",
+    "nvim_filetype": "janet",
+    "effective_filetype": "janet",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "java",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-java",
+    "nvim_parser": "java",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-java",
+    "nvim_filetype": "java",
+    "effective_filetype": "java",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "java",
+      "jav",
+      "pde"
+    ],
+    "helix_language_name": "java"
+  },
+  {
+    "grammar": "javadoc",
+    "grammar_repo": "https://github.com/rmuir/tree-sitter-javadoc",
+    "nvim_parser": "javadoc",
+    "nvim_repo": "https://github.com/rmuir/tree-sitter-javadoc",
+    "nvim_filetype": "javadoc",
+    "effective_filetype": "javadoc",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "javascript",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-javascript",
+    "nvim_parser": "javascript",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-javascript",
+    "nvim_filetype": "javascript",
+    "effective_filetype": "javascript",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "js",
+      "mjs",
+      "cjs",
+      "rules",
+      "es6",
+      "pac",
+      {
+        "glob": ".node_repl_history"
+      },
+      {
+        "glob": "jakefile"
+      }
+    ],
+    "helix_shebangs": [
+      "node"
+    ],
+    "helix_language_name": "javascript"
+  },
+  {
+    "grammar": "jinja",
+    "grammar_repo": "https://github.com/cathaysia/tree-sitter-jinja",
+    "nvim_parser": "jinja",
+    "nvim_repo": "https://github.com/cathaysia/tree-sitter-jinja",
+    "nvim_filetype": "jinja",
+    "effective_filetype": "jinja",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "jinja",
+      "jinja2",
+      "j2"
+    ],
+    "helix_language_name": "jinja"
+  },
+  {
+    "grammar": "jinja_inline",
+    "grammar_repo": "https://github.com/cathaysia/tree-sitter-jinja",
+    "nvim_parser": "jinja_inline",
+    "nvim_repo": "https://github.com/cathaysia/tree-sitter-jinja",
+    "nvim_filetype": "jinja_inline",
+    "effective_filetype": "jinja_inline",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "jq",
+    "grammar_repo": "https://github.com/flurie/tree-sitter-jq",
+    "nvim_parser": "jq",
+    "nvim_repo": "https://github.com/flurie/tree-sitter-jq",
+    "nvim_filetype": "jq",
+    "effective_filetype": "jq",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "jq"
+    ],
+    "helix_language_name": "jq"
+  },
+  {
+    "grammar": "jsdoc",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-jsdoc",
+    "nvim_parser": "jsdoc",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-jsdoc",
+    "nvim_filetype": "jsdoc",
+    "effective_filetype": "jsdoc",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "jsdoc"
+    ],
+    "helix_language_name": "jsdoc"
+  },
+  {
+    "grammar": "json",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-json",
+    "nvim_parser": "json",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-json",
+    "nvim_filetype": "json",
+    "effective_filetype": "json",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "json",
+      "arb",
+      "ipynb",
+      "geojson",
+      "gltf",
+      "webmanifest",
+      {
+        "glob": "flake.lock"
+      },
+      {
+        "glob": ".babelrc"
+      },
+      {
+        "glob": ".bowerrc"
+      },
+      {
+        "glob": ".jscrc"
+      },
+      "js.map",
+      "ts.map",
+      "css.map",
+      {
+        "glob": ".jslintrc"
+      },
+      "jsonl",
+      {
+        "glob": ".vuerc"
+      },
+      {
+        "glob": "composer.lock"
+      },
+      {
+        "glob": ".watchmanconfig"
+      },
+      "avsc",
+      "ldtk",
+      "ldtkl",
+      {
+        "glob": ".swift-format"
+      },
+      "sublime-build",
+      "sublime-color-scheme",
+      "sublime-commands",
+      "sublime-completions",
+      "sublime-keymap",
+      "sublime-macro",
+      "sublime-menu",
+      "sublime-mousemap",
+      "sublime-project",
+      "sublime-settings",
+      "sublime-theme",
+      "sublime-workspace",
+      "code-workspace",
+      {
+        "glob": ".pytest_cache/v/cache/*"
+      },
+      {
+        "glob": "devenv.lock"
+      },
+      {
+        "glob": "devbox.lock"
+      },
+      {
+        "glob": "manifest.lock"
+      },
+      {
+        "glob": "deno.lock"
+      }
+    ],
+    "helix_language_name": "json"
+  },
+  {
+    "grammar": "json5",
+    "grammar_repo": "https://github.com/Joakker/tree-sitter-json5",
+    "nvim_parser": "json5",
+    "nvim_repo": "https://github.com/Joakker/tree-sitter-json5",
+    "nvim_filetype": "json5",
+    "effective_filetype": "json5",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "json5"
+    ],
+    "helix_language_name": "json5"
+  },
+  {
+    "grammar": "jsonc",
+    "grammar_repo": "https://gitlab.com/WhyNotHugo/tree-sitter-jsonc",
+    "nvim_parser": "jsonc",
+    "nvim_repo": "https://gitlab.com/WhyNotHugo/tree-sitter-jsonc.git",
+    "nvim_filetype": "jsonc",
+    "effective_filetype": "jsonc",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "jsonc",
+      {
+        "glob": "{t,j}sconfig.json"
+      },
+      {
+        "glob": "bun.lock"
+      },
+      {
+        "glob": ".devcontainer.json"
+      },
+      {
+        "glob": "devcontainer.json"
+      },
+      {
+        "glob": ".vscode/*.json"
+      }
+    ],
+    "helix_language_name": "jsonc"
+  },
+  {
+    "grammar": "jsonnet",
+    "grammar_repo": "https://github.com/sourcegraph/tree-sitter-jsonnet",
+    "nvim_parser": "jsonnet",
+    "nvim_repo": "https://github.com/sourcegraph/tree-sitter-jsonnet",
+    "nvim_filetype": "jsonnet",
+    "effective_filetype": "jsonnet",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "libsonnet",
+      "jsonnet"
+    ],
+    "helix_language_name": "jsonnet"
+  },
+  {
+    "grammar": "julia",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-julia",
+    "nvim_parser": "julia",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-julia",
+    "nvim_filetype": "julia",
+    "effective_filetype": "julia",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "jl"
+    ],
+    "helix_shebangs": [
+      "julia"
+    ],
+    "helix_language_name": "julia"
+  },
+  {
+    "grammar": "just",
+    "grammar_repo": "https://github.com/IndianBoy42/tree-sitter-just",
+    "nvim_parser": "just",
+    "nvim_repo": "https://github.com/IndianBoy42/tree-sitter-just",
+    "nvim_filetype": "just",
+    "effective_filetype": "just",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "just",
+      {
+        "glob": "justfile"
+      },
+      {
+        "glob": "Justfile"
+      },
+      {
+        "glob": ".justfile"
+      },
+      {
+        "glob": ".Justfile"
+      }
+    ],
+    "helix_language_name": "just"
+  },
+  {
+    "grammar": "kcl",
+    "grammar_repo": "https://github.com/kcl-lang/tree-sitter-kcl",
+    "nvim_parser": "kcl",
+    "nvim_repo": "https://github.com/kcl-lang/tree-sitter-kcl",
+    "nvim_filetype": "kcl",
+    "effective_filetype": "kcl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "kcl"
+    ],
+    "helix_language_name": "kcl"
+  },
+  {
+    "grammar": "kconfig",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-kconfig",
+    "nvim_parser": "kconfig",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-kconfig",
+    "nvim_filetype": "kconfig",
+    "effective_filetype": "kconfig",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "kconfig",
+      {
+        "glob": "kconfig.*"
+      }
+    ],
+    "helix_language_name": "kconfig"
+  },
+  {
+    "grammar": "kdl",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-kdl",
+    "nvim_parser": "kdl",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-kdl",
+    "nvim_filetype": "kdl",
+    "effective_filetype": "kdl",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "kdl"
+    ],
+    "helix_language_name": "kdl"
+  },
+  {
+    "grammar": "kitty",
+    "grammar_repo": "https://github.com/OXY2DEV/tree-sitter-kitty",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "kitty",
+    "match_type": null
+  },
+  {
+    "grammar": "kos",
+    "grammar_repo": "https://github.com/kos-lang/tree-sitter-kos",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "kos",
+    "match_type": null
+  },
+  {
+    "grammar": "kotlin",
+    "grammar_repo": "https://github.com/fwcd/tree-sitter-kotlin",
+    "nvim_parser": "kotlin",
+    "nvim_repo": "https://github.com/fwcd/tree-sitter-kotlin",
+    "nvim_filetype": "kotlin",
+    "effective_filetype": "kotlin",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "kt",
+      "kts"
+    ],
+    "helix_language_name": "kotlin"
+  },
+  {
+    "grammar": "koto",
+    "grammar_repo": "https://github.com/koto-lang/tree-sitter-koto",
+    "nvim_parser": "koto",
+    "nvim_repo": "https://github.com/koto-lang/tree-sitter-koto",
+    "nvim_filetype": "koto",
+    "effective_filetype": "koto",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "koto"
+    ],
+    "helix_language_name": "koto"
+  },
+  {
+    "grammar": "kusto",
+    "grammar_repo": "https://github.com/Willem-J-an/tree-sitter-kusto",
+    "nvim_parser": "kusto",
+    "nvim_repo": "https://github.com/Willem-J-an/tree-sitter-kusto",
+    "nvim_filetype": "kusto",
+    "effective_filetype": "kusto",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "lalrpop",
+    "grammar_repo": "https://github.com/traxys/tree-sitter-lalrpop",
+    "nvim_parser": "lalrpop",
+    "nvim_repo": "https://github.com/traxys/tree-sitter-lalrpop",
+    "nvim_filetype": "lalrpop",
+    "effective_filetype": "lalrpop",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "latex",
+    "grammar_repo": "https://github.com/latex-lsp/tree-sitter-latex",
+    "nvim_parser": "latex",
+    "nvim_repo": "https://github.com/latex-lsp/tree-sitter-latex",
+    "nvim_filetype": "tex",
+    "effective_filetype": "tex",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tex",
+      "sty",
+      "cls",
+      "Rd",
+      "bbx",
+      "cbx"
+    ],
+    "helix_language_name": "latex"
+  },
+  {
+    "grammar": "ledger",
+    "grammar_repo": "https://github.com/cbarrete/tree-sitter-ledger",
+    "nvim_parser": "ledger",
+    "nvim_repo": "https://github.com/cbarrete/tree-sitter-ledger",
+    "nvim_filetype": "ledger",
+    "effective_filetype": "ledger",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ldg",
+      "ledger",
+      "journal"
+    ],
+    "helix_language_name": "ledger"
+  },
+  {
+    "grammar": "leo",
+    "grammar_repo": "https://github.com/r001/tree-sitter-leo",
+    "nvim_parser": "leo",
+    "nvim_repo": "https://github.com/r001/tree-sitter-leo",
+    "nvim_filetype": "leo",
+    "effective_filetype": "leo",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "linkerscript",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-linkerscript",
+    "nvim_parser": "linkerscript",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-linkerscript",
+    "nvim_filetype": "ld",
+    "effective_filetype": "ld",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "liquid",
+    "grammar_repo": "https://github.com/hankthetank27/tree-sitter-liquid",
+    "nvim_parser": "liquid",
+    "nvim_repo": "https://github.com/hankthetank27/tree-sitter-liquid",
+    "nvim_filetype": "liquid",
+    "effective_filetype": "liquid",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "liquidsoap",
+    "grammar_repo": "https://github.com/savonet/tree-sitter-liquidsoap",
+    "nvim_parser": "liquidsoap",
+    "nvim_repo": "https://github.com/savonet/tree-sitter-liquidsoap",
+    "nvim_filetype": "liquidsoap",
+    "effective_filetype": "liquidsoap",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "llvm",
+    "grammar_repo": "https://github.com/benwilliamgraham/tree-sitter-llvm",
+    "nvim_parser": "llvm",
+    "nvim_repo": "https://github.com/benwilliamgraham/tree-sitter-llvm",
+    "nvim_filetype": "llvm",
+    "effective_filetype": "llvm",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ll"
+    ],
+    "helix_language_name": "llvm"
+  },
+  {
+    "grammar": "lua",
+    "grammar_repo": "https://github.com/MunifTanjim/tree-sitter-lua",
+    "nvim_parser": "lua",
+    "nvim_repo": "https://github.com/MunifTanjim/tree-sitter-lua",
+    "nvim_filetype": "lua",
+    "effective_filetype": "lua",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "lua",
+      "rockspec"
+    ],
+    "helix_shebangs": [
+      "lua",
+      "luajit"
+    ],
+    "helix_language_name": "lua"
+  },
+  {
+    "grammar": "luadoc",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-luadoc",
+    "nvim_parser": "luadoc",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-luadoc",
+    "nvim_filetype": "luadoc",
+    "effective_filetype": "luadoc",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "luap",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-luap",
+    "nvim_parser": "luap",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-luap",
+    "nvim_filetype": "luap",
+    "effective_filetype": "luap",
+    "match_type": "canonical_url_with_name",
+    "helix_language_name": "luap"
+  },
+  {
+    "grammar": "luau",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-luau",
+    "nvim_parser": "luau",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-luau",
+    "nvim_filetype": "luau",
+    "effective_filetype": "luau",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "luau"
+    ],
+    "helix_language_name": "luau"
+  },
+  {
+    "grammar": "m68k",
+    "grammar_repo": "https://github.com/grahambates/tree-sitter-m68k",
+    "nvim_parser": "m68k",
+    "nvim_repo": "https://github.com/grahambates/tree-sitter-m68k",
+    "nvim_filetype": "asm68k",
+    "effective_filetype": "asm68k",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "magik",
+    "grammar_repo": "https://github.com/krn-robin/tree-sitter-magik",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "magik",
+    "match_type": null
+  },
+  {
+    "grammar": "make",
+    "grammar_repo": "https://github.com/alemuller/tree-sitter-make",
+    "nvim_parser": "make",
+    "nvim_repo": "https://github.com/alemuller/tree-sitter-make",
+    "nvim_filetype": "make",
+    "effective_filetype": "make",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "Makefile"
+      },
+      {
+        "glob": "makefile"
+      },
+      "make",
+      "mk",
+      "mak",
+      {
+        "glob": "GNUmakefile"
+      },
+      {
+        "glob": "OCamlMakefile"
+      }
+    ],
+    "helix_shebangs": [
+      "make",
+      "gmake"
+    ],
+    "helix_language_name": "make"
+  },
+  {
+    "grammar": "markdown",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
+    "nvim_parser": "markdown",
+    "nvim_repo": "https://github.com/MDeiml/tree-sitter-markdown",
+    "nvim_filetype": "markdown",
+    "effective_filetype": "markdown",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "md",
+      "livemd",
+      "markdown",
+      "mdx",
+      "mkd",
+      "mkdn",
+      "mdwn",
+      "mdown",
+      "markdn",
+      "mdtxt",
+      "mdtext",
+      "workbook",
+      {
+        "glob": "PULLREQ_EDITMSG"
+      }
+    ],
+    "helix_language_name": "markdown"
+  },
+  {
+    "grammar": "markdown_inline",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-markdown",
+    "nvim_parser": "markdown_inline",
+    "nvim_repo": "https://github.com/MDeiml/tree-sitter-markdown",
+    "nvim_filetype": "markdown_inline",
+    "effective_filetype": "markdown_inline",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "matlab",
+    "grammar_repo": "https://github.com/acristoffers/tree-sitter-matlab",
+    "nvim_parser": "matlab",
+    "nvim_repo": "https://github.com/acristoffers/tree-sitter-matlab",
+    "nvim_filetype": "matlab",
+    "effective_filetype": "matlab",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "m"
+    ],
+    "helix_shebangs": [
+      "octave-cli",
+      "matlab"
+    ],
+    "helix_language_name": "matlab"
+  },
+  {
+    "grammar": "menhir",
+    "grammar_repo": "https://github.com/Kerl13/tree-sitter-menhir",
+    "nvim_parser": "menhir",
+    "nvim_repo": "https://github.com/Kerl13/tree-sitter-menhir",
+    "nvim_filetype": "menhir",
+    "effective_filetype": "menhir",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "mermaid",
+    "grammar_repo": "https://github.com/monaqa/tree-sitter-mermaid",
+    "nvim_parser": "mermaid",
+    "nvim_repo": "https://github.com/monaqa/tree-sitter-mermaid",
+    "nvim_filetype": "mermaid",
+    "effective_filetype": "mermaid",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "mermaid",
+      "mmd"
+    ],
+    "helix_language_name": "mermaid"
+  },
+  {
+    "grammar": "meson",
+    "grammar_repo": "https://github.com/Decodetalkers/tree-sitter-meson",
+    "nvim_parser": "meson",
+    "nvim_repo": "https://github.com/Decodetalkers/tree-sitter-meson",
+    "nvim_filetype": "meson",
+    "effective_filetype": "meson",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "meson.build"
+      },
+      {
+        "glob": "meson.options"
+      },
+      {
+        "glob": "meson_options.txt"
+      }
+    ],
+    "helix_language_name": "meson"
+  },
+  {
+    "grammar": "mlir",
+    "grammar_repo": "https://github.com/artagnon/tree-sitter-mlir",
+    "nvim_parser": "mlir",
+    "nvim_repo": "https://github.com/artagnon/tree-sitter-mlir",
+    "nvim_filetype": "mlir",
+    "effective_filetype": "mlir",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "muttrc",
+    "grammar_repo": "https://github.com/neomutt/tree-sitter-muttrc",
+    "nvim_parser": "muttrc",
+    "nvim_repo": "https://github.com/neomutt/tree-sitter-muttrc",
+    "nvim_filetype": "muttrc",
+    "effective_filetype": "muttrc",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "nasm",
+    "grammar_repo": "https://github.com/naclsn/tree-sitter-nasm",
+    "nvim_parser": "nasm",
+    "nvim_repo": "https://github.com/naclsn/tree-sitter-nasm",
+    "nvim_filetype": "nasm",
+    "effective_filetype": "nasm",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "asm",
+      "S",
+      "nasm"
+    ],
+    "helix_language_name": "nasm"
+  },
+  {
+    "grammar": "netlinx",
+    "grammar_repo": "https://github.com/Norgate-AV/tree-sitter-netlinx",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "netlinx",
+    "match_type": null
+  },
+  {
+    "grammar": "nginx",
+    "grammar_repo": "https://github.com/opa-oz/tree-sitter-nginx",
+    "nvim_parser": "nginx",
+    "nvim_repo": "https://github.com/opa-oz/tree-sitter-nginx",
+    "nvim_filetype": "nginx",
+    "effective_filetype": "nginx",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "sites-available/*.conf"
+      },
+      {
+        "glob": "sites-enabled/*.conf"
+      },
+      {
+        "glob": "nginx.conf"
+      },
+      {
+        "glob": "conf.d/*.conf"
+      }
+    ],
+    "helix_language_name": "nginx"
+  },
+  {
+    "grammar": "nickel",
+    "grammar_repo": "https://github.com/nickel-lang/tree-sitter-nickel",
+    "nvim_parser": "nickel",
+    "nvim_repo": "https://github.com/nickel-lang/tree-sitter-nickel",
+    "nvim_filetype": "nickel",
+    "effective_filetype": "nickel",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ncl"
+    ],
+    "helix_language_name": "nickel"
+  },
+  {
+    "grammar": "nim",
+    "grammar_repo": "https://github.com/alaviss/tree-sitter-nim",
+    "nvim_parser": "nim",
+    "nvim_repo": "https://github.com/alaviss/tree-sitter-nim",
+    "nvim_filetype": "nim",
+    "effective_filetype": "nim",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "nim",
+      "nims",
+      "nimble"
+    ],
+    "helix_language_name": "nim"
+  },
+  {
+    "grammar": "nim_format_string",
+    "grammar_repo": "https://github.com/aMOPel/tree-sitter-nim-format-string",
+    "nvim_parser": "nim_format_string",
+    "nvim_repo": "https://github.com/aMOPel/tree-sitter-nim-format-string",
+    "nvim_filetype": "nim_format_string",
+    "effective_filetype": "nim_format_string",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "ninja",
+    "grammar_repo": "https://github.com/alemuller/tree-sitter-ninja",
+    "nvim_parser": "ninja",
+    "nvim_repo": "https://github.com/alemuller/tree-sitter-ninja",
+    "nvim_filetype": "ninja",
+    "effective_filetype": "ninja",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "nix",
+    "grammar_repo": "https://github.com/nix-community/tree-sitter-nix",
+    "nvim_parser": "nix",
+    "nvim_repo": "https://github.com/cstrahan/tree-sitter-nix",
+    "nvim_filetype": "nix",
+    "effective_filetype": "nix",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "nix"
+    ],
+    "helix_language_name": "nix"
+  },
+  {
+    "grammar": "norg",
+    "grammar_repo": "https://github.com/nvim-neorg/tree-sitter-norg",
+    "nvim_parser": "norg",
+    "nvim_repo": "https://github.com/nvim-neorg/tree-sitter-norg",
+    "nvim_filetype": "norg",
+    "effective_filetype": "norg",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "nqc",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-nqc",
+    "nvim_parser": "nqc",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-nqc",
+    "nvim_filetype": "nqc",
+    "effective_filetype": "nqc",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "nu",
+    "grammar_repo": "https://github.com/nushell/tree-sitter-nu",
+    "nvim_parser": "nu",
+    "nvim_repo": "https://github.com/nushell/tree-sitter-nu",
+    "nvim_filetype": "nu",
+    "effective_filetype": "nu",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "nu",
+      "nuon"
+    ],
+    "helix_shebangs": [
+      "nu"
+    ],
+    "helix_language_name": "nu"
+  },
+  {
+    "grammar": "objc",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-objc",
+    "nvim_parser": "objc",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-objc",
+    "nvim_filetype": "objc",
+    "effective_filetype": "objc",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "objdump",
+    "grammar_repo": "https://github.com/ColinKennedy/tree-sitter-objdump",
+    "nvim_parser": "objdump",
+    "nvim_repo": "https://github.com/ColinKennedy/tree-sitter-objdump",
+    "nvim_filetype": "objdump",
+    "effective_filetype": "objdump",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "ocaml",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-ocaml",
+    "nvim_parser": "ocaml",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-ocaml",
+    "nvim_filetype": "ocaml",
+    "effective_filetype": "ocaml",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ml"
+    ],
+    "helix_shebangs": [
+      "ocaml",
+      "ocamlrun",
+      "ocamlscript"
+    ],
+    "helix_language_name": "ocaml"
+  },
+  {
+    "grammar": "ocaml_interface",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-ocaml",
+    "nvim_parser": "ocaml_interface",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-ocaml",
+    "nvim_filetype": "ocamlinterface",
+    "effective_filetype": "ocamlinterface",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "mli"
+    ],
+    "helix_language_name": "ocaml-interface"
+  },
+  {
+    "grammar": "ocamllex",
+    "grammar_repo": "https://github.com/atom-ocaml/tree-sitter-ocamllex",
+    "nvim_parser": "ocamllex",
+    "nvim_repo": "https://github.com/atom-ocaml/tree-sitter-ocamllex",
+    "nvim_filetype": "ocamllex",
+    "effective_filetype": "ocamllex",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "odin",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-odin",
+    "nvim_parser": "odin",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-odin",
+    "nvim_filetype": "odin",
+    "effective_filetype": "odin",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "odin"
+    ],
+    "helix_language_name": "odin"
+  },
+  {
+    "grammar": "org",
+    "grammar_repo": "https://github.com/milisims/tree-sitter-org",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "org",
+    "match_type": null,
+    "helix_file_types": [
+      "org"
+    ],
+    "helix_language_name": "org"
+  },
+  {
+    "grammar": "pascal",
+    "grammar_repo": "https://github.com/Isopod/tree-sitter-pascal",
+    "nvim_parser": "pascal",
+    "nvim_repo": "https://github.com/Isopod/tree-sitter-pascal",
+    "nvim_filetype": "pascal",
+    "effective_filetype": "pascal",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "pas",
+      "pp",
+      "inc",
+      "lpr",
+      "lfm"
+    ],
+    "helix_language_name": "pascal"
+  },
+  {
+    "grammar": "passwd",
+    "grammar_repo": "https://github.com/ath3/tree-sitter-passwd",
+    "nvim_parser": "passwd",
+    "nvim_repo": "https://github.com/ath3/tree-sitter-passwd",
+    "nvim_filetype": "passwd",
+    "effective_filetype": "passwd",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "passwd"
+      }
+    ],
+    "helix_language_name": "passwd"
+  },
+  {
+    "grammar": "pem",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-pem",
+    "nvim_parser": "pem",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-pem",
+    "nvim_filetype": "pem",
+    "effective_filetype": "pem",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "pem",
+      "cert",
+      "crt"
+    ],
+    "helix_language_name": "pem"
+  },
+  {
+    "grammar": "perl",
+    "grammar_repo": "https://github.com/tree-sitter-perl/tree-sitter-perl",
+    "nvim_parser": "perl",
+    "nvim_repo": "https://github.com/tree-sitter-perl/tree-sitter-perl",
+    "nvim_filetype": "perl",
+    "effective_filetype": "perl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "pl",
+      "pm",
+      "t",
+      "psgi",
+      "raku",
+      "rakumod",
+      "rakutest",
+      "rakudoc",
+      "nqp",
+      "p6",
+      "pl6",
+      "pm6",
+      {
+        "glob": "latexmkrc"
+      },
+      {
+        "glob": ".latexmkrc"
+      }
+    ],
+    "helix_shebangs": [
+      "perl"
+    ],
+    "helix_language_name": "perl"
+  },
+  {
+    "grammar": "pgn",
+    "grammar_repo": "https://github.com/rolandwalker/tree-sitter-pgn",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "pgn",
+    "match_type": null
+  },
+  {
+    "grammar": "php",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-php",
+    "nvim_parser": "php",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-php",
+    "nvim_filetype": "php",
+    "effective_filetype": "php",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "php",
+      "inc",
+      "php4",
+      "php5",
+      "phtml",
+      "ctp"
+    ],
+    "helix_shebangs": [
+      "php"
+    ],
+    "helix_language_name": "php"
+  },
+  {
+    "grammar": "php_only",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-php",
+    "nvim_parser": "php_only",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-php",
+    "nvim_filetype": "php_only",
+    "effective_filetype": "php_only",
+    "match_type": "exact_url_with_name",
+    "helix_language_name": "php-only"
+  },
+  {
+    "grammar": "phpdoc",
+    "grammar_repo": "https://github.com/claytonrcarter/tree-sitter-phpdoc",
+    "nvim_parser": "phpdoc",
+    "nvim_repo": "https://github.com/claytonrcarter/tree-sitter-phpdoc",
+    "nvim_filetype": "phpdoc",
+    "effective_filetype": "phpdoc",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "pioasm",
+    "grammar_repo": "https://github.com/leo60228/tree-sitter-pioasm",
+    "nvim_parser": "pioasm",
+    "nvim_repo": "https://github.com/leo60228/tree-sitter-pioasm",
+    "nvim_filetype": "pioasm",
+    "effective_filetype": "pioasm",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "pkl",
+    "grammar_repo": "https://github.com/apple/tree-sitter-pkl",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "pkl",
+    "match_type": null,
+    "helix_file_types": [
+      "pkl",
+      "pcf"
+    ],
+    "helix_language_name": "pkl"
+  },
+  {
+    "grammar": "po",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-po",
+    "nvim_parser": "po",
+    "nvim_repo": "https://github.com/erasin/tree-sitter-po",
+    "nvim_filetype": "po",
+    "effective_filetype": "po",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "po",
+      "pot"
+    ],
+    "helix_language_name": "po"
+  },
+  {
+    "grammar": "pod",
+    "grammar_repo": "https://github.com/tree-sitter-perl/tree-sitter-pod",
+    "nvim_parser": "pod",
+    "nvim_repo": "https://github.com/tree-sitter-perl/tree-sitter-pod",
+    "nvim_filetype": "pod",
+    "effective_filetype": "pod",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "pod"
+    ],
+    "helix_language_name": "pod"
+  },
+  {
+    "grammar": "poe_filter",
+    "grammar_repo": "https://github.com/ObserverOfTime/tree-sitter-poe-filter",
+    "nvim_parser": "poe_filter",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-poe-filter",
+    "nvim_filetype": "poefilter",
+    "effective_filetype": "poefilter",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "pony",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-pony",
+    "nvim_parser": "pony",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-pony",
+    "nvim_filetype": "pony",
+    "effective_filetype": "pony",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "powershell",
+    "grammar_repo": "https://github.com/airbus-cert/tree-sitter-powershell",
+    "nvim_parser": "powershell",
+    "nvim_repo": "https://github.com/airbus-cert/tree-sitter-powershell",
+    "nvim_filetype": "ps1",
+    "effective_filetype": "ps1",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ps1",
+      "psm1",
+      "psd1",
+      "pscc",
+      "psrc"
+    ],
+    "helix_shebangs": [
+      "pwsh",
+      "powershell"
+    ],
+    "helix_language_name": "powershell"
+  },
+  {
+    "grammar": "printf",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-printf",
+    "nvim_parser": "printf",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-printf",
+    "nvim_filetype": "printf",
+    "effective_filetype": "printf",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "prisma",
+    "grammar_repo": "https://github.com/LumaKernel/tree-sitter-prisma",
+    "nvim_parser": "prisma",
+    "nvim_repo": "https://github.com/victorhqc/tree-sitter-prisma",
+    "nvim_filetype": "prisma",
+    "effective_filetype": "prisma",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "prisma"
+    ],
+    "helix_language_name": "prisma"
+  },
+  {
+    "grammar": "problog",
+    "grammar_repo": "https://github.com/foxyseta/tree-sitter-prolog",
+    "nvim_parser": "problog",
+    "nvim_repo": "https://github.com/foxyseta/tree-sitter-prolog",
+    "nvim_filetype": "problog",
+    "effective_filetype": "problog",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "prolog",
+    "grammar_repo": "https://github.com/foxyseta/tree-sitter-prolog",
+    "nvim_parser": "prolog",
+    "nvim_repo": "https://github.com/foxyseta/tree-sitter-prolog",
+    "nvim_filetype": "prolog",
+    "effective_filetype": "prolog",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "pl",
+      "prolog"
+    ],
+    "helix_shebangs": [
+      "swipl"
+    ],
+    "helix_language_name": "prolog"
+  },
+  {
+    "grammar": "promql",
+    "grammar_repo": "https://github.com/MichaHoffmann/tree-sitter-promql",
+    "nvim_parser": "promql",
+    "nvim_repo": "https://github.com/MichaHoffmann/tree-sitter-promql",
+    "nvim_filetype": "promql",
+    "effective_filetype": "promql",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "properties",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-properties",
+    "nvim_parser": "properties",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-properties",
+    "nvim_filetype": "jproperties",
+    "effective_filetype": "jproperties",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "properties",
+      "prefs"
+    ],
+    "helix_language_name": "properties"
+  },
+  {
+    "grammar": "proto",
+    "grammar_repo": "https://github.com/coder3101/tree-sitter-proto",
+    "nvim_parser": "proto",
+    "nvim_repo": "https://github.com/treywood/tree-sitter-proto",
+    "nvim_filetype": "proto",
+    "effective_filetype": "proto",
+    "match_type": "repo_name_with_name"
+  },
+  {
+    "grammar": "prql",
+    "grammar_repo": "https://github.com/PRQL/tree-sitter-prql",
+    "nvim_parser": "prql",
+    "nvim_repo": "https://github.com/PRQL/tree-sitter-prql",
+    "nvim_filetype": "prql",
+    "effective_filetype": "prql",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "prql"
+    ],
+    "helix_language_name": "prql"
+  },
+  {
+    "grammar": "psv",
+    "grammar_repo": "https://github.com/amaanq/tree-sitter-csv",
+    "nvim_parser": "psv",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-csv",
+    "nvim_filetype": "psv",
+    "effective_filetype": "psv",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "pug",
+    "grammar_repo": "https://github.com/zealot128/tree-sitter-pug",
+    "nvim_parser": "pug",
+    "nvim_repo": "https://github.com/zealot128/tree-sitter-pug",
+    "nvim_filetype": "pug",
+    "effective_filetype": "pug",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "pug"
+    ],
+    "helix_language_name": "pug"
+  },
+  {
+    "grammar": "puppet",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-puppet",
+    "nvim_parser": "puppet",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-puppet",
+    "nvim_filetype": "puppet",
+    "effective_filetype": "puppet",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "purescript",
+    "grammar_repo": "https://github.com/postsolar/tree-sitter-purescript",
+    "nvim_parser": "purescript",
+    "nvim_repo": "https://github.com/postsolar/tree-sitter-purescript",
+    "nvim_filetype": "purescript",
+    "effective_filetype": "purescript",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "purs"
+    ],
+    "helix_language_name": "purescript"
+  },
+  {
+    "grammar": "pymanifest",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-pymanifest",
+    "nvim_parser": "pymanifest",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-pymanifest",
+    "nvim_filetype": "pymanifest",
+    "effective_filetype": "pymanifest",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "python",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-python",
+    "nvim_parser": "python",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-python",
+    "nvim_filetype": "python",
+    "effective_filetype": "python",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "py",
+      "pyi",
+      "py3",
+      "pyw",
+      "ptl",
+      "rpy",
+      "cpy",
+      "ipy",
+      "pyt",
+      {
+        "glob": ".python_history"
+      },
+      {
+        "glob": ".pythonstartup"
+      },
+      {
+        "glob": ".pythonrc"
+      },
+      {
+        "glob": "*SConstruct"
+      },
+      {
+        "glob": "*SConscript"
+      },
+      {
+        "glob": "*sconstruct"
+      }
+    ],
+    "helix_shebangs": [
+      "python",
+      "uv"
+    ],
+    "helix_language_name": "python"
+  },
+  {
+    "grammar": "ql",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-ql",
+    "nvim_parser": "ql",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-ql",
+    "nvim_filetype": "ql",
+    "effective_filetype": "ql",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "qmldir",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-qmldir",
+    "nvim_parser": "qmldir",
+    "nvim_repo": "https://github.com/Decodetalkers/tree-sitter-qmldir",
+    "nvim_filetype": "qmldir",
+    "effective_filetype": "qmldir",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "qmljs",
+    "grammar_repo": "https://github.com/yuja/tree-sitter-qmljs",
+    "nvim_parser": "qmljs",
+    "nvim_repo": "https://github.com/yuja/tree-sitter-qmljs",
+    "nvim_filetype": "qml",
+    "effective_filetype": "qml",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "query",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-query",
+    "nvim_parser": "query",
+    "nvim_repo": "https://github.com/nvim-treesitter/tree-sitter-query",
+    "nvim_filetype": "query",
+    "effective_filetype": "query",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "r",
+    "grammar_repo": "https://github.com/r-lib/tree-sitter-r",
+    "nvim_parser": "r",
+    "nvim_repo": "https://github.com/r-lib/tree-sitter-r",
+    "nvim_filetype": "r",
+    "effective_filetype": "r",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "r",
+      "R",
+      {
+        "glob": ".Rprofile"
+      },
+      {
+        "glob": "Rprofile.site"
+      },
+      {
+        "glob": ".RHistory"
+      }
+    ],
+    "helix_shebangs": [
+      "r",
+      "R"
+    ],
+    "helix_language_name": "r"
+  },
+  {
+    "grammar": "racket",
+    "grammar_repo": "https://github.com/6cdh/tree-sitter-racket",
+    "nvim_parser": "racket",
+    "nvim_repo": "https://github.com/6cdh/tree-sitter-racket",
+    "nvim_filetype": "racket",
+    "effective_filetype": "racket",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "rkt",
+      "rktd",
+      "rktl",
+      "scrbl",
+      "zuo"
+    ],
+    "helix_shebangs": [
+      "racket",
+      "zuo"
+    ],
+    "helix_language_name": "racket"
+  },
+  {
+    "grammar": "ralph",
+    "grammar_repo": "https://github.com/alephium/tree-sitter-ralph",
+    "nvim_parser": "ralph",
+    "nvim_repo": "https://github.com/alephium/tree-sitter-ralph",
+    "nvim_filetype": "ralph",
+    "effective_filetype": "ralph",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "rasi",
+    "grammar_repo": "https://github.com/Fymyte/tree-sitter-rasi",
+    "nvim_parser": "rasi",
+    "nvim_repo": "https://github.com/Fymyte/tree-sitter-rasi",
+    "nvim_filetype": "rasi",
+    "effective_filetype": "rasi",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "razor",
+    "grammar_repo": "https://github.com/tris203/tree-sitter-razor",
+    "nvim_parser": "razor",
+    "nvim_repo": "https://github.com/tris203/tree-sitter-razor",
+    "nvim_filetype": "razor",
+    "effective_filetype": "razor",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "rbs",
+    "grammar_repo": "https://github.com/joker1007/tree-sitter-rbs",
+    "nvim_parser": "rbs",
+    "nvim_repo": "https://github.com/joker1007/tree-sitter-rbs",
+    "nvim_filetype": "rbs",
+    "effective_filetype": "rbs",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "re2c",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-re2c",
+    "nvim_parser": "re2c",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-re2c",
+    "nvim_filetype": "re2c",
+    "effective_filetype": "re2c",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "readline",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-readline",
+    "nvim_parser": "readline",
+    "nvim_repo": "https://github.com/ribru17/tree-sitter-readline",
+    "nvim_filetype": "readline",
+    "effective_filetype": "readline",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "regex",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-regex",
+    "nvim_parser": "regex",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-regex",
+    "nvim_filetype": "regex",
+    "effective_filetype": "regex",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "regex",
+      {
+        "glob": ".Rbuildignore"
+      }
+    ],
+    "helix_language_name": "regex"
+  },
+  {
+    "grammar": "rego",
+    "grammar_repo": "https://github.com/FallenAngel97/tree-sitter-rego",
+    "nvim_parser": "rego",
+    "nvim_repo": "https://github.com/FallenAngel97/tree-sitter-rego",
+    "nvim_filetype": "rego",
+    "effective_filetype": "rego",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "rego"
+    ],
+    "helix_language_name": "rego"
+  },
+  {
+    "grammar": "requirements",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-requirements",
+    "nvim_parser": "requirements",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-requirements",
+    "nvim_filetype": "requirements",
+    "effective_filetype": "requirements",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "rescript",
+    "grammar_repo": "https://github.com/rescript-lang/tree-sitter-rescript",
+    "nvim_parser": "rescript",
+    "nvim_repo": "https://github.com/rescript-lang/tree-sitter-rescript",
+    "nvim_filetype": "rescript",
+    "effective_filetype": "rescript",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "res"
+    ],
+    "helix_language_name": "rescript"
+  },
+  {
+    "grammar": "rifleconf",
+    "grammar_repo": "https://github.com/purarue/tree-sitter-rifleconf",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "rifleconf",
+    "match_type": null
+  },
+  {
+    "grammar": "rnoweb",
+    "grammar_repo": "https://github.com/bamonroe/tree-sitter-rnoweb",
+    "nvim_parser": "rnoweb",
+    "nvim_repo": "https://github.com/bamonroe/tree-sitter-rnoweb",
+    "nvim_filetype": "rnoweb",
+    "effective_filetype": "rnoweb",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "robot",
+    "grammar_repo": "https://github.com/Hubro/tree-sitter-robot",
+    "nvim_parser": "robot",
+    "nvim_repo": "https://github.com/Hubro/tree-sitter-robot",
+    "nvim_filetype": "robot",
+    "effective_filetype": "robot",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "robot",
+      "resource"
+    ],
+    "helix_language_name": "robot"
+  },
+  {
+    "grammar": "robots_txt",
+    "grammar_repo": "https://github.com/opa-oz/tree-sitter-robots-txt",
+    "nvim_parser": "robots",
+    "nvim_repo": "https://github.com/opa-oz/tree-sitter-robots-txt",
+    "nvim_filetype": "robots",
+    "effective_filetype": "robots",
+    "match_type": "exact_url"
+  },
+  {
+    "grammar": "roc",
+    "grammar_repo": "https://github.com/faldor20/tree-sitter-roc",
+    "nvim_parser": "roc",
+    "nvim_repo": "https://github.com/faldor20/tree-sitter-roc",
+    "nvim_filetype": "roc",
+    "effective_filetype": "roc",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "ron",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-ron",
+    "nvim_parser": "ron",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-ron",
+    "nvim_filetype": "ron",
+    "effective_filetype": "ron",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "ron"
+    ],
+    "helix_language_name": "ron"
+  },
+  {
+    "grammar": "rst",
+    "grammar_repo": "https://github.com/stsewd/tree-sitter-rst",
+    "nvim_parser": "rst",
+    "nvim_repo": "https://github.com/stsewd/tree-sitter-rst",
+    "nvim_filetype": "rst",
+    "effective_filetype": "rst",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "rst"
+    ],
+    "helix_language_name": "rst"
+  },
+  {
+    "grammar": "ruby",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-ruby",
+    "nvim_parser": "ruby",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-ruby",
+    "nvim_filetype": "ruby",
+    "effective_filetype": "ruby",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "rb",
+      "rake",
+      "irb",
+      "gemspec",
+      "rabl",
+      "jbuilder",
+      "jb",
+      "podspec",
+      "rjs",
+      "rbi",
+      "rbs",
+      {
+        "glob": "rakefile"
+      },
+      {
+        "glob": "gemfile"
+      },
+      {
+        "glob": "Rakefile"
+      },
+      {
+        "glob": "Gemfile"
+      },
+      {
+        "glob": "Podfile"
+      },
+      {
+        "glob": "Vagrantfile"
+      },
+      {
+        "glob": "Brewfile"
+      },
+      {
+        "glob": "Guardfile"
+      },
+      {
+        "glob": "Capfile"
+      },
+      {
+        "glob": "Cheffile"
+      },
+      {
+        "glob": "Hobofile"
+      },
+      {
+        "glob": "Appraisals"
+      },
+      {
+        "glob": "Rantfile"
+      },
+      {
+        "glob": "Berksfile"
+      },
+      {
+        "glob": "Berksfile.lock"
+      },
+      {
+        "glob": "Thorfile"
+      },
+      {
+        "glob": "Puppetfile"
+      },
+      {
+        "glob": "Fastfile"
+      },
+      {
+        "glob": "Appfile"
+      },
+      {
+        "glob": "Deliverfile"
+      },
+      {
+        "glob": "Matchfile"
+      },
+      {
+        "glob": "Scanfile"
+      },
+      {
+        "glob": "Snapfile"
+      },
+      {
+        "glob": "Gymfile"
+      },
+      {
+        "glob": ".irbrc"
+      }
+    ],
+    "helix_shebangs": [
+      "ruby"
+    ],
+    "helix_language_name": "ruby"
+  },
+  {
+    "grammar": "runescript",
+    "grammar_repo": "https://github.com/2004Scape/tree-sitter-runescript",
+    "nvim_parser": "runescript",
+    "nvim_repo": "https://github.com/2004Scape/tree-sitter-runescript",
+    "nvim_filetype": "runescript",
+    "effective_filetype": "runescript",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "rush",
+    "grammar_repo": "https://github.com/rush-rs/tree-sitter-rush",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "rush",
+    "match_type": null
+  },
+  {
+    "grammar": "rust",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-rust",
+    "nvim_parser": "rust",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-rust",
+    "nvim_filetype": "rust",
+    "effective_filetype": "rust",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "rs"
+    ],
+    "helix_shebangs": [
+      "rust-script",
+      "cargo"
+    ],
+    "helix_language_name": "rust"
+  },
+  {
+    "grammar": "scala",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-scala",
+    "nvim_parser": "scala",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-scala",
+    "nvim_filetype": "scala",
+    "effective_filetype": "scala",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "scala",
+      "sbt",
+      "sc"
+    ],
+    "helix_language_name": "scala"
+  },
+  {
+    "grammar": "scfg",
+    "grammar_repo": "https://github.com/rockorager/tree-sitter-scfg",
+    "nvim_parser": "scfg",
+    "nvim_repo": "https://github.com/rockorager/tree-sitter-scfg",
+    "nvim_filetype": "scfg",
+    "effective_filetype": "scfg",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "kanshi/config"
+      }
+    ],
+    "helix_language_name": "scfg"
+  },
+  {
+    "grammar": "scheme",
+    "grammar_repo": "https://github.com/6cdh/tree-sitter-scheme",
+    "nvim_parser": "scheme",
+    "nvim_repo": "https://github.com/6cdh/tree-sitter-scheme",
+    "nvim_filetype": "scheme",
+    "effective_filetype": "scheme",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ss",
+      "scm",
+      "sld"
+    ],
+    "helix_shebangs": [
+      "scheme",
+      "guile",
+      "chicken"
+    ],
+    "helix_language_name": "scheme"
+  },
+  {
+    "grammar": "scss",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-scss",
+    "nvim_parser": "scss",
+    "nvim_repo": "https://github.com/serenadeai/tree-sitter-scss",
+    "nvim_filetype": "scss",
+    "effective_filetype": "scss",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "scss"
+    ],
+    "helix_language_name": "scss"
+  },
+  {
+    "grammar": "sflog",
+    "grammar_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_parser": "sflog",
+    "nvim_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_filetype": "sflog",
+    "effective_filetype": "sflog",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "slang",
+    "grammar_repo": "https://github.com/theHamsta/tree-sitter-slang",
+    "nvim_parser": "slang",
+    "nvim_repo": "https://github.com/theHamsta/tree-sitter-slang",
+    "nvim_filetype": "shaderslang",
+    "effective_filetype": "shaderslang",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "slang"
+    ],
+    "helix_language_name": "slang"
+  },
+  {
+    "grammar": "slim",
+    "grammar_repo": "https://github.com/theoo/tree-sitter-slim",
+    "nvim_parser": "slim",
+    "nvim_repo": "https://github.com/theoo/tree-sitter-slim",
+    "nvim_filetype": "slim",
+    "effective_filetype": "slim",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "slint",
+    "grammar_repo": "https://github.com/slint-ui/tree-sitter-slint",
+    "nvim_parser": "slint",
+    "nvim_repo": "https://github.com/slint-ui/tree-sitter-slint",
+    "nvim_filetype": "slint",
+    "effective_filetype": "slint",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "slint"
+    ],
+    "helix_language_name": "slint"
+  },
+  {
+    "grammar": "smali",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-smali",
+    "nvim_parser": "smali",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-smali",
+    "nvim_filetype": "smali",
+    "effective_filetype": "smali",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "smali"
+    ],
+    "helix_language_name": "smali"
+  },
+  {
+    "grammar": "smithy",
+    "grammar_repo": "https://github.com/indoorvivants/tree-sitter-smithy",
+    "nvim_parser": "smithy",
+    "nvim_repo": "https://github.com/indoorvivants/tree-sitter-smithy",
+    "nvim_filetype": "smithy",
+    "effective_filetype": "smithy",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "smithy"
+    ],
+    "helix_language_name": "smithy"
+  },
+  {
+    "grammar": "snakemake",
+    "grammar_repo": "https://github.com/osthomas/tree-sitter-snakemake",
+    "nvim_parser": "snakemake",
+    "nvim_repo": "https://github.com/osthomas/tree-sitter-snakemake",
+    "nvim_filetype": "snakemake",
+    "effective_filetype": "snakemake",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "smk",
+      {
+        "glob": "Snakefile"
+      }
+    ],
+    "helix_language_name": "snakemake"
+  },
+  {
+    "grammar": "solidity",
+    "grammar_repo": "https://github.com/JoranHonig/tree-sitter-solidity",
+    "nvim_parser": "solidity",
+    "nvim_repo": "https://github.com/JoranHonig/tree-sitter-solidity",
+    "nvim_filetype": "solidity",
+    "effective_filetype": "solidity",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "sol"
+    ],
+    "helix_language_name": "solidity"
+  },
+  {
+    "grammar": "soql",
+    "grammar_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_parser": "soql",
+    "nvim_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_filetype": "soql",
+    "effective_filetype": "soql",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "sosl",
+    "grammar_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_parser": "sosl",
+    "nvim_repo": "https://github.com/aheber/tree-sitter-sfapex",
+    "nvim_filetype": "sosl",
+    "effective_filetype": "sosl",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "sourcepawn",
+    "grammar_repo": "https://github.com/nilshelmig/tree-sitter-sourcepawn",
+    "nvim_parser": "sourcepawn",
+    "nvim_repo": "https://github.com/nilshelmig/tree-sitter-sourcepawn",
+    "nvim_filetype": "sourcepawn",
+    "effective_filetype": "sourcepawn",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "sp",
+      "inc"
+    ],
+    "helix_language_name": "sourcepawn"
+  },
+  {
+    "grammar": "sparql",
+    "grammar_repo": "https://github.com/GordianDziwis/tree-sitter-sparql",
+    "nvim_parser": "sparql",
+    "nvim_repo": "https://github.com/GordianDziwis/tree-sitter-sparql",
+    "nvim_filetype": "sparql",
+    "effective_filetype": "sparql",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "sproto",
+    "grammar_repo": "https://github.com/hanxi/tree-sitter-sproto",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "sproto",
+    "match_type": null
+  },
+  {
+    "grammar": "sql",
+    "grammar_repo": "https://github.com/DerekStride/tree-sitter-sql",
+    "nvim_parser": "sql",
+    "nvim_repo": "https://github.com/derekstride/tree-sitter-sql",
+    "nvim_filetype": "sql",
+    "effective_filetype": "sql",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "sql",
+      "dsql"
+    ],
+    "helix_language_name": "sql"
+  },
+  {
+    "grammar": "squirrel",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-squirrel",
+    "nvim_parser": "squirrel",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-squirrel",
+    "nvim_filetype": "squirrel",
+    "effective_filetype": "squirrel",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "ssh_config",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config",
+    "nvim_parser": "ssh_config",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-ssh-config",
+    "nvim_filetype": "sshconfig",
+    "effective_filetype": "sshconfig",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "starlark",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-starlark",
+    "nvim_parser": "starlark",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-starlark",
+    "nvim_filetype": "bzl",
+    "effective_filetype": "bzl",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "bzl",
+      "bazel",
+      "star",
+      {
+        "glob": "BUILD"
+      },
+      {
+        "glob": "BUCK"
+      },
+      {
+        "glob": "BUILD.*"
+      },
+      {
+        "glob": "Tiltfile"
+      },
+      {
+        "glob": "WORKSPACE"
+      },
+      {
+        "glob": "WORKSPACE.bzlmod"
+      },
+      {
+        "glob": "PACKAGE"
+      }
+    ],
+    "helix_language_name": "starlark"
+  },
+  {
+    "grammar": "strace",
+    "grammar_repo": "https://github.com/sigmaSd/tree-sitter-strace",
+    "nvim_parser": "strace",
+    "nvim_repo": "https://github.com/sigmaSd/tree-sitter-strace",
+    "nvim_filetype": "strace",
+    "effective_filetype": "strace",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "strace"
+    ],
+    "helix_language_name": "strace"
+  },
+  {
+    "grammar": "styled",
+    "grammar_repo": "https://github.com/mskelton/tree-sitter-styled",
+    "nvim_parser": "styled",
+    "nvim_repo": "https://github.com/mskelton/tree-sitter-styled",
+    "nvim_filetype": "styled",
+    "effective_filetype": "styled",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "supercollider",
+    "grammar_repo": "https://github.com/madskjeldgaard/tree-sitter-supercollider",
+    "nvim_parser": "supercollider",
+    "nvim_repo": "https://github.com/madskjeldgaard/tree-sitter-supercollider",
+    "nvim_filetype": "supercollider",
+    "effective_filetype": "supercollider",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "scd",
+      "sc",
+      "quark"
+    ],
+    "helix_language_name": "supercollider"
+  },
+  {
+    "grammar": "superhtml",
+    "grammar_repo": "https://github.com/kristoff-it/superhtml",
+    "nvim_parser": "superhtml",
+    "nvim_repo": "https://github.com/kristoff-it/superhtml",
+    "nvim_filetype": "superhtml",
+    "effective_filetype": "superhtml",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "surface",
+    "grammar_repo": "https://github.com/connorlay/tree-sitter-surface",
+    "nvim_parser": "surface",
+    "nvim_repo": "https://github.com/connorlay/tree-sitter-surface",
+    "nvim_filetype": "sface",
+    "effective_filetype": "sface",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "svelte",
+    "grammar_repo": "https://github.com/Himujjal/tree-sitter-svelte",
+    "nvim_parser": "svelte",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-svelte",
+    "nvim_filetype": "svelte",
+    "effective_filetype": "svelte",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "svelte"
+    ],
+    "helix_language_name": "svelte"
+  },
+  {
+    "grammar": "sway",
+    "grammar_repo": "https://github.com/FuelLabs/tree-sitter-sway.git",
+    "nvim_parser": "sway",
+    "nvim_repo": "https://github.com/FuelLabs/tree-sitter-sway.git",
+    "nvim_filetype": "sway",
+    "effective_filetype": "sway",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "sw"
+    ],
+    "helix_language_name": "sway"
+  },
+  {
+    "grammar": "swift",
+    "grammar_repo": "https://github.com/alex-pinkus/tree-sitter-swift",
+    "nvim_parser": "swift",
+    "nvim_repo": "https://github.com/alex-pinkus/tree-sitter-swift",
+    "nvim_filetype": "swift",
+    "effective_filetype": "swift",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "swift",
+      "swiftinterface"
+    ],
+    "helix_language_name": "swift"
+  },
+  {
+    "grammar": "sxhkdrc",
+    "grammar_repo": "https://github.com/RaafatTurki/tree-sitter-sxhkdrc",
+    "nvim_parser": "sxhkdrc",
+    "nvim_repo": "https://github.com/RaafatTurki/tree-sitter-sxhkdrc",
+    "nvim_filetype": "sxhkdrc",
+    "effective_filetype": "sxhkdrc",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "systemtap",
+    "grammar_repo": "https://github.com/ok-ryoko/tree-sitter-systemtap",
+    "nvim_parser": "systemtap",
+    "nvim_repo": "https://github.com/ok-ryoko/tree-sitter-systemtap",
+    "nvim_filetype": "systemtap",
+    "effective_filetype": "systemtap",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "systemverilog",
+    "grammar_repo": "https://github.com/gmlarumbe/tree-sitter-systemverilog",
+    "nvim_parser": "verilog",
+    "nvim_repo": "https://github.com/gmlarumbe/tree-sitter-systemverilog",
+    "nvim_filetype": "verilog",
+    "effective_filetype": "verilog",
+    "match_type": "exact_url",
+    "helix_file_types": [
+      "sv",
+      "svh"
+    ],
+    "helix_language_name": "systemverilog"
+  },
+  {
+    "grammar": "t32",
+    "grammar_repo": "https://github.com/xasc/tree-sitter-t32",
+    "nvim_parser": "t32",
+    "nvim_repo": "https://gitlab.com/xasc/tree-sitter-t32.git",
+    "nvim_filetype": "trace32",
+    "effective_filetype": "trace32",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "cmm",
+      "t32"
+    ],
+    "helix_language_name": "t32"
+  },
+  {
+    "grammar": "tablegen",
+    "grammar_repo": "https://github.com/Flakebi/tree-sitter-tablegen",
+    "nvim_parser": "tablegen",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-tablegen",
+    "nvim_filetype": "tablegen",
+    "effective_filetype": "tablegen",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "td"
+    ],
+    "helix_language_name": "tablegen"
+  },
+  {
+    "grammar": "tact",
+    "grammar_repo": "https://github.com/tact-lang/tree-sitter-tact",
+    "nvim_parser": "tact",
+    "nvim_repo": "https://github.com/tact-lang/tree-sitter-tact",
+    "nvim_filetype": "tact",
+    "effective_filetype": "tact",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tact"
+    ],
+    "helix_language_name": "tact"
+  },
+  {
+    "grammar": "tcl",
+    "grammar_repo": "https://github.com/lewis6991/tree-sitter-tcl",
+    "nvim_parser": "tcl",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-tcl",
+    "nvim_filetype": "tcl",
+    "effective_filetype": "tcl",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "tcl"
+    ],
+    "helix_shebangs": [
+      "tclsh",
+      "tclish",
+      "jimsh",
+      "wish"
+    ],
+    "helix_language_name": "tcl"
+  },
+  {
+    "grammar": "teal",
+    "grammar_repo": "https://github.com/euclidianAce/tree-sitter-teal",
+    "nvim_parser": "teal",
+    "nvim_repo": "https://github.com/euclidianAce/tree-sitter-teal",
+    "nvim_filetype": "teal",
+    "effective_filetype": "teal",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tl"
+    ],
+    "helix_language_name": "teal"
+  },
+  {
+    "grammar": "templ",
+    "grammar_repo": "https://github.com/vrischmann/tree-sitter-templ",
+    "nvim_parser": "templ",
+    "nvim_repo": "https://github.com/vrischmann/tree-sitter-templ",
+    "nvim_filetype": "templ",
+    "effective_filetype": "templ",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "templ"
+    ],
+    "helix_language_name": "templ"
+  },
+  {
+    "grammar": "tera",
+    "grammar_repo": "https://github.com/uncenter/tree-sitter-tera",
+    "nvim_parser": "tera",
+    "nvim_repo": "https://github.com/uncenter/tree-sitter-tera",
+    "nvim_filetype": "tera",
+    "effective_filetype": "tera",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tera"
+    ],
+    "helix_language_name": "tera"
+  },
+  {
+    "grammar": "terraform",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-hcl",
+    "nvim_parser": "terraform",
+    "nvim_repo": "https://github.com/MichaHoffmann/tree-sitter-hcl",
+    "nvim_filetype": "terraform",
+    "effective_filetype": "terraform",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "hcl",
+      "tf",
+      "nomad"
+    ],
+    "helix_language_name": "hcl"
+  },
+  {
+    "grammar": "textproto",
+    "grammar_repo": "https://github.com/PorterAtGoogle/tree-sitter-textproto",
+    "nvim_parser": "textproto",
+    "nvim_repo": "https://github.com/PorterAtGoogle/tree-sitter-textproto",
+    "nvim_filetype": "pbtxt",
+    "effective_filetype": "pbtxt",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "txtpb",
+      "textpb",
+      "textproto"
+    ],
+    "helix_language_name": "textproto"
+  },
+  {
+    "grammar": "thrift",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-thrift",
+    "nvim_parser": "thrift",
+    "nvim_repo": "https://github.com/duskmoon314/tree-sitter-thrift",
+    "nvim_filetype": "thrift",
+    "effective_filetype": "thrift",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "thrift"
+    ],
+    "helix_language_name": "thrift"
+  },
+  {
+    "grammar": "tiger",
+    "grammar_repo": "https://github.com/ambroisie/tree-sitter-tiger",
+    "nvim_parser": "tiger",
+    "nvim_repo": "https://github.com/ambroisie/tree-sitter-tiger",
+    "nvim_filetype": "tiger",
+    "effective_filetype": "tiger",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "tlaplus",
+    "grammar_repo": "https://github.com/tlaplus-community/tree-sitter-tlaplus",
+    "nvim_parser": "tlaplus",
+    "nvim_repo": "https://github.com/tlaplus-community/tree-sitter-tlaplus",
+    "nvim_filetype": "tla",
+    "effective_filetype": "tla",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tla"
+    ],
+    "helix_language_name": "tlaplus"
+  },
+  {
+    "grammar": "tmux",
+    "grammar_repo": "https://github.com/Freed-Wu/tree-sitter-tmux",
+    "nvim_parser": "tmux",
+    "nvim_repo": "https://github.com/Freed-Wu/tree-sitter-tmux",
+    "nvim_filetype": "tmux",
+    "effective_filetype": "tmux",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "todotxt",
+    "grammar_repo": "https://github.com/arnarg/tree-sitter-todotxt",
+    "nvim_parser": "todotxt",
+    "nvim_repo": "https://github.com/arnarg/tree-sitter-todotxt",
+    "nvim_filetype": "todotxt",
+    "effective_filetype": "todotxt",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      {
+        "glob": "*.todo.txt"
+      },
+      "todotxt"
+    ],
+    "helix_language_name": "todotxt"
+  },
+  {
+    "grammar": "toml",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-toml",
+    "nvim_parser": "toml",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-toml",
+    "nvim_filetype": "toml",
+    "effective_filetype": "toml",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "toml",
+      {
+        "glob": "pdm.lock"
+      },
+      {
+        "glob": "poetry.lock"
+      },
+      {
+        "glob": "Cargo.lock"
+      },
+      {
+        "glob": "uv.lock"
+      },
+      {
+        "glob": "containers.conf"
+      },
+      {
+        "glob": "containers.conf.d/*.conf"
+      },
+      {
+        "glob": "containers.conf.modules/*.conf"
+      },
+      {
+        "glob": "mounts.conf"
+      },
+      {
+        "glob": "policy.conf"
+      },
+      {
+        "glob": "registries.conf"
+      },
+      {
+        "glob": "storage.conf"
+      }
+    ],
+    "helix_language_name": "toml"
+  },
+  {
+    "grammar": "tsv",
+    "grammar_repo": "https://github.com/amaanq/tree-sitter-csv",
+    "nvim_parser": "tsv",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-csv",
+    "nvim_filetype": "tsv",
+    "effective_filetype": "tsv",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "tsx",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-typescript",
+    "nvim_parser": "tsx",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-typescript",
+    "nvim_filetype": "typescriptreact",
+    "effective_filetype": "tsx",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tsx"
+    ],
+    "helix_language_name": "tsx"
+  },
+  {
+    "grammar": "turtle",
+    "grammar_repo": "https://github.com/GordianDziwis/tree-sitter-turtle",
+    "nvim_parser": "turtle",
+    "nvim_repo": "https://github.com/GordianDziwis/tree-sitter-turtle",
+    "nvim_filetype": "turtle",
+    "effective_filetype": "turtle",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "twig",
+    "grammar_repo": "https://github.com/gbprod/tree-sitter-twig",
+    "nvim_parser": "twig",
+    "nvim_repo": "https://github.com/gbprod/tree-sitter-twig",
+    "nvim_filetype": "twig",
+    "effective_filetype": "twig",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "twig"
+    ],
+    "helix_language_name": "twig"
+  },
+  {
+    "grammar": "typescript",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-typescript",
+    "nvim_parser": "typescript",
+    "nvim_repo": "https://github.com/tree-sitter/tree-sitter-typescript",
+    "nvim_filetype": "typescript",
+    "effective_filetype": "typescript",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ts",
+      "mts",
+      "cts"
+    ],
+    "helix_shebangs": [
+      "deno",
+      "bun",
+      "ts-node"
+    ],
+    "helix_language_name": "typescript"
+  },
+  {
+    "grammar": "typespec",
+    "grammar_repo": "https://github.com/happenslol/tree-sitter-typespec",
+    "nvim_parser": "typespec",
+    "nvim_repo": "https://github.com/happenslol/tree-sitter-typespec",
+    "nvim_filetype": "typespec",
+    "effective_filetype": "typespec",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tsp"
+    ],
+    "helix_language_name": "typespec"
+  },
+  {
+    "grammar": "typoscript",
+    "grammar_repo": "https://github.com/Teddytrombone/tree-sitter-typoscript",
+    "nvim_parser": "typoscript",
+    "nvim_repo": "https://github.com/Teddytrombone/tree-sitter-typoscript",
+    "nvim_filetype": "typoscript",
+    "effective_filetype": "typoscript",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "typst",
+    "grammar_repo": "https://github.com/uben0/tree-sitter-typst",
+    "nvim_parser": "typst",
+    "nvim_repo": "https://github.com/uben0/tree-sitter-typst",
+    "nvim_filetype": "typst",
+    "effective_filetype": "typst",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "typst",
+      "typ"
+    ],
+    "helix_language_name": "typst"
+  },
+  {
+    "grammar": "udev",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-udev",
+    "nvim_parser": "udev",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-udev",
+    "nvim_filetype": "udevrules",
+    "effective_filetype": "udevrules",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "ungrammar",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-ungrammar",
+    "nvim_parser": "ungrammar",
+    "nvim_repo": "https://github.com/Philipp-M/tree-sitter-ungrammar",
+    "nvim_filetype": "ungrammar",
+    "effective_filetype": "ungrammar",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "ungram",
+      "ungrammar"
+    ],
+    "helix_language_name": "ungrammar"
+  },
+  {
+    "grammar": "unison",
+    "grammar_repo": "https://github.com/kylegoetz/tree-sitter-unison",
+    "nvim_parser": "unison",
+    "nvim_repo": "https://github.com/kylegoetz/tree-sitter-unison",
+    "nvim_filetype": "unison",
+    "effective_filetype": "unison",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "u"
+    ],
+    "helix_language_name": "unison"
+  },
+  {
+    "grammar": "ursa",
+    "grammar_repo": "https://github.com/ursalang/tree-sitter-ursa",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "ursa",
+    "match_type": null
+  },
+  {
+    "grammar": "usd",
+    "grammar_repo": "https://github.com/ColinKennedy/tree-sitter-usd",
+    "nvim_parser": "usd",
+    "nvim_repo": "https://github.com/ColinKennedy/tree-sitter-usd",
+    "nvim_filetype": "usd",
+    "effective_filetype": "usd",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "uxntal",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-uxntal",
+    "nvim_parser": "uxntal",
+    "nvim_repo": "https://github.com/amaanq/tree-sitter-uxntal",
+    "nvim_filetype": "tal",
+    "effective_filetype": "tal",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "tal"
+    ],
+    "helix_language_name": "uxntal"
+  },
+  {
+    "grammar": "v",
+    "grammar_repo": "https://github.com/vlang/v-analyzer",
+    "nvim_parser": "v",
+    "nvim_repo": "https://github.com/vlang/v-analyzer",
+    "nvim_filetype": "vlang",
+    "effective_filetype": "v",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "v",
+      "vv",
+      "vsh"
+    ],
+    "helix_shebangs": [
+      "v run"
+    ],
+    "helix_language_name": "v"
+  },
+  {
+    "grammar": "vala",
+    "grammar_repo": "https://github.com/vala-lang/tree-sitter-vala",
+    "nvim_parser": "vala",
+    "nvim_repo": "https://github.com/vala-lang/tree-sitter-vala",
+    "nvim_filetype": "vala",
+    "effective_filetype": "vala",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "vala",
+      "vapi"
+    ],
+    "helix_language_name": "vala"
+  },
+  {
+    "grammar": "vento",
+    "grammar_repo": "https://github.com/ventojs/tree-sitter-vento",
+    "nvim_parser": "vento",
+    "nvim_repo": "https://github.com/ventojs/tree-sitter-vento",
+    "nvim_filetype": "vto",
+    "effective_filetype": "vto",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "vto"
+    ],
+    "helix_language_name": "vento"
+  },
+  {
+    "grammar": "verilog",
+    "grammar_repo": "https://github.com/tree-sitter/tree-sitter-verilog",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "verilog",
+    "match_type": null,
+    "helix_file_types": [
+      "v",
+      "vh"
+    ],
+    "helix_language_name": "verilog"
+  },
+  {
+    "grammar": "vhdl",
+    "grammar_repo": "https://github.com/alemuller/tree-sitter-vhdl",
+    "nvim_parser": "vhdl",
+    "nvim_repo": "https://github.com/jpt13653903/tree-sitter-vhdl",
+    "nvim_filetype": "vhdl",
+    "effective_filetype": "vhdl",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "vhd",
+      "vhdl"
+    ],
+    "helix_language_name": "vhdl"
+  },
+  {
+    "grammar": "vhs",
+    "grammar_repo": "https://github.com/charmbracelet/tree-sitter-vhs",
+    "nvim_parser": "vhs",
+    "nvim_repo": "https://github.com/charmbracelet/tree-sitter-vhs",
+    "nvim_filetype": "tape",
+    "effective_filetype": "tape",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "tape"
+    ],
+    "helix_language_name": "vhs"
+  },
+  {
+    "grammar": "vim",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-vim",
+    "nvim_parser": "vim",
+    "nvim_repo": "https://github.com/neovim/tree-sitter-vim",
+    "nvim_filetype": "vim",
+    "effective_filetype": "vim",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "vim",
+      {
+        "glob": ".vimrc"
+      },
+      {
+        "glob": ".nvimrc"
+      },
+      {
+        "glob": ".exrc"
+      }
+    ],
+    "helix_language_name": "vim"
+  },
+  {
+    "grammar": "vimdoc",
+    "grammar_repo": "https://github.com/neovim/tree-sitter-vimdoc",
+    "nvim_parser": "vimdoc",
+    "nvim_repo": "https://github.com/neovim/tree-sitter-vimdoc",
+    "nvim_filetype": "help",
+    "effective_filetype": "help",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "vrl",
+    "grammar_repo": "https://github.com/belltoy/tree-sitter-vrl",
+    "nvim_parser": "vrl",
+    "nvim_repo": "https://github.com/belltoy/tree-sitter-vrl",
+    "nvim_filetype": "vrl",
+    "effective_filetype": "vrl",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "vue",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-vue",
+    "nvim_parser": "vue",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-vue",
+    "nvim_filetype": "vue",
+    "effective_filetype": "vue",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "vue"
+    ],
+    "helix_language_name": "vue"
+  },
+  {
+    "grammar": "wast",
+    "grammar_repo": "https://github.com/mkatychev/tree-sitter-wasm",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "wast",
+    "match_type": null,
+    "helix_file_types": [
+      "wast"
+    ],
+    "helix_language_name": "wast"
+  },
+  {
+    "grammar": "wat",
+    "grammar_repo": "https://github.com/mkatychev/tree-sitter-wasm",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "wat",
+    "match_type": null,
+    "helix_file_types": [
+      "wat"
+    ],
+    "helix_language_name": "wat"
+  },
+  {
+    "grammar": "wgsl",
+    "grammar_repo": "https://github.com/szebniok/tree-sitter-wgsl",
+    "nvim_parser": "wgsl",
+    "nvim_repo": "https://github.com/szebniok/tree-sitter-wgsl",
+    "nvim_filetype": "wgsl",
+    "effective_filetype": "wgsl",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "wgsl"
+    ],
+    "helix_language_name": "wgsl"
+  },
+  {
+    "grammar": "wgsl_bevy",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-wgsl-bevy",
+    "nvim_parser": "wgsl_bevy",
+    "nvim_repo": "https://github.com/theHamsta/tree-sitter-wgsl-bevy",
+    "nvim_filetype": "wgsl_bevy",
+    "effective_filetype": "wgsl_bevy",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "wing",
+    "grammar_repo": "https://github.com/winglang/tree-sitter-wing",
+    "nvim_parser": "wing",
+    "nvim_repo": "https://github.com/winglang/tree-sitter-wing",
+    "nvim_filetype": "wing",
+    "effective_filetype": "wing",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "wit",
+    "grammar_repo": "https://github.com/bytecodealliance/tree-sitter-wit",
+    "nvim_parser": "wit",
+    "nvim_repo": "https://github.com/liamwh/tree-sitter-wit",
+    "nvim_filetype": "wit",
+    "effective_filetype": "wit",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "wit"
+    ],
+    "helix_language_name": "wit"
+  },
+  {
+    "grammar": "wxml",
+    "grammar_repo": "https://github.com/BlockLune/tree-sitter-wxml",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "wxml",
+    "match_type": null
+  },
+  {
+    "grammar": "xcompose",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-xcompose",
+    "nvim_parser": "xcompose",
+    "nvim_repo": "https://github.com/ObserverOfTime/tree-sitter-xcompose",
+    "nvim_filetype": "xcompose",
+    "effective_filetype": "xcompose",
+    "match_type": "canonical_url_with_name"
+  },
+  {
+    "grammar": "xml",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-xml",
+    "nvim_parser": "xml",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-xml",
+    "nvim_filetype": "xml",
+    "effective_filetype": "xml",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "ascx",
+      "atom",
+      "axaml",
+      "axml",
+      "bpmn",
+      "checkstyle",
+      "cpt",
+      "csl",
+      "csproj.user",
+      "dita",
+      "ditamap",
+      "dtml",
+      "fods",
+      "fodt",
+      "fxml",
+      "gir",
+      "glif",
+      "gml",
+      "gpx",
+      "iml",
+      "isml",
+      "itermcolors",
+      "jmx",
+      "kml",
+      "launch",
+      "menu",
+      "mobileconfig",
+      "mpd",
+      "musicxml",
+      "mxml",
+      "ncx",
+      "nuspec",
+      "opml",
+      "osc",
+      "osm",
+      "plist",
+      "policy",
+      "pt",
+      "publishsettings",
+      "pubxml",
+      "pubxml.user",
+      "rbxlx",
+      "rbxmx",
+      "resx",
+      "rng",
+      "rss",
+      "shproj",
+      "smil",
+      "storyboard",
+      "sublime-snippet",
+      "svg",
+      "terminal",
+      "tld",
+      "tmx",
+      "ui",
+      "vbproj.user",
+      "vcxproj",
+      "vcxproj.filters",
+      "wixproj",
+      "wsdl",
+      "wxi",
+      "wxs",
+      "xaml",
+      "xbl",
+      "xib",
+      "xlf",
+      "xliff",
+      "xml",
+      "xmp",
+      "xoml",
+      "xpdl",
+      "xrc",
+      "xsd",
+      "xsl",
+      "xul",
+      {
+        "glob": "*.tm[Ll]anguage"
+      },
+      {
+        "glob": "*.tm[Pp]references"
+      },
+      {
+        "glob": "*.tm[Tt]heme"
+      }
+    ],
+    "helix_language_name": "xml"
+  },
+  {
+    "grammar": "xresources",
+    "grammar_repo": "https://github.com/ValdezFOmar/tree-sitter-xresources",
+    "nvim_parser": "xresources",
+    "nvim_repo": "https://github.com/ValdezFOmar/tree-sitter-xresources",
+    "nvim_filetype": "xdefaults",
+    "effective_filetype": "xdefaults",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "yaml",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-yaml",
+    "nvim_parser": "yaml",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-yaml",
+    "nvim_filetype": "yaml",
+    "effective_filetype": "yaml",
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "yml",
+      "yaml",
+      {
+        "glob": ".prettierrc"
+      },
+      {
+        "glob": ".clangd"
+      },
+      {
+        "glob": ".clang-format"
+      },
+      {
+        "glob": ".clang-tidy"
+      },
+      {
+        "glob": ".gem/credentials"
+      },
+      {
+        "glob": ".kube/config"
+      },
+      {
+        "glob": ".kube/kuberc"
+      },
+      {
+        "glob": "yarn.lock"
+      },
+      "sublime-syntax",
+      "bu",
+      {
+        "glob": ".stylelintrc"
+      },
+      {
+        "glob": ".puppeteerrc"
+      }
+    ],
+    "helix_language_name": "yaml"
+  },
+  {
+    "grammar": "yang",
+    "grammar_repo": "https://github.com/Hubro/tree-sitter-yang",
+    "nvim_parser": "yang",
+    "nvim_repo": "https://github.com/Hubro/tree-sitter-yang",
+    "nvim_filetype": "yang",
+    "effective_filetype": "yang",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "yuck",
+    "grammar_repo": "https://github.com/tree-sitter-grammars/tree-sitter-yuck",
+    "nvim_parser": "yuck",
+    "nvim_repo": "https://github.com/Philipp-M/tree-sitter-yuck",
+    "nvim_filetype": "yuck",
+    "effective_filetype": "yuck",
+    "match_type": "canonical_url_with_name",
+    "helix_file_types": [
+      "yuck"
+    ],
+    "helix_language_name": "yuck"
+  },
+  {
+    "grammar": "zathurarc",
+    "grammar_repo": "https://github.com/Freed-Wu/tree-sitter-zathurarc",
+    "nvim_parser": "zathurarc",
+    "nvim_repo": "https://github.com/Freed-Wu/tree-sitter-zathurarc",
+    "nvim_filetype": "zathurarc",
+    "effective_filetype": "zathurarc",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "zig",
+    "grammar_repo": "https://github.com/maxxnino/tree-sitter-zig",
+    "nvim_parser": "zig",
+    "nvim_repo": "https://github.com/tree-sitter-grammars/tree-sitter-zig",
+    "nvim_filetype": "zig",
+    "effective_filetype": "zig",
+    "match_type": "repo_name_with_name",
+    "helix_file_types": [
+      "zig",
+      "zon"
+    ],
+    "helix_language_name": "zig"
+  },
+  {
+    "grammar": "ziggy",
+    "grammar_repo": "https://github.com/kristoff-it/ziggy",
+    "nvim_parser": "ziggy",
+    "nvim_repo": "https://github.com/kristoff-it/ziggy",
+    "nvim_filetype": "ziggy",
+    "effective_filetype": "ziggy",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "ziggy_schema",
+    "grammar_repo": "https://github.com/kristoff-it/ziggy",
+    "nvim_parser": "ziggy_schema",
+    "nvim_repo": "https://github.com/kristoff-it/ziggy",
+    "nvim_filetype": "ziggy_schema",
+    "effective_filetype": "ziggy_schema",
+    "match_type": "exact_url_with_name"
+  },
+  {
+    "grammar": "zsh",
+    "grammar_repo": "https://github.com/georgeharker/tree-sitter-zsh",
+    "nvim_parser": null,
+    "nvim_repo": null,
+    "nvim_filetype": null,
+    "effective_filetype": "zsh",
+    "match_type": null
+  }
+]

@@ -35,13 +35,33 @@ pub fn run() -> Result<()> {
                 _ => unreachable!("the regex only allows above options"),
             };
             println!("fetching new {lang_name}/{filename} from {url}");
-            let res = reqwest::blocking::get(url).with_context(|| "query request failed")?;
+            let res = reqwest::blocking::get(&url).with_context(|| "query request failed")?;
+
             let query = match res.status().is_success() {
                 true => res.text()?,
-                false => bail!(
-                    "query request returned non-success status code: {}",
-                    res.status()
-                ),
+                false => {
+                    // If github and 404, try flipping master <-> main branch
+                    if host == "github" && res.status() == 404 {
+                        let fallback_branch = if branch == "master" { "main" } else { "master" };
+                        let fallback_url = format!("https://raw.githubusercontent.com/{user}/{repo}/{fallback_branch}/{path}");
+                        println!("trying fallback: {fallback_url}");
+                        let fallback_res = reqwest::blocking::get(&fallback_url).with_context(|| "fallback query request failed")?;
+                        if fallback_res.status().is_success() {
+                            fallback_res.text()?
+                        } else {
+                            bail!(
+                                "query request returned non-success status code: {} (also tried fallback: {})",
+                                res.status(),
+                                fallback_res.status()
+                            )
+                        }
+                    } else {
+                        bail!(
+                            "query request returned non-success status code: {}",
+                            res.status()
+                        )
+                    }
+                }
             };
             let query = format!(
                 "{:#}",
@@ -106,29 +126,30 @@ fn forked_from(name: &str, file: &str, content: &str) -> String {
 }
 
 pub fn fetch_query(name: &str, kind: &str) -> Result<Option<String>> {
-    const BASE_URL: &str =
-        "https://raw.githubusercontent.com/nvim-treesitter/nvim-treesitter/HEAD/queries";
-    reqwest::blocking::get(format!("{BASE_URL}/{name}/{kind}.scm"))
-        .ok()
-        .and_then(|res| match res.status().is_success() {
-            true => res.text().ok(),
-            false => None,
-        })
-        .map(|query| {
-            Ok::<_, anyhow::Error>(forked_from(
-                name,
-                kind,
-                &format!(
-                    "{:#}",
-                    rsexpr::from_slice_multi(&query)
-                        .map_err(|errs| anyhow!(errs
-                            .into_iter()
-                            .map(|err| err.to_string())
-                            .collect::<Vec<_>>()
-                            .join(", ")))
-                        .context("failed to parse downloaded queries")?
-                ),
-            ))
-        })
-        .transpose()
+    // Try both old and new URL patterns
+    let urls = [
+        format!("https://raw.githubusercontent.com/nvim-treesitter/nvim-treesitter/main/runtime/queries/{name}/{kind}.scm"),
+        format!("https://raw.githubusercontent.com/nvim-treesitter/nvim-treesitter/HEAD/queries/{name}/{kind}.scm"),
+    ];
+
+    for url in urls {
+        if let Ok(res) = reqwest::blocking::get(&url) {
+            if res.status().is_success() {
+                if let Ok(query) = res.text() {
+                    return Ok(Some(forked_from(name, kind, &format!(
+                        "{:#}",
+                        rsexpr::from_slice_multi(&query)
+                            .map_err(|errs| anyhow!(errs
+                                .into_iter()
+                                .map(|err| err.to_string())
+                                .collect::<Vec<_>>()
+                                .join(", ")))
+                            .context("failed to parse downloaded queries")?
+                    ))));
+                }
+            }
+        }
+    }
+
+    Ok(None)
 }
