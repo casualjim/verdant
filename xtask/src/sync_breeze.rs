@@ -8,27 +8,16 @@ use std::{
 };
 
 use anyhow::{bail, Context, Result};
+use lazy_regex::{regex_captures, regex_replace};
 use serde::Deserialize;
 
 use crate::{add_lang, fetch_queries, schema, WORKSPACE_DIR};
 
-#[derive(Debug, Deserialize)]
-struct BreezeConfig {
-    grammars: Vec<BreezeGrammar>,
-}
-
-#[derive(Debug, Deserialize)]
-struct BreezeGrammar {
-    name: String,
-    repo: String,
-    rev: String,
-    #[serde(default)]
-    path: Option<String>,
-}
-
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 struct GrammarMapping {
     grammar: String,
+    #[serde(default)]
+    grammar_repo: Option<String>,
     #[serde(default)]
     nvim_filetype: Option<String>,
     #[serde(default)]
@@ -47,11 +36,13 @@ pub fn run() -> Result<()> {
     let mut dry_run = false;
     let mut limit: Option<usize> = None;
     let mut jobs: Option<usize> = None;
+    let mut update_existing = false;
 
     let mut args = env::args().skip(2);
     while let Some(arg) = args.next() {
         match arg.as_str() {
             "--dry-run" => dry_run = true,
+            "--update-existing" => update_existing = true,
             "--jobs" | "-j" => {
                 let value = args.next().with_context(|| "missing value for --jobs")?;
                 jobs = Some(value.parse::<usize>().context("invalid --jobs value")?);
@@ -67,7 +58,7 @@ pub fn run() -> Result<()> {
                     "{}",
                     r###"
 Usage: cargo xtask sync-breeze [--dry-run] [--limit N]
-       cargo xtask sync-breeze [--jobs N]
+       cargo xtask sync-breeze [--jobs N] [--update-existing]
 
 Reads ../breeze-tree-sitter-parsers/grammars.json and adds missing languages to
 syntastica-macros/languages.toml, but only when nvim-treesitter provides a
@@ -81,16 +72,12 @@ runtime query directory with a highlights.scm for the language.
         }
     }
 
-    let breeze_grammars_path = breeze_grammars_path()?;
-    let breeze_json = fs::read_to_string(&breeze_grammars_path).with_context(|| {
-        format!(
-            "failed to read breeze grammars at {}",
-            breeze_grammars_path.display()
-        )
-    })?;
-    let breeze: BreezeConfig = serde_json::from_str(&breeze_json).context("invalid breeze json")?;
-
-    let grammar_mappings = load_grammar_mappings()?;
+    let grammar_mappings_list = load_grammar_mappings()?;
+    let grammar_mappings: HashMap<String, GrammarMapping> = grammar_mappings_list
+        .iter()
+        .cloned()
+        .map(|m| (m.grammar.clone(), m))
+        .collect();
 
     let nvim_query_dirs = fetch_nvim_runtime_query_dirs()?;
 
@@ -106,8 +93,12 @@ runtime query directory with a highlights.scm for the language.
     let mut reserved_names = existing_names.clone();
 
     let mut to_add = Vec::new();
-    for grammar in breeze.grammars.into_iter() {
-        if should_skip_grammar(&grammar.name) {
+    let mut to_update: HashMap<String, GrammarMapping> = HashMap::new();
+    for mapping in grammar_mappings_list.into_iter() {
+        let Some(repo) = mapping.grammar_repo.clone() else {
+            continue;
+        };
+        if should_skip_grammar(&mapping.grammar) {
             continue;
         }
         if let Some(limit) = limit {
@@ -116,89 +107,102 @@ runtime query directory with a highlights.scm for the language.
             }
         }
 
-        let mut target_name = canonical_syntastica_name(&grammar.name, &grammar_mappings);
+        let target_name = canonical_syntastica_name(&mapping.grammar, &grammar_mappings);
         if reserved_names.contains(&target_name) {
-            let fallback = sanitize_lang_name(&grammar.name);
-            if reserved_names.contains(&fallback) {
-                println!(
-                    "sync-breeze: skipping {} (target name '{}' already exists)",
-                    grammar.name, target_name
-                );
-                continue;
+            if update_existing {
+                to_update.insert(target_name.clone(), mapping.clone());
             }
-            target_name = fallback;
+            println!(
+                "sync-breeze: skipping {} (target name '{}' already exists)",
+                mapping.grammar, target_name
+            );
+            continue;
         }
         reserved_names.insert(target_name.clone());
 
-        let Some(nvim_name) = resolve_nvim_query_name(&grammar.name, &target_name, &nvim_query_dirs, &grammar_mappings)
+        let Some(nvim_name) = resolve_nvim_query_name(&mapping.grammar, &target_name, &nvim_query_dirs, &grammar_mappings)
         else {
             continue;
         };
 
-        to_add.push((grammar, target_name, nvim_name));
+        to_add.push((
+            MappedGrammar {
+                name: mapping.grammar,
+                repo,
+                path: None,
+            },
+            target_name,
+            nvim_name,
+        ));
     }
 
     if to_add.is_empty() {
-        println!("sync-breeze: nothing to do");
-        return Ok(());
-    }
-
-    println!("sync-breeze: adding {} languages", to_add.len());
-
-    let total_count = to_add.len();
-    let job_count = jobs
-        .unwrap_or_else(default_job_count)
-        .max(1)
-        .min(total_count);
-    let queue = Arc::new(Mutex::new(VecDeque::from(to_add)));
-    let (result_tx, result_rx) = mpsc::channel();
-    let mappings = Arc::new(grammar_mappings);
-
-    for _ in 0..job_count {
-        let queue = Arc::clone(&queue);
-        let result_tx = result_tx.clone();
-        let mappings = Arc::clone(&mappings);
-        thread::spawn(move || loop {
-            let item = {
-                let mut guard = queue.lock().expect("sync-breeze queue poisoned");
-                guard.pop_front()
-            };
-            let Some((grammar, target_name, nvim_name)) = item else {
-                break;
-            };
-
-            let result = build_language_block(
-                &grammar,
-                &target_name,
-                &nvim_name,
-                &mappings,
-                dry_run,
-            )
-            .map(|block| (target_name, block));
-
-            if result_tx.send(result).is_err() {
-                break;
-            }
-        });
-    }
-    drop(result_tx);
-
-    let mut new_blocks: Vec<(String, String)> = Vec::with_capacity(total_count);
-    let mut errors: Vec<anyhow::Error> = Vec::new();
-    for _ in 0..total_count {
-        match result_rx.recv() {
-            Ok(Ok(item)) => new_blocks.push(item),
-            Ok(Err(err)) => errors.push(err),
-            Err(err) => bail!("sync-breeze worker hung up: {err}"),
+        if !update_existing || to_update.is_empty() {
+            println!("sync-breeze: nothing to do");
+            return Ok(());
         }
     }
 
-    if !errors.is_empty() {
-        let first = errors.remove(0);
-        bail!(
-            "sync-breeze failed with {} error(s); first error: {first:?}",
-            errors.len() + 1
-        );
+    if !to_add.is_empty() {
+        println!("sync-breeze: adding {} languages", to_add.len());
+    }
+
+    let mut new_blocks: Vec<(String, String)> = Vec::new();
+    if !to_add.is_empty() {
+        let total_count = to_add.len();
+        let job_count = jobs
+            .unwrap_or_else(default_job_count)
+            .max(1)
+            .min(total_count);
+        let queue = Arc::new(Mutex::new(VecDeque::from(to_add)));
+        let (result_tx, result_rx) = mpsc::channel();
+        let mappings = Arc::new(grammar_mappings.clone());
+
+        for _ in 0..job_count {
+            let queue = Arc::clone(&queue);
+            let result_tx = result_tx.clone();
+            let mappings = Arc::clone(&mappings);
+            thread::spawn(move || loop {
+                let item = {
+                    let mut guard = queue.lock().expect("sync-breeze queue poisoned");
+                    guard.pop_front()
+                };
+                let Some((grammar, target_name, nvim_name)) = item else {
+                    break;
+                };
+
+                let result = build_language_block(
+                    &grammar,
+                    &target_name,
+                    &nvim_name,
+                    &mappings,
+                    dry_run,
+                )
+                .map(|block| (target_name, block));
+
+                if result_tx.send(result).is_err() {
+                    break;
+                }
+            });
+        }
+        drop(result_tx);
+
+        let mut errors: Vec<anyhow::Error> = Vec::new();
+        for _ in 0..total_count {
+            match result_rx.recv() {
+                Ok(Ok(item)) => new_blocks.push(item),
+                Ok(Err(err)) => errors.push(err),
+                Err(err) => bail!("sync-breeze worker hung up: {err}"),
+            }
+        }
+
+        if !errors.is_empty() {
+            let first = errors.remove(0);
+            bail!(
+                "sync-breeze failed with {} error(s); first error: {first:?}",
+                errors.len() + 1
+            );
+        }
     }
 
     if dry_run {
@@ -210,6 +214,68 @@ runtime query directory with a highlights.scm for the language.
         .split("\n\n")
         .map(ToString::to_string)
         .collect::<Vec<_>>();
+
+    if update_existing && !to_update.is_empty() {
+        println!("sync-breeze: updating {} languages", to_update.len());
+        let mut update_jobs = Vec::new();
+        for (idx, block) in blocks.iter().enumerate() {
+            let Some(name) = extract_lang_name(block) else {
+                continue;
+            };
+            let Some(mapping) = to_update.get(name) else {
+                continue;
+            };
+            let Some(repo) = mapping.grammar_repo.as_ref() else {
+                continue;
+            };
+            let path = extract_git_path(block);
+            update_jobs.push((idx, name.to_string(), repo.clone(), path, block.clone()));
+        }
+
+        if !update_jobs.is_empty() {
+            let total = update_jobs.len();
+            let job_count = jobs
+                .unwrap_or_else(default_job_count)
+                .max(1)
+                .min(total);
+            let queue = Arc::new(Mutex::new(VecDeque::from(update_jobs)));
+            let (result_tx, result_rx) = mpsc::channel();
+
+            for _ in 0..job_count {
+                let queue = Arc::clone(&queue);
+                let result_tx = result_tx.clone();
+                thread::spawn(move || loop {
+                    let item = {
+                        let mut guard = queue.lock().expect("sync-breeze update queue poisoned");
+                        guard.pop_front()
+                    };
+                    let Some((idx, name, repo, path, block)) = item else {
+                        break;
+                    };
+                    let result = update_existing_block(&block, &repo, path.as_deref(), &name)
+                        .map(|updated| (idx, name, updated));
+                    if result_tx.send(result).is_err() {
+                        break;
+                    }
+                });
+            }
+            drop(result_tx);
+
+            let mut updated = 0usize;
+            for _ in 0..total {
+                match result_rx.recv() {
+                    Ok(Ok((idx, name, updated_block))) => {
+                        updated += 1;
+                        println!("sync-breeze: updating {name} ({updated}/{total})");
+                        blocks[idx] = updated_block;
+                    }
+                    Ok(Err(err)) => return Err(err),
+                    Err(err) => bail!("sync-breeze update worker hung up: {err}"),
+                }
+            }
+        }
+    }
+
     blocks.extend(new_blocks.into_iter().map(|(_, block)| block));
     blocks.sort_unstable_by_key(|block| extract_lang_name(block).unwrap_or_default().to_owned());
     fs::write(&langs_toml_path, blocks.join("\n\n"))?;
@@ -217,18 +283,11 @@ runtime query directory with a highlights.scm for the language.
     Ok(())
 }
 
-fn breeze_grammars_path() -> Result<PathBuf> {
-    let Some(parent) = WORKSPACE_DIR.parent() else {
-        bail!("workspace dir has no parent: {}", WORKSPACE_DIR.display());
-    };
-    Ok(parent.join("breeze-tree-sitter-parsers/grammars.json"))
-}
-
 fn grammar_mappings_path() -> Result<PathBuf> {
     Ok(WORKSPACE_DIR.join("grammars-mapping-filetypes.json"))
 }
 
-fn load_grammar_mappings() -> Result<HashMap<String, GrammarMapping>> {
+fn load_grammar_mappings() -> Result<Vec<GrammarMapping>> {
     let path = grammar_mappings_path()?;
     let content = fs::read_to_string(&path).with_context(|| {
         format!(
@@ -236,12 +295,9 @@ fn load_grammar_mappings() -> Result<HashMap<String, GrammarMapping>> {
             path.display()
         )
     })?;
-    let mappings: Vec<GrammarMapping> = serde_json::from_str(&content)
-        .context("invalid grammar mappings json")?;
-    Ok(mappings
-        .into_iter()
-        .map(|m| (m.grammar.clone(), m))
-        .collect())
+    let mappings: Vec<GrammarMapping> =
+        serde_json::from_str(&content).context("invalid grammar mappings json")?;
+    Ok(mappings)
 }
 
 fn get_file_types(grammar_name: &str, mappings: &HashMap<String, GrammarMapping>) -> Option<Vec<String>> {
@@ -351,8 +407,14 @@ fn default_job_count() -> usize {
     detected.min(8)
 }
 
+struct MappedGrammar {
+    name: String,
+    repo: String,
+    path: Option<String>,
+}
+
 fn build_language_block(
-    grammar: &BreezeGrammar,
+    grammar: &MappedGrammar,
     target_name: &str,
     nvim_name: &str,
     mappings: &HashMap<String, GrammarMapping>,
@@ -360,8 +422,11 @@ fn build_language_block(
 ) -> Result<String> {
     println!(">>> {target_name} (queries: {nvim_name})");
 
+    let rev = add_lang::get_rev(&grammar.repo)?;
     let (external_c, external_cpp, generate) =
-        detect_parser_metadata(&grammar.repo, &grammar.rev, grammar.path.as_deref())?;
+        detect_parser_metadata(&grammar.repo, &rev, grammar.path.as_deref())?;
+    let ffi_func = add_lang::detect_ffi_func(&grammar.repo, &rev, grammar.path.as_deref())?
+        .unwrap_or_else(|| format!("tree_sitter_{target_name}"));
     let wasm_unknown = !external_cpp;
 
     let (queries_injections, queries_locals) = write_queries(target_name, nvim_name, dry_run)?;
@@ -371,10 +436,11 @@ fn build_language_block(
     Ok(format_language_block(
         target_name,
         &grammar.repo,
-        &grammar.rev,
+        &rev,
         grammar.path.as_deref(),
         external_c,
         external_cpp,
+        &ffi_func,
         wasm_unknown,
         generate,
         queries_injections,
@@ -448,6 +514,7 @@ fn format_language_block(
     path: Option<&str>,
     external_c: bool,
     external_cpp: bool,
+    ffi_func: &str,
     wasm_unknown: bool,
     generate: bool,
     queries_injections: bool,
@@ -478,7 +545,7 @@ fn format_language_block(
     out.push_str(&format!(
         "external-scanner = {{ c = {external_c}, cpp = {external_cpp} }}\n"
     ));
-    out.push_str(&format!("ffi-func = \"tree_sitter_{name}\"\n"));
+    out.push_str(&format!("ffi-func = \"{ffi_func}\"\n"));
     out.push_str(&format!("package = \"tree-sitter-{}\"\n", name.replace('_', "-")));
     if generate {
         out.push_str("generate = true\n");
@@ -494,4 +561,52 @@ fn extract_lang_name(block: &str) -> Option<&str> {
     let (_, rest) = block.split_once("name = \"")?;
     let (name, _) = rest.split_once('"')?;
     Some(name)
+}
+
+fn extract_git_path(block: &str) -> Option<String> {
+    let captures = regex_captures!(r#"git\s*=\s*\{[^}]*\bpath\s*=\s*"([^"]+)""#, block)?;
+    Some(captures.1.to_string())
+}
+
+fn update_existing_block(
+    block: &str,
+    repo_url: &str,
+    path: Option<&str>,
+    target_name: &str,
+) -> Result<String> {
+    let rev = add_lang::get_rev(repo_url)?;
+    let (external_c, external_cpp, generate) = detect_parser_metadata(repo_url, &rev, path)?;
+    let ffi_func = add_lang::detect_ffi_func(repo_url, &rev, path)?
+        .unwrap_or_else(|| format!("tree_sitter_{target_name}"));
+
+    let block = regex_replace!(
+        r#"^(\s*git\s*=\s*\{\s*url\s*=\s*")[^"]*("\s*,\s*rev\s*=\s*")[^"]*(")(\s*(?:,\s*path\s*=\s*"[^"]*"\s*)?\}\s*)(#.*)?$"#m,
+        block,
+        |_, start, middle, end_quote, tail, comment| {
+            format!("{start}{repo_url}{middle}{rev}{end_quote}{tail}{comment}")
+        },
+    );
+    let block = regex_replace!(
+        r#"^(\s*external-scanner\s*=\s*\{\s*c\s*=\s*)(?:true|false)(\s*,\s*cpp\s*=\s*)(?:true|false)(\s*\}\s*)(#.*)?$"#m,
+        &block,
+        |_, start, middle, end, comment| {
+            format!("{start}{external_c}{middle}{external_cpp}{end}{comment}")
+        },
+    );
+    let block = regex_replace!(
+        r#"^(\s*ffi-func\s*=\s*")[^"]*(")(\s*(?:#.*)?)$"#m,
+        &block,
+        |_, start, end_quote, tail| format!("{start}{ffi_func}{end_quote}{tail}"),
+    );
+    let block = if block.contains("\ngenerate =") {
+        regex_replace!(
+            r#"^(\s*generate\s*=\s*)(?:true|false)(\s*(?:#.*)?)$"#m,
+            &block,
+            |_, start, tail| format!("{start}{generate}{tail}"),
+        )
+    } else {
+        block
+    };
+
+    Ok(block.into_owned())
 }

@@ -190,6 +190,8 @@ all = [
     "gitignore",
     "gitrebase",
     "gleam",
+    "glimmer_javascript",
+    "glimmer_typescript",
     "glsl",
     "gn",
     "gnuplot",
@@ -230,7 +232,6 @@ all = [
     "ispc",
     "janet",
     "javadoc",
-    "glimmer_javascript",
     "jinja",
     "jinja_inline",
     "jproperties",
@@ -329,7 +330,6 @@ all = [
     "scheme",
     "sface",
     "sflog",
-    "sh",
     "shaderslang",
     "slim",
     "slint",
@@ -371,7 +371,6 @@ all = [
     "tsv",
     "turtle",
     "twig",
-    "glimmer_typescript",
     "typespec",
     "typoscript",
     "udevrules",
@@ -508,6 +507,8 @@ gitdiff = []
 gitignore = []
 gitrebase = []
 gleam = []
+glimmer_javascript = []
+glimmer_typescript = []
 glsl = []
 gn = []
 gnuplot = []
@@ -553,7 +554,6 @@ janet = []
 java = []
 javadoc = []
 javascript = []
-glimmer_javascript = []
 jinja = []
 jinja_inline = []
 jproperties = []
@@ -672,7 +672,6 @@ scheme = []
 scss = []
 sface = []
 sflog = []
-sh = []
 shaderslang = []
 slim = []
 slint = []
@@ -719,7 +718,6 @@ tsx = []
 turtle = []
 twig = []
 typescript = []
-glimmer_typescript = []
 typespec = []
 typoscript = []
 typst = []

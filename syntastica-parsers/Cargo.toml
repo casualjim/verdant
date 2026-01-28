@@ -182,6 +182,8 @@ all = [
     "gitignore",
     "gitrebase",
     "gleam",
+    "glimmer_javascript",
+    "glimmer_typescript",
     "glsl",
     "gn",
     "gnuplot",
@@ -222,7 +224,6 @@ all = [
     "ispc",
     "janet",
     "javadoc",
-    "glimmer_javascript",
     "jinja",
     "jinja_inline",
     "jproperties",
@@ -321,7 +322,6 @@ all = [
     "scheme",
     "sface",
     "sflog",
-    "sh",
     "shaderslang",
     "slim",
     "slint",
@@ -363,7 +363,6 @@ all = [
     "tsv",
     "turtle",
     "twig",
-    "glimmer_typescript",
     "typespec",
     "typoscript",
     "udevrules",
@@ -491,6 +490,8 @@ gitdiff = []
 gitignore = []
 gitrebase = []
 gleam = ["dep:tree-sitter-gleam"]
+glimmer_javascript = []
+glimmer_typescript = []
 glsl = []
 gn = []
 gnuplot = []
@@ -536,7 +537,6 @@ janet = []
 java = ["dep:tree-sitter-java"]
 javadoc = []
 javascript = ["dep:tree-sitter-javascript"]
-glimmer_javascript = []
 jinja = []
 jinja_inline = []
 jproperties = []
@@ -655,7 +655,6 @@ scheme = []
 scss = []
 sface = []
 sflog = []
-sh = []
 shaderslang = []
 slim = []
 slint = []
@@ -702,7 +701,6 @@ tsx = ["dep:tree-sitter-typescript"]
 turtle = []
 twig = []
 typescript = ["dep:tree-sitter-typescript"]
-glimmer_typescript = []
 typespec = []
 typoscript = []
 typst = []
@@ -743,7 +741,7 @@ version = "=0.24.0"
 
 [dependencies.tree-sitter-bash]
 optional = true
-version = "=0.25.0"
+version = "=0.25.1"
 
 [dependencies.tree-sitter-c]
 optional = true
@@ -763,7 +761,7 @@ version = "=0.23.4"
 
 [dependencies.tree-sitter-css]
 optional = true
-version = "=0.23.2"
+version = "=0.25.0"
 
 [dependencies.tree-sitter-diff]
 optional = true
@@ -771,7 +769,7 @@ version = "=0.1.0"
 
 [dependencies.tree-sitter-embedded-template]
 optional = true
-version = "=0.23.2"
+version = "=0.25.0"
 
 [dependencies.tree-sitter-elixir]
 optional = true
@@ -787,7 +785,7 @@ version = "=1.0.0"
 
 [dependencies.tree-sitter-go]
 optional = true
-version = "=0.23.4"
+version = "=0.25.0"
 
 [dependencies.tree-sitter-haskell]
 optional = true
@@ -803,11 +801,11 @@ version = "=0.23.5"
 
 [dependencies.tree-sitter-javascript]
 optional = true
-version = "=0.23.1"
+version = "=0.25.0"
 
 [dependencies.tree-sitter-jsdoc]
 optional = true
-version = "=0.23.2"
+version = "=0.25.0"
 
 [dependencies.tree-sitter-json]
 optional = true
@@ -827,11 +825,11 @@ version = "=1.1.1"
 
 [dependencies.tree-sitter-md]
 optional = true
-version = "=0.3.2"
+version = "=0.5.2"
 
 [dependencies.tree-sitter-nix]
 optional = true
-version = "=0.0.2"
+version = "=0.3.0"
 
 [dependencies.tree-sitter-ocaml]
 optional = true
@@ -839,15 +837,15 @@ version = "=0.24.2"
 
 [dependencies.tree-sitter-php]
 optional = true
-version = "=0.23.11"
+version = "=0.24.2"
 
 [dependencies.tree-sitter-printf]
 optional = true
-version = "=0.5.0"
+version = "=0.5.1"
 
 [dependencies.tree-sitter-python]
 optional = true
-version = "=0.23.6"
+version = "=0.25.0"
 
 [dependencies.tree-sitter-ql]
 optional = true
@@ -855,7 +853,7 @@ version = "=0.23.1"
 
 [dependencies.tree-sitter-regex]
 optional = true
-version = "=0.24.3"
+version = "=0.25.0"
 
 [dependencies.tree-sitter-ruby]
 optional = true
@@ -867,7 +865,7 @@ version = "=0.2.0"
 
 [dependencies.tree-sitter-rust]
 optional = true
-version = "=0.24.0"
+version = "=0.23.3"
 
 [dependencies.tree-sitter-scala]
 optional = true
@@ -875,11 +873,11 @@ version = "=0.24.0"
 
 [dependencies.tree-sitter-sequel]
 optional = true
-version = "=0.3.8"
+version = "=0.3.11"
 
 [dependencies.tree-sitter-swift]
 optional = true
-version = "=0.7.0"
+version = "=0.7.1"
 
 [dependencies.tree-sitter-typescript]
 optional = true
@@ -887,7 +885,7 @@ version = "=0.23.2"
 
 [dependencies.tree-sitter-yaml]
 optional = true
-version = "=0.7.1"
+version = "=0.7.2"
 
 [dependencies.tree-sitter-zig]
 optional = true

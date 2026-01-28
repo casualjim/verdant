@@ -309,7 +309,11 @@ fn parsers(
             #[cfg(all(feature = #name_str #not_wasm_cfg))]
             fn #name() {
                 assert_eq!(crate::#name(), crate::Lang::#variant.get());
-                assert!(::syntastica_core::language_set::LanguageSet::get_language(&crate::LanguageSetImpl::new(), crate::Lang::#variant).is_ok());
+                let result = ::syntastica_core::language_set::LanguageSet::get_language(
+                    &crate::LanguageSetImpl::new(),
+                    crate::Lang::#variant,
+                );
+                assert!(result.is_ok(), "get_language failed for {}: {:?}", #name_str, result);
             }
         }
     });

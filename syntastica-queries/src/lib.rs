@@ -1801,13 +1801,6 @@ pub const SFLOG_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/
 pub const SFLOG_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/sflog/injections_crates_io.scm");
 pub const SFLOG_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/sflog/locals_crates_io.scm");
 
-pub const SH_HIGHLIGHTS: &str = include_str!("../generated_queries/sh/highlights.scm");
-pub const SH_INJECTIONS: &str = include_str!("../generated_queries/sh/injections.scm");
-pub const SH_LOCALS: &str = include_str!("../generated_queries/sh/locals.scm");
-pub const SH_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/sh/highlights_crates_io.scm");
-pub const SH_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/sh/injections_crates_io.scm");
-pub const SH_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/sh/locals_crates_io.scm");
-
 pub const SHADERSLANG_HIGHLIGHTS: &str = include_str!("../generated_queries/shaderslang/highlights.scm");
 pub const SHADERSLANG_INJECTIONS: &str = include_str!("../generated_queries/shaderslang/injections.scm");
 pub const SHADERSLANG_LOCALS: &str = include_str!("../generated_queries/shaderslang/locals.scm");
