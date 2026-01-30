@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/todotxt/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/arnarg/tree-sitter-todotxt/3937c5cd105ec4127448651a21aef45f52d19609/queries/highlights.scm
 (done_task) @comment
 
 (task

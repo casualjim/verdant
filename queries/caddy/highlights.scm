@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/caddy/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/opa-oz/tree-sitter-caddy/2686186edb61be47960431c93a204fb249681360/queries/highlights.scm
 (comment) @comment @spell
 
 [
@@ -32,7 +31,9 @@
   ] @punctuation.special
 )
 
-(auto) @variable.builtin
+[
+  (auto)
+] @variable.builtin
 
 [
   (string_literal)
@@ -57,5 +58,3 @@
   "{"
   "}"
 ] @punctuation.bracket
-
-"," @punctuation.delimiter

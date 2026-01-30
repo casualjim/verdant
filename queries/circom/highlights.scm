@@ -1,32 +1,23 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/circom/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/Decurity/tree-sitter-circom/02150524228b1e6afef96949f2d6b7cc0aaf999e/queries/highlights.scm
 ; identifiers
 ; -----------
 (identifier) @variable
 
 ; Pragma
 ; -----------
-[
-  "pragma"
-  "circom"
-] @keyword.directive
-
-(circom_version) @string.special
+(pragma_directive) @tag
 
 ; Include
 ; -----------
-[
-  "public"
-  "signal"
-  "var"
-  "include"
-] @keyword.import
+(include_directive) @include
 
 ; Literals
 ; --------
 (string) @string
 
 (int_literal) @number
+
+(comment) @comment
 
 ; Definitions
 ; -----------
@@ -38,13 +29,13 @@
   name: (identifier) @function
 )
 
-; Use constructor coloring for special functions
-"main" @constructor
+; Use contructor coloring for special functions
+(main_component_definition) @constructor
 
 ; Invocations
 (call_expression
   .
-  (identifier) @function.call
+  (identifier) @function
 )
 
 ; Function parameters
@@ -61,6 +52,10 @@
 ; -------
 ; Keywords
 [
+  "public"
+  "signal"
+  "var"
+  "include"
   "input"
   "output"
   "public"
@@ -70,14 +65,14 @@
 [
   "for"
   "while"
-] @keyword.repeat
+] @repeat
 
 [
   "if"
   "else"
-] @keyword.conditional
+] @conditional
 
-"return" @keyword.return
+["return"] @keyword.return
 
 [
   "function"
@@ -97,7 +92,6 @@
 [
   "."
   ","
-  ";"
 ] @punctuation.delimiter
 
 ; Operators
@@ -117,28 +111,22 @@
   "**"
   "<"
   "<="
-  "="
   "=="
   "!="
-  "+="
-  "-="
   ">="
   ">"
   "!"
   "~"
+  "-"
+  "+"
   "++"
   "--"
+] @operator
+
+[
   "<=="
   "==>"
   "<--"
   "-->"
   "==="
-] @operator
-
-; Comments
-(comment) @comment @spell
-
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^/[*][*][^*].*[*]/$")
-)
+] @assignment

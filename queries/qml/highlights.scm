@@ -1,9 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/qmljs/highlights.scm
-;; Licensed under the Apache License 2.0
-; inherits: ecma
-"pragma" @keyword.import
-
-; Annotations
+;; Forked from https://raw.githubusercontent.com/yuja/tree-sitter-qmljs/0bec4359a7eb2f6c9220cd57372d87d236f66d59/queries/highlights.scm
+;;; Annotations
 (ui_annotation
   "@" @operator
   type_name: [
@@ -14,12 +10,7 @@
   ]
 )
 
-; type
-(ui_property
-  type: (type_identifier) @type
-)
-
-; Properties
+;;; Properties
 (ui_object_definition_binding
   name: [
     (identifier) @property
@@ -38,12 +29,12 @@
   ]
 )
 
-; locals query appears not working unless id: <ref> isn't a parameter.
+;; locals query appears not working unless id: <ref> isn't a parameter.
 (ui_binding
   name: (identifier) @property
   (#eq? @property "id")
   value: (expression_statement
-    (identifier) @variable
+    (identifier) @variable.parameter
   )
 )
 
@@ -62,77 +53,26 @@
   ] @punctuation.bracket
 )
 
-; Signals
+;;; Signals
 (ui_signal
-  name: (identifier) @function
+  name: (identifier) @function.signal
 )
 
 (ui_signal_parameter
-  (identifier) @variable
+  (identifier) @variable.parameter
 )
 
-; ui_object_definition
-(ui_object_definition
-  type_name: (identifier) @type
-)
-
-(ui_object_definition
-  type_name: (nested_identifier) @type
-)
-
-; namespace
-(nested_identifier
-  (nested_identifier
-    (identifier) @module
-  )
-)
-
-; Tokens
-;-------
+;;; Keywords
 [
-  "abstract"
-  "private"
-  "protected"
-  "public"
+  "as"
+  "component"
   "default"
+  "final"
+  "import"
+  "on"
+  "pragma"
+  "property"
   "readonly"
   "required"
-] @keyword.modifier
-
-; from typescript
-(type_identifier) @type
-
-(predefined_type) @type.builtin
-
-(type_arguments
-  "<" @punctuation.bracket
-  ">" @punctuation.bracket
-)
-
-; Variables
-(required_parameter
-  (identifier) @variable
-)
-
-(optional_parameter
-  (identifier) @variable
-)
-
-; Keywords
-[
-  "on"
-  "property"
   "signal"
-  "declare"
-  "implements"
-  "override"
 ] @keyword
-
-[
-  "interface"
-  "type"
-  "enum"
-  "namespace"
-] @keyword.type
-
-"keyof" @keyword.operator

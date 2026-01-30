@@ -1,16 +1,15 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/luau/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-luau/a8914d6c1fc5131f8e1c13f769fa704c9f5eb02f/queries/highlights.scm
 ; Preproc
 (hash_bang_line) @keyword.directive
 
 ; Keywords
 "return" @keyword.return
 
-"local" @keyword
-
-"type" @keyword.type
-
-"export" @keyword.import
+[
+  "local"
+  "type"
+  "export"
+] @keyword
 
 (do_statement
   [
@@ -140,16 +139,21 @@
   "%="
   "^="
   "..="
+  "//="
 ] @operator
 
 ; Variables
 (identifier) @variable
 
 ; Types
-(type/identifier) @type
-
-(generic_type
+(type
   (identifier) @type
+)
+
+(type
+  (generic_type
+    (identifier) @type
+  )
 )
 
 (builtin_type) @type.builtin
@@ -264,6 +268,7 @@
 
 (function_call
   (identifier) @function.builtin
+  ; format-ignore
   (#any-of?
     @function.builtin
     ; built-in functions in Lua 5.1

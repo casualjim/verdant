@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/embedded_template/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment_directive) @comment @spell
+;; Forked from https://raw.githubusercontent.com/tree-sitter/tree-sitter-embedded-template/3499d85f0a0d937c507a4a65368f2f63772786e1/queries/highlights.scm
+(comment_directive) @comment
 
 [
   "<%#"

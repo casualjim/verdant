@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/snakemake/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/osthomas/tree-sitter-snakemake/68010430c3e51c0e84c1ce21c6551df0e2469f51/queries/snakemake/highlights.scm
 ; inherits: python
 ; Compound directives
 [

@@ -1,93 +1,34 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/pkl/highlights.scm
-;; Licensed under the Apache License 2.0
-(identifier) @variable
-
-(qualifiedAccessExpr
-  (identifier) @function.method.call
-  .
-  (argumentList)
-)
-
-(qualifiedAccessExpr
-  (identifier) @variable.member
-  .
-)
-
-; Operators
-[
-  "??"
-  "@"
-  "="
-  "<"
-  ">"
-  "!"
-  "=="
-  "!="
-  "<="
-  ">="
-  "&&"
-  "||"
-  "+"
-  "-"
-  "**"
-  "*"
-  "/"
-  "~/"
-  "%"
-  "|>"
-  "..."
-  "|"
-  "->"
-] @operator
-
-[
-  ","
-  ":"
-  "."
-  "?."
-] @punctuation.delimiter
-
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
-
+;; Forked from https://raw.githubusercontent.com/apple/tree-sitter-pkl/d9c591b4e770934fe15c2f1b3658f35553f6cb40/queries/highlights.scm
 ; Types
 (clazz
-  (identifier) @type.definition
+  (identifier) @type
 )
 
 (typeAlias
-  (identifier) @type.definition
+  (identifier) @type
 )
 
 (
   (identifier) @type
-  (#lua-match? @type "^[A-Z]")
+  (#match? @type "^[A-Z]")
 )
 
 (typeArgumentList
-  [
-    "<"
-    ">"
-  ] @punctuation.bracket
+  "<" @punctuation.bracket
+  ">" @punctuation.bracket
 )
 
 ; Method definitions
 (classMethod
   (methodHeader
-    (identifier) @function.method
-  )
+    (identifier)
+  ) @function.method
 )
 
 (objectMethod
   (methodHeader
-    (identifier) @function.method
-  )
+    (identifier)
+  ) @function.method
 )
 
 ; Identifiers
@@ -111,121 +52,182 @@
   )
 )
 
-; Literals
-[
-  (stringConstant)
-  (slStringLiteralExpr)
-  (mlStringLiteralExpr)
-] @string
+(identifier) @variable
 
-(escapeSequence) @string.escape
+; Literals
+(stringConstant) @string
+
+(slStringLiteralExpr) @string
+
+(mlStringLiteralExpr) @string
+
+(escapeSequence) @escape
 
 (intLiteralExpr) @number
 
-(floatLiteralExpr) @number.float
+(floatLiteralExpr) @number
 
 (stringInterpolation
-  [
-    "\\("
-    "\\#("
-    "\\##("
-    "\\###("
-    "\\####("
-    "\\#####("
-    "\\######("
-  ] @punctuation.special
+  "\\(" @punctuation.special
   ")" @punctuation.special
-)
+) @embedded
 
-(nullableType
-  "?" @punctuation.special
-)
+(stringInterpolation
+  "\\#(" @punctuation.special
+  ")" @punctuation.special
+) @embedded
 
-[
-  (lineComment)
-  (blockComment)
-] @comment @spell
+(stringInterpolation
+  "\\##(" @punctuation.special
+  ")" @punctuation.special
+) @embedded
 
-(docComment) @comment.documentation @spell
+(lineComment) @comment
 
-(shebangComment) @keyword.directive
+(blockComment) @comment
+
+(docComment) @comment
+
+(shebangComment) @comment
+
+; Operators
+"??" @operator
+
+"@" @operator
+
+"=" @operator
+
+"<" @operator
+
+">" @operator
+
+"!" @operator
+
+"==" @operator
+
+"!=" @operator
+
+"<=" @operator
+
+">=" @operator
+
+"&&" @operator
+
+"||" @operator
+
+"+" @operator
+
+"-" @operator
+
+"**" @operator
+
+"*" @operator
+
+"/" @operator
+
+"~/" @operator
+
+"%" @operator
+
+"|>" @operator
+
+"," @punctuation.delimiter
+
+":" @punctuation.delimiter
+
+"." @punctuation.delimiter
+
+"?." @punctuation.delimiter
+
+"(" @punctuation.bracket
+
+")" @punctuation.bracket
+
+"[" @punctuation.bracket
+
+"]" @punctuation.bracket
+
+"{" @punctuation.bracket
+
+"}" @punctuation.bracket
 
 ; Keywords
-[
-  "abstract"
-  "external"
-  "for"
-  "is"
-  "let"
-  "new"
-  "out"
-] @keyword
+"abstract" @keyword
 
-"function" @keyword.function
+"amends" @keyword
 
-[
-  "as"
-  "in"
-] @keyword.operator
+"as" @keyword
 
-[
-  "typealias"
-  "class"
-  "module"
-] @keyword.type
+"class" @keyword
 
-[
-  "import"
-  "import*"
-  "amends"
-  "extends"
-] @keyword.import
+"else" @keyword
 
-[
-  "when"
-  "if"
-  "else"
-] @keyword.conditional
+"extends" @keyword
 
-(modifier) @keyword.modifier
+"external" @keyword
+
+(falseLiteralExpr) @constant.builtin
+
+"for" @keyword
+
+"function" @keyword
+
+"hidden" @keyword
+
+"if" @keyword
 
 (importExpr
-  [
-    "import"
-    "import*"
-  ] @function.builtin
+  "import" @function.method.builtin
 )
+
+(importExpr
+  "import*" @function.method.builtin
+)
+
+"import" @keyword
+
+"import*" @keyword
+
+"in" @keyword
+
+"is" @keyword
+
+"let" @keyword
+
+"local" @keyword
 
 (moduleExpr
   "module" @type.builtin
 )
 
-[
-  (outerExpr)
-  "super"
-  (thisExpr)
-] @variable.builtin
+"module" @keyword
 
-[
-  "read"
-  "read?"
-  "read*"
-  "throw"
-  "trace"
-] @function.builtin
+"new" @keyword
 
 (nullLiteralExpr) @constant.builtin
 
-[
-  (falseLiteralExpr)
-  (trueLiteralExpr)
-] @boolean
+"open" @keyword
 
-(newExpr
-  (declaredType
-    (qualifiedIdentifier
-      (identifier) @constructor
-      .
-    )
-  )
-)
+"out" @keyword
+
+(outerExpr) @variable.builtin
+
+"read" @function.method.builtin
+
+"read?" @function.method.builtin
+
+"read*" @function.method.builtin
+
+"super" @variable.builtin
+
+(thisExpr) @variable.builtin
+
+"throw" @function.method.builtin
+
+"trace" @function.method.builtin
+
+(trueLiteralExpr) @constant.builtin
+
+"typealias" @keyword
+
+"when" @keyword

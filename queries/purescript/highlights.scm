@@ -1,26 +1,25 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/purescript/highlights.scm
-;; Licensed under the Apache License 2.0
-; ----------------------------------------------------------------------------
+;; Forked from https://raw.githubusercontent.com/postsolar/tree-sitter-purescript/f541f95ffd6852fbbe88636317c613285bc105af/queries/highlights.scm
+; ------------------------------------------------------------------------------
 ; Literals and comments
 [
   (integer)
   (exp_negation)
-] @number
+] @constant.numeric.integer
 
 (exp_literal
   (number)
-) @number.float
+) @constant.numeric.float
 
-(char) @character
+(char) @constant.character
 
 [
   (string)
   (triple_quote_string)
 ] @string
 
-(comment) @comment @spell
+(comment) @comment
 
-; ----------------------------------------------------------------------------
+; ------------------------------------------------------------------------------
 ; Punctuation
 [
   "("
@@ -31,33 +30,40 @@
   "]"
 ] @punctuation.bracket
 
-[
-  (comma)
-  ";"
-  (qualified_module)
-  ; grabs the `.` (dot), ex: import System.IO
-  "."
-] @punctuation.delimiter
+(comma) @punctuation.delimiter
 
-; ----------------------------------------------------------------------------
-; Keywords, operators, includes
+; ------------------------------------------------------------------------------
+; Types
+(type) @type
+
+(constructor) @constructor
+
+; ------------------------------------------------------------------------------
+; Keywords, operators, imports
 [
   "if"
   "then"
   "else"
   "case"
   "of"
-] @keyword.conditional
+] @keyword.control.conditional
+
+(module) @namespace
 
 [
   "import"
   "module"
-] @keyword.import
+] @keyword.control.import
 
 [
   (operator)
   (type_operator)
+  (qualified_module)
+  ; grabs the `.` (dot), ex: import System.IO
   (all_names)
+  ; `_` wildcards in if-then-else and case-of expressions,
+  ; as well as record updates and operator sections
+  (wildcard)
   "="
   "|"
   "::"
@@ -79,28 +85,29 @@
   (module) @constructor
 )
 
-(module) @module
-
 (qualified_type
-  (module) @module
+  (module) @namespace
 )
 
 (qualified_variable
-  (module) @module
+  (module) @namespace
 )
 
 (import
-  (module) @module
+  (module) @namespace
 )
 
 [
   (where)
   "let"
   "in"
+  "class"
   "instance"
   "derive"
   "foreign"
   "data"
+  "newtype"
+  "type"
   "as"
   "hiding"
   "do"
@@ -112,29 +119,18 @@
   "infixr"
 ] @keyword
 
-[
-  "type"
-  "newtype"
-  "class"
-] @keyword.type
-
 (class_instance
   "else" @keyword
 )
 
 (type_role_declaration
   "role" @keyword
-  role: (type_role) @keyword.modifier
+  role: (type_role) @keyword
 )
 
-; `_` wildcards in if-then-else and case-of expressions,
-; as well as record updates and operator sections
-[
-  "_"
-  (hole)
-] @character.special
+(hole) @label
 
-; ----------------------------------------------------------------------------
+; ------------------------------------------------------------------------------
 ; Functions and variables
 (variable) @variable
 
@@ -155,35 +151,39 @@
 )
 
 (row_field
-  (field_name) @variable.member
+  (field_name) @variable.other.member
 )
 
 (record_field
-  (field_name) @variable.member
+  (field_name) @variable.other.member
+)
+
+(record_field
+  (field_pun) @variable.other.member
 )
 
 (record_accessor
-  (variable) @variable.member
+  field: [
+    (variable)
+    (string)
+    (triple_quote_string)
+  ] @variable.other.member
 )
 
 (exp_record_access
-  (variable) @variable.member
+  field: [
+    (variable)
+    (string)
+    (triple_quote_string)
+  ] @variable.other.member
 )
 
 (signature
   name: (variable) @type
 )
 
-(kind_declaration
-  (class_name) @type
-)
-
 (function
   name: (variable) @function
-)
-
-(foreign_import
-  (variable) @function
 )
 
 (class_instance
@@ -194,10 +194,9 @@
   (instance_name) @function
 )
 
-; true or false
 (
-  (variable) @boolean
-  (#any-of? @boolean "true" "false")
+  (variable) @constant.builtin.boolean
+  (#match? @constant.builtin.boolean "^(true|false)$")
 )
 
 ; The former one works for `tree-sitter highlight` but not in Helix/Kakoune.
@@ -221,8 +220,8 @@
   )
 )
 
-; ----------------------------------------------------------------------------
-; Types
-(type) @type
-
-(constructor) @constructor
+(patterns
+  (pat_as
+    "@" @namespace
+  )
+)

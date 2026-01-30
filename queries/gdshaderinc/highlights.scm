@@ -1,5 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gdshader/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/airblast-dev/tree-sitter-gdshader/68268631c8b6dc093985f1246b099f81b30ea7d1/queries/highlights.scm
+; highlights.scm
 [
   "group_uniforms"
   "uniform"
@@ -8,48 +8,27 @@
   "discard"
   "render_mode"
   "shader_type"
-] @keyword
-
-(scope) @keyword
-
-[
+  "return"
+  "while"
+  "do"
+  "break"
+  "continue"
   "if"
   "else"
   "switch"
   "case"
   "default"
-] @keyword.conditional
-
-"struct" @keyword.type
-
-"return" @keyword.return
-
-[
-  (parameter_qualifier)
-  (interpolation_specifier)
-  (precision_specifier)
+  "struct"
+  "for"
 ] @keyword
 
-[
-  "while"
-  "for"
-  "do"
-  "continue"
-  "break"
-] @keyword.repeat
+(parameter_qualifier) @keyword
 
-[
-  "#undef"
-  "#include"
-  "#if"
-  "#ifdef"
-  "#ifndef"
-  "#elif"
-  "#else"
-  "#endif"
-] @keyword.directive
+(interpolation_specifier) @keyword
 
-"#define" @keyword.directive.define
+(precision_specifier) @keyword
+
+(scope) @keyword
 
 [
   ";"
@@ -101,6 +80,8 @@
   "<<="
   "--"
   "++"
+  "?"
+  ":"
 ] @operator
 
 (comma_expression
@@ -108,20 +89,11 @@
   "," @operator
 )
 
-(ternary_expression
-  [
-    ":"
-    "?"
-  ]
-) @keyword.conditional.ternary
-
 (primitive_type) @type.builtin
 
 (type_identifier) @type
 
-(integer) @number
-
-(float) @number.float
+(number) @number
 
 (boolean) @boolean
 
@@ -129,13 +101,10 @@
   value: (identifier) @constant
 )
 
-(shader_type_statement
-  (shader_type) @keyword
-  (#any-of? @keyword "spatial" "canvas_item" "particle" "sky" "fog")
-)
-
 ; spatial
 (source_file
+  ; only comments and preprocessor directives are allowed before a shader type so ignore shader type
+  ; statements in any other node
   (shader_type_statement
     (shader_type) @_shader_type
   )
@@ -232,6 +201,11 @@
 )
 
 ; fog has no render modes
+(shader_type_statement
+  (shader_type) @keyword
+  (#any-of? @keyword "spatial" "canvas_item" "particle" "sky" "fog")
+)
+
 (identifier) @variable
 
 (struct_definition
@@ -251,6 +225,18 @@
   )
 )
 
+[
+  "#undef"
+  "#include"
+  "#if"
+  "#ifdef"
+  "#ifndef"
+  "#elif"
+  "#else"
+  "#endif"
+  "#define"
+] @keyword
+
 (preproc_include
   path: (_) @string
 )
@@ -259,12 +245,12 @@
   argument: (identifier) @constant
 )
 
-(comment) @comment @spell
+(comment) @comment
 
 ; technically an injection site for bbcode TODO: maybe add it?
 (
-  (comment) @comment.documentation @spell
-  (#lua-match? @comment.documentation "^/%*%*[^/]")
+  (comment) @comment.documentation
+  (#match? @comment.documentation "^/\\*\\*[^/]")
 )
 
 (parameter_declaration
@@ -280,16 +266,16 @@
   declarator: (identifier) @function
 )
 
+(field_expression
+  field: (_) @property
+)
+
 (call_expression
-  function: (identifier) @function.call
+  function: (identifier) @function
 )
 
 (method_expression
-  method: (_) @function.method.call
-)
-
-(field_expression
-  field: (_) @property
+  method: (_) @function
 )
 
 (
@@ -419,7 +405,7 @@
 ; assume all uppercase variables as constants
 (
   (identifier) @constant
-  (#lua-match? @constant "^[A-Z][A-Z0-9_]+$")
+  (#match? @constant "^[A-Z][A-Z_0-9]*$")
 )
 
 (
@@ -440,7 +426,7 @@
 
 (
   (identifier) @variable.builtin
-  (#eq? @variable.builtin "TIME")
+  (#any-of? @variable.builtin "TIME")
 )
 
 (type_hint

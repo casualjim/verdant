@@ -1,297 +1,120 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/elm/highlights.scm
-;; Licensed under the Apache License 2.0
-[
-  (line_comment)
-  (block_comment)
-] @comment @spell
-
-(
-  (block_comment) @comment.documentation
-  (#lua-match? @comment.documentation "^{[-]|[^|]")
-)
-
+;; Forked from https://raw.githubusercontent.com/elm-tooling/tree-sitter-elm/6d9511c28181db66daee4e883f811f6251220943/queries/highlights.scm
 ; Keywords
-;---------
 [
   "if"
   "then"
   "else"
-  (case)
-  (of)
-] @keyword.conditional
-
-[
   "let"
   "in"
-  (as)
-  (port)
-  (alias)
-  (infix)
-  (module)
-  (type)
-] @keyword
+] @keyword.control.elm
 
-[
-  (import)
-  (exposing)
-] @keyword.import
+(case) @keyword.control.elm
 
-; Punctuation
-;------------
-(double_dot) @punctuation.special
+(of) @keyword.control.elm
 
-[
-  ","
-  "|"
-  (dot)
-] @punctuation.delimiter
+(colon) @keyword.other.elm
 
-[
-  "("
-  ")"
-  "{"
-  "}"
-  "["
-  "]"
-] @punctuation.bracket
+(backslash) @keyword.other.elm
 
-; Variables
-;----------
-(value_qid
-  (lower_case_identifier) @variable
-)
+(as) @keyword.other.elm
 
-(value_declaration
-  (function_declaration_left
-    (lower_case_identifier) @variable
-  )
-)
+(port) @keyword.other.elm
+
+(exposing) @keyword.other.elm
+
+(alias) @keyword.other.elm
+
+(infix) @keyword.other.elm
+
+(arrow) @keyword.operator.arrow.elm
+
+(port) @keyword.other.port.elm
 
 (type_annotation
-  (lower_case_identifier) @variable
+  (lower_case_identifier) @function.elm
 )
 
 (port_annotation
-  (lower_case_identifier) @variable
-)
-
-(anything_pattern
-  (underscore) @character.special
-)
-
-(record_base_identifier
-  (lower_case_identifier) @variable
-)
-
-(lower_pattern
-  (lower_case_identifier) @variable
-)
-
-(exposed_value
-  (lower_case_identifier) @variable
-)
-
-(value_qid
-  (
-    (dot)
-    (lower_case_identifier) @variable.member
-  )
-)
-
-(field_access_expr
-  (
-    (dot)
-    (lower_case_identifier) @variable.member
-  )
+  (lower_case_identifier) @function.elm
 )
 
 (function_declaration_left
-  (anything_pattern
-    (underscore) @character.special
-  )
-)
-
-(function_declaration_left
-  (lower_pattern
-    (lower_case_identifier) @variable.parameter
-  )
-)
-
-; Functions
-;----------
-(value_declaration
-  functionDeclarationLeft: (function_declaration_left
-    (lower_case_identifier) @function
-    (pattern)
-  )
-)
-
-(value_declaration
-  functionDeclarationLeft: (function_declaration_left
-    (lower_case_identifier) @function
-    pattern: (_)
-  )
-)
-
-(value_declaration
-  functionDeclarationLeft: (function_declaration_left
-    (lower_case_identifier) @function
-  )
-  body: (anonymous_function_expr)
-)
-
-(type_annotation
-  name: (lower_case_identifier) @function
-  typeExpression: (type_expression
-    (arrow)
-  )
-)
-
-(port_annotation
-  name: (lower_case_identifier) @function
-  typeExpression: (type_expression
-    (arrow)
-  )
+  (lower_case_identifier) @function.elm
 )
 
 (function_call_expr
-  target: (value_expr
-    (value_qid
-      (lower_case_identifier) @function.call
-    )
-  )
+  target: (value_expr) @function.elm
 )
 
-; Operators
-;----------
-[
-  (operator_identifier)
-  (eq)
-  (colon)
-  (arrow)
-  (backslash)
-  "::"
-] @operator
-
-; Modules
-;--------
-(module_declaration
-  (upper_case_qid
-    (upper_case_identifier) @module
-  )
+(field_access_expr
+  (value_expr
+    (value_qid)
+  ) @local.function.elm
 )
 
-(import_clause
-  (upper_case_qid
-    (upper_case_identifier) @module
-  )
-)
+(lower_pattern) @local.function.elm
 
-(as_clause
-  (upper_case_identifier) @module
-)
+(record_base_identifier) @local.function.elm
 
-(value_expr
-  (value_qid
-    (upper_case_identifier) @module
-  )
-)
+(operator_identifier) @keyword.operator.elm
 
-; Types
-;------
+(eq) @keyword.operator.assignment.elm
+
+"(" @punctuation.section.braces
+
+")" @punctuation.section.braces
+
+"|" @keyword.other.elm
+
+"," @punctuation.separator.comma.elm
+
+(import) @meta.import.elm
+
+(module) @keyword.other.elm
+
+(number_constant_expr) @constant.numeric.elm
+
+(type) @keyword.type.elm
+
 (type_declaration
-  (upper_case_identifier) @type
+  (upper_case_identifier) @storage.type.elm
 )
 
-(type_ref
-  (upper_case_qid
-    (upper_case_identifier) @type
-  )
-)
-
-(type_variable
-  (lower_case_identifier) @type
-)
-
-(lower_type_name
-  (lower_case_identifier) @type
-)
-
-(exposed_type
-  (upper_case_identifier) @type
-)
+(type_ref) @storage.type.elm
 
 (type_alias_declaration
-  (upper_case_identifier) @type.definition
+  name: (upper_case_identifier) @storage.type.elm
 )
 
-(field_type
-  name: (lower_case_identifier) @property
+(union_variant
+  (upper_case_identifier) @union.elm
 )
 
-(field
-  name: (lower_case_identifier) @property
-)
-
-(type_declaration
-  (union_variant
-    (upper_case_identifier) @constructor
-  )
-)
-
-(nullary_constructor_argument_pattern
-  (upper_case_qid
-    (upper_case_identifier) @constructor
-  )
-)
-
-(union_pattern
-  (upper_case_qid
-    (upper_case_identifier) @constructor
-  )
-)
+(union_pattern) @union.elm
 
 (value_expr
   (upper_case_qid
     (upper_case_identifier)
-  ) @constructor
+  ) @union.elm
 )
 
-; Literals
-;---------
-(number_constant_expr
-  (number_literal) @number
-)
+; comments
+(line_comment) @comment.elm
 
-(upper_case_qid
-  (
-    (upper_case_identifier) @boolean
-    (#any-of? @boolean "True" "False")
-  )
-)
+(block_comment) @comment.elm
 
-[
-  (open_quote)
-  (close_quote)
-] @string
+; strings
+(string_escape) @character.escape.elm
 
-(string_constant_expr
-  (string_escape) @string
-)
+(open_quote) @string.elm
 
-(string_constant_expr
-  (regular_string_part) @string
-)
+(close_quote) @string.elm
 
-[
-  (open_char)
-  (close_char)
-] @character
+(regular_string_part) @string.elm
 
-(char_constant_expr
-  (string_escape) @character
-)
+(open_char) @char.elm
 
-(char_constant_expr
-  (regular_string_part) @character
-)
+(close_char) @char.elm
+
+; glsl
+(glsl_content) @source.glsl

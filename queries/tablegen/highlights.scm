@@ -1,14 +1,15 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/tablegen/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-tablegen/b1170880c61355aaf38fc06f4af7d3c55abdabc4/queries/highlights.scm
 ; Preprocs
-(preprocessor_directive) @keyword.directive
+(preprocessor_directive) @preproc
 
 ; Includes
-"include" @keyword.import
+"include" @include
 
 ; Keywords
 [
   "assert"
+  "class"
+  "multiclass"
   "field"
   "let"
   "def"
@@ -17,31 +18,27 @@
   "defvar"
 ] @keyword
 
-[
-  "multiclass"
-  "class"
-] @keyword.type
-
-"in" @keyword.operator
+["in"] @keyword.operator
 
 ; Conditionals
 [
   "if"
   "else"
   "then"
-] @keyword.conditional
+] @conditional
 
 ; Repeats
-"foreach" @keyword.repeat
+["foreach"] @repeat
 
 ; Variables
 (identifier) @variable
 
-(var) @variable.builtin
+(var) @tag
 
+; need something more suitable, but nothing fits as "correctly" as @tag, maybe @variable.builtin
 ; Parameters
 (template_arg
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 ; Types
@@ -105,11 +102,11 @@
 
 ; Fields
 (instruction
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (let_instruction
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 ; Functions
@@ -118,7 +115,7 @@
     (bang_operator)
     (cond_operator)
   ] @function
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 ; Operators
@@ -168,7 +165,7 @@
   ";"
 ] @punctuation.delimiter
 
-"!" @punctuation.special
+["!"] @punctuation.special
 
 ; Comments
 [
@@ -177,6 +174,9 @@
 ] @comment @spell
 
 (
-  (comment) @keyword.directive @nospell
-  (#lua-match? @keyword.directive "^.*RUN")
+  (comment) @preproc
+  (#lua-match? @preproc "^.*RUN")
 )
+
+; Errors
+(ERROR) @error

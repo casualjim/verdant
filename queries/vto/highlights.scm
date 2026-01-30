@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vento/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ventojs/tree-sitter-vento/3b32474bc29584ea214e4e84b47102408263fe0e/queries/highlights.scm
 (comment) @comment @spell
 
 (keyword) @keyword

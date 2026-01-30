@@ -1,12 +1,11 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/firrtl/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-firrtl/8503d3a0fe0f9e427863cb0055699ff2d29ae5f5/queries/highlights.scm
 ; Namespaces
 (circuit
-  (identifier) @module
+  (identifier) @namespace
 )
 
 (module
-  (identifier) @module
+  (identifier) @namespace
 )
 
 ; Types
@@ -40,26 +39,27 @@
   "read"
   "write"
   "rdwr"
-  "defname"
 ] @keyword
 
+["defname"] @keyword.variable
+
 ; Qualifiers
-(qualifier) @keyword.modifier
+(qualifier) @type.qualifier
 
 ; Storageclasses
 [
   "input"
   "output"
-] @keyword.modifier
+] @storageclass
 
 ; Conditionals
 [
   "when"
   "else"
-] @keyword.conditional
+] @conditional
 
 ; Annotations
-(info) @attribute
+(info) @annotation
 
 ; Builtins
 [
@@ -93,56 +93,56 @@
   "reader"
   "writer"
   "readwriter"
-] @variable.member
+] @field.builtin
 
 (
-  (field_id) @variable.member
-  (#set! priority 105)
+  (field_id) @field
+  (#set! "priority" 105)
 )
 
 (port
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (wire
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (cmem
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (smem
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (memory
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (register
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 ; Parameters
 (primitive_operation
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (mux
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (printf
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (reset
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (stop
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 ; Variables
@@ -168,7 +168,7 @@
 
 (number_str) @string.special
 
-(double) @number.float
+(double) @float
 
 (string) @string
 
@@ -215,3 +215,6 @@
   "<="
   "="
 ] @operator
+
+; Error
+(ERROR) @error

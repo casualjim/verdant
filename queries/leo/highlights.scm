@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/leo/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/r001/tree-sitter-leo/6bc5564917edacd070afc4d33cf5e2e677831ea9/queries/highlights.scm
 [
   "assert"
   "assert_eq"
@@ -19,10 +18,7 @@
   "struct"
 ] @keyword.type
 
-[
-  "in"
-  "as"
-] @keyword.operator
+"in" @keyword.operator
 
 [
   "constant"
@@ -131,7 +127,9 @@
 
 (variable) @variable
 
-(program_id) @string.special
+[
+  (program_id)
+] @string.special
 
 ;record declaration
 (record_declaration
@@ -143,25 +141,7 @@
   (identifier) @variable.member
 )
 
-(struct_expression
-  (identifier) @type.definition
-)
-
-(struct_component_initializer
-  (identifier) @variable.member
-)
-
-[
-  (type)
-  (boolean_type)
-  (integer_type)
-  (field_type)
-  (group_type)
-  (scalar_type)
-  (address_type)
-  (signature_type)
-  (string_type)
-] @type
+(type) @type
 
 [
   (block_height)

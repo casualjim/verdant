@@ -1,9 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/xresources/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ValdezFOmar/tree-sitter-xresources/a81f1ea4478d03c223ef7eace535a36220bddd8c/queries/xresources/highlights.scm
 [
   (comment)
   (preprocessor_comment)
-] @comment @spell
+] @comment
 
 "#include" @keyword.import
 
@@ -23,8 +22,6 @@
   "#endif"
   (directive)
 ] @keyword.directive
-
-(identifier) @variable
 
 (define_directive
   name: (identifier) @constant.macro
@@ -55,6 +52,11 @@
 (expansion) @markup.raw
 
 (component) @variable.member
+
+(
+  (component) @type
+  (#match? @type "^[A-Z]")
+)
 
 (components
   (component) @property

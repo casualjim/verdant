@@ -1,130 +1,173 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/d/highlights.scm
-;; Licensed under the Apache License 2.0
-; Keywords
-[
-  (directive)
-  (shebang)
-] @keyword.directive
+;; Forked from https://raw.githubusercontent.com/gdamore/tree-sitter-d/fb028c8f14f4188286c2eef143f105def6fbf24f/queries/highlights.scm
+; highlights.scm
+;
+; Highlighting queries for D code for use by Tree-Sitter.
+;
+; Copyright 2024 Garrett D'Amore
+;
+; Distributed under the MIT License.
+; (See accompanying file LICENSE.txt or https://opensource.org/licenses/MIT)
+; SPDX-License-Identifier: MIT
+(string_literal) @string
 
-[
-  (import)
-  (module)
-] @keyword.import
+(int_literal) @number
 
-[
-  (alias)
-  (asm)
-  (class)
-  (delegate)
-  (delete)
-  (enum)
-  (interface)
-  (invariant)
-  (mixin)
-  (pragma)
-  (struct)
-  (template)
-  (union)
-  (unittest)
-  (version)
-  (with)
-  (traits)
-  (vector)
-  (parameters_)
-  (default)
-  (goto)
-] @keyword
+(float_literal) @number
 
-(function) @keyword.function
+(char_literal) @number
 
-(synchronized) @keyword.coroutine
+(identifier) @variable
 
-[
-  (if)
-  (else)
-  (switch)
-  (case)
-  (break)
-] @keyword.conditional
+(at_attribute) @property
 
-[
-  (do)
-  (for)
-  (foreach)
-  (foreach_reverse)
-  (while)
-  (continue)
-] @keyword.repeat
+(htmlentity) @string.special
 
-(return) @keyword.return
-
-[
-  (abstract)
-  (deprecated)
-  (private)
-  (protected)
-  (public)
-  (package)
-  (immutable)
-  (final)
-  (const)
-  (override)
-  (static)
-] @keyword.modifier
-
-[
-  (assert)
-  (try)
-  (catch)
-  (finally)
-  (throw)
-  (nothrow)
-] @keyword.exception
-
-[
-  (cast)
-  (new)
-  (in)
-  (is)
-  (not_in)
-  (not_is)
-  (typeid)
-  (typeof)
-] @keyword.operator
+(escape_sequence) @string.escape
 
 [
   (lazy)
   (align)
   (extern)
+  (static)
+  (abstract)
+  (final)
+  (override)
+  (synchronized)
+  (auto)
   (scope)
-  (ref)
-  (pure)
-  (export)
-  (shared)
   (gshared)
-  (out)
-  (inout)
-] @keyword.modifier
+  (ref)
+  (deprecated)
+  (nothrow)
+  (pure)
+  (type_ctor)
+] @keyword.storage
 
 (parameter_attribute
-  (return) @keyword.modifier
+  (return) @keyword.storage
 )
 
 (parameter_attribute
-  (in) @keyword.modifier
+  (in) @keyword.storage
 )
 
 (parameter_attribute
-  (out) @keyword.modifier
+  (out) @keyword.storage
 )
 
-(debug) @keyword.debug
+(function_declaration
+  (identifier) @function
+)
 
-; Operators
+(call_expression
+  (identifier) @function
+)
+
+(call_expression
+  (type
+    (template_instance
+      (identifier) @function
+    )
+  )
+)
+
+(template_arguments
+  (identifier) @variable.parameter
+)
+
+(named_argument
+  (identifier) @variable.parameter
+)
+
 [
+  (abstract)
+  (alias)
+  (align)
+  (asm)
+  (assert)
+  (auto)
+  (cast)
+  (class)
+  (const)
+  (debug)
+  (delegate)
+  (delete)
+  (deprecated)
+  (enum)
+  (export)
+  (extern)
+  (final)
+  (function)
+  (immutable)
+  (import)
+  (in)
+  (inout)
+  (interface)
+  (invariant)
+  (is)
+  (lazy)
+  ; "macro" - obsolete
+  (mixin)
+  (module)
+  (new)
+  (nothrow)
+  (out)
+  (override)
+  (package)
+  (pragma)
+  (private)
+  (protected)
+  (public)
+  (pure)
+  (ref)
+  (scope)
+  (shared)
+  (static)
+  (struct)
+  (super)
+  (synchronized)
+  (template)
+  (this)
+  (throw)
+  (typeid)
+  (typeof)
+  (union)
+  (unittest)
+  (version)
+  (with)
+  (gshared)
+  (traits)
+  (vector)
+  (parameters_)
+] @keyword
+
+[
+  (break)
+  (case)
+  (catch)
+  (continue)
+  (do)
+  (default)
+  (finally)
+  (else)
+  (for)
+  (foreach)
+  (foreach_reverse)
+  (goto)
+  (if)
+  (switch)
+  (try)
+  (return)
+  (while)
+] @keyword.control
+
+[
+  (not_in)
+  (not_is)
   "/="
   "/"
   ".."
+  "..."
   "&"
   "&="
   "&&"
@@ -149,6 +192,7 @@
   ">>>"
   "!"
   "!="
+  "?"
   "$"
   "="
   "=="
@@ -163,108 +207,40 @@
   "~"
   "~="
   "@"
+  "=>"
 ] @operator
 
-; Variables
-(identifier) @variable
+[
+  ";"
+  "."
+  ":"
+  ","
+] @punctuation.delimiter
 
 [
-  "exit"
-  "success"
-  "failure"
-  (this)
-  (super)
-] @variable.builtin
-
-(linkage_attribute
   "("
-  _ @variable.builtin
   ")"
-)
-
-; Modules
-(module_fqn
-  (identifier) @module
-)
-
-; Attributes
-(at_attribute
-  (identifier) @attribute
-)
-
-; Constants
-(enum_member
-  (identifier) @constant
-)
-
-(manifest_declarator
-  .
-  (identifier) @constant
-)
-
-; Members
-(aggregate_body
-  (variable_declaration
-    (declarator
-      (identifier) @variable.member
-    )
-  )
-)
-
-(property_expression
-  "."
-  (identifier) @variable.member
-)
-
-(type
-  "."
-  (identifier) @variable.member
-)
-
-; Types
-(class_declaration
-  (class)
-  .
-  (identifier) @type
-)
-
-(struct_declaration
-  (struct)
-  .
-  (identifier) @type
-)
-
-(union_declaration
-  (union)
-  .
-  (identifier) @type
-)
-
-(enum_declaration
-  (enum)
-  .
-  (identifier) @type
-)
-
-(alias_declaration
-  (alias)
-  .
-  (identifier) @type
-)
-
-(
-  (identifier) @type
-  (#lua-match? @type "^[A-Z].*")
-)
-
-(type
-  .
-  (identifier) @type
-  .
-)
+  "["
+  "["
+  "{"
+  "}"
+] @punctuation.bracket
 
 [
-  (auto)
+  (null)
+  (true)
+  (false)
+] @constant.language
+
+(special_keyword) @constant.language
+
+(directive) @keyword.directive
+
+(shebang) @keyword.directive
+
+(comment) @comment
+
+[
   (void)
   (bool)
   (byte)
@@ -281,145 +257,48 @@
   (real)
   (double)
   (float)
+  (size_t)
+  (ptrdiff_t)
+  (string)
+  (cstring)
+  (wstring)
+  (noreturn)
+] @type.builtin
+
+[
   (cent)
   (ucent)
   (ireal)
   (idouble)
   (ifloat)
   (creal)
+  (double)
   (cfloat)
-  (string)
-  (dstring)
-  (wstring)
-] @type.builtin
+] @type.deprecated
 
-; Functions
-(function_declaration
-  (identifier) @function
-)
-
-(call_expression
-  (identifier) @function
-)
-
-(call_expression
-  (type
-    (identifier) @function
-    .
-  )
-)
-
-(call_expression
-  (property_expression
-    (call_expression)
-    (identifier) @function
-    .
-  )
-)
-
-; Parameters
-(parameter
-  (_)
-  (identifier) @variable.parameter
-)
-
-(function_literal
-  "("
-  (type
-    (identifier) @variable.parameter
-  )
-)
-
-; Constructors
-(constructor
-  (this) @constructor
-)
-
-(destructor
-  (this) @constructor
-)
-
-(postblit
-  .
-  (this) @constructor
-)
-
-; Punctuation
-[
-  ";"
-  "."
-  ":"
-  ","
-  "=>"
-] @punctuation.delimiter
-
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
-
-"..." @punctuation.special
-
-; Ternaries
-(ternary_expression
-  [
-    "?"
-    ":"
-  ] @keyword.conditional.ternary
-)
-
-; Labels
 (label
   (identifier) @label
 )
 
 (goto_statement
+  (goto) @keyword.control
   (identifier) @label
 )
 
-; Literals
-(string_literal) @string
-
-[
-  (int_literal)
-  (float_literal)
-] @number
-
-(char_literal) @character
-
-[
-  (true)
-  (false)
-] @boolean
-
-[
-  (null)
-  (special_keyword)
-] @constant.builtin
-
-; Comments
-(comment) @comment @spell
-
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^///[^/]")
+; this covers other cases where the identifier can only
+; be a type (such as in an is-expression on a constraint)
+(type
+  (identifier) @type
 )
 
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^///$")
+; these are listed last, because they override keyword queries
+(identity_expression
+  (in) @operator
 )
 
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^/[*][*][^*].*[*]/$")
+(identity_expression
+  (is) @operator
 )
 
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^/[+][+][^+].*[+]/$")
-)
+; everything after __EOF_ is plain text
+(end_file) @text

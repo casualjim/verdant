@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/djot/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/treeman/tree-sitter-djot/74fac1f53c6d52aeac104b6874e5506be6d0cfe6/queries/highlights.scm
 (heading) @markup.heading
 
 (

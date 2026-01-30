@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/elsa/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/glapa-grossklag/tree-sitter-elsa/0a66b2b3f3c1915e67ad2ef9f7dbd2a84820d9d7/queries/highlights.scm
 ; Keywords
 [
   "eval"
@@ -10,10 +9,10 @@
 (function) @function
 
 ; Method
-(method) @function.method
+(method) @method
 
 ; Parameter
-(parameter) @variable.parameter
+(parameter) @parameter
 
 ; Variables
 (identifier) @variable
@@ -35,4 +34,4 @@
 ":" @punctuation.delimiter
 
 ; Comments
-(comment) @comment @spell
+(comment) @comment

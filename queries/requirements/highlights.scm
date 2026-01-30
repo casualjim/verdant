@@ -1,32 +1,31 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/requirements/highlights.scm
-;; Licensed under the Apache License 2.0
-; packages
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-requirements/caeb2ba854dea55931f76034978de1fd79362939/queries/highlights.scm
+;; packages
 (package) @variable
 
 (extras
   (package) @variable.parameter
 )
 
-(path) @string.special.path
+(path) @markup.link
 
-(url) @string.special.url
+(url) @markup.link.url
 
-; versions
+;; versions
 (version_cmp) @operator
 
 (version) @number
 
-; markers
+;; markers
 (marker_var) @attribute
 
-(marker_op) @keyword.operator
+(marker_op) @keyword
 
-; options
+;; options
 (option) @function
 
 "=" @operator
 
-; punctuation
+;; punctuation
 [
   "["
   "]"
@@ -45,11 +44,11 @@
   "}"
 ] @punctuation.special
 
-; misc
+;; misc
 (env_var) @constant
 
 (quoted_string) @string
 
-(linebreak) @character.special
+(linebreak) @escape
 
-(comment) @comment @spell
+(comment) @comment

@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/koto/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/koto-lang/tree-sitter-koto/f8b3f62c0eed185dca1559789e78759d4bee60e5/queries/highlights.scm
 [
   "="
   "+"
@@ -7,11 +6,13 @@
   "*"
   "/"
   "%"
+  "^"
   "+="
   "-="
   "*="
   "/="
   "%="
+  "^="
   "=="
   "!="
   "<"
@@ -24,7 +25,7 @@
   (null_check)
 ] @operator
 
-"let" @keyword
+["let"] @keyword
 
 [
   "and"
@@ -80,6 +81,21 @@
   "|"
 ] @punctuation.bracket
 
+(string_content
+  (interpolation
+    [
+      "{"
+      "}"
+    ] @punctuation.special
+  )
+)
+
+[
+  ";"
+  ":"
+  ","
+] @punctuation.delimiter
+
 (identifier) @variable
 
 (import_module
@@ -95,13 +111,21 @@
 )
 
 (chain
+  start: (identifier) @function
+)
+
+(chain
   (lookup
     (identifier)
   ) @variable.member
 )
 
-(chain
-  start: (identifier) @function.call
+(call
+  function: (identifier)
+) @function
+
+(call_arg
+  (identifier) @function.method
 )
 
 [
@@ -141,12 +165,14 @@
 
 (self) @variable.builtin
 
-(arg
-  (identifier) @variable.parameter
-)
-
-(ellipsis) @variable.parameter
-
 (type
   _ @type
 )
+
+(arg
+  (_
+    (identifier) @variable.parameter
+  )
+)
+
+(ellipsis) @variable.parameter

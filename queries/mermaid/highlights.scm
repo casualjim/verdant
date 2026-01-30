@@ -1,6 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/mermaid/highlights.scm
-;; Licensed under the Apache License 2.0
-; adapted from https://github.com/monaqa/tree-sitter-mermaid
+;; Forked from https://raw.githubusercontent.com/monaqa/tree-sitter-mermaid/90ae195b31933ceb9d079abfa8a3ad0a36fee4cc/queries/highlights.scm
 [
   "sequenceDiagram"
   "classDiagram"
@@ -44,12 +42,15 @@
   "includes"
   "excludes"
   "todaymarker"
+  "title"
   "section"
   "direction"
   "subgraph"
 ] @keyword
 
-(comment) @comment @spell
+[
+  (comment)
+] @comment
 
 [
   ":"
@@ -91,13 +92,13 @@
   "&"
 ] @operator
 
-(sequence_actor) @variable.member
+(sequence_actor) @field
 
-(class_name) @variable.member
+(class_name) @field
 
-(state_name) @variable.member
+(state_name) @field
 
-(gantt_task_text) @variable.member
+(gantt_task_text) @field
 
 [
   (class_annotation_line)
@@ -106,13 +107,13 @@
   (state_annotation_fork)
   (state_annotation_join)
   (state_annotation_choice)
-] @attribute
+] @type
 
-(directive) @keyword.import
+(directive) @include
 
 (pie_label) @string
 
-(pie_value) @number.float
+(pie_value) @float
 
 [
   (flowchart_direction_lr)
@@ -121,7 +122,7 @@
   (flowchart_direction_bt)
 ] @constant
 
-(flow_vertex_id) @variable.member
+(flow_vertex_id) @field
 
 [
   (flow_link_arrow)
@@ -253,15 +254,15 @@
   (er_reltype_identifying)
 ] @operator
 
-(er_entity_name) @variable.member
+(er_entity_name) @field
 
 (er_attribute_type) @type
 
-(er_attribute_name) @variable.member
+(er_attribute_name) @field
 
 [
   (er_attribute_key_type_pk)
   (er_attribute_key_type_fk)
-] @keyword.modifier
+] @keyword
 
-(er_attribute_comment) @string @spell
+(er_attribute_comment) @string

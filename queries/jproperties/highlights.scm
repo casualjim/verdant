@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/properties/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-properties/6310671b24d4e04b803577b1c675d765cbd5773b/queries/highlights.scm
+(comment) @comment
 
 (key) @property
 
@@ -11,31 +10,21 @@
 )
 
 (
-  (value) @boolean
-  (#any-of? @boolean "true" "false")
-)
-
-(
-  (value) @number
-  (#lua-match? @number "^%d+$")
-)
-
-(
   (index) @number
-  (#lua-match? @number "^%d+$")
+  (#match? @number "^[0-9]+$")
 )
 
 (
   (substitution
     (key) @constant
   )
-  (#lua-match? @constant "^[A-Z_][A-Z0-9_]*$")
+  (#match? @constant "^[A-Z0-9_]+")
 )
 
 (substitution
   (key) @function
   "::" @punctuation.special
-  (secret) @constant.macro
+  (secret) @embedded
 )
 
 (property

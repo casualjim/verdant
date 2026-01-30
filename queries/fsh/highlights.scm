@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/fsh/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/mgramigna/tree-sitter-fsh/fad2e175099a45efbc98f000cc196d3674cc45e0/queries/highlights.scm
 [
   "("
   ")"
@@ -18,7 +17,7 @@
   "->"
 ] @punctuation.special
 
-; Entities
+; Entity Keywords
 [
   "Profile"
   "Alias"
@@ -65,13 +64,12 @@
   "where"
   "system"
   "exactly"
-] @keyword.operator
+] @keyword
 
-; Types
 [
   "Reference"
   "Canonical"
-] @type.builtin
+] @type
 
 (sd_metadata
   (parent
@@ -83,20 +81,16 @@
   (name)
 ) @type
 
-; Strings
-(string) @string
+(string) @string @spell
 
-(multiline_string) @string
+(multiline_string) @string @spell
 
-; Constants
 (strength_value) @constant
 
-(bool) @boolean
+(bool) @constant.boolean
 
 (flag) @constant
 
-; Special Params
-(code_value) @variable.parameter
+(code_value) @parameter
 
-; Extras
 (fsh_comment) @comment @spell

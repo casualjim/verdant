@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/udev/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-udev/2fcb563a4d56a6b8e8c129252325fc6335e4acbf/queries/highlights.scm
 (match
   key:
   _ @keyword
@@ -10,84 +9,56 @@
   _ @property
 )
 
-(value) @string
-
-; NOTE: higher priorities override bash highlights
-(
-  (fmt_sub
-    .
-    _ @character.special
-  )
-  (#set! priority 101)
-)
-
-(
-  (var_sub
-    .
-    _ @variable.builtin
-  )
-  (#set! priority 101)
-)
-
 [
   (system_const)
   (run_type)
   (import_type)
+  (attribute)
   (kernel_param)
   (seclabel)
 ] @attribute
 
-(
-  (attribute) @attribute
-  (#set! priority 101)
+(env_var) @constant
+
+(value) @string
+
+(pattern) @string.regexp
+
+(fmt_sub
+  .
+  _ @variable.builtin
 )
 
-(
-  (env_var) @constant
-  (#set! priority 101)
+(var_sub
+  .
+  _ @variable.builtin
 )
 
-(
-  (pattern) @string.special
-  (#set! priority 101)
-)
+[
+  "\\\""
+  (c_escape)
+] @string.escape
 
-(
-  [
-    "\\\""
-    (c_escape)
-  ] @string.escape
-  (#set! priority 101)
-)
-
-(octal) @number
-
-(
-  (number) @number
-  (#set! priority 101)
-)
+[
+  (octal)
+  (number)
+] @number
 
 [
   (match_op)
   (assignment_op)
 ] @operator
 
-("+"
-  @punctuation.special
-  (#set! priority 101)
-)
+"+" @punctuation.special
 
-(
-  [
-    "{"
-    "}"
-  ] @punctuation.bracket
-  (#set! priority 101)
-)
+[
+  "{"
+  "}"
+] @punctuation.bracket
 
 [
   ","
   (linebreak)
 ] @punctuation.delimiter
 
-(comment) @comment @spell
+(comment) @comment

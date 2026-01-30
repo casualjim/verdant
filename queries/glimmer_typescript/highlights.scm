@@ -1,6 +1,6 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/glimmer_typescript/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ember-tooling/tree-sitter-glimmer-typescript/12d98944c1d5077b957cbdb90d663a7c4d50118c/queries/glimmer_typescript/highlights.scm
 ; inherits: typescript
+; extends
 ; Sub-language delimeters
 (glimmer_opening_tag) @tag.builtin
 

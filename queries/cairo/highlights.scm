@@ -1,19 +1,18 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/cairo/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-cairo/6238f609bea233040fe927858156dee5515a0745/queries/highlights.scm
 ; Preproc
 [
   "%builtins"
   "%lang"
-] @keyword.directive
+] @preproc
 
 ; Includes
 (import_statement
   [
     "from"
     "import"
-  ] @keyword.import
+  ] @include
   module_name: (dotted_name
-    (identifier) @module
+    (identifier) @namespace
     .
   )
 )
@@ -22,40 +21,40 @@
   "as"
   "use"
   "mod"
-] @keyword.import
+] @include
 
 ; Variables
 (identifier) @variable
 
 ; Namespaces
 (namespace_definition
-  (identifier) @module
+  (identifier) @namespace
 )
 
 (mod_item
-  name: (identifier) @module
+  name: (identifier) @namespace
 )
 
 (use_list
-  (self) @module
+  (self) @namespace
 )
 
 (scoped_use_list
-  (self) @module
+  (self) @namespace
 )
 
 (scoped_identifier
-  path: (identifier) @module
+  path: (identifier) @namespace
 )
 
 (scoped_identifier
   (scoped_identifier
-    name: (identifier) @module
+    name: (identifier) @namespace
   )
 )
 
 (scoped_type_identifier
-  path: (identifier) @module
+  path: (identifier) @namespace
 )
 
 (
@@ -98,18 +97,18 @@
 )
 
 (scoped_use_list
-  path: (identifier) @module
+  path: (identifier) @namespace
 )
 
 (scoped_use_list
   path: (scoped_identifier
-    (identifier) @module
+    (identifier) @namespace
   )
 )
 
 (use_list
   (scoped_identifier
-    (identifier) @module
+    (identifier) @namespace
     .
     (_)
   )
@@ -129,6 +128,8 @@
 [
   ; 0.x
   "using"
+  "namespace"
+  "struct"
   "let"
   "const"
   "local"
@@ -142,20 +143,15 @@
   "call"
   "nondet"
   ; 1.0
+  "type"
   "impl"
   "implicits"
   "of"
   "ref"
   "mut"
-] @keyword
-
-[
-  "struct"
-  "enum"
-  "namespace"
-  "type"
   "trait"
-] @keyword.type
+  "enum"
+] @keyword
 
 [
   "func"
@@ -174,63 +170,63 @@
 [
   "tempvar"
   "extern"
-] @keyword.modifier
+] @storageclass
 
 [
   "if"
   "else"
   "match"
-] @keyword.conditional
+] @conditional
 
-"loop" @keyword.repeat
+["loop"] @repeat
 
 [
   "assert"
   "static_assert"
   "nopanic"
-] @keyword.exception
+] @exception
 
 ; Fields
 (implicit_arguments
   (typed_identifier
-    (identifier) @variable.member
+    (identifier) @field
   )
 )
 
 (member_expression
   "."
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (call_expression
   (assignment_expression
-    left: (identifier) @variable.member
+    left: (identifier) @field
   )
 )
 
 (tuple_expression
   (assignment_expression
-    left: (identifier) @variable.member
+    left: (identifier) @field
   )
 )
 
-(field_identifier) @variable.member
+(field_identifier) @field
 
 (shorthand_field_initializer
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 ; Parameters
 (arguments
   (typed_identifier
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
 (call_expression
   (tuple_expression
     (assignment_expression
-      left: (identifier) @variable.parameter
+      left: (identifier) @parameter
     )
   )
 )
@@ -239,13 +235,13 @@
   (tuple_type
     (named_type
       .
-      (identifier) @variable.parameter
+      (identifier) @parameter
     )
   )
 )
 
 (parameter
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 ; Builtins
@@ -300,14 +296,14 @@
   )
 )
 
-"jmp" @function.builtin
+["jmp"] @function.builtin
 
 ; Types
 (struct_definition
   .
   (identifier) @type
   (typed_identifier
-    (identifier) @variable.member
+    (identifier) @field
   )?
 )
 
@@ -514,3 +510,6 @@
 
 ; Comment
 (comment) @comment @spell
+
+; Errors
+(ERROR) @error

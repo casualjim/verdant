@@ -1,52 +1,29 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/nasm/highlights.scm
-;; Licensed under the Apache License 2.0
-; adapted from https://github.com/naclsn/tree-sitter-nasm/blob/main/queries/highlights.scm
-(word) @variable
+;; Forked from https://raw.githubusercontent.com/naclsn/tree-sitter-nasm/d1b3638d017f2a8585e26dcfc66fe1df94185e30/queries/highlights.scm
+;;; Highlighting for NASM
+(comment) @comment
 
-(
-  (word) @constant
-  (#lua-match? @constant "^[A-Z_][?A-Z_0-9]+$")
-)
+(label) @label
 
-(
-  (word) @constant.builtin
-  (#lua-match? @constant.builtin "^__%?[A-Z_a-z0-9]+%?__$")
-)
+(preproc_expression) @keyword.directive
 
 [
   (line_here_token)
   (section_here_token)
 ] @variable.builtin
 
-(label
-  (word) @label
-)
-
-(assembl_directive_symbols
-  (word) @label
-)
-
-(assembl_directive_sections
-  (word) @label
-)
-
 (unary_expression
   operator:
-  _ @operator
+  _ @operator.unary
 )
 
 (binary_expression
   operator:
-  _ @operator
+  _ @operator.binary
 )
 
-"?" @constant.builtin
-
 (conditional_expression
-  [
-    "?"
-    ":"
-  ] @keyword.conditional.ternary
+  "?" @operator
+  ":" @operator
 )
 
 [
@@ -66,11 +43,11 @@
 (instruction_prefix) @keyword
 
 (actual_instruction
-  instruction: (word) @function.builtin
+  instruction: (word) @function
 )
 
 (call_syntax_expression
-  base: (word) @function.call
+  base: (word) @function
 )
 
 (size_hint) @type
@@ -93,22 +70,41 @@
   _ @constant.builtin
 )
 
-(register) @variable.builtin
+(register) @constant.builtin
+
+(number_literal) @constant.numeric.integer
 
 (string_literal) @string
 
-(float_literal) @number.float
+(float_literal) @constant.numeric.float
+
+(packed_bcd_literal) @constant.numeric.integer
+
+(
+  (word) @constant
+  (#match? @constant "^[A-Z_][?A-Z_0-9]+$")
+)
+
+(
+  (word) @constant.builtin
+  (#match? @constant.builtin "^__\\?[A-Z_a-z0-9]+\\?__$")
+)
+
+(word) @variable
+
+(preproc_arg) @keyword.directive
 
 [
-  (packed_bcd_literal)
-  (number_literal)
-] @number
-
-[
+  (preproc_def)
+  (preproc_function_def)
+  (preproc_undef)
   (preproc_alias)
   (preproc_multiline_macro)
   (preproc_multiline_unmacro)
+  (preproc_if)
   (preproc_rotate)
+  (preproc_rep_loop)
+  (preproc_include)
   (preproc_pathsearch)
   (preproc_depend)
   (preproc_use)
@@ -124,28 +120,6 @@
   (preproc_clear)
 ] @keyword.directive
 
-(preproc_include) @keyword.import
-
-(preproc_rep_loop) @keyword.repeat
-
-(preproc_if) @keyword.conditional
-
-[
-  (preproc_def)
-  (preproc_undef)
-] @keyword.directive.define
-
-(preproc_function_def) @keyword.function
-
-[
-  (preproc_expression)
-  (preproc_arg)
-] @constant.macro
-
-(preproc_multiline_macro
-  name: (word) @function
-)
-
 [
   (pseudo_instruction_dx)
   (pseudo_instruction_resx)
@@ -153,7 +127,7 @@
   (pseudo_instruction_equ_command)
   (pseudo_instruction_times_prefix)
   (pseudo_instruction_alignx_macro)
-] @function
+] @function.special
 
 [
   (assembl_directive_target)
@@ -181,5 +155,3 @@
   (assembl_directive_primitive_warning)
   (assembl_directive_primitive_map)
 ] @keyword
-
-(comment) @comment @spell

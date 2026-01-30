@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gaptst/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/gap-system/tree-sitter-gaptst/69086d7627c03e1f4baf766bcef14c60d9e92331/queries/highlights.scm
 (output_line) @markup.raw.block
 
 [
@@ -17,5 +16,3 @@
   "#@else"
   "#@fi"
 ] @keyword.conditional
-
-(comment) @comment @spell

@@ -1,13 +1,12 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/hyprlang/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-hyprlang/22723f25f3faf329863d952c9601b492afd971c9/queries/hyprlang/highlights.scm
 (comment) @comment @spell
 
 [
   "source"
-  "exec"
-  "execr"
   "exec-once"
   "execr-once"
+  "exec"
+  "execr"
   "exec-shutdown"
 ] @keyword
 
@@ -28,7 +27,7 @@
 )
 
 (section
-  device: (device_name) @string.special
+  device: (device_name) @type
 )
 
 (variable) @variable
@@ -37,13 +36,7 @@
 
 (boolean) @boolean
 
-[
-  "deg"
-  (string)
-  (string_literal)
-] @string
-
-(mod) @constant.builtin
+(mod) @constant
 
 [
   "rgb"
@@ -55,14 +48,15 @@
   (legacy_hex)
   (angle)
   (hex)
+  (display)
+  (position)
 ] @number
+
+"deg" @type
 
 [
   ","
   ";"
-  ":"
-  "x"
-  "@"
 ] @punctuation.delimiter
 
 [

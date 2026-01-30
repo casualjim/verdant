@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/c3/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/c3lang/tree-sitter-c3/7ef54adef1008ce7d943c2cca03aee93a79b2252/queries/highlights.scm
 ; Punctuation
 [
   "("
@@ -124,6 +123,7 @@
   "$if"
   "$include"
   "$is_const"
+  "$kindof"
   "$nameof"
   "$offsetof"
   "$qnameof"
@@ -236,6 +236,8 @@
   "&&&"
   "+++"
   "|||"
+  "???"
+  "+++="
 ] @operator
 
 (range_expr
@@ -253,6 +255,7 @@
 (ternary_expr
   [
     "?"
+    "???"
     ":"
   ] @keyword.conditional.ternary
 )
@@ -318,6 +321,7 @@
       "qnameof"
       "returns"
       "sizeof"
+      "set"
       "tagof"
       "has_tagof"
       "values"
@@ -343,7 +347,7 @@
   )
 )
 
-(import_declaration
+(import_path
   (path_ident
     (ident) @module
   )
@@ -357,6 +361,10 @@
 (at_type_ident) @attribute
 
 (call_inline_attributes
+  (at_ident) @attribute
+)
+
+(type_suffix
   (at_ident) @attribute
 )
 

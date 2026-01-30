@@ -1,8 +1,7 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/pug/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/zealot128/tree-sitter-pug/13e9195370172c86a8b88184cc358b23b677cc46/queries/highlights.scm
+(comment) @comment
 
-(tag_name) @tag
+(tag_name) @constant
 
 (
   (tag_name) @constant.builtin
@@ -97,7 +96,7 @@
     "tfoot"
     "tr"
     "td"
-    "th "
+    "th"
     "form"
     "label"
     "input"
@@ -123,130 +122,57 @@
   )
 )
 
-(id) @constant
-
-(class) @type
-
-(doctype) @keyword.directive
-
 (content) @none
 
-(tag
-  (attributes
-    (attribute
-      (attribute_name) @tag.attribute
-      "=" @operator
-    )
-  )
-)
+(id) @attribute
 
-(
-  (tag
-    (attributes
-      (attribute
-        (attribute_name) @keyword
-      )
-    )
-  )
-  (#match? @keyword "^(:|v-bind|v-|\\@)")
-)
+(class) @attribute
 
 (quoted_attribute_value) @string
 
-(include
-  (keyword) @keyword.import
-)
+(attribute_name) @symbol
 
-(extends
-  (keyword) @keyword.import
-)
-
-(filename) @string.special.path
-
-(block_definition
-  (keyword) @keyword
-)
-
-(block_append
-  (keyword)+ @keyword
-)
-
-(block_prepend
-  (keyword)+ @keyword
-)
-
-(block_name) @module
-
-(conditional
-  (keyword) @keyword.conditional
-)
-
-(case
-  (keyword) @keyword.conditional
-  (when
-    (keyword) @keyword.conditional
-  )+
-)
-
-(each
-  (keyword) @keyword.repeat
-)
-
-(while
-  (keyword) @keyword.repeat
-)
-
-(mixin_use
-  "+" @punctuation.delimiter
-  (mixin_name) @function.call
-)
-
-(mixin_definition
-  (keyword) @keyword.function
-  (mixin_name) @function
-)
-
-(mixin_attributes
-  (attribute_name) @variable.parameter
-)
-
-(filter
-  ":" @punctuation.delimiter
-  (filter_name) @function.method.call
-)
-
-(filter
-  (attributes
-    (attribute
-      (attribute_name) @variable.parameter
-    )
-  )
-)
+(
+  (attribute_name) @keyword
+  (#match? @keyword "^(\\(.*\\)|\\[.*\\]|\\*.*)$")
+) @keyword
 
 [
-  "("
-  ")"
-  "#{"
-  "}"
-  ; unsupported
-  ; "!{"
-  ; "#[" "]"
-] @punctuation.bracket
-
-[
-  ","
-  "."
+  ":"
+  "{{"
+  "}}"
+  "+"
   "|"
 ] @punctuation.delimiter
 
-(buffered_code
-  "=" @punctuation.delimiter
+(keyword) @keyword
+
+(
+  (keyword) @include
+  (#eq? @include "include")
 )
 
-(unbuffered_code
-  "-" @punctuation.delimiter
+(
+  (keyword) @repeat
+  (#any-of? @repeat "for" "each" "of" "in" "while")
 )
 
-(unescaped_buffered_code
-  "!=" @punctuation.delimiter
+(
+  (keyword) @conditional
+  (#any-of? @conditional "if" "else" "else if" "unless")
+)
+
+(
+  (keyword) @keyword.function
+  (#any-of? @keyword.function "block" "mixin")
+)
+
+(filter_name) @method.call
+
+(mixin_use
+  (mixin_name) @method.call
+)
+
+(mixin_definition
+  (mixin_name) @function
 )

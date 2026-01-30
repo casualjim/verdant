@@ -1,11 +1,14 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/tact/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tact-lang/tree-sitter-tact/a6267c2091ed432c248780cec9f8d42c8766d9ad/queries/highlights.scm
+; NOTE: Order of highlight queries matters, as Tree-sitter uses last-wins strategy
+; NOTE: Therefore, narrow highlight queries should be placed after broad captures.
+; --------------------------------------------------------------------------------
+;
 ; variable
 ; --------
 (identifier) @variable
 
 (destruct_bind
-  name: (identifier) @variable.member
+  name: (identifier) @comment
   bind: (identifier) @variable
 )
 
@@ -41,6 +44,7 @@
 ; operator
 ; --------
 [
+  "~"
   "-"
   "-="
   "+"
@@ -98,12 +102,29 @@
 
 ; type.builtin
 ; ------------
-(
-  (identifier) @type.builtin
-  (#any-of? @type.builtin "Context" "SendParameters" "StateInit" "StdAddress" "VarAddress")
+(tlb_serialization
+  "as" @keyword
+  type: (identifier) @type
 )
 
-(generic_parameter_list
+(tlb_serialization
+  type: (identifier) @type.builtin
+  (#match? @type.builtin "^(coins|remaining|bytes32|bytes64|int257|u?int(?:2[0-5][0-6]|1[0-9][0-9]|[1-9][0-9]?))$")
+)
+
+(
+  (type_identifier) @type.builtin
+  (#match? @type.builtin "^(Address|Bool|Builder|Cell|Int|Slice|String|StringBuilder)$")
+)
+
+(map_type
+  "map" @type.builtin
+  "<" @punctuation.bracket
+  ">" @punctuation.bracket
+)
+
+(set_type
+  "set" @type.builtin
   "<" @punctuation.bracket
   ">" @punctuation.bracket
 )
@@ -114,49 +135,22 @@
   ">" @punctuation.bracket
 )
 
-(map_type
-  "map" @type.builtin
+(generic_parameter_list
   "<" @punctuation.bracket
   ">" @punctuation.bracket
-)
-
-(
-  (type_identifier) @type.builtin
-  (#any-of?
-    @type.builtin
-    "Address"
-    "Bool"
-    "Builder"
-    "Cell"
-    "Int"
-    "Slice"
-    "String"
-    "StringBuilder"
-  )
-)
-
-(tlb_serialization
-  "as" @keyword
-  type: (identifier) @type
 )
 
 ; string
 ; ------
 (string) @string
 
-; string.escape
-; -------------
-(escape_sequence) @string.escape
-
-; string.special.path
-; -------------------
+; string.special
+; --------------
 (import
-  name: (string) @string.special.path
+  name: (string) @string.special
 )
 
-; boolean
-; -------
-(boolean) @boolean
+(escape_sequence) @string.special
 
 ; constant
 ; --------
@@ -170,45 +164,33 @@
 
 ; constant.builtin
 ; ----------------
-(null) @constant.builtin
+[
+  (boolean)
+  (null)
+] @constant.builtin
 
 (
   (identifier) @constant.builtin
-  (#any-of?
-    @constant.builtin
-    "SendDefaultMode"
-    "SendBounceIfActionFail"
-    "SendPayGasSeparately"
-    "SendIgnoreErrors"
-    "SendDestroyIfZero"
-    "SendRemainingValue"
-    "SendRemainingBalance"
-    "SendOnlyEstimateFee"
-    "ReserveExact"
-    "ReserveAllExcept"
-    "ReserveAtMost"
-    "ReserveAddOriginalBalance"
-    "ReserveInvertSign"
-    "ReserveBounceIfActionFail"
-  )
+  (#match? @constant.builtin "^(SendDefaultMode|SendBounceIfActionFail|SendPayGasSeparately|SendPayFwdFeesSeparately|SendIgnoreErrors|SendDestroyIfZero|SendRemainingValue|SendRemainingBalance|SendOnlyEstimateFee|ReserveExact|ReserveAllExcept|ReserveAtMost|ReserveAddOriginalBalance|ReserveInvertSign|ReserveBounceIfActionFail|TactExitCodeNullReferenceException|TactExitCodeInvalidSerializationPrefix|TactExitCodeInvalidIncomingMessage|TactExitCodeConstraintsError|TactExitCodeAccessDenied|TactExitCodeContractStopped|TactExitCodeInvalidArgument|TactExitCodeContractCodeNotFound|TactExitCodeInvalidStandardAddress|TactExitCodeNotBasechainAddress)$")
+  (#is-not? local)
 )
 
 ; property
 ; --------
 (instance_argument
-  name: (identifier) @variable.member
+  name: (identifier) @property
 )
 
 (field_access_expression
-  name: (identifier) @variable.member
+  name: (identifier) @property
 )
 
 (field
-  name: (identifier) @variable.member
+  name: (identifier) @property
 )
 
 (storage_variable
-  name: (identifier) @variable.member
+  name: (identifier) @property
 )
 
 ; number
@@ -217,43 +199,15 @@
 
 ; keyword
 ; -------
-[
-  "with"
-  "const"
-  "let"
-  ; "public" ; -- not used, but declared in grammar.ohm
-  ; "extend" ; -- not used, but declared in grammar.ohm
-] @keyword
+(foreach_statement
+  .
+  (_)
+  .
+  (_)
+  .
+  "in" @keyword
+)
 
-; keyword.type
-; ------------
-[
-  "contract"
-  "trait"
-  "struct"
-  "message"
-] @keyword.type
-
-; keyword.function
-; ----------------
-[
-  "fun"
-  "native"
-  "asm"
-] @keyword.function
-
-; keyword.operator
-; ----------------
-"initOf" @keyword.operator
-
-"codeOf" @keyword.operator
-
-; keyword.import
-; --------------
-"import" @keyword.import
-
-; keyword.modifier
-; ---------------
 [
   "get"
   "mutates"
@@ -262,51 +216,40 @@
   "override"
   "inline"
   "abstract"
-] @keyword.modifier
-
-; keyword.repeat
-; --------------
-(foreach_statement
-  .
-  (_)
-  .
-  (_)
-  .
-  "in" @keyword.repeat
-)
-
-[
+  "contract"
+  "trait"
+  "struct"
+  "message"
+  "with"
+  "const"
+  "let"
+  "fun"
+  "native"
+  "asm"
+  "primitive"
+  "import"
+  "if"
+  "else"
   "while"
   "repeat"
   "do"
   "until"
   "foreach"
-] @keyword.repeat
-
-; keyword.return
-; --------------
-"return" @keyword.return
-
-; keyword.exception
-; -----------------
-[
   "try"
   "catch"
-] @keyword.exception
-
-; keyword.conditional
-; -------------------
-[
-  "if"
-  "else"
-] @keyword.conditional
-
-; keyword.directive.define
-; ------------------------
-"primitive" @keyword.directive.define
+  "return"
+  "initOf"
+  "codeOf"
+  ; "public" ; -- not used, but declared in grammar.ohm
+  ; "extend" ; -- not used, but declared in grammar.ohm
+] @keyword
 
 ; function
 ; --------
+(storage_function
+  name: (identifier) @function
+)
+
 (native_function
   name: (identifier) @function
 )
@@ -319,40 +262,30 @@
   name: (identifier) @function
 )
 
-(func_identifier) @function
-
-; function.method
-; ---------------
-(init_function
-  "init" @function.method
-)
-
-(receive_function
-  "receive" @function.method
-)
-
-(bounced_function
-  "bounced" @function.method
-)
-
-(external_function
-  "external" @function.method
-)
-
-(storage_function
-  name: (identifier) @function.method
-)
-
-; function.call
-; -------------
 (static_call_expression
   name: (identifier) @function.call
 )
 
-; function.method.call
-; ---------------
+(init_function
+  "init" @function
+)
+
+(receive_function
+  "receive" @function
+)
+
+(bounced_function
+  "bounced" @function
+)
+
+(external_function
+  "external" @function
+)
+
+(func_identifier) @function
+
 (method_call_expression
-  name: (identifier) @function.method.call
+  name: (identifier) @function.call
 )
 
 ; asm-specific
@@ -393,9 +326,4 @@
 
 ; comment
 ; -------
-(comment) @comment @spell
-
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^/[*][*][^*].*[*]/$")
-)
+(comment) @comment

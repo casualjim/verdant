@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gowork/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/omertuc/tree-sitter-go-work/949a8a470559543857a62102c84700d291fc984c/queries/highlights.scm
 [
   "replace"
   "go"
@@ -8,7 +7,7 @@
 
 "=>" @operator
 
-(comment) @comment @spell
+(comment) @comment
 
 [
   (version)

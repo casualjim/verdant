@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gitattributes/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-gitattributes/1b7af09d45b579f9f288453b95ad555f1f431645/queries/highlights.scm
 (dir_sep) @punctuation.delimiter
 
 (quoted_pattern
@@ -15,7 +14,7 @@
   ] @punctuation.bracket
 )
 
-(wildcard) @character.special
+(wildcard) @string.regexp
 
 (range_negation) @operator
 
@@ -28,7 +27,7 @@
 [
   (ansi_c_escape)
   (escaped_char)
-] @string.escape
+] @escape
 
 (attribute
   (attr_name) @variable.parameter
@@ -48,16 +47,17 @@
 
 (string_value) @string
 
-(macro_tag) @keyword.directive
+(macro_tag) @keyword
 
 (macro_def
   macro_name: (_) @property
 )
 
-; we do not lint syntax errors
-; [
-;   (pattern_negation)
-;   (redundant_escape)
-;   (trailing_slash)
-; ] @error
-(comment) @comment @spell
+[
+  (pattern_negation)
+  (redundant_escape)
+  (trailing_slash)
+  (ignored_value)
+] @error
+
+(comment) @comment

@@ -1,7 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/dot/highlights.scm
-;; Licensed under the Apache License 2.0
-(identifier) @type
-
+;; Forked from https://raw.githubusercontent.com/rydesun/tree-sitter-dot/80327abbba6f47530edeb0df9f11bd5d5c93c14d/queries/highlights.scm
 [
   "strict"
   "graph"
@@ -36,13 +33,13 @@
 
 (subgraph
   id: (id
-    (identifier) @module
+    (identifier) @namespace
   )
 )
 
 (attribute
   name: (id
-    (identifier) @variable.member
+    (identifier) @type
   )
 )
 
@@ -52,6 +49,11 @@
   )
 )
 
-(comment) @comment @spell
+[
+  (comment)
+  (preproc)
+] @comment
 
-(preproc) @keyword.directive
+(ERROR) @error
+
+(identifier) @variable

@@ -1,16 +1,15 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/thrift/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-thrift/68fd0d80943a828d9e6f49c58a74be1e9ca142cf/queries/highlights.scm
 ; Variables
 (
   (identifier) @variable
-  (#set! priority 95)
+  (#set! "priority" 95)
 )
 
 ; Includes
 [
   "include"
   "cpp_include"
-] @keyword.import
+] @include
 
 ; Function
 (function_definition
@@ -19,14 +18,14 @@
 
 ; Fields
 (field
-  (identifier) @property
+  (identifier) @field
 )
 
 ; Parameters
 (function_definition
   (parameters
     (parameter
-      (identifier) @variable.parameter
+      (identifier) @parameter
     )
   )
 )
@@ -34,7 +33,7 @@
 (throws
   (parameters
     (parameter
-      (identifier) @variable.parameter
+      (identifier) @parameter.exception
     )
   )
 )
@@ -91,17 +90,18 @@
 )
 
 (enum_definition
-  type: (identifier) @type
-)
-
-(enum_definition
+  "enum"
+  .
+  (identifier) @type
   "{"
   (identifier) @constant
+  "}"
 )
 
 ; Builtin Types
+(primitive) @type.builtin
+
 [
-  (primitive)
   "list"
   "map"
   "set"
@@ -112,15 +112,11 @@
 
 ; Namespace
 (namespace_declaration
-  (namespace_scope) @string.special
-)
-
-(namespace_declaration
-  (namespace_scope)
+  (namespace_scope) @tag
   [
-    type: (namespace) @module
+    (namespace) @namespace
     (_
-      (identifier) @module
+      (identifier) @namespace
     )
   ]
 )
@@ -151,25 +147,22 @@
 ] @operator
 
 ; Exceptions
-"throws" @keyword.exception
+["throws"] @exception
 
 ; Keywords
 [
+  "enum"
   "exception"
   "extends"
-  "typedef"
-  "uri"
-] @keyword
-
-[
-  "enum"
-  "struct"
-  "union"
-  "senum"
   "interaction"
   "namespace"
+  "senum"
   "service"
-] @keyword.type
+  "struct"
+  "typedef"
+  "union"
+  "uri"
+] @keyword
 
 ; Deprecated Keywords
 [
@@ -191,7 +184,7 @@
   "xsd_optional"
 ] @keyword
 
-; Extended Keywords
+; Extended Kewords
 [
   "package"
   "performs"
@@ -215,7 +208,7 @@
   "server"
   "stateful"
   "transient"
-] @keyword.modifier
+] @type.qualifier
 
 ; Literals
 (string) @string
@@ -223,12 +216,12 @@
 (escape_sequence) @string.escape
 
 (namespace_uri
-  (string) @string.special.url
+  (string) @text.uri @string.special
 )
 
 (number) @number
 
-(double) @number.float
+(double) @float
 
 (boolean) @boolean
 
@@ -236,15 +229,24 @@
 (typedef_identifier) @type.definition
 
 ; Punctuation
-"*" @punctuation.special
+["*"] @punctuation.special
 
 [
   "{"
   "}"
+] @punctuation.bracket
+
+[
   "("
   ")"
+] @punctuation.bracket
+
+[
   "["
   "]"
+] @punctuation.bracket
+
+[
   "<"
   ">"
 ] @punctuation.bracket
@@ -275,6 +277,9 @@
 )
 
 (
-  (comment) @keyword.directive @nospell
-  (#lua-match? @keyword.directive "#!.*")
+  (comment) @preproc
+  (#lua-match? @preproc "#!.*")
 )
+
+; Errors
+(ERROR) @error

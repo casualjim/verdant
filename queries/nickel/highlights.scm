@@ -1,6 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/nickel/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/nickel-lang/tree-sitter-nickel/a0a5d98a6f0edb5d00a18e62e7d1d02a5607c391/queries/highlights.scm
 (comment) @comment @spell
+
+(annot_atom
+  doc: (static_string) @spell
+)
 
 [
   "forall"
@@ -9,19 +12,23 @@
   "default"
   "doc"
   "rec"
+  "optional"
+  "priority"
+  "force"
+  "not_exported"
 ] @keyword
 
 "fun" @keyword.function
 
-"import" @keyword.import
+"import" @include
 
 [
   "if"
   "then"
   "else"
-] @keyword.conditional
+] @conditional
 
-"match" @keyword.conditional
+"match" @conditional
 
 (types) @type
 
@@ -32,13 +39,13 @@
 
 "null" @constant.builtin
 
+(enum_tag) @constant
+
 (num_literal) @number
 
 (infix_op) @operator
 
 (type_atom) @type
-
-(enum_tag) @variable
 
 (chunk_literal_single) @string
 
@@ -55,6 +62,18 @@
   "|]"
 ] @punctuation.bracket
 
+[
+  ","
+  "."
+  ":"
+  "="
+  "|"
+  "->"
+  "+"
+  "-"
+  "*"
+] @punctuation.delimiter
+
 (multstr_start) @punctuation.bracket
 
 (multstr_end) @punctuation.bracket
@@ -63,18 +82,32 @@
 
 (interpolation_end) @punctuation.bracket
 
-(field_decl) @variable.member
+(field_decl) @field
 
 (builtin) @function.builtin
 
 (fun_expr
   pats: (pattern_fun
-    (ident) @variable.parameter
+    (ident) @parameter
   )
 )
 
+; application where the head terms is an identifier: function arg1 arg2 arg3
 (applicative
   t1: (applicative
-    (record_operand) @function
+    (record_operand
+      (atom
+        (ident)
+      )
+    ) @function
+  )
+)
+
+; application where the head terms is a record field path: foo.bar.function arg1 arg2 arg3
+(applicative
+  t1: (applicative
+    (record_operand
+      (record_operation_chain)
+    ) @function
   )
 )

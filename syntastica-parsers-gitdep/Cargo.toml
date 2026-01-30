@@ -52,13 +52,22 @@ some = [
     "c",
     "cpp",
     "css",
+    "dockerfile",
+    "gitattributes",
+    "gitcommit",
+    "gitconfig",
+    "gitdiff",
+    "gitignore",
+    "gitrebase",
     "go",
+    "graphql",
     "html",
     "java",
     "javascript",
     "json",
     "kotlin",
     "lua",
+    "proto",
     "python",
     "rust",
     "toml",
@@ -76,10 +85,14 @@ most = [
     "clojure",
     "cmake",
     "comment",
+    "csv",
     "dart",
     "diff",
     "elixir",
+    "fish",
     "haskell",
+    "hcl",
+    "ini",
     "jsdoc",
     "json5",
     "jsonc",
@@ -87,18 +100,25 @@ most = [
     "make",
     "markdown",
     "markdown_inline",
+    "nginx",
     "nix",
     "php",
     "php_only",
     "printf",
+    "ps1",
     "regex",
     "ruby",
     "scala",
     "scss",
     "sql",
+    "sshconfig",
     "swift",
+    "terraform",
+    "tsv",
     "typst",
+    "xml",
     "zig",
+    "zsh",
 ]
 
 ## Implies <span class="stab portability"><code>most</code></span>.
@@ -134,7 +154,6 @@ all = [
     "corn",
     "cpon",
     "csharp",
-    "csv",
     "cuda",
     "cue",
     "cylc",
@@ -143,7 +162,6 @@ all = [
     "dhall",
     "disassembly",
     "djot",
-    "dockerfile",
     "dot",
     "doxygen",
     "dtd",
@@ -165,7 +183,6 @@ all = [
     "fennel",
     "fidl",
     "firrtl",
-    "fish",
     "foam",
     "forth",
     "fortran",
@@ -178,12 +195,6 @@ all = [
     "gdresource",
     "gdscript",
     "gdshaderinc",
-    "gitattributes",
-    "gitcommit",
-    "gitconfig",
-    "gitdiff",
-    "gitignore",
-    "gitrebase",
     "gleam",
     "glimmer_javascript",
     "glimmer_typescript",
@@ -196,7 +207,6 @@ all = [
     "gotmpl",
     "gowork",
     "gpg",
-    "graphql",
     "gren",
     "groovy",
     "groq",
@@ -205,7 +215,6 @@ all = [
     "handlebars",
     "hare",
     "haskellpersistent",
-    "hcl",
     "heex",
     "helm",
     "help",
@@ -222,7 +231,6 @@ all = [
     "hyprlang",
     "idl",
     "idris2",
-    "ini",
     "inko",
     "ispc",
     "janet",
@@ -259,7 +267,6 @@ all = [
     "mlir",
     "muttrc",
     "nasm",
-    "nginx",
     "nickel",
     "nim",
     "nim_format_string",
@@ -289,9 +296,7 @@ all = [
     "problog",
     "prolog",
     "promql",
-    "proto",
     "prql",
-    "ps1",
     "psv",
     "pug",
     "puppet",
@@ -338,7 +343,6 @@ all = [
     "sparql",
     "sproto",
     "squirrel",
-    "sshconfig",
     "strace",
     "styled",
     "supercollider",
@@ -355,7 +359,6 @@ all = [
     "teal",
     "templ",
     "tera",
-    "terraform",
     "tex",
     "thrift",
     "tiger",
@@ -363,7 +366,6 @@ all = [
     "tmux",
     "todotxt",
     "trace32",
-    "tsv",
     "turtle",
     "twig",
     "typespec",
@@ -389,13 +391,11 @@ all = [
     "wxml",
     "xcompose",
     "xdefaults",
-    "xml",
     "yang",
     "yuck",
     "zathurarc",
     "ziggy",
     "ziggy_schema",
-    "zsh",
 ]
 
 ## Meant to be enabled when building docs
@@ -805,8 +805,8 @@ rev = "2346a3ab1bb3857b48b29d779a1ef9799a248cd7"
 
 [dependencies.tree-sitter-haskell]
 optional = true
-git = "https://github.com/tree-sitter/tree-sitter-haskell"
-rev = "0975ef72fc3c47b530309ca93937d7d143523628"
+git = "https://github.com/tree-sitter-grammars/tree-sitter-haskell"
+rev = "7fa19f195803a77855f036ee7f49e4b22856e338"
 
 [dependencies.tree-sitter-html]
 optional = true
@@ -836,7 +836,7 @@ rev = "001c28d7a29832b06b0e831ec77845553c89b56d"
 [dependencies.tree-sitter-julia]
 optional = true
 git = "https://github.com/tree-sitter/tree-sitter-julia"
-rev = "e0f9dcd180fdcfcfa8d79a3531e11d99e79321d3"
+rev = "3c1bd7c6c1a7442506b040d17500b69ad52209cd"
 
 [dependencies.tree-sitter-kotlin]
 optional = true
@@ -850,8 +850,8 @@ rev = "27b0f7bb55b4cabd8f01a933d9ee6a49dbfc2192"
 
 [dependencies.tree-sitter-lua]
 optional = true
-git = "https://github.com/MunifTanjim/tree-sitter-lua"
-rev = "4fbec840c34149b7d5fe10097c93a320ee4af053"
+git = "https://github.com/tree-sitter-grammars/tree-sitter-lua"
+rev = "816840c592ab973500ae9750763c707b447e7fef"
 
 [dependencies.tree-sitter-make]
 optional = true
@@ -886,7 +886,7 @@ rev = "ec4e5674573d5554fccb87a887c97d4aec489da7"
 [dependencies.tree-sitter-python]
 optional = true
 git = "https://github.com/tree-sitter/tree-sitter-python"
-rev = "26855eabccb19c6abf499fbc5b8dc7cc9ab8bc64"
+rev = "v0.25.0"
 
 [dependencies.tree-sitter-ql]
 optional = true
@@ -920,8 +920,8 @@ rev = "97aead18d97708190a51d4f551ea9b05b60641c9"
 
 [dependencies.tree-sitter-sequel]
 optional = true
-git = "https://github.com/DerekStride/tree-sitter-sql"
-rev = "1c70b7db248983cc75a92a9846ac16b2aee32d65"
+git = "https://github.com/derekstride/tree-sitter-sql"
+rev = "7b51ecda191d36b92f5a90a8d1bc3faef1c7b8b8"
 
 [dependencies.tree-sitter-typescript]
 optional = true
@@ -931,9 +931,9 @@ rev = "75b3874edb2dc714fb1fd77a32013d0f8699989f"
 [dependencies.tree-sitter-yaml]
 optional = true
 git = "https://github.com/tree-sitter-grammars/tree-sitter-yaml"
-rev = "4463985dfccc640f3d6991e3396a2047610cf5f8"
+rev = "7708026449bed86239b1cd5bce6e3c34dbca6415"
 
 [dependencies.tree-sitter-zig]
 optional = true
-git = "https://github.com/maxxnino/tree-sitter-zig"
-rev = "a80a6e9be81b33b182ce6305ae4ea28e29211bd5"
+git = "https://github.com/tree-sitter-grammars/tree-sitter-zig"
+rev = "6479aa13f32f701c383083d8b28360ebd682fb7d"

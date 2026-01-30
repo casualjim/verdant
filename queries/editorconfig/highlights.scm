@@ -1,18 +1,14 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/editorconfig/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/ValdezFOmar/tree-sitter-editorconfig/851f2c2483239ce62f919bf3408ccd20dc0b5c01/queries/editorconfig/highlights.scm
+(comment) @comment
 
-(section
-  (section_name) @string.special.path
+(character) @constant
+
+(section_name
+  (character) @type
 )
 
-(character_choice
-  (character) @constant
-)
-
-(character_range
-  start: (character) @constant
-  end: (character) @constant
+(expansion_string
+  (character) @type
 )
 
 [
@@ -23,39 +19,35 @@
 ] @punctuation.bracket
 
 [
-  ","
-  ".."
   (path_separator)
+  ","
 ] @punctuation.delimiter
 
 [
   "-"
+  ".."
   "="
   (negation)
-] @operator
-
-[
   (wildcard_characters)
   (wildcard_any_characters)
   (wildcard_single_character)
-] @character.special
+] @operator
 
-(escaped_character) @string.escape
+(escaped_character) @string.special
 
 (pair
   key: (identifier) @property
-  value: (_) @string
+  value: (_)? @string
 )
 
 (boolean) @boolean
 
 (integer) @number
 
-(unset) @constant.builtin
-
 [
+  (unset)
   (spelling_language)
   (indent_style)
   (end_of_line)
   (charset)
-] @string.special
+] @constant.builtin

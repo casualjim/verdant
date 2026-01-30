@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/blade/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/EmranMR/tree-sitter-blade/cc764dadcbbceb3f259396fef66f970c72e94f96/queries/highlights.scm
 ; inherits: html
 [
   (directive)

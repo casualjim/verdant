@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/http/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/rest-nvim/tree-sitter-http/db8b4398de90b6d0b6c780aba96aaa2cd8e9202c/queries/highlights.scm
 ; Methods
 (method) @function.method
 
@@ -8,19 +7,9 @@
   name: (_) @constant
 )
 
-(header
-  value: (_) @string
-)
-
 ; Variables
-(identifier) @variable
-
 (variable_declaration
-  "@" @character.special
-)
-
-(variable_declaration
-  (value) @string
+  name: (identifier) @variable
 )
 
 ; Operators
@@ -43,7 +32,7 @@
   url: (_) @string.special.url
 )
 
-(http_version) @string.special
+(http_version) @constant
 
 ; Response
 (status_code) @number
@@ -54,11 +43,7 @@
 [
   "{{"
   "}}"
-  "{%"
-  "%}"
 ] @punctuation.bracket
-
-">" @punctuation.special
 
 (header
   ":" @punctuation.delimiter

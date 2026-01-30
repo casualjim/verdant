@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vhs/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/charmbracelet/tree-sitter-vhs/0c6fae9d2cfc5b217bfd1fe84a7678f5917116db/queries/highlights.scm
 [
   "Output"
   "Backspace"
@@ -40,21 +39,22 @@
   "CursorBlink"
 ] @type
 
-"@" @operator
+["@"] @operator
 
 (control) @function.macro
 
-(float) @number.float
+(float) @float
 
 (integer) @number
 
 (comment) @comment @spell
 
 [
+  (path)
   (string)
   (json)
 ] @string
 
-(path) @string.special.path
+(time) @symbol
 
-(time) @string.special
+(boolean) @boolean

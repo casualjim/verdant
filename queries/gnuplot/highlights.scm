@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gnuplot/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/dpezto/tree-sitter-gnuplot/8923c1e38b9634a688a6c0dce7c18c8ffb823e79/queries/highlights.scm
 ; highlights.scm
 (comment) @comment @spell
 
@@ -42,7 +41,7 @@
   [
     "?"
     ":"
-  ] @keyword.conditional.ternary
+  ] @conditional.ternary
 )
 
 "sum" @function.builtin
@@ -76,7 +75,7 @@
 
 (c_pause
   "pause" @keyword
-  "mouse" @variable.member
+  "mouse" @field
   _? @attribute
   (","
     _ @attribute
@@ -96,7 +95,7 @@
   "stats" @keyword
   ("name"
     (_)
-  )? @variable.member
+  )? @field
 )
 
 [
@@ -111,11 +110,11 @@
 ] @keyword.conditional
 
 (plot_element
-  "axes"? @variable.member
+  "axes"? @field
 )
 
 (cntrparam
-  "auto"? @variable.member
+  "auto"? @property
 )
 
 (colorbox
@@ -123,7 +122,7 @@
 )
 
 (contourfill
-  "auto"? @variable.member
+  "auto"? @field
 )
 
 (format
@@ -133,7 +132,11 @@
 )
 
 (key
-  "auto"? @variable.member
+  "auto"? @property
+)
+
+(polar
+  "r" @attribute
 )
 
 (style
@@ -141,12 +144,7 @@
   [
     "arrow"
     "boxplot"
-    ("data"
-      [
-        (_)
-        "spiderplot" @attribute
-      ]
-    )
+    "data"
     "fs"
     "function"
     "line"
@@ -154,17 +152,18 @@
     "rectangle"
     "ellipse"
     "parallelaxis"
-    ; (spiderplot) ; TODO: complete
+    "spiderplot"
     "textbox"
     ("watchpoint"
       "labels" @attribute
       (_)?
     )
-  ] @variable.member
+    "histogram"
+  ] @property
 )
 
 (terminal
-  "name" @variable.member
+  "name" @property
 )
 
 ; TODO: complete terminals in grammar and then simplify its options here
@@ -246,7 +245,9 @@
     "circles"
     "zerrorfill"
     "ellipses"
-    "filledcurves"
+    ("filledcurves"
+      "r" @property
+    )
     "fillsteps"
     "histograms"
     "image"
@@ -292,7 +293,6 @@
   "cb"
   "arg"
   "prefix"
-  "output"
   "primary"
   "specular"
   "spec2"
@@ -300,6 +300,7 @@
   "width"
   "height"
   "expand"
+  "level"
   "array"
   "dx"
   "dy"
@@ -307,9 +308,8 @@
   "filetype"
   "center"
   "record"
-] @variable.member
+] @field
 
-; Workaround because formatter cannot handle 300 list nodes
 [
   (angles)
   (clip)
@@ -432,6 +432,11 @@
   "nodraw"
   "size"
   "new"
+  "clustered"
+  "columnstacked"
+  "rowstacked"
+  "nokeyseparators"
+  "errorbars"
   "first"
   "second"
   "screen"
@@ -473,6 +478,8 @@
   "hypertext"
   "defaults"
   "keyentry"
+  "newhistogram"
+  "newspiderplot"
   "splines"
   "qnorm"
   "gauss"
@@ -480,6 +487,7 @@
   "exp"
   "box"
   "hann"
+  "theta"
   "implicit"
   "explicit"
   "rotate"
@@ -511,6 +519,8 @@
   "lambda-factor"
   "script"
   "clip"
+  "noclip"
+  "units"
   "fontscale"
   "lighting"
   "depthorder"
@@ -538,6 +548,7 @@
   "nonuniform"
   "sparse"
   "matrix"
+  "output"
 ] @attribute
 
 [
@@ -546,9 +557,10 @@
   "y1"
   "y2"
   "y"
-  "r"
   "z"
+  "xx"
   "xy"
+  "yy"
   "xz"
   "yz"
   "xyz"
@@ -583,6 +595,7 @@
   "bezier"
   "sbezier"
   "unwrap"
+  "grid"
   "kdensity"
   "closed"
   "between"
@@ -590,6 +603,7 @@
   "below"
   "variable"
   "pixels"
+  "whiskerbars"
   "RGB"
   "CMY"
   "HSV"
@@ -610,22 +624,22 @@
   "flipx"
   "flipy"
   "flipz"
-] @variable.member
+] @property
 
 (colorspec
   "palette" @attribute
 )
 
 (datafile_modifiers
-  "origin"? @variable.member
+  "origin"? @field
 )
 
 (
   (datafile_modifiers
-    filetype: (identifier) @variable.member
+    filetype: (identifier) @property
   )
   (#any-of?
-    @variable.member
+    @property
     "avs"
     "bin"
     "edf"
@@ -643,7 +657,7 @@
 
 (macro) @function.macro
 
-(datablock) @function.macro
+(datablock) @namespace
 
 (function
   name: (identifier) @function

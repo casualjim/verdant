@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/readline/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-readline/6b744c527aebd12e46a5ecb3aebdb8d621a8e83e/queries/highlights.scm
+(comment) @comment
 
 "set" @keyword
 

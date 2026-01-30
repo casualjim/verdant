@@ -1,108 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/liquid/highlights.scm
-;; Licensed under the Apache License 2.0
-(
-  (comment) @comment @spell
-  (#set! priority 110)
-)
-
-(raw_statement
-  (raw_content) @spell
-  (#set! priority 110)
-)
-
-(
-  (identifier) @variable
-  (#set! priority 110)
-)
-
-(
-  (string) @string
-  (#set! priority 110)
-)
-
-(
-  (boolean) @boolean
-  (#set! priority 110)
-)
-
-(
-  (number) @number
-  (#set! priority 110)
-)
-
-(filter
-  name: (identifier) @function.call
-  (#set! priority 110)
-)
-
-(
-  [
-    "as"
-    "assign"
-    "capture"
-    (custom_unpaired_statement)
-    "decrement"
-    "echo"
-    "endcapture"
-    "endform"
-    "endjavascript"
-    "endraw"
-    "endschema"
-    "endstyle"
-    "form"
-    "increment"
-    "javascript"
-    "layout"
-    "liquid"
-    "raw"
-    "schema"
-    "style"
-    "with"
-  ] @keyword
-  (#set! priority 110)
-)
-
-(
-  [
-    "case"
-    "else"
-    "elsif"
-    "endcase"
-    "endif"
-    "endunless"
-    "if"
-    "unless"
-    "when"
-  ] @keyword.conditional
-  (#set! priority 110)
-)
-
-(
-  [
-    (break_statement)
-    (continue_statement)
-    "by"
-    "cycle"
-    "endfor"
-    "endpaginate"
-    "endtablerow"
-    "for"
-    "paginate"
-    "tablerow"
-  ] @keyword.repeat
-  (#set! priority 110)
-)
-
-(
-  [
-    "and"
-    "contains"
-    "in"
-    "or"
-  ] @keyword.operator
-  (#set! priority 110)
-)
-
+;; Forked from https://raw.githubusercontent.com/hankthetank27/tree-sitter-liquid/d6ebde3974742cd1b61b55d1d94aab1dacb41056/queries/highlights.scm
 (
   [
     "{{"
@@ -114,45 +10,129 @@
     "{%-"
     "-%}"
   ] @tag.delimiter
-  (#set! priority 110)
+  (#set! priority 101)
 )
 
-[
-  "include"
-  "include_relative"
-  "render"
-  "section"
-  "sections"
-] @keyword.import
+(
+  [
+    "]"
+    "["
+    ")"
+    "("
+  ] @punctuation.bracket
+  (#set! priority 101)
+)
 
-[
-  "|"
-  ":"
-  "="
-  "+"
-  "-"
-  "*"
-  "/"
-  "%"
-  "^"
-  "=="
-  "<"
-  "<="
-  "!="
-  ">="
-  ">"
-] @operator
+(
+  [
+    ","
+    "."
+  ] @punctuation.delimiter
+  (#set! priority 101)
+)
 
-[
-  "]"
-  "["
-  ")"
-  "("
-] @punctuation.bracket
+(
+  [
+    "as"
+    "assign"
+    (break_statement)
+    "by"
+    "capture"
+    "case"
+    (continue_statement)
+    (custom_unpaired_statement)
+    "cycle"
+    "decrement"
+    "echo"
+    "else"
+    "elsif"
+    "endcapture"
+    "endcase"
+    "endfor"
+    "endform"
+    "endif"
+    "endjavascript"
+    "endpaginate"
+    "endraw"
+    "endschema"
+    "endstyle"
+    "endtablerow"
+    "endunless"
+    "for"
+    "form"
+    "if"
+    "include"
+    "include_relative"
+    "increment"
+    "javascript"
+    "layout"
+    "liquid"
+    "paginate"
+    "raw"
+    "render"
+    "schema"
+    "section"
+    "sections"
+    "style"
+    "tablerow"
+    "unless"
+    "when"
+    "with"
+  ] @keyword
+  (#set! priority 101)
+)
 
-[
-  ","
-  "."
-] @punctuation.delimiter
+(
+  [
+    "and"
+    "contains"
+    "in"
+    "or"
+  ] @keyword.operator
+  (#set! priority 101)
+)
 
-(front_matter) @keyword.directive
+(
+  [
+    "|"
+    ":"
+    "="
+    (predicate)
+  ] @operator
+  (#set! priority 101)
+)
+
+(
+  (identifier) @variable
+  (#set! priority 101)
+)
+
+(
+  (string) @string
+  (#set! priority 101)
+)
+
+(
+  (boolean) @boolean
+  (#set! priority 101)
+)
+
+(
+  (number) @number
+  (#set! priority 101)
+)
+
+(filter
+  name: (identifier) @function.call
+  (#set! priority 101)
+)
+
+(raw_statement
+  (raw_content) @text.reference
+  (#set! priority 102)
+)
+
+(
+  (comment) @comment
+  (#set! priority 102)
+)

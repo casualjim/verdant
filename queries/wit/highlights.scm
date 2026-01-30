@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/wit/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/bytecodealliance/tree-sitter-wit/v1.2.0/queries/highlights.scm
 (ty
   (id)
 ) @type
@@ -149,7 +148,7 @@
 )
 
 (alias_item
-  (id) @module
+  alias: (id) @module
 )
 
 (use_names_item

@@ -1,9 +1,11 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/nqc/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-nqc/14e6da1627aaef21d2b2aa0c37d04269766dcc1d/queries/highlights.scm
 ; inherits: c
-"task" @keyword.function
+[
+  "task"
+  "sub"
+] @keyword.function
 
-"until" @keyword.repeat
+["until"] @repeat
 
 [
   "acquire"

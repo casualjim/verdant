@@ -1,85 +1,13 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/awk/highlights.scm
-;; Licensed under the Apache License 2.0
-; adapted from https://github.com/Beaglefoot/tree-sitter-awk
-[
-  (identifier)
-  (field_ref)
-] @variable
-
-(field_ref
-  (_) @variable
-)
-
-; https://www.gnu.org/software/gawk/manual/html_node/Auto_002dset.html
-(
-  (identifier) @constant.builtin
-  (#any-of?
-    @constant.builtin
-    "ARGC"
-    "ARGV"
-    "ARGIND"
-    "ENVIRON"
-    "ERRNO"
-    "FILENAME"
-    "FNR"
-    "NF"
-    "FUNCTAB"
-    "NR"
-    "PROCINFO"
-    "RLENGTH"
-    "RSTART"
-    "RT"
-    "SYMTAB"
-  )
-)
-
-; https://www.gnu.org/software/gawk/manual/html_node/User_002dmodified.html
-(
-  (identifier) @variable.builtin
-  (#any-of?
-    @variable.builtin
-    "BINMODE"
-    "CONVFMT"
-    "FIELDWIDTHS"
-    "FPAT"
-    "FS"
-    "IGNORECASE"
-    "LINT"
-    "OFMT"
-    "OFS"
-    "ORS"
-    "PREC"
-    "ROUNDMODE"
-    "RS"
-    "SUBSEP"
-    "TEXTDOMAIN"
-  )
-)
-
-(number) @number
-
-(string) @string
-
-(regex) @string.regexp
-
-(escape_sequence) @string.escape
-
-(comment) @comment @spell
-
-(
-  (program
-    .
-    (comment) @keyword.directive @nospell
-  )
-  (#lua-match? @keyword.directive "^#!/")
+;; Forked from https://raw.githubusercontent.com/Beaglefoot/tree-sitter-awk/34bbdc7cce8e803096f47b625979e34c1be38127/queries/highlights.scm
+; tree-sitter-awk v0.7.2
+; https://tree-sitter.github.io/tree-sitter/using-parsers#pattern-matching-with-queries
+; Order matters
+(ns_qualified_name
+  (namespace) @namespace
 )
 
 (ns_qualified_name
-  (namespace) @module
-)
-
-(ns_qualified_name
-  "::" @punctuation.delimiter
+  "::" @operator
 )
 
 (func_def
@@ -94,98 +22,54 @@
   ) @function
 )
 
-(func_def
-  (param_list
-    (identifier) @variable.parameter
-  )
+[
+  (identifier)
+  (field_ref)
+] @variable
+
+(field_ref
+  (_) @variable
 )
 
+(string) @string
+
+(number) @number
+
+(regex) @regexp
+
+(comment) @comment
+
 [
-  "asort"
-  "asorti"
-  "bindtextdomain"
-  "compl"
-  "cos"
-  "dcgettext"
-  "dcngettext"
-  "exp"
-  "gensub"
-  "gsub"
-  "index"
-  "int"
-  "isarray"
-  "length"
-  "log"
-  "lshift"
-  "match"
-  "mktime"
-  "patsplit"
-  "rand"
-  "rshift"
-  "sin"
-  "split"
-  "sprintf"
-  "sqrt"
-  "srand"
-  "strftime"
-  "strtonum"
-  "sub"
-  "substr"
-  "systime"
-  "tolower"
-  "toupper"
-  "typeof"
+  "function"
+  "func"
   "print"
   "printf"
-  "getline"
-] @function.builtin
-
-[
-  (delete_statement)
-  (break_statement)
-  (continue_statement)
-  (next_statement)
-  (nextfile_statement)
-] @keyword
-
-[
-  "func"
-  "function"
-] @keyword.function
-
-[
-  "return"
-  "exit"
-] @keyword.return
-
-[
+  "if"
+  "else"
   "do"
   "while"
   "for"
   "in"
-] @keyword.repeat
-
-[
-  "if"
-  "else"
+  "delete"
+  "return"
+  "exit"
   "switch"
   "case"
   "default"
-] @keyword.conditional
+  (break_statement)
+  (continue_statement)
+  (next_statement)
+  (nextfile_statement)
+  (getline_input)
+  (getline_file)
+] @keyword
 
 [
   "@include"
   "@load"
-] @keyword.import
-
-"@namespace" @keyword.directive
-
-[
-  "BEGIN"
-  "END"
-  "BEGINFILE"
-  "ENDFILE"
-] @label
+  "@namespace"
+  (pattern)
+] @namespace
 
 (binary_exp
   [
@@ -234,7 +118,7 @@
   [
     "?"
     ":"
-  ] @keyword.conditional.ternary
+  ] @operator
 )
 
 (update_exp
@@ -258,35 +142,13 @@
   ] @operator
 )
 
-(piped_io_exp
-  [
-    "|"
-    "|&"
-  ] @operator
-)
-
-(field_ref
-  "$" @punctuation.delimiter
-)
-
-(regex
-  "/" @punctuation.delimiter
-)
-
-(regex_constant
-  "@" @punctuation.delimiter
-)
-
 [
   ";"
   ","
-] @punctuation.delimiter
-
-[
   "("
   ")"
   "["
   "]"
   "{"
   "}"
-] @punctuation.bracket
+] @operator

@@ -1,8 +1,11 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/nginx/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/opa-oz/tree-sitter-nginx/47ade644d754cce57974aac44d2c9450e823d4f4/queries/highlights.scm
 (comment) @comment @spell
 
 (value) @variable
+
+(attribute
+  (keyword) @attribute
+)
 
 [
   (location_modifier)
@@ -19,6 +22,10 @@
   "map"
 ] @keyword.conditional
 
+(directive
+  (keyword) @constant
+)
+
 (boolean) @boolean
 
 [
@@ -27,18 +34,19 @@
   (level)
   (connection_method)
   (var)
-  (condition)
+  condition: (condition)
 ] @variable.builtin
-
-[
-  (file)
-  (mask)
-] @string.special.path
 
 [
   (string_literal)
   (quoted_string_literal)
+  (file)
+  (mask)
 ] @string
+
+(directive
+  (variable) @variable.parameter
+)
 
 (directive
   (variable

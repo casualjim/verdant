@@ -1,28 +1,35 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/pascal/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/Isopod/tree-sitter-pascal/042119eca2e18a60e56317fb06ee3ba5c32cb447/queries/highlights.scm
 ; -- Keywords
 [
   (kProgram)
   (kLibrary)
   (kUnit)
+  (kUses)
   (kBegin)
   (kEnd)
   (kAsm)
   (kVar)
   (kThreadvar)
   (kConst)
-  (kConstref)
   (kResourcestring)
+  (kConstref)
   (kOut)
   (kType)
   (kLabel)
   (kExports)
+  (kAbsolute)
   (kProperty)
   (kRead)
   (kWrite)
   (kImplements)
+  (kDefault)
+  (kNodefault)
+  (kStored)
+  (kIndex)
+  (kDispId)
   (kClass)
   (kInterface)
+  (kDispInterface)
   (kObject)
   (kRecord)
   (kObjcclass)
@@ -34,7 +41,7 @@
   (kSet)
   (kOf)
   (kHelper)
-  (kInherited)
+  (kPacked)
   (kGeneric)
   (kSpecialize)
   (kFunction)
@@ -43,36 +50,10 @@
   (kDestructor)
   (kOperator)
   (kReference)
+  (kInterface)
   (kImplementation)
   (kInitialization)
   (kFinalization)
-  (kTry)
-  (kExcept)
-  (kFinally)
-  (kRaise)
-  (kOn)
-  (kCase)
-  (kWith)
-  (kGoto)
-] @keyword
-
-[
-  (kFor)
-  (kTo)
-  (kDownto)
-  (kDo)
-  (kWhile)
-  (kRepeat)
-  (kUntil)
-] @keyword.repeat
-
-[
-  (kIf)
-  (kThen)
-  (kElse)
-] @keyword.conditional
-
-[
   (kPublished)
   (kPublic)
   (kProtected)
@@ -80,21 +61,7 @@
   (kStrict)
   (kRequired)
   (kOptional)
-] @keyword.modifier
-
-[
-  (kPacked)
-  (kAbsolute)
-] @keyword.modifier
-
-(kUses) @keyword.import
-
-; -- Attributes
-[
-  (kDefault)
-  (kIndex)
-  (kNodefault)
-  (kStored)
+  (kForward)
   (kStatic)
   (kVirtual)
   (kAbstract)
@@ -103,8 +70,8 @@
   (kOverride)
   (kOverload)
   (kReintroduce)
+  (kInherited)
   (kInline)
-  (kForward)
   (kStdcall)
   (kCdecl)
   (kCppdecl)
@@ -141,13 +108,25 @@
   (kWinapi)
   (kAlias)
   (kDelayed)
-  (rttiAttributes)
-  (procAttribute)
-] @attribute
-
-(procAttribute
-  (kPublic) @attribute
-)
+  (kFor)
+  (kTo)
+  (kDownto)
+  (kIf)
+  (kThen)
+  (kElse)
+  (kDo)
+  (kWhile)
+  (kRepeat)
+  (kUntil)
+  (kTry)
+  (kExcept)
+  (kFinally)
+  (kRaise)
+  (kOn)
+  (kCase)
+  (kWith)
+  (kGoto)
+] @keyword
 
 ; -- Punctuation & operators
 [
@@ -161,10 +140,9 @@
   ";"
   ","
   ":"
+  ".."
   (kEndDot)
 ] @punctuation.delimiter
-
-".." @punctuation.special
 
 [
   (kDot)
@@ -187,6 +165,7 @@
   (kHat)
 ] @operator
 
+; technically operators, but better to render as reserved words
 [
   (kOr)
   (kXor)
@@ -199,114 +178,28 @@
   (kIs)
   (kAs)
   (kIn)
-] @keyword.operator
+] @keyword
 
 ; -- Builtin constants
 [
   (kTrue)
   (kFalse)
-] @boolean
+] @constant;
 
-(kNil) @constant.builtin
+; arguably a constant, but we highlight it as a keyword
+[
+  (kNil)
+] @keyword
 
 ; -- Literals
 (literalNumber) @number
 
 (literalString) @string
 
-; -- Variables
-(exprBinary
-  (identifier) @variable
-)
-
-(exprUnary
-  (identifier) @variable
-)
-
-(assignment
-  (identifier) @variable
-)
-
-(exprBrackets
-  (identifier) @variable
-)
-
-(exprParens
-  (identifier) @variable
-)
-
-(exprDot
-  (identifier) @variable
-)
-
-(exprTpl
-  (identifier) @variable
-)
-
-(exprArgs
-  (identifier) @variable
-)
-
-(defaultValue
-  (identifier) @variable
-)
-
 ; -- Comments
-(comment) @comment @spell
+(comment) @comment
 
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^///[^/]")
-)
-
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^///$")
-)
-
-(
-  (comment) @comment.documentation
-  .
-  [
-    (unit)
-    (declProc)
-  ]
-)
-
-(declTypes
-  (comment) @comment.documentation
-  .
-  (declType)
-)
-
-(declSection
-  (comment) @comment.documentation
-  .
-  [
-    (declField)
-    (declProc)
-  ]
-)
-
-(declEnum
-  (comment) @comment.documentation
-  .
-  (declEnumValue)
-)
-
-(declConsts
-  (comment) @comment.documentation
-  .
-  (declConst)
-)
-
-(declVars
-  (comment) @comment.documentation
-  .
-  (declVar)
-)
-
-(pp) @keyword.directive
+(pp) @keyword
 
 ; -- Type declaration
 (declType
@@ -353,14 +246,6 @@
   name: (identifier) @function
 )
 
-(declProp
-  getter: (identifier) @variable.member
-)
-
-(declProp
-  setter: (identifier) @variable.member
-)
-
 ; -- Function parameters
 (declArg
   name: (identifier) @variable.parameter
@@ -368,44 +253,20 @@
 
 ; -- Template parameters
 (genericArg
-  name: (identifier) @variable.parameter
+  name: (identifier) @type.parameter
 )
 
 (genericArg
   type: (typeref) @type
 )
 
-(declProc
-  name: (genericDot
-    lhs: (identifier) @type
-  )
-)
-
-(declType
-  (genericDot
-    (identifier) @type
-  )
+(genericDot
+  (identifier) @type
 )
 
 (genericDot
   (genericTpl
-    (identifier) @type
-  )
-)
-
-(genericDot
-  (genericDot
-    (identifier) @type
-  )
-)
-
-(genericTpl
-  entity: (identifier) @type
-)
-
-(genericTpl
-  entity: (genericDot
-    (identifier) @type
+    entity: (identifier) @type
   )
 )
 
@@ -421,67 +282,44 @@
 [
   (caseLabel)
   (label)
-] @constant
+] @constant;
 
-(procAttribute
-  (identifier) @constant
-)
-
-(procExternal
-  (identifier) @constant
-)
-
-; -- Variable & constant declarations
-; (This is only questionable because we cannot detect types of identifiers
-; declared in other units, so the results will be inconsistent)
-(declVar
-  name: (identifier) @variable
-)
-
-(declConst
-  name: (identifier) @constant
-)
-
-(declEnumValue
-  name: (identifier) @constant
-)
-
-; -- Fields
-(exprDot
-  rhs: (identifier) @variable.member
-)
-
-(exprDot
-  rhs: (exprDot) @variable.member
-)
-
-(declClass
-  (declField
-    name: (identifier) @variable.member
+;;; ---------------------------------------------- ;;;
+;;; EVERYTHING BELOW THIS IS OF QUESTIONABLE VALUE ;;;
+;;; ---------------------------------------------- ;;;
+; -- Break, Continue & Exit
+; (Not ideal: ideally, there would be a way to check if these special
+; identifiers are shadowed by a local variable)
+(statement
+  (
+    (identifier) @keyword
+    (#match? @keyword "^[eE][xX][iI][tT]$")
   )
 )
 
-(declSection
-  (declField
-    name: (identifier) @variable.member
-  )
-)
-
-(declSection
-  (declVars
-    (declVar
-      name: (identifier) @variable.member
+(statement
+  (exprCall
+    entity: (
+      (identifier) @keyword
+      (#match? @keyword "^[eE][xX][iI][tT]$")
     )
   )
 )
 
-(recInitializerField
-  name: (identifier) @variable.member
+(statement
+  (
+    (identifier) @keyword
+    (#match? @keyword "^[bB][rR][eE][aA][kK]$")
+  )
 )
 
-; ---------------------------------------------- ;;;
-; EVERYTHING BELOW THIS IS OF QUESTIONABLE VALUE ;;;
-; ---------------------------------------------- ;;;
+(statement
+  (
+    (identifier) @keyword
+    (#match? @keyword "^[cC][oO][nN][tT][iI][nN][uU][eE]$")
+  )
+)
+
 ; -- Procedure name in calls with parentheses
 ; (Pascal doesn't require parentheses for procedure calls, so this will not
 ; detect all calls)
@@ -513,8 +351,6 @@
   )
 )
 
-(inherited) @function
-
 ; -- Heuristic for procedure/function calls without parentheses
 ; (If a statement consists only of an identifier, assume it's a procedure)
 ; (This will still not match all procedure calls, and also may produce false
@@ -543,107 +379,89 @@
   )
 )
 
-; -- Break, Continue & Exit
-; (Not ideal: ideally, there would be a way to check if these special
-; identifiers are shadowed by a local variable)
-(statement
-  (
-    (identifier) @keyword.return
-    (#lua-match? @keyword.return "^[eE][xX][iI][tT]$")
-  )
+; -- Variable & constant declarations
+; (This is only questionable because we cannot detect types of identifiers
+; declared in other units, so the results will be inconsistent)
+(declVar
+  name: (identifier) @variable
 )
 
-(statement
-  (exprCall
-    entity: (
-      (identifier) @keyword.return
-      (#lua-match? @keyword.return "^[eE][xX][iI][tT]$")
-    )
-  )
+(declField
+  name: (identifier) @variable
 )
 
-(statement
-  (
-    (identifier) @keyword.repeat
-    (#lua-match? @keyword.repeat "^[bB][rR][eE][aA][kK]$")
-  )
+(declConst
+  name: (identifier) @constant
 )
 
-(statement
-  (
-    (identifier) @keyword.repeat
-    (#lua-match? @keyword.repeat "^[cC][oO][nN][tT][iI][nN][uU][eE]$")
-  )
+(declEnumValue
+  name: (identifier) @constant
 )
 
-; -- Identifier type inference
-; VERY QUESTIONABLE: Highlighting of identifiers based on spelling
+; -- Identifier type inferrence
+; vERY QUESTIONABLE: Highlighting of identifiers based on spelling
 (exprBinary
   (
     (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
+    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2}[A-Z].+$")
   )
 )
 
 (exprUnary
   (
     (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
+    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2}[A-Z].+$")
   )
 )
 
 (assignment
   rhs: (
     (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
+    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2}[A-Z].+$")
   )
 )
 
 (exprBrackets
   (
     (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
+    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2}[A-Z].+$")
   )
 )
 
 (exprParens
   (
     (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
+    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2}[A-Z].+$")
   )
 )
 
-(exprDot
-  rhs: (
-    (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
-  )
-)
-
+;(exprDot rhs: ((identifier) @constant
+; (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{1,2}[A-Z].+$")))
 (exprTpl
   args: (
     (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
+    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2}[A-Z].+$")
   )
 )
 
 (exprArgs
   (
     (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
+    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2}[A-Z].+$")
   )
 )
 
-(declEnumValue
-  (
-    (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
-  )
-)
-
-(defaultValue
-  (
-    (identifier) @constant
-    (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{2,3}[A-Z].+$")
-  )
-)
+;(declEnumValue ((identifier) @constant
+; (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{1,2}[A-Z].+$")))
+;(defaultValue ((identifier) @constant
+; (#match? @constant "^[A-Z][A-Z0-9_]+$|^[a-z]{1,2}[A-Z].+$")))
+; -- Use scoping information for additional highlighting. THIS NEED TO BE LAST.
+; FIXME: Right now this is buggy, because in case of something like this:
+;   procedure (x: integer);
+;   begin
+;     a.x;
+;   end;
+; The x in a.x would be highlighted as a parameter. Not what we want! We have to
+; come up with a more specific rule. Only the left-most identifier should be
+; matched.
+(identifier) @identifier

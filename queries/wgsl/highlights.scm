@@ -1,12 +1,19 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/wgsl/highlights.scm
-;; Licensed under the Apache License 2.0
-(identifier) @variable
-
+;; Forked from https://raw.githubusercontent.com/szebniok/tree-sitter-wgsl/40259f3c77ea856841a4e0c4c807705f3e4a2b65/queries/highlights.scm
 (int_literal) @number
 
-(float_literal) @number.float
+(float_literal) @float
 
 (bool_literal) @boolean
+
+(type_declaration
+  [
+    "bool"
+    "u32"
+    "i32"
+    "f16"
+    "f32"
+  ] @type.builtin
+)
 
 (type_declaration) @type
 
@@ -16,27 +23,34 @@
 
 (parameter
   (variable_identifier_declaration
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
 (struct_declaration
-  (identifier) @type
+  (identifier) @structure
 )
 
 (struct_declaration
   (struct_member
     (variable_identifier_declaration
-      (identifier) @variable.member
+      (identifier) @field
     )
   )
 )
+
+(attribute
+  (identifier) @attribute
+)
+
+(identifier) @variable
 
 (type_constructor_or_function_call_expression
   (type_declaration) @function.call
 )
 
 [
+  "struct"
   "bitcast"
   "discard"
   "enable"
@@ -48,20 +62,18 @@
   (texel_format)
 ] @keyword
 
-"struct" @keyword.type
-
 [
   "private"
   "storage"
   "uniform"
   "workgroup"
-] @keyword.modifier
+] @storageclass
 
 [
   "read"
   "read_write"
   "write"
-] @keyword.modifier
+] @type.qualifier
 
 "fn" @keyword.function
 
@@ -91,7 +103,7 @@
   "break"
   "continue"
   "continuing"
-] @keyword.repeat
+] @repeat
 
 [
   "if"
@@ -99,7 +111,7 @@
   "switch"
   "case"
   "default"
-] @keyword.conditional
+] @conditional
 
 [
   "&"
@@ -128,11 +140,9 @@
   "--"
 ] @operator
 
-(attribute
-  (identifier) @attribute
-)
-
 [
   (line_comment)
   (block_comment)
-] @comment @spell
+] @comment
+
+(ERROR) @error

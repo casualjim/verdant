@@ -1,11 +1,10 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ssh_config/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-ssh-config/71d2693deadaca8cdc09e38ba41d2f6042da1616/queries/highlights.scm
 ; Literals
 (string) @string
 
 (pattern) @string.regexp
 
-(token) @character
+(token) @string.special.symbol
 
 [
   (number)
@@ -18,7 +17,7 @@
   (mac)
   (cipher)
   (key_sig)
-] @variable.parameter
+] @string.special
 
 [
   ; generic
@@ -55,13 +54,13 @@
   (authentication)
 ] @constant.builtin
 
-(uri) @string.special.url
+(uri) @markup.link.url
 
 ; Keywords
 [
   "Host"
   "Match"
-] @keyword
+] @module
 
 (parameter
   keyword:
@@ -70,17 +69,17 @@
 
 (host_declaration
   argument:
-  _ @module
+  _ @tag
 )
 
 (match_declaration
   (condition
     criteria:
-    _ @attribute
+    _ @variable.parameter
   )
 )
 
-"all" @attribute
+"all" @variable.parameter
 
 ; Misc
 [
@@ -88,7 +87,7 @@
   (variable)
 ] @constant
 
-(comment) @comment @spell
+(comment) @comment
 
 ; Punctuation
 [

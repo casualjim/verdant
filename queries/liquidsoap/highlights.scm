@@ -1,58 +1,37 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/liquidsoap/highlights.scm
-;; Licensed under the Apache License 2.0
-(var) @variable
+;; Forked from https://raw.githubusercontent.com/savonet/tree-sitter-liquidsoap/d092c65598e940564e12214ff7c2097528cfa159/queries/highlights.scm
+(op) @keyword.operator
 
-(op) @operator
-
-[
-  "and"
-  "or"
-  "not"
-] @keyword.operator
-
-[
-  "def"
-  "fun"
-  "def_end"
-] @keyword.function
-
-(let_decoration) @keyword.coroutine
+"..." @keyword.operator
 
 [
   "open"
-  "begin"
-  "block_end"
+  "def"
   "let"
-] @keyword
-
-[
-  "while"
-  "do"
-  "to"
-  "for"
-  "for_end"
-  "while_end"
-] @keyword.repeat
-
-[
   "if"
   "then"
   "elsif"
   "else"
-  "if_end"
-] @keyword.conditional
-
-[
+  "begin"
+  "end"
+  "while"
+  "do"
+  "to"
+  "for"
+  "fun"
   "try"
   "catch"
-  "try_end"
-] @keyword.exception
+] @keyword
+
+[
+  "and"
+  "or"
+] @conditional
 
 (inline_if
   [
     "?"
     ":"
-  ] @keyword.conditional.ternary
+  ] @conditional.ternary
 )
 
 [
@@ -65,16 +44,16 @@
   "%endif"
   "%argsof"
   "%include"
-] @keyword.directive
+] @preproc
 
 (encoder_name) @constant.builtin
 
 (anonymous_argument
-  (var) @variable.parameter
+  (var) @parameter
 )
 
 (labeled_argument
-  label: (var) @variable.parameter
+  label: (var) @parameter
 )
 
 "." @punctuation.delimiter
@@ -92,27 +71,29 @@
   name: (var) @function.call
 )
 
+(method) @method
+
+(method_app) @method.call
+
 (method) @function.method
 
-(method_app) @function.method.call
+(var) @variable
 
 (string) @string
 
-(string_interpolation
-  [
-    "#{"
-    "}"
-  ] @punctuation.special
-)
-
 (integer) @number
 
-(float) @number.float
+(float) @number
 
 (bool) @boolean
 
-(comment) @comment @spell
+(
+  (var) @constant.builtin
+  (#eq? @constant.builtin "null")
+)
 
-(regexp) @string.regexp
+(comment) @comment
+
+(regexp) @string.regex
 
 (type) @type

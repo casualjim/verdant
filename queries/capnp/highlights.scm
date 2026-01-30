@@ -1,10 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/capnp/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-capnp/7b0883c03e5edd34ef7bcf703194204299d7099f/queries/highlights.scm
 ; Preproc
 [
   (unique_id)
   (top_level_annotation_body)
-] @keyword.directive
+] @preproc
 
 ; Includes
 [
@@ -12,25 +11,24 @@
   "$import"
   "embed"
   "using"
-] @keyword.import
+] @include
 
-(import_path) @string.special.path
+(import_path) @string @text.uri
 
 ; Keywords
-"extends" @keyword
-
 [
-  "struct"
-  "interface"
-  "union"
-  "enum"
   "annotation"
+  "enum"
   "group"
+  "interface"
+  "struct"
+  "union"
+  "extends"
   "namespace"
-] @keyword.type
+] @keyword
 
 ; Builtins
-"const" @keyword.modifier
+["const"] @type.qualifier
 
 [
   (primitive_type)
@@ -47,10 +45,10 @@
 [
   (annotation_definition_identifier)
   (method_identifier)
-] @function.method
+] @method
 
 ; Fields
-(field_identifier) @variable.member
+(field_identifier) @field
 
 ; Properties
 (property) @property
@@ -59,9 +57,9 @@
 [
   (param_identifier)
   (return_identifier)
-] @variable.parameter
+] @parameter
 
-(annotation_target) @variable.parameter.builtin
+(annotation_target) @parameter.builtin
 
 ; Constants
 [
@@ -96,7 +94,7 @@
   (namespace)
 ] @string
 
-(namespace) @string.special
+(namespace) @text.underline
 
 (escape_sequence) @string.escape
 
@@ -104,11 +102,11 @@
 
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (boolean) @boolean
 
-(data_hex) @string.special.symbol
+(data_hex) @symbol
 
 ; Punctuation
 [
@@ -133,7 +131,6 @@
 ] @punctuation.bracket
 
 [
-  "."
   ","
   ";"
   "->"
@@ -141,3 +138,6 @@
 
 ; Comments
 (comment) @comment @spell
+
+; Errors
+(ERROR) @error

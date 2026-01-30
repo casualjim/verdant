@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/wing/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/winglang/tree-sitter-wing/76e0c25844a66ebc6e866d690fcc5f4e90698947/queries/highlights.scm
 (identifier) @variable
 
 (reference_identifier) @variable
@@ -10,22 +9,10 @@
 (custom_type) @type
 
 (class_field
-  name: (identifier) @property
-)
-
-(struct_field
-  name: (identifier) @property
+  name: (identifier) @variable.member
 )
 
 (class_definition
-  name: (identifier) @type
-)
-
-(struct_definition
-  name: (identifier) @type
-)
-
-(interface_definition
   name: (identifier) @type
 )
 
@@ -33,18 +20,8 @@
   name: (identifier) @function.method
 )
 
-(json_literal_member
-  (identifier) @property
-)
-
 ; Functions
 (keyword_argument_key) @variable.parameter
-
-(parameter_definition
-  name: (identifier) @variable.parameter
-)
-
-(variadic) @variable.parameter.builtin
 
 (call
   caller: (reference
@@ -69,17 +46,7 @@
 
 (bool) @boolean
 
-[
-  (builtin_type)
-  "MutSet"
-  "MutMap"
-  "MutArray"
-  "Json"
-  "Set"
-  "Map"
-  "Array"
-  "MutJson"
-] @type.builtin
+(builtin_type) @type.builtin
 
 (json_container_type) @type.builtin
 
@@ -87,12 +54,16 @@
 (comment) @comment @spell
 
 [
+  "("
+  ")"
+  "{"
+  "}"
+] @punctuation.bracket
+
+[
   "-"
-  "-="
   "+"
-  "+="
   "*"
-  "**"
   "/"
   "%"
   "<"
@@ -106,56 +77,22 @@
   "&&"
   "??"
   "||"
-  "?"
 ] @operator
-
-[
-  "("
-  ")"
-  "{"
-  "}"
-  "["
-  "]"
-] @punctuation.bracket
-
-(mutable_container_type
-  [
-    "<"
-    ">"
-  ] @punctuation.bracket
-)
-
-(immutable_container_type
-  [
-    "<"
-    ">"
-  ] @punctuation.bracket
-)
 
 [
   ";"
   "."
   ","
-  ":"
-  "=>"
 ] @punctuation.delimiter
 
 [
   "as"
+  "bring"
+  "class"
   "let"
   "new"
   (phase_specifier)
-  "impl"
-  "test"
 ] @keyword
-
-"bring" @keyword.import
-
-[
-  "class"
-  "struct"
-  "interface"
-] @keyword.type
 
 [
   "for"
@@ -171,33 +108,6 @@
   "pub"
   "protected"
   "internal"
-  "extern"
-  (static)
 ] @keyword.modifier
 
 "return" @keyword.return
-
-(import_statement
-  module_name: (identifier) @module
-)
-
-(import_statement
-  alias: (identifier) @module
-)
-
-(call
-  (reference
-    (nested_identifier
-      object: (reference) @_ref
-      property: (member_identifier) @_ident
-    )
-  )
-  (argument_list
-    (positional_argument
-      (string) @string.regexp
-    )
-  )
-  (#eq? @_ref "regex")
-  (#eq? @_ident "compile")
-  (#offset! @string.regexp 0 1 0 -1)
-)

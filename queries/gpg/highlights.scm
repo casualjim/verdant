@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gpg/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-gpg-config/4024eb268c59204280f8ac71ef146b8ff5e737f6/queries/highlights.scm
 (option
   .
   _ @keyword
@@ -21,7 +20,7 @@
   "clear"
 ] @string.special
 
-(url) @string.special.url
+(url) @markup.link.url
 
 (key) @constant
 
@@ -31,9 +30,9 @@
   (iso_time)
 ] @number
 
-(format) @character.special
+(format) @embedded
 
-"sensitive:" @keyword.modifier
+"sensitive:" @attribute
 
 (filter_name) @variable.parameter
 
@@ -58,4 +57,4 @@
   ","
 ] @punctuation.delimiter
 
-(comment) @comment @spell
+(comment) @comment

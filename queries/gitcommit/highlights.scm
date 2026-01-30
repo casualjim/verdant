@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gitcommit/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/gbprod/tree-sitter-gitcommit/a716678c0f00645fed1e6f1d0eb221481dbd6f6d/queries/highlights.scm
 (comment) @comment
 
 (generated_comment) @comment
@@ -11,7 +10,7 @@
 
 (change) @keyword
 
-(filepath) @string.special.path
+(filepath) @string.special.url
 
 (arrow) @punctuation.delimiter
 

@@ -1,8 +1,7 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/usd/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ColinKennedy/tree-sitter-usd/4e0875f724d94d0c2ff36f9b8cb0b12f8b20d216/queries/highlights.scm
 (None) @constant.builtin
 
-(asset_path) @string.special.url
+(asset_path) @text.uri
 
 (attribute_property) @property
 
@@ -12,7 +11,7 @@
 
 (custom) @function.builtin
 
-(float) @number.float
+(float) @float
 
 (integer) @number
 
@@ -22,31 +21,28 @@
 
 (relationship_type) @type
 
-(string) @string
-
 (uniform) @function.builtin
 
 (variant_set_definition) @keyword
 
-; Prefer namespace highlighting, if any.
-;
-; e.g. `rel fizz` - `fizz` uses `@identifier`
-; e.g. `rel foo:bar:fizz` - `foo` and `bar` use `@module` and `fizz` uses `@identifier`
-;
-(identifier) @variable
-
-(namespace_identifier) @module
+;; Prefer namespace highlighting, if any.
+;;
+;; e.g. `rel fizz` - `fizz` uses `@identifier`
+;; e.g. `rel foo:bar:fizz` - `foo` and `bar` use `@namespace` and `fizz` uses `@identifier`
+;;
+(namespace_identifier) @namespace
 
 (namespace_identifier
-  (identifier) @module
+  (identifier) @namespace
 )
 
+(identifier) @variable
+
 [
+  "class"
   "def"
   "over"
 ] @keyword.function
-
-"class" @keyword.type
 
 [
   "("
@@ -55,26 +51,23 @@
   "]"
   "{"
   "}"
-  "[]"
 ] @punctuation.bracket
 
 [
   ":"
   ";"
   "."
-  ","
 ] @punctuation.delimiter
 
-"=" @operator
+["="] @operator
 
 (attribute_type) @type
 
 (
+  ;; Reference: https://openusd.org/release/api/sdf_page_front.html
   (attribute_type) @type.builtin
-  ;format-ignore
   (#any-of?
     @type.builtin
-    ;; Reference: https://openusd.org/release/api/sdf_page_front.html
     ;; Scalar types
     "asset"
     "asset[]"
@@ -173,70 +166,13 @@
   )
 )
 
-(
-  (identifier) @keyword
-  (#any-of?
-    @keyword
-    ; Reference: https://openusd.org/release/api/sdf_page_front.html
-    ; LIVRPS names
-    "inherits"
-    "payload"
-    "references"
-    "specializes"
-    "variantSets"
-    "variants"
-    ; assetInfo names
-    "assetInfo"
-    "identifier"
-    "name"
-    "payloadAssetDependencies"
-    "version"
-    ; clips names
-    "clips"
-    "active"
-    "assetPaths"
-    "manifestAssetPath"
-    "primPath"
-    "templateAssetPath"
-    "templateEndTime"
-    "templateStartTime"
-    "templateStride"
-    "times"
-    ; customData names
-    "customData"
-    "apiSchemaAutoApplyTo"
-    "apiSchemaOverridePropertyNames"
-    "className"
-    "extraPlugInfo"
-    "isUsdShadeContainer"
-    "libraryName"
-    "providesUsdShadeConnectableAPIBehavior"
-    "requiresUsdShadeEncapsulation"
-    "skipCodeGeneration"
-    ; Layer metadata names
-    "colorConfiguration"
-    "colorManagementSystem"
-    "customLayerData"
-    "defaultPrim"
-    "doc"
-    "endTimeCode"
-    "framesPerSecond"
-    "owner"
-    "startTimeCode"
-    "subLayers"
-    ; Prim metadata
-    "instanceable"
-  )
-)
-
-; Common attribute metadata
-(layer_offset
-  (identifier) @keyword
-  (#any-of? @keyword "offset" "scale")
-)
-
-; Docstrings in USD
+; In USD def "foo" ("This is a docstring") {} < the ""s within the ()s is not
+; a string but a docstring
+;
 (metadata
   (comment)*
+  .
   (string) @comment.documentation
 )
+
+(string) @string

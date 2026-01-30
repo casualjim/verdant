@@ -1,8 +1,8 @@
 use std::{
-    collections::{HashMap, HashSet, VecDeque},
+    collections::{BTreeSet, HashMap, HashSet, VecDeque},
     env,
     fs,
-    path::PathBuf,
+    path::{Path, PathBuf},
     sync::{mpsc, Arc, Mutex},
     thread,
 };
@@ -10,6 +10,7 @@ use std::{
 use anyhow::{bail, Context, Result};
 use lazy_regex::{regex_captures, regex_replace};
 use serde::Deserialize;
+use serde_json::Value as JsonValue;
 
 use crate::{add_lang, fetch_queries, schema, WORKSPACE_DIR};
 
@@ -18,6 +19,11 @@ struct GrammarMapping {
     grammar: String,
     #[serde(default)]
     grammar_repo: Option<String>,
+    grammar_rev: String,
+    #[serde(default)]
+    grammar_branch: Option<String>,
+    #[serde(default)]
+    helix_file_types: Option<Vec<JsonValue>>,
     #[serde(default)]
     nvim_filetype: Option<String>,
     #[serde(default)]
@@ -98,6 +104,12 @@ runtime query directory with a highlights.scm for the language.
         let Some(repo) = mapping.grammar_repo.clone() else {
             continue;
         };
+        if mapping.grammar_rev.trim().is_empty() {
+            bail!(
+                "sync-breeze: grammar_rev is required but missing for {}",
+                mapping.grammar
+            );
+        }
         if should_skip_grammar(&mapping.grammar) {
             continue;
         }
@@ -130,6 +142,8 @@ runtime query directory with a highlights.scm for the language.
                 name: mapping.grammar,
                 repo,
                 path: None,
+                rev: mapping.grammar_rev.clone(),
+                branch: mapping.grammar_branch.clone(),
             },
             target_name,
             nvim_name,
@@ -229,7 +243,16 @@ runtime query directory with a highlights.scm for the language.
                 continue;
             };
             let path = extract_git_path(block);
-            update_jobs.push((idx, name.to_string(), repo.clone(), path, block.clone()));
+            update_jobs.push((
+                idx,
+                name.to_string(),
+                repo.clone(),
+                path,
+                block.clone(),
+                mapping.grammar_rev.clone(),
+                mapping.grammar_branch.clone(),
+                mapping.grammar.clone(),
+            ));
         }
 
         if !update_jobs.is_empty() {
@@ -249,11 +272,21 @@ runtime query directory with a highlights.scm for the language.
                         let mut guard = queue.lock().expect("sync-breeze update queue poisoned");
                         guard.pop_front()
                     };
-                    let Some((idx, name, repo, path, block)) = item else {
+                    let Some((idx, name, repo, path, block, rev, branch, query_name)) = item else {
                         break;
                     };
-                    let result = update_existing_block(&block, &repo, path.as_deref(), &name)
-                        .map(|updated| (idx, name, updated));
+                    let result = update_existing_block(
+                        &block,
+                        &repo,
+                        path.as_deref(),
+                        &name,
+                        &rev,
+                        branch.as_deref(),
+                    )
+                    .and_then(|updated| {
+                        refresh_highlights_query(&name, &query_name, dry_run)?;
+                        Ok((idx, name, updated))
+                    });
                     if result_tx.send(result).is_err() {
                         break;
                     }
@@ -300,14 +333,31 @@ fn load_grammar_mappings() -> Result<Vec<GrammarMapping>> {
     Ok(mappings)
 }
 
-fn get_file_types(grammar_name: &str, mappings: &HashMap<String, GrammarMapping>) -> Option<Vec<String>> {
+fn get_file_types(
+    grammar_name: &str,
+    mappings: &HashMap<String, GrammarMapping>,
+) -> Option<Vec<String>> {
     mappings.get(grammar_name).and_then(|m| {
-        // Use the effective_filetype as the FileType enum name
+        if let Some(file_types) = &m.helix_file_types {
+            let types: Vec<String> = file_types
+                .iter()
+                .filter_map(|value| value.as_str())
+                .map(|ft| format!("\"{ft}\""))
+                .collect();
+            if !types.is_empty() {
+                return Some(types);
+            }
+        }
+        // Fallback to effective_filetype if helix file types are missing/empty
         m.effective_filetype.as_ref().map(|ft| vec![format!("\"{ft}\"")])
     })
 }
 
 fn fetch_nvim_runtime_query_dirs() -> Result<std::collections::BTreeSet<String>> {
+    if let Some(dirs) = fetch_nvim_runtime_query_dirs_local() {
+        return Ok(dirs);
+    }
+
     let url = "https://api.github.com/repos/nvim-treesitter/nvim-treesitter/contents/runtime/queries?ref=main";
     let client = reqwest::blocking::Client::builder()
         .user_agent("syntastica xtask (sync-breeze)")
@@ -324,6 +374,35 @@ fn fetch_nvim_runtime_query_dirs() -> Result<std::collections::BTreeSet<String>>
         .filter(|e| e.kind == "dir")
         .map(|e| e.name)
         .collect())
+}
+
+fn fetch_nvim_runtime_query_dirs_local() -> Option<BTreeSet<String>> {
+    let root = env::var("NVIM_TREESITTER_PATH")
+        .ok()
+        .or_else(|| env::var("NVIM_TREESITTER_REPO").ok())
+        .map(PathBuf::from)
+        .or_else(|| {
+        let home = env::var("HOME").ok()?;
+        Some(Path::new(&home).join("github/nvim-treesitter/nvim-treesitter"))
+    })?;
+
+    let queries_dir = root.join("runtime/queries");
+    let entries = fs::read_dir(&queries_dir).ok()?;
+    let mut dirs = BTreeSet::new();
+    for entry in entries {
+        let entry = entry.ok()?;
+        let file_type = entry.file_type().ok()?;
+        if !file_type.is_dir() {
+            continue;
+        }
+        let name = entry.file_name().to_string_lossy().to_string();
+        dirs.insert(name);
+    }
+    if dirs.is_empty() {
+        None
+    } else {
+        Some(dirs)
+    }
 }
 
 fn canonical_syntastica_name(breeze_name: &str, mappings: &HashMap<String, GrammarMapping>) -> String {
@@ -411,6 +490,8 @@ struct MappedGrammar {
     name: String,
     repo: String,
     path: Option<String>,
+    rev: String,
+    branch: Option<String>,
 }
 
 fn build_language_block(
@@ -422,10 +503,9 @@ fn build_language_block(
 ) -> Result<String> {
     println!(">>> {target_name} (queries: {nvim_name})");
 
-    let rev = add_lang::get_rev(&grammar.repo)?;
     let (external_c, external_cpp, generate) =
-        detect_parser_metadata(&grammar.repo, &rev, grammar.path.as_deref())?;
-    let ffi_func = add_lang::detect_ffi_func(&grammar.repo, &rev, grammar.path.as_deref())?
+        detect_parser_metadata(&grammar.repo, &grammar.rev, grammar.path.as_deref())?;
+    let ffi_func = add_lang::detect_ffi_func(&grammar.repo, &grammar.rev, grammar.path.as_deref())?
         .unwrap_or_else(|| format!("tree_sitter_{target_name}"));
     let wasm_unknown = !external_cpp;
 
@@ -436,7 +516,8 @@ fn build_language_block(
     Ok(format_language_block(
         target_name,
         &grammar.repo,
-        &rev,
+        &grammar.rev,
+        grammar.branch.as_deref(),
         grammar.path.as_deref(),
         external_c,
         external_cpp,
@@ -483,8 +564,27 @@ fn write_queries(target_name: &str, nvim_name: &str, dry_run: bool) -> Result<(b
         fs::create_dir_all(&out_dir)?;
     }
 
-    let highlights = fetch_queries::fetch_query(nvim_name, "highlights")?
+    let mut highlights = fetch_queries::fetch_query(nvim_name, "highlights")?
         .with_context(|| format!("missing highlights query for {nvim_name}"))?;
+    if nvim_name == "sxhkdrc" {
+        highlights = highlights
+            .lines()
+            .map(|line| {
+                let trimmed = line.trim();
+                if trimmed == r#"["\\n"] @punctuation.special"#
+                    || trimmed == r#""\\n" @punctuation.special"#
+                {
+                    r#"["\n" "\\\n"] @punctuation.special"#.to_string()
+                } else {
+                    line.to_string()
+                }
+            })
+            .collect::<Vec<_>>()
+            .join("\n");
+        if !highlights.ends_with('\n') {
+            highlights.push('\n');
+        }
+    }
     if !dry_run {
         fs::write(out_dir.join("highlights.scm"), highlights)?;
     }
@@ -511,6 +611,7 @@ fn format_language_block(
     name: &str,
     url: &str,
     rev: &str,
+    branch: Option<&str>,
     path: Option<&str>,
     external_c: bool,
     external_cpp: bool,
@@ -538,10 +639,17 @@ fn format_language_block(
         out.push_str("wasm-unknown = false\n");
     }
     out.push_str("[languages.parser]\n");
-    out.push_str(&format!(
-        "git = {{ url = \"{url}\", rev = \"{rev}\"{} }}\n",
-        path.map_or_else(String::new, |p| format!(", path = \"{p}\""))
-    ));
+    let mut git_fields = format!("git = {{ url = \"{url}\", rev = \"{rev}\"");
+    if let Some(branch) = branch {
+        if !branch.trim().is_empty() {
+            git_fields.push_str(&format!(", branch = \"{branch}\""));
+        }
+    }
+    if let Some(path) = path {
+        git_fields.push_str(&format!(", path = \"{path}\""));
+    }
+    git_fields.push_str(" }\n");
+    out.push_str(&git_fields);
     out.push_str(&format!(
         "external-scanner = {{ c = {external_c}, cpp = {external_cpp} }}\n"
     ));
@@ -573,40 +681,106 @@ fn update_existing_block(
     repo_url: &str,
     path: Option<&str>,
     target_name: &str,
+    rev: &str,
+    branch: Option<&str>,
 ) -> Result<String> {
-    let rev = add_lang::get_rev(repo_url)?;
-    let (external_c, external_cpp, generate) = detect_parser_metadata(repo_url, &rev, path)?;
-    let ffi_func = add_lang::detect_ffi_func(repo_url, &rev, path)?
+    let (external_c, external_cpp, generate) = detect_parser_metadata(repo_url, rev, path)?;
+    let ffi_func = add_lang::detect_ffi_func(repo_url, rev, path)?
         .unwrap_or_else(|| format!("tree_sitter_{target_name}"));
 
-    let block = regex_replace!(
-        r#"^(\s*git\s*=\s*\{\s*url\s*=\s*")[^"]*("\s*,\s*rev\s*=\s*")[^"]*(")(\s*(?:,\s*path\s*=\s*"[^"]*"\s*)?\}\s*)(#.*)?$"#m,
-        block,
-        |_, start, middle, end_quote, tail, comment| {
-            format!("{start}{repo_url}{middle}{rev}{end_quote}{tail}{comment}")
+    let mut block = block.to_string();
+    block = regex_replace!(
+        r#"^(\s*git\s*=\s*\{\s*url\s*=\s*")[^"]*("\s*,\s*rev\s*=\s*")[^"]*(".*\}\s*)(#.*)?$"#m,
+        &block,
+        |_, start, middle, end, comment| {
+            format!("{start}{repo_url}{middle}{rev}{end}{comment}")
         },
-    );
-    let block = regex_replace!(
+    )
+    .into_owned();
+    if let Some(branch) = branch.map(str::trim).filter(|b| !b.is_empty()) {
+        if block.contains("branch =") {
+            block = regex_replace!(
+                r#"^(\s*git\s*=\s*\{[^}]*\bbranch\s*=\s*")[^"]*(".*\}\s*)(#.*)?$"#m,
+                &block,
+                |_, start, end, comment| format!("{start}{branch}{end}{comment}"),
+            )
+            .into_owned();
+        } else {
+            block = regex_replace!(
+                r#"^(\s*git\s*=\s*\{[^}]*)(\}\s*)(#.*)?$"#m,
+                &block,
+                |_, start, end, comment| format!("{start}, branch = \"{branch}\"{end}{comment}"),
+            )
+            .into_owned();
+        }
+    } else {
+        block = regex_replace!(
+            r#"^(\s*git\s*=\s*\{)\s*branch\s*=\s*"[^"]*"\s*,\s*"#m,
+            &block,
+            |_, start| format!("{start} ")
+        )
+        .into_owned();
+        block = regex_replace!(
+            r#",\s*branch\s*=\s*"[^"]*"\s*"#m,
+            &block,
+            |_| String::new()
+        )
+        .into_owned();
+    }
+    block = regex_replace!(
         r#"^(\s*external-scanner\s*=\s*\{\s*c\s*=\s*)(?:true|false)(\s*,\s*cpp\s*=\s*)(?:true|false)(\s*\}\s*)(#.*)?$"#m,
         &block,
         |_, start, middle, end, comment| {
             format!("{start}{external_c}{middle}{external_cpp}{end}{comment}")
         },
-    );
-    let block = regex_replace!(
+    )
+    .into_owned();
+    block = regex_replace!(
         r#"^(\s*ffi-func\s*=\s*")[^"]*(")(\s*(?:#.*)?)$"#m,
         &block,
         |_, start, end_quote, tail| format!("{start}{ffi_func}{end_quote}{tail}"),
-    );
-    let block = if block.contains("\ngenerate =") {
-        regex_replace!(
+    )
+    .into_owned();
+    if block.contains("\ngenerate =") {
+        block = regex_replace!(
             r#"^(\s*generate\s*=\s*)(?:true|false)(\s*(?:#.*)?)$"#m,
             &block,
             |_, start, tail| format!("{start}{generate}{tail}"),
         )
-    } else {
-        block
-    };
+        .into_owned();
+    }
 
-    Ok(block.into_owned())
+    Ok(block)
+}
+
+fn refresh_highlights_query(target_name: &str, nvim_name: &str, dry_run: bool) -> Result<()> {
+    let Some(mut text) = fetch_queries::fetch_query(nvim_name, "highlights")? else {
+        bail!("missing highlights query for {target_name} (nvim: {nvim_name})");
+    };
+    if nvim_name == "sxhkdrc" {
+        text = text
+            .lines()
+            .map(|line| {
+                let trimmed = line.trim();
+                if trimmed == r#"["\\n"] @punctuation.special"#
+                    || trimmed == r#""\\n" @punctuation.special"#
+                {
+                    r#"["\n" "\\\n"] @punctuation.special"#.to_string()
+                } else {
+                    line.to_string()
+                }
+            })
+            .collect::<Vec<_>>()
+            .join("\n");
+        if !text.ends_with('\n') {
+            text.push('\n');
+        }
+    }
+    if dry_run {
+        return Ok(());
+    }
+    let out_dir = WORKSPACE_DIR.join(format!("queries/{target_name}"));
+    fs::create_dir_all(&out_dir)?;
+    fs::write(out_dir.join("highlights.scm"), text)?;
+    Ok(())
 }

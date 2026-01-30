@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/disassembly/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ColinKennedy/tree-sitter-disassembly/0229c0211dba909c5d45129ac784a3f4d49c243a/queries/highlights.scm
 (byte) @constant
 
 [
@@ -10,7 +9,7 @@
 
 (identifier) @variable
 
-(bad_instruction) @comment.warning
+(bad_instruction) @text.warning
 
 (code_location
   (identifier) @function.call

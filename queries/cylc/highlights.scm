@@ -1,79 +1,102 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/cylc/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/elliotfontaine/tree-sitter-cylc/6d1d81137112299324b526477ce1db989ab58fb8/queries/highlights.scm
+(ERROR) @emphasis.strong
 
-(key) @property
+(include_statement) @embedded
 
-(boolean) @boolean
+(comment) @comment
 
-(datetime) @string.special
+(_
+  brackets_open:
+  _ @operator
+  name:
+  _? @title
+  brackets_close:
+  _ @operator
+)
 
-(task_name) @function
+(graph_section
+  name:
+  _? @property
+)
 
-(include_directive) @keyword.import
+(task_section
+  name:
+  _? @emphasis
+)
 
-[
-  (section_name)
-  (namespace)
-] @markup.heading
+(graph_setting
+  key: (_) @number
+  operator: (_)? @operator
+)
 
-[
-  (integer)
-  (recurrence)
-] @number
+(quoted_graph_string
+  quotes_open:
+  _ @string
+  quotes_close:
+  _ @string
+)
 
-[
-  "["
-  "]"
-  "[["
-  "]]"
-  "[[["
-  "]]]"
-  "<"
-  ">"
-  (graph_parenthesis)
-] @punctuation.bracket
-
-(line_continuation) @punctuation.special
-
-[
-  "\""
-  "\"\"\""
-  (unquoted_string)
-  (quoted_string)
-  (multiline_string)
-] @string
-
-[
-  (xtrigger_annotation)
-  (suicide_annotation)
-] @attribute
+(multiline_graph_string
+  quotes_open:
+  _ @string
+  quotes_close:
+  _ @string
+)
 
 [
-  "="
-  (assignment_operator)
   (graph_logical)
   (graph_arrow)
+  (graph_parenthesis)
 ] @operator
 
-(include_statement
-  path: (_)? @string.special.path
+(intercycle_annotation
+  (recurrence) @number
+)
+
+(graph_task
+  xtrigger:
+  _? @property
+  suicide:
+  _? @property
+  name:
+  _ @emphasis
 )
 
 (task_parameter
-  name: (_)? @variable.parameter
-  selection: (_)? @variable.parameter
+  "<" @punctuation
+  (nametag)? @text.literal
+  ">" @punctuation
+)
+
+(intercycle_annotation
+  "[" @punctuation
+  (recurrence)? @number
+  "]" @punctuation
 )
 
 (task_output
-  ":" @tag
-  (nametag) @variable.builtin
-  "?"? @tag
+  ":" @punctuation
+  (nametag) @variable
+  "?"? @punctuation
 )
+
+(setting
+  key: (key) @variable
+  operator: (_)? @operator
+  value: [
+    (unquoted_string) @string
+    (quoted_string) @string
+    (multiline_string) @string
+    (boolean) @boolean
+    (integer) @number
+  ]?
+)
+
+(datetime) @number
 
 [
   (jinja2_expression)
   (jinja2_statement)
   (jinja2_comment)
   (jinja2_shebang)
-] @keyword.directive
+] @text.literal

@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/twig/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/gbprod/tree-sitter-twig/7195ee573ab5c3b3bb0e91b042e6f83ac1b11104/queries/highlights.scm
+(comment) @comment
 
 (filter_identifier) @function.call
 
@@ -18,7 +17,7 @@
 
 (number) @number
 
-(boolean) @boolean
+(boolean) @constant.builtin
 
 (null) @constant.builtin
 
@@ -28,13 +27,13 @@
 
 (tag) @tag
 
-(conditional) @keyword.conditional
+(conditional) @conditional
 
-(repeat) @keyword.repeat
+(repeat) @repeat
 
-(method) @function.method
+(method) @method
 
-(parameter) @variable.parameter
+(parameter) @parameter
 
 [
   "{{"
@@ -54,20 +53,16 @@
 [
   ","
   "."
-] @punctuation.delimiter
-
-[
   "?"
   ":"
   "="
-  "|"
-] @operator
+] @punctuation.delimiter
 
 (interpolated_string
   [
     "#{"
     "}"
-  ] @punctuation.special
+  ] @punctuation.delimiter
 )
 
 [
@@ -75,11 +70,9 @@
   ")"
   "["
   "]"
+  "{"
 ] @punctuation.bracket
 
 (hash
-  [
-    "{"
-    "}"
-  ] @punctuation.bracket
+  ["}"] @punctuation.bracket
 )

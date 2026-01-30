@@ -1,13 +1,11 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/hocon/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
-
-(null) @constant.builtin
+;; Forked from https://raw.githubusercontent.com/antosha417/tree-sitter-hocon/c390f10519ae69fdb03b3e5764f5592fb6924bcc/queries/highlights.scm
+(comment) @comment
 
 [
+  (null)
   (true)
   (false)
-] @boolean
+] @constant.builtin
 
 (number) @number
 
@@ -31,7 +29,7 @@
 ] @keyword
 
 (include
-  "include" @keyword.import
+  "include" @include
 )
 
 (substitution
@@ -43,11 +41,11 @@
 )
 
 (substitution
-  (_) @variable.member
+  (_) @field
 )
 
 (path
-  (_) @variable.member
+  (_) @field
 )
 
 (value
@@ -67,7 +65,7 @@
   "}"
 ] @punctuation.bracket
 
-"," @punctuation.delimiter
+[","] @punctuation.delimiter
 
 (unquoted_path
   "." @punctuation.delimiter

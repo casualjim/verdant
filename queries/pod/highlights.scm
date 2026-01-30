@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/pod/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-perl/tree-sitter-pod/0bf8387987c21bf2f8ed41d2575a8f22b139687f/queries/highlights.scm
 ; A highlight file for nvim-treesitter to use
 [
   (pod_command)
@@ -7,40 +6,38 @@
   (cut_command)
 ] @keyword
 
-(
-  (command_paragraph
-    (command) @keyword
-    (content) @string
-  )
-  (#set! priority 99)
+(command_paragraph
+  (command) @keyword
+  (#match? @keyword "^=head")
+  (content) @text.title
 )
 
 (command_paragraph
   (command) @keyword
-  (#lua-match? @keyword "^=head")
-  (content) @markup.heading
-)
-
-(command_paragraph
-  (command) @keyword
-  (#lua-match? @keyword "^=over")
+  (#match? @keyword "^=over")
   (content) @number
 )
 
 (command_paragraph
   (command) @keyword
-  (#lua-match? @keyword "^=item")
-  (content) @none
+  (#match? @keyword "^=item")
+  (content) @text
 )
 
 (command_paragraph
   (command) @keyword
-  (#lua-match? @keyword "^=encoding")
+  (#match? @keyword "^=encoding")
   (content) @string.special
 )
 
+(command_paragraph
+  (command) @keyword
+  (#not-match? @keyword "^=(head|over|item|encoding)")
+  (content) @string
+)
+
 (verbatim_paragraph
-  (content) @markup.raw
+  (content) @text.literal
 )
 
 (interior_sequence
@@ -54,37 +51,37 @@
 (interior_sequence
   (sequence_letter) @character
   (#eq? @character "B")
-  (content) @markup.strong
+  (content) @text.strong
 )
 
 (interior_sequence
   (sequence_letter) @character
   (#eq? @character "C")
-  (content) @markup.raw
+  (content) @text.literal
 )
 
 (interior_sequence
   (sequence_letter) @character
   (#eq? @character "F")
-  (content) @string.special.path
+  (content) @text.underline @string.special
 )
 
 (interior_sequence
   (sequence_letter) @character
   (#eq? @character "I")
-  (content) @markup.italic
+  (content) @text.emphasis
 )
 
 (interior_sequence
   (sequence_letter) @character
   (#eq? @character "L")
-  (content) @string.special.url
+  (content) @text.uri
 )
 
 (interior_sequence
   (sequence_letter) @character
   (#eq? @character "X")
-  (content) @markup.link
+  (content) @text.reference
 )
 
 (interior_sequence

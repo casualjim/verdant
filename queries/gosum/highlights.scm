@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gosum/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-go-sum/27816eb6b7315746ae9fcf711e4e1396dc1cf237/queries/highlights.scm
 [
   "alpha"
   "beta"
@@ -9,13 +8,13 @@
   "+incompatible"
 ] @keyword
 
-(module_path) @string.special.url
+(module_path) @string @text.uri
 
 (module_version) @string.special
 
 (hash_version) @attribute
 
-(hash) @string.special.symbol
+(hash) @symbol
 
 [
   (number)

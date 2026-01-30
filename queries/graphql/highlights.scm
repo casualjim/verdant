@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/graphql/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/bkegley/tree-sitter-graphql/5e66e961eee421786bdda8495ed1db045e06b5fe/queries/graphql/highlights.scm
 ; Types
 ;------
 (scalar_type_definition
@@ -24,6 +23,14 @@
 
 (input_object_type_definition
   (name) @type
+)
+
+(directive_definition
+  (name) @type
+)
+
+(directive_definition
+  "@" @type
 )
 
 (scalar_type_extension
@@ -54,14 +61,7 @@
   (name) @type
 )
 
-; Directives
-;-----------
-(directive_definition
-  "@" @attribute
-  (name) @attribute
-)
-
-(directive) @attribute
+(directive) @type
 
 ; Properties
 ;-----------
@@ -89,7 +89,7 @@
   (name) @property
 )
 
-; Variable Definitions and Arguments
+; Variable Definitions and Arguments 
 ;-----------------------------------
 (operation_definition
   (name) @variable
@@ -101,22 +101,22 @@
 
 (input_fields_definition
   (input_value_definition
-    (name) @variable.parameter
+    (name) @parameter
   )
 )
 
 (argument
-  (name) @variable.parameter
+  (name) @parameter
 )
 
 (arguments_definition
   (input_value_definition
-    (name) @variable.parameter
+    (name) @parameter
   )
 )
 
 (variable_definition
-  (variable) @variable.parameter
+  (variable) @parameter
 )
 
 (argument
@@ -131,17 +131,15 @@
 
 (int_value) @number
 
-(float_value) @number.float
+(float_value) @float
 
 (boolean_value) @boolean
 
 ; Literals
 ;---------
-(description
-  (string_value) @string.documentation @spell
-)
+(description) @comment
 
-(comment) @comment @spell
+(comment) @comment
 
 (directive_location
   (executable_directive_location) @type.builtin
@@ -159,6 +157,10 @@
   "subscription"
   "fragment"
   "scalar"
+  "type"
+  "interface"
+  "union"
+  "enum"
   "input"
   "extend"
   "directive"
@@ -167,13 +169,6 @@
   "repeatable"
   "implements"
 ] @keyword
-
-[
-  "enum"
-  "union"
-  "type"
-  "interface"
-] @keyword.type
 
 ; Punctuation
 ;------------

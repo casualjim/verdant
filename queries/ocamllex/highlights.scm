@@ -1,21 +1,19 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ocamllex/highlights.scm
-;; Licensed under the Apache License 2.0
-; Allow OCaml highlighter
-(ocaml) @none
-
+;; Forked from https://raw.githubusercontent.com/314eter/tree-sitter-ocamllex/33722b8be73079946a7c6dd9598e3f57956ed36d/queries/highlights.scm
 ; Regular expressions
+;--------------------
 (regexp_name) @variable
 
 [
-  (eof)
   (any)
+  (eof)
 ] @constant
 
-(character) @character
+[
+  (string)
+  (character)
+] @string
 
-(string) @string
-
-(escape_sequence) @string.escape
+(escape_sequence) @escape
 
 (character_set
   "^" @punctuation.special
@@ -31,9 +29,9 @@
 
 (regexp_repetition
   [
-    "?"
     "*"
     "+"
+    "?"
   ] @operator
 )
 
@@ -42,6 +40,7 @@
 )
 
 ; Rules
+;------
 (lexer_entry_name) @function
 
 (lexer_argument) @variable.parameter
@@ -53,11 +52,11 @@
   ] @punctuation.delimiter
 )
 
-; keywords
+; Keywords
+;---------
 [
   "and"
   "as"
-  "let"
   "parse"
   "refill"
   "rule"
@@ -65,6 +64,7 @@
 ] @keyword
 
 ; Punctuation
+;------------
 [
   "["
   "]"
@@ -74,5 +74,6 @@
   "}"
 ] @punctuation.bracket
 
-; Misc
-(comment) @comment @spell
+; Comments
+;---------
+(comment) @comment

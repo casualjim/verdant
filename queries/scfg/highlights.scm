@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/scfg/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/rockorager/tree-sitter-scfg/d850fd470445d73de318a21d734d1e09e29b773c/queries/highlights.scm
 [
   "{"
   "}"
@@ -9,4 +8,4 @@
 
 (directive_name) @type
 
-(directive_params) @variable.parameter
+(directive_params) @parameter

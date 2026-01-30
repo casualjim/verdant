@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/enforce/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/simonvic/tree-sitter-enforce/eb2796871d966264cdb041b797416ef1757c8b4f/queries/highlights.scm
 [
   (comment_line)
   (comment_block)
@@ -89,6 +88,7 @@
   "<<"
   "&"
   "|"
+  "^"
   "~"
 ] @operator
 

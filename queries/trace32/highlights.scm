@@ -1,5 +1,7 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/t32/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/xasc/tree-sitter-t32/5b5e4336731bda5ea2e6b78b6a2d9e7a89032b75/queries/highlights.scm
+;;; SPDX-FileCopyrightText: 2022 Christoph Sax <c_sax@mailbox.org>
+;;;
+;;; SPDX-License-Identifier: MIT
 ; Keywords, punctuation and operators
 [
   "="
@@ -24,10 +26,13 @@
   ".."
   "--"
   "++"
+  "+"
+  "-"
   "~"
   "!"
   "&"
   "->"
+  "*"
   "-="
   "+="
   "*="
@@ -38,6 +43,8 @@
   "^="
   ">>="
   "<<="
+  "--"
+  "++"
 ] @operator
 
 [
@@ -58,16 +65,16 @@
   "enum"
   "struct"
   "union"
-] @keyword.type
+] @keyword
 
 "sizeof" @keyword.operator
 
 [
   "const"
   "volatile"
-] @keyword.modifier
+] @type.qualifier
 
-; Operators in comma and conditional HLL expressions
+; Operators in command and conditional HLL expressions
 (hll_comma_expression
   "," @operator
 )
@@ -76,7 +83,7 @@
   [
     "?"
     ":"
-  ] @keyword.conditional.ternary
+  ] @conditional.ternary
 )
 
 ; Strings and others literal types
@@ -95,7 +102,7 @@
   (frequency)
   (percentage)
   (time)
-] @number.float
+] @float
 
 [
   (string)
@@ -104,7 +111,7 @@
 
 (hll_escape_sequence) @string.escape
 
-(path) @string.special.path
+(path) @string.special
 
 [
   (character)
@@ -117,11 +124,16 @@
   (hll_type_descriptor)
 ] @type
 
-(hll_type_qualifier) @keyword.modifier
+(hll_type_qualifier) @type.qualifier
 
 (hll_primitive_type) @type.builtin
 
-; HLL expressions
+; HLL variables
+(identifier) @variable
+
+(hll_field_identifier) @field
+
+; HLL call expressions
 (hll_call_expression
   function: (identifier) @function.call
 )
@@ -131,11 +143,6 @@
     field: (hll_field_identifier) @function.call
   )
 )
-
-; HLL variables
-(identifier) @variable
-
-(hll_field_identifier) @variable.member
 
 ; Commands
 (command_expression
@@ -162,7 +169,7 @@
   (command_expression
     command: (identifier) @keyword.return
   )
-  (#lua-match? @keyword.return "^[rR][eE][tT][uU][rR][nN]$")
+  (#match? @keyword.return "^[rR][eE][tT][uU][rR][nN]$")
 )
 
 ; Subroutine calls
@@ -184,17 +191,17 @@
   (argument_list
     (identifier) @constant.builtin
   )
-  (#lua-match? @constant.builtin "^[%%/][%l%u][%l%u%d.]*$")
+  (#match? @constant.builtin "^[%/][a-zA-Z][a-zA-Z0-9.]*$")
 )
 
 (
   (symbol) @constant
-  (#lua-match? @constant "^\\\\\\\\\\\\[^\\\\]*(\\\\\\\\[^\\\\]*)?(\\\\[^\\\\]*)?$")
+  (#match? @constant "^\\\\\\\\\\\\[^\\\\]*(\\\\\\\\[^\\\\]*)?(\\\\[^\\\\]*)?$")
 )
 
 (
   (symbol) @constant
-  (#lua-match? @constant "^\\\\\\\\[^\\\\]*(\\\\[^\\\\]*)?$")
+  (#match? @constant "^\\\\\\\\[^\\\\]*(\\\\[^\\\\]*)?$")
 )
 
 (
@@ -205,7 +212,7 @@
       (identifier) @label
     )
   )
-  (#lua-match? @keyword "^[gG][oO][tT][oO]$")
+  (#match? @keyword "^[gG][oO][tT][oO]$")
 )
 
 (labeled_expression
@@ -240,23 +247,23 @@
 
 ; Control flow
 (if_block
-  command: (identifier) @keyword.conditional
+  command: (identifier) @conditional
 )
 
 (elif_block
-  command: (identifier) @keyword.conditional
+  command: (identifier) @conditional
 )
 
 (else_block
-  command: (identifier) @keyword.conditional
+  command: (identifier) @conditional
 )
 
 (while_block
-  command: (identifier) @keyword.repeat
+  command: (identifier) @repeat
 )
 
 (repeat_block
-  command: (identifier) @keyword.repeat
+  command: (identifier) @repeat
 )
 
-(comment) @comment @spell
+(comment) @comment

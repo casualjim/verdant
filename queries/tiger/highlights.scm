@@ -1,45 +1,31 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/tiger/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ambroisie/tree-sitter-tiger/4a77b2d7a004587646bddc4e854779044b6db459/queries/highlights.scm
 ; Built-ins {{{
 (
   (function_call
     function: (identifier) @function.builtin
   )
-  (#any-of?
-    @function.builtin
-    "chr"
-    "concat"
-    "exit"
-    "flush"
-    "getchar"
-    "not"
-    "ord"
-    "print"
-    "print_err"
-    "print_int"
-    "size"
-    "strcmp"
-    "streq"
-    "substring"
-  )
+  (#match? @function.builtin "^(chr|concat|exit|flush|getchar|not|ord|print|print_err|print_int|size|strcmp|streq|substring)$")
+  (#is-not? local)
 )
 
 (
   (type_identifier) @type.builtin
-  (#any-of? @type.builtin "int" "string" "Object")
+  (#match? @type.builtin "^(int|string|Object)$")
+  (#is-not? local)
 )
 
 (
   (identifier) @variable.builtin
-  (#eq? @variable.builtin "self")
+  (#match? @variable.builtin "^self$")
+  (#is-not? local)
 )
 
 ; }}}
 ; Keywords {{{
 [
   "function"
-  "primitive"
   "method"
+  "primitive"
 ] @keyword.function
 
 [
@@ -49,9 +35,9 @@
   "while"
 ] @keyword.repeat
 
-"new" @keyword.operator
+["new"] @keyword.constructor
 
-"import" @keyword.import
+["import"] @include
 
 [
   "array"
@@ -65,6 +51,7 @@
   "then"
   "type"
   "var"
+  "class"
   "extends"
   "_cast"
   "_chunks"
@@ -72,8 +59,6 @@
   "_lvalue"
   "_namety"
 ] @keyword
-
-"class" @keyword.type
 
 ; }}}
 ; Operators {{{
@@ -110,15 +95,15 @@
 )
 
 (method_call
-  method: (identifier) @function.method
+  method: (identifier) @method
 )
 
 (method_declaration
-  name: (identifier) @function.method
+  name: (identifier) @method
 )
 
 (parameters
-  name: (identifier) @variable.parameter
+  name: (identifier) @parameter
 )
 
 ; }}}
@@ -139,11 +124,11 @@
 
 ; }}}
 ; Misc {{{
-(comment) @comment @spell
+(comment) @comment
 
 (type_identifier) @type
 
-(field_identifier) @variable.member
+(field_identifier) @property
 
 (identifier) @variable
 

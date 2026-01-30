@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/bitbake/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-bitbake/a5d04fdb5a69a02b8fa8eb5525a60dfb5309b73b/queries/highlights.scm
 ; Includes
 [
   "inherit"
@@ -7,7 +6,7 @@
   "require"
   "export"
   "import"
-] @keyword.import
+] @include
 
 ; Keywords
 [
@@ -39,32 +38,32 @@
 )
 
 (future_import_statement
-  "from" @keyword.import
+  "from" @include
   "__future__" @constant.builtin
 )
 
 (import_from_statement
-  "from" @keyword.import
+  "from" @include
 )
 
-"import" @keyword.import
+"import" @include
 
 (aliased_import
-  "as" @keyword.import
+  "as" @include
 )
 
 [
   "if"
   "elif"
   "else"
-] @keyword.conditional
+] @conditional
 
 [
   "for"
   "while"
   "break"
   "continue"
-] @keyword.repeat
+] @repeat
 
 [
   "try"
@@ -72,15 +71,15 @@
   "except*"
   "raise"
   "finally"
-] @keyword.exception
+] @exception
 
 (raise_statement
-  "from" @keyword.exception
+  "from" @exception
 )
 
 (try_statement
   (else_clause
-    "else" @keyword.exception
+    "else" @exception
   )
 )
 
@@ -95,13 +94,13 @@
 [
   "before"
   "after"
-] @keyword.modifier
+] @storageclass
 
 [
   "append"
   "prepend"
   "remove"
-] @keyword.modifier
+] @type.qualifier
 
 ; Variables
 [
@@ -111,6 +110,7 @@
 
 [
   "noexec"
+  "INHERIT"
   "OVERRIDES"
   "$BB_ENV_PASSTHROUGH"
   "$BB_ENV_PASSTHROUGH_ADDITIONS"
@@ -119,7 +119,7 @@
 ; Reset highlighting in f-string interpolations
 (interpolation) @none
 
-; Identifier naming conventions
+;; Identifier naming conventions
 (
   (python_identifier) @type
   (#lua-match? @type "^[A-Z].*[a-z]")
@@ -142,7 +142,7 @@
   (python_identifier) @constant.builtin
   (#any-of?
     @constant.builtin
-    ; https://docs.python.org/3/library/constants.html
+    ;; https://docs.python.org/3/library/constants.html
     "NotImplemented"
     "Ellipsis"
     "quit"
@@ -174,13 +174,13 @@
 )
 
 ; Fields
-(flag) @variable.member
+(flag) @field
 
 (
   (attribute
-    attribute: (python_identifier) @variable.member
+    attribute: (python_identifier) @field
   )
-  (#lua-match? @variable.member "^[%l_].*$")
+  (#lua-match? @field "^[%l_].*$")
 )
 
 ; Functions
@@ -190,7 +190,7 @@
 
 (call
   function: (attribute
-    attribute: (python_identifier) @function.method.call
+    attribute: (python_identifier) @method.call
   )
 )
 
@@ -348,58 +348,58 @@
 )
 
 ; Namespace
-(inherit_path) @module
+(inherit_path) @namespace
 
-; Normal parameters
+;; Normal parameters
 (parameters
-  (python_identifier) @variable.parameter
+  (python_identifier) @parameter
 )
 
-; Lambda parameters
+;; Lambda parameters
 (lambda_parameters
-  (python_identifier) @variable.parameter
+  (python_identifier) @parameter
 )
 
 (lambda_parameters
   (tuple_pattern
-    (python_identifier) @variable.parameter
+    (python_identifier) @parameter
   )
 )
 
 ; Default parameters
 (keyword_argument
-  name: (python_identifier) @variable.parameter
+  name: (python_identifier) @parameter
 )
 
 ; Naming parameters on call-site
 (default_parameter
-  name: (python_identifier) @variable.parameter
+  name: (python_identifier) @parameter
 )
 
 (typed_parameter
-  (python_identifier) @variable.parameter
+  (python_identifier) @parameter
 )
 
 (typed_default_parameter
-  (python_identifier) @variable.parameter
+  (python_identifier) @parameter
 )
 
 ; Variadic parameters *args, **kwargs
 (parameters
   (list_splat_pattern
     ; *args
-    (python_identifier) @variable.parameter
+    (python_identifier) @parameter
   )
 )
 
 (parameters
   (dictionary_splat_pattern
     ; **kwargs
-    (python_identifier) @variable.parameter
+    (python_identifier) @parameter
   )
 )
 
-; Literals
+;; Literals
 (none) @constant.builtin
 
 [
@@ -409,12 +409,17 @@
 
 (
   (python_identifier) @variable.builtin
-  (#any-of? @variable.builtin "self" "cls")
+  (#eq? @variable.builtin "self")
+)
+
+(
+  (python_identifier) @variable.builtin
+  (#eq? @variable.builtin "cls")
 )
 
 (integer) @number
 
-(float) @number.float
+(float) @float
 
 ; Operators
 [
@@ -426,6 +431,7 @@
   "=."
   "-"
   "-="
+  ":="
   "!="
   "*"
   "**"
@@ -480,7 +486,7 @@
   "\""
 ] @string
 
-(include_path) @string.special.path
+(include_path) @string.special
 
 [
   (escape_sequence)
@@ -534,7 +540,7 @@
   ] @type.builtin
   (#any-of?
     @type.builtin
-    ; https://docs.python.org/3/library/exceptions.html
+    ;; https://docs.python.org/3/library/exceptions.html
     "BaseException"
     "Exception"
     "ArithmeticError"
@@ -602,7 +608,7 @@
     "UnicodeWarning"
     "BytesWarning"
     "ResourceWarning"
-    ; https://docs.python.org/3/library/stdtypes.html
+    ;; https://docs.python.org/3/library/stdtypes.html
     "bool"
     "int"
     "float"
@@ -623,3 +629,5 @@
 )
 
 (comment) @comment @spell
+
+(ERROR) @error

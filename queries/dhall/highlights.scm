@@ -1,16 +1,42 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/dhall/highlights.scm
-;; Licensed under the Apache License 2.0
-; Imports
-(missing_import) @keyword.import
+;; Forked from https://raw.githubusercontent.com/jbellerb/tree-sitter-dhall/62013259b26ac210d5de1abf64cf1b047ef88000/queries/highlights.scm
+;; Literals
+(integer_literal) @constant.numeric.integer
 
+(natural_literal) @constant.numeric.integer
+
+(double_literal) @constant.numeric.float
+
+(bytes_literal) @string
+
+(boolean_literal) @constant.builtin.boolean
+
+(builtin
+  "None"
+) @constant.builtin
+
+;; Text
+(text_literal) @string
+
+(interpolation
+  "}" @string
+)
+
+(double_quote_escaped) @constant.character.escape
+
+(single_quote_escaped) @constant.character.escape
+
+;; Imports
 (local_import) @string.special.path
 
 (http_import) @string.special.url
 
-[
-  (env_variable)
-  (import_hash)
-] @string.special
+(env_import) @keyword
+
+(env_variable) @string.special
+
+(import_hash) @string.special
+
+(missing_import) @keyword.control.import
 
 [
   (import_as_bytes)
@@ -18,7 +44,12 @@
   (import_as_text)
 ] @type
 
-; Types
+;; Comments
+(block_comment) @comment.block
+
+(line_comment) @comment.line
+
+;; Types
 (
   [
     (let_binding
@@ -28,7 +59,7 @@
       (label) @type
     )
   ]
-  (#lua-match? @type "^%u")
+  (#match? @type "^[A-Z]")
 )
 
 (
@@ -38,19 +69,12 @@
     )
     (selector
       (label) @type
-    )
-  ) @variable
-  (#lua-match? @variable "^[A-Z][^.]*$")
+    )?
+  ) @whole_identifier
+  (#match? @whole_identifier "(?:^|\\.)[A-Z][^.]*$")
 )
 
-; Parameters
-(lambda_expression
-  label: (label) @variable.parameter
-)
-
-; Variables
-(label) @variable
-
+;; Variables
 (identifier
   [
     (label) @variable
@@ -62,23 +86,21 @@
   label: (label) @variable
 )
 
-; Fields
+(lambda_expression
+  label: (label) @variable.parameter
+)
+
 (record_literal_entry
-  (label) @variable.member
+  (label) @variable.other.member
 )
 
 (record_type_entry
-  (label) @variable.member
+  (label) @variable.other.member
 )
 
-(selector
-  (selector_dot)
-  (_) @variable.member
-)
+(selector) @variable.other.member
 
-; Keywords
-(env_import) @keyword
-
+;; Keywords
 [
   "let"
   "in"
@@ -91,7 +113,7 @@
   "with"
 ] @keyword.operator
 
-; Operators
+;; Operators
 [
   (type_operator)
   (assign_operator)
@@ -104,53 +126,29 @@
   (empty_record_literal)
 ] @operator
 
-; Builtins
+;; Builtins
 (builtin_function) @function.builtin
 
 (builtin
   [
     "Bool"
-    "Natural"
-    "Natural/build"
-    "Natural/fold"
-    "Natural/isZero"
-    "Natural/even"
-    "Natural/odd"
-    "Natural/subtract"
-    "Natural/toInteger"
-    "Natural/show"
-    "Integer"
-    "Integer/toDouble"
-    "Integer/show"
-    "Integer/negate"
-    "Integer/clamp"
-    "Double"
-    "Double/show"
-    "List"
-    "List/build"
-    "List/fold"
-    "List/length"
-    "List/head"
-    "List/last"
-    "List/indexed"
-    "List/reverse"
-    "Text"
-    "Text/show"
-    "Text/replace"
     "Optional"
+    "Natural"
+    "Integer"
+    "Double"
+    "Text"
+    "Bytes"
     "Date"
-    "Date/show"
     "Time"
-    "Time/show"
     "TimeZone"
-    "TimeZone/show"
+    "List"
     "Type"
     "Kind"
     "Sort"
   ] @type.builtin
 )
 
-; Punctuation
+;; Punctuation
 [
   ","
   "|"
@@ -159,62 +157,19 @@
 (selector_dot) @punctuation.delimiter
 
 [
-  "{"
-  "}"
-] @punctuation.bracket
-
-[
-  "["
-  "]"
-] @punctuation.bracket
-
-[
   "("
   ")"
-] @punctuation.bracket
-
-[
+  "{"
+  "}"
+  "["
+  "]"
   "<"
   ">"
 ] @punctuation.bracket
 
-; Conditionals
+;; Conditionals
 [
   "if"
   "then"
   "else"
-] @keyword.conditional
-
-; Literals
-[
-  (text_literal)
-  (bytes_literal)
-] @string
-
-(interpolation
-  "}" @string
-)
-
-[
-  (double_quote_escaped)
-  (single_quote_escaped)
-] @string.escape
-
-[
-  (integer_literal)
-  (natural_literal)
-] @number
-
-(double_literal) @number.float
-
-(boolean_literal) @boolean
-
-(builtin
-  "None"
-) @constant.builtin
-
-; Comments
-[
-  (line_comment)
-  (block_comment)
-] @comment @spell
+] @keyword.control.conditional

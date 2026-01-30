@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/mlir/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/artagnon/tree-sitter-mlir/4ab28ecdacef343af56c09b7981580503e49fadb/queries/highlights.scm
 [
   "ins"
   "outs"
@@ -25,7 +24,6 @@
   (arith_cmp_predicate)
 ] @keyword
 
-; format-ignore
 [
   "module"
   "unrealized_conversion_cast"
@@ -263,14 +261,12 @@
 
 [
   (integer_literal)
+  (float_literal)
   (complex_literal)
 ] @number
 
-(float_literal) @number.float
-
-(bool_literal) @boolean
-
 [
+  (bool_literal)
   (tensor_literal)
   (array_literal)
   (unit_literal)
@@ -329,6 +325,12 @@
   name: (symbol_ref_id) @function
 )
 
+(caret_id) @tag
+
+(value_use) @variable
+
+(comment) @comment
+
 (func_arg_list
   (value_use) @variable.parameter
 )
@@ -336,9 +338,3 @@
 (block_arg_list
   (value_use) @variable.parameter
 )
-
-(caret_id) @string.special
-
-(value_use) @variable
-
-(comment) @comment @spell

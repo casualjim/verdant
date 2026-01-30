@@ -1,15 +1,16 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/matlab/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/acristoffers/tree-sitter-matlab/f3eef66526fdae0469207d8e561fb5771eea1721/queries/neovim/highlights.scm
 ; Includes
 (
-  (command_name) @keyword.import
-  (#eq? @keyword.import "import")
+  (command_name) @include
+  (#eq? @include "import")
 )
 
 ; Keywords
 [
   "arguments"
+  "classdef"
   "end"
+  "enumeration"
   "events"
   "global"
   "methods"
@@ -17,47 +18,38 @@
   "properties"
 ] @keyword
 
-"enumeration" @keyword.type
-
-(class_definition
-  [
-    "classdef"
-    "end"
-  ] @keyword.type
-)
-
 ; Conditionals
 (if_statement
   [
     "if"
     "end"
-  ] @keyword.conditional
+  ] @conditional
 )
 
 (elseif_clause
-  "elseif" @keyword.conditional
+  "elseif" @conditional
 )
 
 (else_clause
-  "else" @keyword.conditional
+  "else" @conditional
 )
 
 (switch_statement
   [
     "switch"
     "end"
-  ] @keyword.conditional
+  ] @conditional
 )
 
 (case_clause
-  "case" @keyword.conditional
+  "case" @conditional
 )
 
 (otherwise_clause
-  "otherwise" @keyword.conditional
+  "otherwise" @conditional
 )
 
-(break_statement) @keyword.conditional
+(break_statement) @conditional
 
 ; Repeats
 (for_statement
@@ -65,28 +57,28 @@
     "for"
     "parfor"
     "end"
-  ] @keyword.repeat
+  ] @repeat
 )
 
 (while_statement
   [
     "while"
     "end"
-  ] @keyword.repeat
+  ] @repeat
 )
 
-(continue_statement) @keyword.repeat
+(continue_statement) @repeat
 
 ; Exceptions
 (try_statement
   [
     "try"
     "end"
-  ] @keyword.exception
+  ] @exception
 )
 
 (catch_clause
-  "catch" @keyword.exception
+  "catch" @exception
 )
 
 ; Variables
@@ -105,21 +97,21 @@
 
 ; Fields/Properties
 (field_expression
-  field: (identifier) @variable.member
+  field: (identifier) @field
 )
 
 (superclass
   "."
-  (identifier) @variable.member
+  (identifier) @property
 )
 
 (property_name
   "."
-  (identifier) @variable.member
+  (identifier) @property
 )
 
 (property
-  name: (identifier) @variable.member
+  name: (identifier) @property
 )
 
 ; Types
@@ -171,13 +163,13 @@
   (command_name) @function.call
 )
 
-(command_argument) @variable.parameter
+(command_argument) @parameter
 
 (return_statement) @keyword.return
 
 ; Parameters
 (function_arguments
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 ; Punctuation
@@ -203,6 +195,7 @@
   "-"
   ".*"
   "*"
+  ".*"
   "/"
   "./"
   "\\"
@@ -247,11 +240,10 @@
 )
 
 ; Comments
-(comment) @comment @spell
+[
+  (comment)
+  (line_continuation)
+] @comment @spell
 
-(line_continuation) @punctuation.special
-
-(
-  (comment) @keyword.directive
-  (#lua-match? @keyword.directive "^%%%% ")
-)
+; Errors
+(ERROR) @error

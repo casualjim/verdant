@@ -98,11 +98,13 @@ fn compile_parser(
         println!("generating parser for {name}");
         tree_sitter_generate::generate_parser_in_directory(
             &src_dir,
-            None,
-            None,
+            None::<PathBuf>,
+            None::<PathBuf>,
             tree_sitter_generate::ABI_VERSION_MAX,
             None,
             env::var("SYNTASTICA_PARSERS_JS_RUNTIME").ok().as_deref(),
+            true,
+            tree_sitter_generate::OptLevel::default(),
         )?;
     }
 

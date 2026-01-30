@@ -1,21 +1,23 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/kcl/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/kcl-lang/tree-sitter-kcl/b0b2eb38009e04035a6e266c7e11e541f3caab7c/queries/highlights.scm
 (identifier) @variable
 
+; Reset highlighting in string interpolations
+(interpolation) @none
+
 (import_stmt
   (dotted_name
-    (identifier) @module
+    (identifier) @namespace
   )
 )
 
 (import_stmt
   (dotted_name
-    (identifier) @module
+    (identifier) @namespace
   )
-  (identifier) @module
+  (identifier) @namespace
 )
 
-(basic_type) @type.builtin
+(basic_type) @type
 
 (schema_type
   (dotted_name
@@ -25,7 +27,7 @@
 
 (schema_type
   (dotted_name
-    (identifier) @module
+    (identifier) @namespace
     (identifier) @type
   )
 )
@@ -48,12 +50,12 @@
 
 (lambda_expr
   (typed_parameter
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
 (lambda_expr
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (selector_expr
@@ -62,7 +64,7 @@
   )
 )
 
-(comment) @comment @spell
+(comment) @comment
 
 (string) @string
 
@@ -93,48 +95,38 @@
   )
 )
 
-(integer) @number
-
-(float) @number.float
+[
+  (integer)
+  (float)
+] @number
 
 [
   (true)
   (false)
-] @boolean
-
-[
   (none)
   (undefined)
 ] @constant.builtin
 
-"for" @keyword.repeat
-
 [
+  "all"
+  "any"
+  "assert"
+  "as"
+  "check"
   "elif"
   "else"
+  "filter"
+  "for"
   "if"
-] @keyword.conditional
-
-"lambda" @keyword.function
-
-(quant_op) @keyword.operator
-
-[
+  "import"
+  "lambda"
+  "map"
+  "mixin"
   "protocol"
   "rule"
   "schema"
   "type"
-  "mixin"
-] @keyword.type
-
-"assert" @keyword.debug
-
-[
-  "as"
-  "import"
-] @keyword.import
-
-"check" @keyword
+] @keyword
 
 [
   "("
@@ -144,15 +136,6 @@
   "{"
   "}"
 ] @punctuation.bracket
-
-[
-  ","
-  ":"
-  "."
-  "?."
-  "?:"
-  "?"
-] @punctuation.delimiter
 
 (interpolation
   "${" @punctuation.special
@@ -179,30 +162,15 @@
   ">="
   "=="
   "!="
-  "="
-  "+="
-  "-="
-  "*="
-  "**="
-  "/="
-  "//="
-  "%="
-  "<<="
-  ">>="
-  "&="
-  "^="
-  "->"
-] @operator
-
-"@" @attribute
-
-[
+  "@"
   "and"
   "or"
   "not"
   "in"
   "is"
-] @keyword.operator
+  "="
+  ":"
+] @operator
 
 ; second argument is a regex in all regex functions with at least two arguments
 (call_expr
@@ -221,6 +189,7 @@
 
 ; first argument is a regex in 'regex.compile' function
 (call_expr
+  .
   function: (selector_expr
     (identifier) @_regex
     (select_suffix
@@ -229,7 +198,6 @@
     )
   )
   arguments: (argument_list
-    .
     (string
       (string_content) @string.regexp
     )

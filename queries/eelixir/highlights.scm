@@ -1,14 +1,13 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/eex/highlights.scm
-;; Licensed under the Apache License 2.0
-[
-  "%>"
-  "--%>"
-  "<%!--"
-  "<%"
-  "<%#"
-  "<%%="
-  "<%="
-] @tag.delimiter
+;; Forked from https://raw.githubusercontent.com/connorlay/tree-sitter-eex/f742f2fe327463335e8671a87c0b9b396905d1d1/queries/highlights.scm
+; wrapping in (directive .. ) prevents us from highlighting '%>' in a comment as a keyword
+(directive
+  [
+    "<%"
+    "<%="
+    "<%%"
+    "<%%="
+    "%>"
+  ] @keyword
+)
 
-; EEx comments are highlighted as such
-(comment) @comment @spell
+(comment) @comment

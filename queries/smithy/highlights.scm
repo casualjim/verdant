@@ -1,42 +1,23 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/smithy/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/indoorvivants/tree-sitter-smithy/ec4fe14586f2b0a1bc65d6db17f8d8acd8a90433/queries/highlights.scm
 ; Preproc
-(control_key) @keyword.directive
+(control_key) @preproc
 
 ; Namespace
-(namespace) @module
+(namespace) @namespace
 
 ; Includes
-"use" @keyword.import
-
-; Builtins
-(primitive) @type.builtin
-
-[
-  "enum"
-  "intEnum"
-  "list"
-  "map"
-  "set"
-  "structure"
-  "union"
-  "namespace"
-  "service"
-  "operation"
-  "resource"
-] @keyword.type
+["use"] @include
 
 ; Fields (Members)
-; (field) @variable.member
-(key_identifier) @variable.member
+(key_identifier) @field
 
 (shape_member
-  (field) @variable.member
+  (field) @field
 )
 
-(operation_field) @variable.member
+(operation_field) @field
 
-(operation_error_field) @variable.member
+(operation_error_field) @field
 
 ; Constants
 (enum_member
@@ -57,7 +38,7 @@
 
 (trait_statement
   (shape_id
-    (#set! priority 105)
+    (#set! "priority" 105)
   ) @attribute
 )
 
@@ -71,10 +52,35 @@
 
 ; Keywords
 [
-  "metadata"
   "apply"
   "for"
+  "metadata"
+  "namespace"
   "with"
+  ; shape types
+  "bigDecimal"
+  "bigInteger"
+  "blob"
+  "boolean"
+  "byte"
+  "document"
+  "double"
+  "enum"
+  "float"
+  "intEnum"
+  "integer"
+  "list"
+  "long"
+  "map"
+  "operation"
+  "resource"
+  "service"
+  "set"
+  "short"
+  "string"
+  "structure"
+  "timestamp"
+  "union"
 ] @keyword
 
 ; Literals
@@ -84,7 +90,7 @@
 
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (boolean) @boolean
 
@@ -117,6 +123,7 @@
 ] @punctuation.delimiter
 
 ; Comments
-(comment) @comment @spell
-
-(documentation_comment) @comment.documentation @spell
+[
+  (comment)
+  (documentation_comment)
+] @spell @comment

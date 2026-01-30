@@ -1,39 +1,22 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/idris/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/kayhide/tree-sitter-idris/c56a25cf57c68ff929356db25505c1cc4c7820f6/queries/highlights.scm
 ; ------------------------------------------------------------------------------
 ; Literals and comments
 [
   (integer)
-  (quantity)
-] @number
+] @constant.numeric.integer
 
 (literal
   (number)
-) @number.float
+) @constant.numeric.float
 
-(char) @character
+(char) @constant.character
 
 [
   (string)
-  (pat_string)
   (triple_quote_string)
 ] @string
 
-(comment) @comment @spell
-
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^|||")
-)
-
-(unit) @constant
-
-; more general captures are moved to the top
-; before overwritten later by more specific captures
-[
-  (loname)
-  (caname)
-] @variable
+(comment) @comment
 
 ; ------------------------------------------------------------------------------
 ; Punctuation
@@ -48,22 +31,19 @@
   "]"
 ] @punctuation.bracket
 
-[
-  (comma)
-  (colon)
-  (pat_op)
-  (tuple_operator)
-] @punctuation.delimiter
-
-(pat_name
-  (loname) @variable.parameter
-)
+(comma) @punctuation.delimiter
 
 ; ------------------------------------------------------------------------------
 ; Types
 (signature
   (loname) @type
 )
+
+(signature
+  (caname) @constructor
+)
+
+(caname) @constructor
 
 ; ------------------------------------------------------------------------------
 ; Keywords, operators, imports
@@ -73,14 +53,16 @@
   "else"
   "case"
   "of"
-] @keyword.conditional
+] @keyword.control.conditional
+
+(module) @namespace
 
 [
   "import"
   "module"
   "namespace"
   "parameters"
-] @keyword.import
+] @keyword.control.import
 
 [
   (operator)
@@ -101,58 +83,44 @@
 ] @operator
 
 (qualified_loname
-  (caname) @module
+  (caname) @namespace
 )
 
 (qualified_caname
-  (caname) @constructor
+  (caname) @namespace
 )
 
 (qualified_operator
-  (caname) @module
+  (caname) @namespace
 )
 
 (import
-  (caname) @module
+  (caname) @namespace
 )
-
-(module
-  (caname) @module
-)
-
-[
-  "let"
-  "in"
-] @keyword
 
 [
   (where)
+  "let"
+  "in"
   "rewrite"
   "interface"
   "implementation"
   "using"
+  "data"
   "record"
   "as"
   "do"
   (forall)
   (fixity)
+  (visibility)
+  (totality)
+  (quantity)
   (impossible)
   (with)
   (proof)
-] @keyword.operator
-
-[
-  (visibility)
-  (totality)
-] @keyword.modifier
-
-"data" @keyword.type
-
-[
   "="
-  "$="
   ":="
-] @operator
+] @keyword
 
 (hole) @label
 
@@ -209,21 +177,22 @@
 ; ------------------------------------------------------------------------------
 ; Functions and variables
 (exp_name
-  (loname) @function.call
+  (loname) @function
 )
 
-(constructor
-  "constructor" @keyword.function
-  .
+(exp_name
   (caname) @constructor
 )
 
 (exp_record_access
-  field: (_) @variable.member
+  field: (_) @variable.other.member
 )
 
 (signature
-  name: (loname) @function
+  name: [
+    (loname)
+    (caname)
+  ] @function
 )
 
 (function

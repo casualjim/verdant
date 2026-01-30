@@ -1,9 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ini/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/justinmk/tree-sitter-ini/e4018b5176132b4f3c5d6e61cea383f42288d0f5/queries/highlights.scm
 (section_name
-  (text) @markup.heading
+  (text) @type
 )
 
+; consistency with toml
 (comment) @comment @spell
 
 [
@@ -17,4 +17,4 @@
   (setting_name) @property
 )
 
-(setting_value) @string
+; (setting_value) @none ; grammar does not support subtypes

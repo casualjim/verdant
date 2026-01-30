@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/bp/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/ambroisie/tree-sitter-bp/ee641d15390183d7535777947ce0f2f1fbcee69f/queries/highlights.scm
+(comment) @comment
 
 (operator) @operator
 

@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/cpon/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-cpon/594289eadfec719198e560f9d7fd243c4db678d5/queries/highlights.scm
 ; Literals
 (string) @string
 
@@ -21,12 +20,12 @@
 )
 
 (_
-  key: (_) @property
+  key: (_) @label
 )
 
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (boolean) @boolean
 
@@ -53,10 +52,15 @@
   ">"
 ] @punctuation.bracket
 
-("\""
-  @string
+(
+  ("\""
+    @conceal
+  )
   (#set! conceal "")
 )
 
 ; Comments
 (comment) @comment @spell
+
+; Errors
+(ERROR) @error

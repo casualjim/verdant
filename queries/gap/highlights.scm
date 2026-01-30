@@ -1,6 +1,15 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gap/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/gap-system/tree-sitter-gap/2bac14863b76ad0ff6fd7204c50574732acd66df/queries/highlights.scm
+; NOTE: (reiniscirpons) in case multiple queries match, last query wins. So
+; queries should go from least specific to most specific. (This is the default
+; behaviour since tree-sitter 0.22.2)
 (identifier) @variable
+
+; Constants
+; convention: constants are of the form ALL_CAPS_AND_UNDERSCORES and have length at least 2
+(
+  (identifier) @constant
+  (#match? @constant "^[A-Z_][A-Z_]+$")
+)
 
 ; Functions
 (assignment_statement
@@ -84,6 +93,10 @@
     .
   )
   (#eq? @variable.parameter.builtin "arg")
+)
+
+(locals
+  (identifier) @variable.parameter
 )
 
 ; Literals

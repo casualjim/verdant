@@ -1,224 +1,97 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/fortran/highlights.scm
-;; Licensed under the Apache License 2.0
-; Preprocs
-(preproc_directive) @keyword.directive
+;; Forked from https://raw.githubusercontent.com/stadelmanma/tree-sitter-fortran/43cd127cd41ff6e57b3ececb3cc283c5af4796e7/queries/highlights.scm
+(identifier) @variable
 
-; Namespaces
-(program_statement
-  (name) @module
-)
+(string_literal) @string
 
-(end_program_statement
-  (name) @module
-)
+(number_literal) @number
 
-(module_statement
-  (name) @module
-)
+(boolean_literal) @boolean
 
-(end_module_statement
-  (name) @module
-)
-
-(submodule_statement
-  (name) @module
-)
-
-(end_submodule_statement
-  (name) @module
-)
-
-; Includes
-[
-  "import"
-  "include"
-  "use"
-] @keyword.import
-
-(import_statement
-  ","
-  [
-    "all"
-    "none"
-  ] @keyword
-)
-
-; Attributes
-[
-  (none)
-  "implicit"
-  "intent"
-] @attribute
-
-(implicit_statement
-  "type" @attribute
-)
-
-; Keywords
-[
-  "attributes"
-  "associate"
-  "block"
-  "classis"
-  "contains"
-  "default"
-  "dimension"
-  "endassociate"
-  "endselect"
-  "enumerator"
-  "equivalence"
-  "extends"
-  "goto"
-  "intrinsic"
-  "non_intrinsic"
-  "namelist"
-  "parameter"
-  "quiet"
-  "rank"
-  "save"
-  "selectcase"
-  "selectrank"
-  "selecttype"
-  "sequence"
-  "stop"
-  "target"
-  "typeis"
-] @keyword
+(comment) @comment
 
 [
-  "class"
-  "enum"
-  "endenum"
-  "type"
-  "endtype"
-  "module"
-  "endmodule"
-  "submodule"
-  "endsubmodule"
-  "interface"
-  "endinterface"
-] @keyword.type
-
-(default) @keyword
-
-; Types
-(type_name) @type
-
-(intrinsic_type) @type.builtin
-
-; Qualifiers
-[
-  "abstract"
+  (intrinsic_type)
   "allocatable"
-  "automatic"
-  "constant"
-  "contiguous"
-  "data"
-  "deferred"
+  "attributes"
   "device"
-  "external"
-  "family"
-  "final"
-  "generic"
+  "dimension"
+  "endtype"
   "global"
   "grid_global"
   "host"
-  "initial"
-  "local"
-  "local_init"
-  "managed"
-  "nopass"
-  "non_overridable"
-  "optional"
-  "pass"
-  "pinned"
-  "pointer"
-  "private"
-  "property"
-  "protected"
-  "public"
-  "shared"
-  "static"
-  "texture"
-  "value"
-  "volatile"
-  (procedure_qualifier)
-] @keyword.modifier
-
-[
-  "common"
+  "import"
   "in"
   "inout"
+  "intent"
+  "optional"
   "out"
-] @keyword.modifier
-
-; Labels
-[
-  (statement_label)
-  (statement_label_reference)
-] @label
+  "pointer"
+  "type"
+  "value"
+] @type
 
 [
-  "call"
+  "contains"
+  "private"
+  "public"
+] @include
+
+[
+  (none)
+  "implicit"
+] @attribute
+
+[
   "endfunction"
   "endprogram"
-  "endprocedure"
   "endsubroutine"
   "function"
   "procedure"
-  "program"
   "subroutine"
 ] @keyword.function
 
 [
-  "result"
-  "return"
-] @keyword.return
-
-; Functions
-(function_statement
-  (name) @function
-)
-
-(end_function_statement
-  (name) @function
-)
-
-(subroutine_statement
-  (name) @function
-)
-
-(end_subroutine_statement
-  (name) @function
-)
-
-(module_procedure_statement
-  (name) @function
-)
-
-(end_module_procedure_statement
-  (name) @function
-)
-
-(subroutine_call
-  (identifier) @function.call
-)
-
-[
-  "character"
-  "close"
+  (default)
+  (procedure_qualifier)
+  "abstract"
   "bind"
+  "call"
+  "class"
+  "continue"
+  "cycle"
+  "endenum"
+  "endinterface"
+  "endmodule"
+  "endprocedure"
+  "endprogram"
+  "endsubmodule"
+  "enum"
+  "enumerator"
+  "equivalence"
+  "exit"
+  "extends"
   "format"
-  "open"
+  "goto"
+  "include"
+  "interface"
+  "intrinsic"
+  "non_intrinsic"
+  "module"
+  "namelist"
+  "only"
+  "parameter"
   "print"
+  "procedure"
+  "program"
   "read"
+  "stop"
+  "submodule"
+  "use"
   "write"
-] @function.builtin
+] @keyword
 
-; Exceptions
-"error" @keyword.exception
+"return" @keyword.return
 
-; Conditionals
 [
   "else"
   "elseif"
@@ -228,44 +101,19 @@
   "if"
   "then"
   "where"
-] @keyword.conditional
+] @conditional
 
-; Repeats
 [
   "do"
-  "concurrent"
   "enddo"
-  "endforall"
   "forall"
   "while"
-  "continue"
-  "cycle"
-  "exit"
-] @keyword.repeat
+] @repeat
 
-; Variables
-(identifier) @variable
-
-; Parameters
-(keyword_argument
-  name: (identifier) @variable.parameter
-)
-
-(parameters
-  (identifier) @variable.parameter
-)
-
-; Properties
-(derived_type_member_expression
-  (type_member) @variable.member
-)
-
-; Operators
 [
+  "*"
   "+"
   "-"
-  "*"
-  "**"
   "/"
   "="
   "<"
@@ -274,69 +122,102 @@
   ">="
   "=="
   "/="
-  "//"
-  (assumed_rank)
 ] @operator
 
 [
   "\\.and\\."
   "\\.or\\."
-  "\\.eqv\\."
-  "\\.neqv\\."
   "\\.lt\\."
   "\\.gt\\."
-  "\\.le\\."
   "\\.ge\\."
+  "\\.le\\."
   "\\.eq\\."
-  "\\.ne\\."
-  "\\.not\\."
+  "\\.eqv\\."
+  "\\.neqv\\."
 ] @keyword.operator
 
-; Punctuation
-[
-  "["
-  "]"
-] @punctuation.bracket
-
+;; Brackets
 [
   "("
   ")"
-] @punctuation.bracket
-
-[
+  "["
+  "]"
   "<<<"
   ">>>"
 ] @punctuation.bracket
 
-(array_literal
-  [
-    "(/"
-    "/)"
-  ] @punctuation.bracket
-)
-
+;; Delimiter
 [
-  ":"
-  ","
-  "/"
-  "%"
   "::"
-  "=>"
+  ","
+  "%"
 ] @punctuation.delimiter
 
-; Literals
-(string_literal) @string
+(parameters
+  (identifier) @parameter
+)
 
-(number_literal) @number
+(program_statement
+  (name) @namespace
+)
 
-(boolean_literal) @boolean
+(module_statement
+  (name) @namespace
+)
 
-(null_literal) @constant.builtin
+(submodule_statement
+  (module_name)
+  (name) @namespace
+)
 
-; Comments
-(comment) @comment @spell
+(function_statement
+  (name) @function
+)
 
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^!>")
+(subroutine_statement
+  (name) @function
+)
+
+(module_procedure_statement
+  (name) @function
+)
+
+(end_program_statement
+  (name) @namespace
+)
+
+(end_module_statement
+  (name) @namespace
+)
+
+(end_submodule_statement
+  (name) @namespace
+)
+
+(end_function_statement
+  (name) @function
+)
+
+(end_subroutine_statement
+  (name) @function
+)
+
+(end_module_procedure_statement
+  (name) @function
+)
+
+(subroutine_call
+  (identifier) @function
+)
+
+(keyword_argument
+  name: (identifier) @keyword
+)
+
+(derived_type_member_expression
+  (type_member) @property
+)
+
+(call_expression
+  (identifier) @function.call
 )

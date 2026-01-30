@@ -11,9 +11,10 @@ use crates_io_api::SyncClient;
 use fancy_regex::Regex;
 use lazy_regex::regex_captures;
 use once_cell::sync::Lazy;
+use reqwest::redirect::Policy;
 use semver::{Version, VersionReq};
 use toml::Table;
-use url::Url;
+use url::{form_urlencoded, Url};
 
 use crate::fetch_queries::fetch_query;
 
@@ -36,7 +37,8 @@ pub fn run() -> Result<()> {
         .with_context(|| "missing url for `add-lang` task")?;
     let path = env::args().nth(5);
 
-    let rev = get_rev(&url).with_context(|| "unable to fetch latest revision of repository")?;
+    let rev =
+        get_rev(&url, None).with_context(|| "unable to fetch latest revision of repository")?;
 
     let content_url = url_to_content_url(&url, &rev);
     let path_in_url = match &path {
@@ -157,19 +159,29 @@ pub const {name}_LOCALS_CRATES_IO: &str = "";
     Ok(())
 }
 
-pub fn get_rev(url: &str) -> Result<String> {
-    Ok(String::from_utf8(
-        Command::new("git")
-            .args(["ls-remote", url])
-            .output()?
-            .stdout,
-    )?
-    .lines()
-    .next()
-    .ok_or_else(|| anyhow!("output is empty"))?
-    .replace("HEAD", "")
-    .trim()
-    .to_owned())
+pub fn get_rev(url: &str, branch: Option<&str>) -> Result<String> {
+    let mut cmd = Command::new("git");
+    cmd.args(["ls-remote", url]);
+    if let Some(branch) = branch {
+        let branch = branch.trim();
+        if !branch.is_empty() {
+            if branch.starts_with("refs/") {
+                cmd.arg(branch);
+            } else {
+                cmd.arg(format!("refs/heads/{branch}"));
+            }
+        }
+    }
+    let output = cmd.output()?.stdout;
+    let output = String::from_utf8(output)?;
+    let line = output
+        .lines()
+        .next()
+        .ok_or_else(|| anyhow!("output is empty"))?;
+    line.split_whitespace()
+        .next()
+        .map(str::to_string)
+        .ok_or_else(|| anyhow!("unable to parse rev from output"))
 }
 
 static URL_REGEX: Lazy<Regex> =
@@ -180,11 +192,13 @@ pub fn url_to_content_url(url: &str, rev: &str) -> Option<String> {
         Ok(Some(groups)) => match &groups[1] {
             "github" => Some(format!(
                 "https://raw.githubusercontent.com/{}/{}/{rev}",
-                &groups[2], &groups[3],
+                &groups[2],
+                groups[3].strip_suffix(".git").unwrap_or(&groups[3]),
             )),
             "gitlab" => Some(format!(
                 "https://gitlab.com/{}/{}/-/raw/{rev}",
-                &groups[2], &groups[3],
+                &groups[2],
+                groups[3].strip_suffix(".git").unwrap_or(&groups[3]),
             )),
             _ => unreachable!("the regex only allows above options"),
         },
@@ -314,6 +328,15 @@ static CRATES_IO_CLIENT: Lazy<SyncClient> = Lazy::new(|| {
     .unwrap()
 });
 
+static REPO_HTTP_CLIENT: Lazy<reqwest::blocking::Client> = Lazy::new(|| {
+    reqwest::blocking::Client::builder()
+        .user_agent("syntastica xtask (github.com/RubixDev/syntastica)")
+        .redirect(Policy::limited(5))
+        .timeout(Duration::from_secs(5))
+        .build()
+        .expect("failed to build http client")
+});
+
 static TREE_SITTER_VERSION: Lazy<Version> = Lazy::new(|| {
     Version::parse(
         toml::from_str::<Table>(
@@ -356,10 +379,15 @@ pub fn try_get_crates_io_version(package: &str, parser_url: &str) -> CratesIoLoo
 }
 
 fn repo_matches(parser_url: &str, crate_repo_url: &str) -> bool {
-    match (
-        normalize_repo_id(parser_url),
-        normalize_repo_id(crate_repo_url),
-    ) {
+    let left = normalize_repo_id(parser_url);
+    let right = normalize_repo_id(crate_repo_url);
+    if left.is_some() && left == right {
+        return true;
+    }
+
+    let left = resolve_repo_id(parser_url).or(left);
+    let right = resolve_repo_id(crate_repo_url).or(right);
+    match (left, right) {
         (Some(left), Some(right)) => left == right,
         _ => false,
     }
@@ -383,15 +411,162 @@ fn normalize_repo_id(url: &str) -> Option<String> {
     };
 
     let parsed = parsed?;
-    let host = parsed.host_str()?.to_lowercase();
-    let mut path = parsed.path().trim_matches('/');
-    if let Some(stripped) = path.strip_suffix(".git") {
-        path = stripped;
+    let mut host = parsed.host_str()?.to_lowercase();
+    if let Some(stripped) = host.strip_prefix("www.") {
+        host = stripped.to_string();
     }
-    if path.is_empty() {
+
+    let mut segments: Vec<&str> = parsed
+        .path()
+        .split('/')
+        .filter(|segment| !segment.is_empty())
+        .collect();
+    if segments.is_empty() {
         return None;
     }
-    Some(format!("{host}/{}", path.to_lowercase()))
+    if host == "api.github.com" {
+        if segments.first() == Some(&"repos") {
+            segments.remove(0);
+        }
+        host = "github.com".to_string();
+    }
+
+    if let Some(pos) = segments
+        .iter()
+        .position(|segment| matches!(*segment, "tree" | "blob" | "-"))
+    {
+        segments.truncate(pos);
+    }
+
+    if let Some(last) = segments.last_mut() {
+        if let Some(stripped) = last.strip_suffix(".git") {
+            *last = stripped;
+        }
+    }
+    if segments.is_empty() {
+        return None;
+    }
+
+    let max_segments = if host == "github.com" || host.ends_with(".github.com") {
+        2
+    } else {
+        segments.len()
+    };
+    let segments = &segments[..segments.len().min(max_segments)];
+    Some(format!("{host}/{}", segments.join("/").to_lowercase()))
+}
+
+fn resolve_repo_id(url: &str) -> Option<String> {
+    let https = to_https_url(url)?;
+    resolve_repo_id_via_redirect(&https).or_else(|| resolve_repo_id_via_api(&https))
+}
+
+fn resolve_repo_id_via_redirect(url: &str) -> Option<String> {
+    let response = REPO_HTTP_CLIENT
+        .head(url)
+        .send()
+        .or_else(|_| REPO_HTTP_CLIENT.get(url).send())
+        .ok()?;
+    normalize_repo_id(response.url().as_str())
+}
+
+fn resolve_repo_id_via_api(url: &str) -> Option<String> {
+    let parsed = Url::parse(url).ok()?;
+    let host = parsed.host_str()?.to_lowercase();
+    if host.ends_with("github.com") {
+        resolve_github_repo_id(&parsed)
+    } else if host.ends_with("gitlab.com") {
+        resolve_gitlab_repo_id(&parsed)
+    } else {
+        None
+    }
+}
+
+#[derive(serde::Deserialize)]
+struct GithubRepoInfo {
+    html_url: String,
+}
+
+fn resolve_github_repo_id(url: &Url) -> Option<String> {
+    let mut segments: Vec<&str> = url
+        .path()
+        .split('/')
+        .filter(|segment| !segment.is_empty())
+        .collect();
+    if segments.first() == Some(&"repos") {
+        segments.remove(0);
+    }
+    if segments.len() < 2 {
+        return None;
+    }
+    let owner = segments[0];
+    let repo = segments[1].trim_end_matches(".git");
+    let api_url = format!("https://api.github.com/repos/{owner}/{repo}");
+    let response = REPO_HTTP_CLIENT.get(api_url).send().ok()?;
+    if !response.status().is_success() {
+        return None;
+    }
+    let info: GithubRepoInfo = response.json().ok()?;
+    normalize_repo_id(&info.html_url)
+}
+
+#[derive(serde::Deserialize)]
+struct GitlabProjectInfo {
+    web_url: String,
+}
+
+fn resolve_gitlab_repo_id(url: &Url) -> Option<String> {
+    let segments: Vec<&str> = url
+        .path()
+        .split('/')
+        .filter(|segment| !segment.is_empty())
+        .collect();
+    if segments.len() < 2 {
+        return None;
+    }
+    let path = segments.join("/");
+    let encoded: String = form_urlencoded::byte_serialize(path.as_bytes()).collect();
+    let api_url = format!("https://{}/api/v4/projects/{encoded}", url.host_str()?);
+    let response = REPO_HTTP_CLIENT.get(api_url).send().ok()?;
+    if !response.status().is_success() {
+        return None;
+    }
+    let info: GitlabProjectInfo = response.json().ok()?;
+    normalize_repo_id(&info.web_url)
+}
+
+fn to_https_url(url: &str) -> Option<String> {
+    let raw = url.trim();
+    if raw.is_empty() {
+        return None;
+    }
+    if let Some(rest) = raw.strip_prefix("git+") {
+        return Some(rest.to_string());
+    }
+    if raw.starts_with("http://") || raw.starts_with("https://") {
+        return Some(raw.to_string());
+    }
+    if raw.starts_with("git@") && raw.contains(':') {
+        let mut ssh = raw.replacen("git@", "ssh://git@", 1);
+        ssh = ssh.replacen(':', "/", 1);
+        let parsed = Url::parse(&ssh).ok()?;
+        let host = parsed.host_str()?;
+        let path = parsed.path().trim_start_matches('/').trim_end_matches(".git");
+        if path.is_empty() {
+            return None;
+        }
+        return Some(format!("https://{host}/{path}"));
+    }
+    if raw.starts_with("ssh://") {
+        let parsed = Url::parse(raw).ok()?;
+        let host = parsed.host_str()?;
+        let path = parsed.path().trim_start_matches('/').trim_end_matches(".git");
+        if path.is_empty() {
+            return None;
+        }
+        return Some(format!("https://{host}/{path}"));
+    }
+    None
 }
 
 fn is_compatible_tree_sitter(package: &str, version: &str) -> bool {

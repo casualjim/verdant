@@ -1,138 +1,117 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gren/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/MaeBrooks/tree-sitter-gren/c36aac51a915fdfcaf178128ba1e9c2205b25930/queries/highlights.scm
 ; Keywords
-[
-  (as)
-  (port)
-  (exposing)
-  (alias)
-  (infix)
-] @keyword
-
-; Keywords - Conditionals
 [
   "if"
   "then"
   "else"
   "let"
   "in"
-  (when)
-  (is)
-] @keyword.conditional
+] @keyword.control.gren
 
-; Keywords - Imports
-[
-  (import)
-  (module)
-] @keyword.import
+(when) @keyword.control.gren
 
-; Operators
-[
-  (arrow)
-  (backslash)
-  (colon)
-  (operator_identifier)
-  (eq)
-] @operator
+(is) @keyword.control.gren
 
-; Punctuation
-[
-  "("
-  ")"
-  "{"
-  "}"
-  "["
-  "]"
-] @punctuation.bracket
+(colon) @keyword.other.gren
 
-[
-  ","
-  "|"
-  (dot)
-] @punctuation.delimiter
+(backslash) @keyword.other.gren
 
-; Comments
-[
-  (block_comment)
-  (line_comment)
-] @comment
+(as) @keyword.other.gren
 
-; Strings
-[
-  (close_quote)
-  (open_quote)
-  (regular_string_part)
-] @string
+(port) @keyword.other.gren
 
-; Strings - Escape
-(string_escape) @string.escape
+(exposing) @keyword.other.gren
 
-; Characters
-[
-  (open_char)
-  (close_char)
-] @character
+(alias) @keyword.other.gren
+
+(infix) @keyword.other.gren
+
+(arrow) @keyword.operator.arrow.gren
+
+(port) @keyword.other.port.gren
 
 (type_annotation
-  (lower_case_identifier) @function
+  (lower_case_identifier) @function.gren
 )
 
 (port_annotation
-  (lower_case_identifier) @function
+  (lower_case_identifier) @function.gren
 )
 
 (function_declaration_left
-  (lower_case_identifier) @function
+  (lower_case_identifier) @function.gren
 )
 
 (function_call_expr
-  target: (value_expr) @function
+  target: (value_expr) @function.gren
 )
 
 (field_access_expr
   (value_expr
-    (value_qid) @variable.member
-  )
+    (value_qid)
+  ) @local.function.gren
 )
 
-(lower_pattern) @variable.parameter
+(lower_pattern) @local.function.gren
 
-(record_base_identifier) @variable
+(record_base_identifier) @local.function.gren
 
-(number_constant_expr) @number
+(operator_identifier) @keyword.operator.gren
 
-(type) @keyword.type
+(eq) @keyword.operator.assignment.gren
+
+"(" @punctuation.section.braces
+
+")" @punctuation.section.braces
+
+"|" @keyword.other.gren
+
+"," @punctuation.separator.comma.gren
+
+(import) @meta.import.gren
+
+(module) @keyword.other.gren
+
+(number_constant_expr) @constant.numeric.gren
+
+(type) @keyword.type.gren
 
 (type_declaration
-  (upper_case_identifier) @type
+  (upper_case_identifier) @storage.type.gren
 )
 
-(type_ref) @type
+(type_ref) @storage.type.gren
 
 (type_alias_declaration
-  name: (upper_case_identifier) @type
+  name: (upper_case_identifier) @storage.type.gren
 )
 
 (union_variant
-  (upper_case_identifier) @type
+  (upper_case_identifier) @union.gren
 )
 
-(union_pattern
-  constructor: (upper_case_qid
-    (upper_case_identifier) @label
-    (dot)
-    (upper_case_identifier) @type
-  )
-)
-
-(union_pattern
-  constructor: (upper_case_qid
-    (upper_case_identifier) @type
-  )
-)
+(union_pattern) @union.gren
 
 (value_expr
   (upper_case_qid
     (upper_case_identifier)
-  ) @type
+  ) @union.gren
 )
+
+; comments
+(line_comment) @comment.gren
+
+(block_comment) @comment.gren
+
+; strings
+(string_escape) @character.escape.gren
+
+(open_quote) @string.gren
+
+(close_quote) @string.gren
+
+(regular_string_part) @string.gren
+
+(open_char) @char.gren
+
+(close_char) @char.gren

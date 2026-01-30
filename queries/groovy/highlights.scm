@@ -1,54 +1,38 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/groovy/highlights.scm
-;; Licensed under the Apache License 2.0
-[
-  "!instanceof"
-  "assert"
-  "extends"
-  "instanceof"
-  "package"
-] @keyword
-
-"class" @keyword.type
-
+;; Forked from https://raw.githubusercontent.com/murtaza64/tree-sitter-groovy/86911590a8e46d71301c66468e5620d9faa5b6af/queries/highlights.scm
 [
   "!in"
+  "!instanceof"
   "as"
-  "in"
-] @keyword.operator
-
-[
+  "assert"
   "case"
+  "catch"
+  "class"
+  "def"
   "default"
   "else"
-  "if"
-  "switch"
-] @keyword.conditional
-
-[
-  "catch"
+  "extends"
   "finally"
-  "try"
-] @keyword.exception
-
-"def" @keyword.function
-
-"import" @keyword.import
-
-[
   "for"
+  "if"
+  "import"
+  "in"
+  "instanceof"
+  "package"
+  "pipeline"
+  "return"
+  "switch"
+  "try"
   "while"
   (break)
   (continue)
-] @keyword.repeat
-
-"return" @keyword.return
+] @keyword
 
 [
   "true"
   "false"
 ] @boolean
 
-(null) @constant.builtin
+(null) @constant
 
 "this" @variable.builtin
 
@@ -70,42 +54,52 @@
   "public"
   "static"
   "synchronized"
-] @keyword.modifier
+] @type.qualifier
 
-(comment) @comment @spell
+(comment) @comment
 
-(shebang) @keyword.directive
+(shebang) @comment
 
 (string) @string
 
 (string
-  (escape_sequence) @string.escape
+  (escape_sequence) @operator
 )
 
 (string
   (interpolation
-    "$" @punctuation.special
+    (
+      ["$"]
+    ) @operator
   )
 )
 
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
+("(") @punctuation.bracket
 
-[
-  ":"
-  ","
-  "."
-] @punctuation.delimiter
+(")") @punctuation.bracket
+
+("[") @punctuation.bracket
+
+("]") @punctuation.bracket
+
+("{") @punctuation.bracket
+
+("}") @punctuation.bracket
+
+(":") @punctuation.delimiter
+
+(",") @punctuation.delimiter
+
+(".") @punctuation.delimiter
 
 (number_literal) @number
 
 (identifier) @variable
+
+(
+  (identifier) @variable.parameter
+  (#is? @variable.parameter "local.parameter")
+)
 
 (
   (identifier) @constant
@@ -142,20 +136,21 @@
   "&&"
   "||"
   "?:"
+  "+"
+  "*"
   ".&"
   ".@"
   "?."
   "*."
+  "*"
   "*:"
   "++"
   "--"
   "!"
 ] @operator
 
-(wildcard_import) @character.special
-
 (string
-  "/" @string
+  ("/") @string
 )
 
 (ternary_op
@@ -164,7 +159,7 @@
       "?"
       ":"
     ]
-  ) @keyword.conditional.ternary
+  ) @operator
 )
 
 (map
@@ -232,11 +227,11 @@
 
 ; TODO: Class literals with PascalCase
 (declaration
-  "=" @operator
+  ("=") @operator
 )
 
 (assignment
-  "=" @operator
+  ("=") @operator
 )
 
 (function_call
@@ -293,24 +288,26 @@
 
 "@interface" @function.macro
 
-(groovy_doc) @comment.documentation @spell
+"pipeline" @keyword
+
+(groovy_doc) @comment.documentation
 
 (groovy_doc
   [
     (groovy_doc_param)
     (groovy_doc_throws)
     (groovy_doc_tag)
-  ] @string.special @nospell
+  ] @string.special
 )
 
 (groovy_doc
   (groovy_doc_param
     (identifier) @variable.parameter
-  ) @nospell
+  )
 )
 
 (groovy_doc
   (groovy_doc_throws
-    (identifier) @type @nospell
+    (identifier) @type
   )
 )

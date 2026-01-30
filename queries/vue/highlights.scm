@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vue/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-vue/ce8011a414fdf8091f4e4071752efc376f4afb08/queries/vue/highlights.scm
 ; inherits: html_tags
 [
   "["

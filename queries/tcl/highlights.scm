@@ -1,27 +1,26 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/tcl/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-tcl/8f11ac7206a54ed11210491cee1e0657e2962c47/queries/tcl/highlights.scm
+(comment) @spell @comment
 
 (command
   name: (simple_word) @function
 )
 
-"proc" @keyword.function
+"proc" @keyword.function @keyword
 
 (procedure
   name: (_) @variable
 )
 
 (set
-  (simple_word) @variable
+  (id) @variable
 )
 
 (argument
-  name: (_) @variable.parameter
+  name: (_) @variable.parameter @variable
 )
 
 (
-  (simple_word) @variable.builtin
+  (simple_word) @variable.builtin @variable
   (#any-of?
     @variable.builtin
     "argc"
@@ -46,10 +45,23 @@
   )
 )
 
-"expr" @function.builtin
+"expr" @function.builtin @function
+
+; Highlight switch arguments as string
+(command
+  name: (simple_word) @keyword
+  arguments: (word_list
+    (braced_word
+      (command
+        name: (simple_word) @string
+      )
+    )
+  )
+  (#eq? @keyword "switch")
+)
 
 (command
-  name: (simple_word) @function.builtin
+  name: (simple_word) @function.builtin @function
   (#any-of?
     @function.builtin
     "cd"
@@ -66,6 +78,13 @@
     "trace"
     "source"
   )
+)
+
+; Highlight unset and variable arguments as variables
+(command
+  name: (simple_word) @keyword
+  arguments: (word_list) @variable
+  (#any-of? @keyword "unset" "variable")
 )
 
 (command
@@ -97,34 +116,35 @@
     "lsort"
     "package"
     "return"
-    "switch"
+    "trap"
     "throw"
-    "unset"
-    "variable"
   )
 )
 
 [
+  "catch"
   "error"
+  "global"
+  "namespace"
   "on"
   "set"
   "try"
+  "finally"
 ] @keyword
-
-"namespace" @keyword.type
 
 (unpack) @operator
 
 [
   "while"
   "foreach"
-] @keyword.repeat
+  ; "for"
+] @repeat @keyword
 
 [
   "if"
   "else"
   "elseif"
-] @keyword.conditional
+] @conditional @keyword
 
 [
   "**"
@@ -164,11 +184,13 @@
   "["
   "]"
   ";"
-] @punctuation.delimiter
+] @punctuation.bracket @punctuation.delimiter
+
+(number) @number
 
 (
   (simple_word) @number
-  (#lua-match? @number "^[0-9]+$")
+  (#match? @number "^[0-9]+$|^[+-]?[0-9]+$")
 )
 
 (

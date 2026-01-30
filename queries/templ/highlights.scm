@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/templ/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/vrischmann/tree-sitter-templ/1c6db04effbcd7773c826bded9783cbc3061bd55/queries/templ/highlights.scm
 ; inherits: go
 (component_declaration
   name: (component_identifier) @function
@@ -9,10 +8,10 @@
   (tag_start)
   (tag_end)
   (self_closing_tag)
-  (style_element)
+  (style_tag_start)
+  (style_tag_end)
+  (self_closing_style_tag)
 ] @tag
-
-(doctype) @constant
 
 (attribute
   name: (attribute_name) @tag.attribute
@@ -49,14 +48,6 @@
 (component_render) @function.call
 
 (element_comment) @comment @spell
-
-[
-  "<"
-  ">"
-  "</"
-  "/>"
-  "<!"
-] @tag.delimiter
 
 "@" @operator
 

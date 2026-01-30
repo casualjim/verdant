@@ -18,4 +18,3 @@
 
 (range) @number
 
-"\\n" @punctuation.special

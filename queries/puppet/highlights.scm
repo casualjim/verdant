@@ -1,10 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/puppet/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-puppet/15f192929b7d317f5914de2b4accd37b349182a6/queries/highlights.scm
 ; Variables
 (identifier) @variable
 
 ; Includes
-"include" @keyword.import
+"include" @include
 
 (include_statement
   (identifier) @type
@@ -19,16 +18,12 @@
 
 ; Keywords
 [
+  "class"
   "inherits"
   "node"
-  "tag"
-  "require"
-] @keyword
-
-[
   "type"
-  "class"
-] @keyword.type
+  "tag"
+] @keyword
 
 [
   "define"
@@ -41,42 +36,38 @@
   "else"
   "unless"
   "case"
-] @keyword.conditional
+] @conditional
 
 (default_case
-  "default" @keyword.conditional
+  "default" @conditional
 )
 
-; Attributes
+; Properties
 (attribute
-  name: (identifier) @attribute
+  name: (identifier) @property
 )
 
 (attribute
   name: (variable
-    (identifier) @attribute
+    (identifier) @property
   )
 )
 
 ; Parameters
 (lambda
   (variable
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
 (parameter
   (variable
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
 (function_call
-  (identifier) @variable.parameter
-)
-
-(iterator_statement
-  (variable) @variable.parameter
+  (identifier) @parameter
 )
 
 ; Functions
@@ -91,6 +82,14 @@
   "("
 )
 
+(function_call
+  (field_expression
+    "."
+    (identifier) @method.call
+  )
+  "("
+)
+
 (defined_resource_type
   "define"
   .
@@ -102,14 +101,14 @@
   "function"
   .
   (class_identifier
-    (identifier) @function.method
+    (identifier) @method
     .
   )
 )
 
 (function_call
   (class_identifier
-    (identifier) @function.method.call
+    (identifier) @method.call
     .
   )
 )
@@ -118,17 +117,9 @@
   "define"
   .
   (class_identifier
-    (identifier) @function.method
+    (identifier) @method
     .
   )
-)
-
-(function_call
-  (field_expression
-    "."
-    (identifier) @function.method.call
-  )
-  "("
 )
 
 ; Types
@@ -202,7 +193,7 @@
 ; "Namespaces"
 (class_identifier
   .
-  (identifier) @module
+  (identifier) @namespace
 )
 
 ; Operators
@@ -281,13 +272,13 @@
 ; Literals
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (string) @string
 
 (escape_sequence) @string.escape
 
-(regex) @string.regexp
+(regex) @string.regex
 
 (boolean) @boolean
 
@@ -298,3 +289,6 @@
 
 ; Comments
 (comment) @comment @spell
+
+; Errors
+(ERROR) @error

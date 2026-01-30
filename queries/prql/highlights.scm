@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/prql/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/PRQL/tree-sitter-prql/09e158cd3650581c0af4c49c2e5b10c4834c8646/queries/highlights.scm
 [
   (keyword_from)
   (keyword_filter)
@@ -11,6 +10,7 @@
   (keyword_window)
   (keyword_join)
   (keyword_select)
+  (keyword_case)
   (keyword_append)
   (keyword_remove)
   (keyword_intersect)
@@ -20,11 +20,8 @@
   (keyword_let)
   (keyword_prql)
   (keyword_from_text)
+  (keyword_loop)
 ] @keyword
-
-(keyword_loop) @keyword.repeat
-
-(keyword_case) @keyword.conditional
 
 [
   (literal_string)
@@ -33,10 +30,10 @@
 ] @string
 
 (assignment
-  alias: (field) @variable.member
+  alias: (field) @field
 ) alias:
 
-(identifier) @variable.member
+(identifier) @field
 
 (comment) @comment @spell
 
@@ -56,16 +53,16 @@
   "!="
   ">="
   ">"
-  "&&"
   "||"
-  "//"
-  "~="
+  "&&"
   (bang)
 ] @operator
 
 [
   "("
   ")"
+  ; "["
+  ; "]"
   "{"
   "}"
 ] @punctuation.bracket
@@ -73,12 +70,13 @@
 [
   ","
   "."
+  (pipe)
   "->"
 ] @punctuation.delimiter
 
 (integer) @number
 
-(decimal_number) @number.float
+(decimal_number) @float
 
 [
   (keyword_min)
@@ -89,7 +87,16 @@
   (keyword_avg)
   (keyword_sum)
   (keyword_stddev)
+  (keyword_count)
+  (keyword_lag)
+  (keyword_lead)
+  (keyword_first)
+  (keyword_last)
   (keyword_rank)
+  (keyword_row_number)
+  (keyword_round)
+  (keyword_all)
+  (keyword_map)
 ] @function
 
 [
@@ -100,7 +107,7 @@
 [
   (keyword_version)
   (keyword_target)
-] @keyword.modifier
+] @type.qualifier
 
 (target) @function.builtin
 
@@ -117,12 +124,16 @@
   (keyword_full)
   (keyword_csv)
   (keyword_json)
-] @function.method.call
+] @method.call
 
 [
   (keyword_true)
   (keyword_false)
 ] @boolean
+
+[
+  (keyword_in)
+] @keyword.operator
 
 (function_definition
   (keyword_let)
@@ -130,7 +141,7 @@
 )
 
 (parameter
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (variable

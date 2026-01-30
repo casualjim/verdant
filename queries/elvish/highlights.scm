@@ -1,51 +1,72 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/elvish/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
-
-[
-  "if"
-  "elif"
-] @keyword.conditional
+;; Forked from https://raw.githubusercontent.com/elves/tree-sitter-elvish/5e7210d945425b77f82cbaebc5af4dd3e1ad40f5/queries/highlights.scm
+;; SPDX-License-Identifier: 0BSD
+;; SPDX-FileCopyrightText: 2022 Tobias Frilling
+(comment) @comment
 
 (if
-  (else
-    "else" @keyword.conditional
+  "if" @conditional
+)
+
+(if
+  (elif
+    "elif" @conditional
   )
 )
 
-[
-  "while"
-  "for"
-] @keyword.repeat
+(if
+  (else
+    "else" @conditional
+  )
+)
+
+(while
+  "while" @repeat
+)
 
 (while
   (else
-    "else" @keyword.repeat
+    "else" @repeat
   )
 )
 
 (for
+  "for" @repeat
+)
+
+(for
   (else
-    "else" @keyword.repeat
+    "else" @repeat
   )
 )
 
-[
-  "try"
-  "catch"
-  "finally"
-] @keyword.exception
+(try
+  "try" @exception
+)
+
+(try
+  (catch
+    "catch" @exception
+  )
+)
 
 (try
   (else
-    "else" @keyword.exception
+    "else" @exception
   )
 )
 
-"use" @keyword.import
+(try
+  (finally
+    "finally" @exception
+  )
+)
 
 (import
-  (bareword) @string.special.path
+  "use" @include
+)
+
+(import
+  (bareword) @string.special
 )
 
 (wildcard
@@ -53,15 +74,15 @@
     "*"
     "**"
     "?"
-  ] @character.special
+  ] @string.special
 )
 
 (command
-  argument: (bareword) @variable.parameter
+  argument: (bareword) @parameter
 )
 
 (command
-  head: (identifier) @function.call
+  head: (identifier) @function
 )
 
 (
@@ -78,33 +99,45 @@
   (#any-of? @keyword.operator "and" "or" "coalesce")
 )
 
-[
-  "+"
-  "-"
-  "*"
-  "/"
-  "%"
-  "<"
-  "<="
-  "=="
-  "!="
-  ">"
-  ">="
-  "<s"
-  "<=s"
-  "==s"
-  "!=s"
-  ">s"
-  ">=s"
-] @function.builtin
+(
+  (command
+    head:
+    _ @function
+  )
+  (#any-of?
+    @function
+    "+"
+    "-"
+    "*"
+    "/"
+    "%"
+    "<"
+    "<="
+    "=="
+    "!="
+    ">"
+    ">="
+    "<s"
+    "<=s"
+    "==s"
+    "!=s"
+    ">s"
+    ">=s"
+  )
+)
 
-[
-  ">"
-  "<"
-  ">>"
-  "<>"
-  "|"
-] @operator
+(pipeline
+  "|" @operator
+)
+
+(redirection
+  [
+    ">"
+    "<"
+    ">>"
+    "<>"
+  ] @operator
+)
 
 (io_port) @number
 
@@ -113,38 +146,35 @@
   (identifier) @function
 )
 
-(parameter_list) @variable.parameter
+(parameter_list) @parameter
 
 (parameter_list
   "|" @punctuation.bracket
 )
 
-[
-  "var"
-  "set"
-  "tmp"
-  "del"
-] @keyword
-
 (variable_declaration
+  "var" @keyword
   (lhs
     (identifier) @variable
   )
 )
 
 (variable_assignment
+  "set" @keyword
   (lhs
     (identifier) @variable
   )
 )
 
 (temporary_assignment
+  "tmp" @keyword
   (lhs
     (identifier) @variable
   )
 )
 
 (variable_deletion
+  "del" @keyword
   (identifier) @variable
 )
 
@@ -160,7 +190,7 @@
   (variable
     (identifier) @function
   )
-  (#lua-match? @function ".+[~]$")
+  (#match? @function ".+\\~$")
 )
 
 (

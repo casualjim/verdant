@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vrl/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/belltoy/tree-sitter-vrl/274b3ce63f72aa8ffea18e7fc280d3062d28f0ba/queries/highlights.scm
 (comment) @comment @spell
 
 (null) @constant.builtin

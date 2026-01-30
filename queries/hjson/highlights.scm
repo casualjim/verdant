@@ -1,33 +1,14 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/hjson/highlights.scm
-;; Licensed under the Apache License 2.0
-(true) @boolean
-
-(false) @boolean
-
-(null) @constant.builtin
-
-(number) @number
-
+;; Forked from https://raw.githubusercontent.com/winston0410/tree-sitter-hjson/02fa3b79b3ff9a296066da6277adfc3f26cbc9e0/queries/highlights.scm
 (pair
-  key: (string) @label
+  key: (_) @keyword
 )
 
-(pair
-  value: (string) @string
+(string) @string
+
+(object
+  "{" @escape
+  (_)
+  "}" @escape
 )
 
-(array
-  (string) @string
-)
-
-;  (string_content (escape_sequence) @string.escape)
-;  "," @punctuation.delimiter
-"[" @punctuation.bracket
-
-"]" @punctuation.bracket
-
-"{" @punctuation.bracket
-
-"}" @punctuation.bracket
-
-(comment) @comment @spell
+(comment) @comment

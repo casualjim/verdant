@@ -1,21 +1,10 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/teal/highlights.scm
-;; Licensed under the Apache License 2.0
-; Primitives
+;; Forked from https://raw.githubusercontent.com/euclidianAce/tree-sitter-teal/05d276e737055e6f77a21335b7573c9d3c091e2f/queries/highlights.scm
+;; Primitives
 (boolean) @boolean
 
-(comment) @comment @spell
+(comment) @comment
 
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^[-][-][-]")
-)
-
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^[-][-](%s?)@")
-)
-
-(shebang_comment) @keyword.directive
+(shebang_comment) @comment
 
 (identifier) @variable
 
@@ -52,26 +41,25 @@
 
 (format_specifier) @string.escape
 
-; Basic statements/Keywords
+;; Basic statements/Keywords
 [
   "if"
   "then"
   "elseif"
   "else"
-] @keyword.conditional
+] @conditional
 
 [
   "for"
   "while"
   "repeat"
   "until"
-] @keyword.repeat
-
-"return" @keyword.return
+] @repeat
 
 [
   "in"
   "local"
+  "return"
   (break)
   (goto)
   "do"
@@ -80,7 +68,7 @@
 
 (label) @label
 
-; Global isn't a real keyword, but it gets special treatment in these places
+;; Global isn't a real keyword, but it gets special treatment in these places
 (var_declaration
   "global" @keyword
 )
@@ -97,11 +85,19 @@
   "global" @keyword
 )
 
+(interface_declaration
+  "global" @keyword
+)
+
 (enum_declaration
   "global" @keyword
 )
 
-; Ops
+(macroexp_statement
+  "macroexp" @keyword
+)
+
+;; Ops
 (bin_op
   (op) @operator
 )
@@ -115,7 +111,7 @@
   "as"
 ] @operator
 
-; Functions
+;; Functions
 (function_statement
   "function" @keyword.function
   .
@@ -131,7 +127,7 @@
 )
 
 (arg
-  name: (identifier) @variable.parameter
+  name: (identifier) @parameter
 )
 
 (function_signature
@@ -147,11 +143,11 @@
 (typeargs
   "<" @punctuation.bracket
   .
-  (_) @variable.parameter
+  (_) @parameter
   .
   (","
     .
-    (_) @variable.parameter
+    (_) @parameter
   )*
   .
   ">" @punctuation.bracket
@@ -181,22 +177,23 @@
   (arguments)
 )
 
-; Types
+;; Types
+; Contextual keywords in record bodies
 (record_declaration
   .
-  "record" @keyword.type
+  ["record"] @keyword
   name: (identifier) @type
 )
 
 (anon_record
   .
-  "record" @keyword.type
+  "record" @keyword
 )
 
 (record_body
   (record_declaration
     .
-    "record" @keyword.type
+    ["record"] @keyword
     .
     name: (identifier) @type
   )
@@ -205,7 +202,16 @@
 (record_body
   (enum_declaration
     .
-    "enum" @keyword.type
+    ["enum"] @keyword
+    .
+    name: (identifier) @type
+  )
+)
+
+(record_body
+  (interface_declaration
+    .
+    ["interface"] @keyword
     .
     name: (identifier) @type
   )
@@ -223,6 +229,13 @@
 )
 
 (record_body
+  (macroexp_declaration
+    .
+    ["macroexp"] @keyword
+  )
+)
+
+(record_body
   (metamethod
     "metamethod" @keyword
   )
@@ -232,8 +245,75 @@
   (userdata) @keyword
 )
 
+; Contextual keywords in interface bodies
+(interface_declaration
+  .
+  ["interface"] @keyword
+  name: (identifier) @type
+)
+
+(anon_interface
+  .
+  "interface" @keyword
+)
+
+(interface_body
+  (record_declaration
+    .
+    ["record"] @keyword
+    .
+    name: (identifier) @type
+  )
+)
+
+(interface_body
+  (enum_declaration
+    .
+    ["enum"] @keyword
+    .
+    name: (identifier) @type
+  )
+)
+
+(interface_body
+  (interface_declaration
+    .
+    ["interface"] @keyword
+    .
+    name: (identifier) @type
+  )
+)
+
+(interface_body
+  (typedef
+    .
+    "type" @keyword
+    .
+    name: (identifier) @type
+    .
+    "="
+  )
+)
+
+(interface_body
+  (macroexp_declaration
+    .
+    ["macroexp"] @keyword
+  )
+)
+
+(interface_body
+  (metamethod
+    "metamethod" @keyword
+  )
+)
+
+(interface_body
+  (userdata) @keyword
+)
+
 (enum_declaration
-  "enum" @keyword.type
+  "enum" @keyword
   name: (identifier) @type
 )
 
@@ -245,13 +325,9 @@
   (identifier) @type
 )
 
-(simple_type
-  name: (identifier) @type
-)
+(simple_type) @type
 
-(type_index
-  (identifier) @type
-)
+(type_index) @type
 
 (type_union
   "|" @operator
@@ -261,7 +337,7 @@
   "function" @type
 )
 
-; The rest of it
+;; The rest of it
 (var_declaration
   declarators: (var_declarators
     (var
@@ -290,3 +366,22 @@
   "{"
   "}"
 ] @punctuation.bracket
+
+;; Only highlight format specifiers in calls to string.format
+;; string.format('...')
+;(function_call
+;  called_object: (index
+;    (identifier) @base
+;    key: (identifier) @entry)
+;  arguments: (arguments .
+;    (string (format_specifier) @string.escape))
+;
+;  (#eq? @base "string")
+;  (#eq? @entry "format"))
+;; ('...'):format()
+;(function_call
+;  called_object: (method_index
+;    (string (format_specifier) @string.escape)
+;    key: (identifier) @func-name)
+;    (#eq? @func-name "format"))
+(ERROR) @error

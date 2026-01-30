@@ -1,11 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/sourcepawn/highlights.scm
-;; Licensed under the Apache License 2.0
-(identifier) @variable
-
+;; Forked from https://raw.githubusercontent.com/nilshelmig/tree-sitter-sourcepawn/5a8fdd446b516c81e218245c12129c6ad4bccfa2/queries/highlights.scm
 ; Assume all-caps names are constants
 (
   (identifier) @constant
-  (#lua-match? @constant "^[A-Z][A-Z0-9_]+$")
+  (#match? @constant "^[A-Z][A-Z\\d_]+$'")
 )
 
 ; Function definitions/declarations
@@ -23,7 +20,7 @@
 
 ; Methods / Properties
 (field_access
-  field: (identifier) @variable.member
+  field: (identifier) @field
 )
 
 ; Function calls
@@ -33,21 +30,23 @@
 
 (call_expression
   function: (field_access
-    field: (identifier) @function.method.call
+    field: (identifier) @method.call
   )
 )
 
+; Must be after field_access
 ; Types
-[
-  (builtin_type)
-  (any_type)
-] @type.builtin
+(builtin_type) @type.builtin
 
 (type
   (identifier) @type
 )
 
+(any_type) @type
+
 ; Variables
+(variable_storage_class) @storageclass
+
 (variable_declaration
   name: (identifier) @variable
 )
@@ -56,71 +55,92 @@
   name: (identifier) @variable
 )
 
-[
-  (system_lib_string)
-  (string_literal)
-] @string
-
 ; Preprocessor
-[
-  "#include"
-  "#tryinclude"
-] @keyword.import
+(preproc_include) @include
 
-[
-  (preproc_assert)
-  (preproc_pragma)
-  (preproc_if)
-  (preproc_else)
-  (preproc_elseif)
-  (preproc_endinput)
-  (preproc_endif)
-  (preproc_error)
-  (preproc_warning)
-] @keyword.directive
+(preproc_tryinclude) @include
 
-[
-  "#define"
-  "#undef"
-] @keyword.directive.define
+(system_lib_string) @string
 
-(macro_param) @variable.parameter
+(string_literal) @string
+
+(preproc_assert) @preproc
+
+(preproc_pragma) @preproc
+
+(preproc_arg) @constant
+
+(preproc_macro) @function.macro
+
+(macro_param) @parameter
+
+(preproc_if) @preproc
+
+(preproc_else) @preproc
+
+(preproc_elseif) @preproc
+
+(preproc_endif) @preproc
+
+(preproc_endinput) @preproc
+
+(preproc_define) @define
 
 (preproc_define
   name: (identifier) @constant
 )
 
-(preproc_macro
-  name: (identifier) @function.macro
-)
+(preproc_undefine) @define
 
 (preproc_undefine
   name: (identifier) @constant
 )
+
+(preproc_error) @function.macro
+
+; Wrong color?
+(preproc_warning) @function.macro
+
+; Wrong color?
+; Statements
+(for_statement) @repeat
+
+(condition_statement) @conditional
+
+(while_statement) @repeat
+
+(do_while_statement) @repeat
+
+(switch_statement) @conditional
+
+(switch_case) @conditional
+
+(ternary_expression) @conditional.ternary
 
 ; Expressions
 (view_as) @function.builtin
 
 (sizeof_expression) @function.macro
 
-[
-  (this)
-  ; https://github.com/alliedmodders/sourcemod/blob/5c0ae11a4619e9cba93478683c7737253ea93ba6/plugins/include/handles.inc#L78
-  (hardcoded_symbol)
-] @variable.builtin
+(this) @variable.builtin
+
+; https://github.com/alliedmodders/sourcemod/blob/5c0ae11a4619e9cba93478683c7737253ea93ba6/plugins/include/handles.inc#L78
+(hardcoded_symbol) @variable.builtin
 
 ; Comments
-(comment) @comment @spell
+(comment) @comment
 
 ; General
 (parameter_declaration
   defaultValue: (identifier) @constant
 )
 
-[
-  (fixed_dimension)
-  (dimension)
-] @punctuation.bracket
+(fixed_dimension) @punctuation.bracket
+
+; the [3] in var[3]
+(dimension) @punctuation.bracket
+
+(array_indexed_access) @punctuation.bracket
 
 (escape_sequence) @string.escape
 
@@ -131,6 +151,8 @@
 )
 
 ; Methodmaps
+(methodmap) @type.definition
+
 (methodmap
   name: (identifier) @type
 )
@@ -144,39 +166,42 @@
 )
 
 (methodmap_method
-  name: (identifier) @function.method
+  name: (identifier) @method
 )
 
 (methodmap_native
-  name: (identifier) @function.method
+  name: (identifier) @method
 )
 
 (methodmap_property
   name: (identifier) @property
 )
 
-[
-  (methodmap_property_getter)
-  (methodmap_property_setter)
-] @function.method
+(methodmap_property_getter) @method
+
+(methodmap_property_setter) @method
 
 ; Enum structs
+(enum_struct) @type.definition
+
 (enum_struct
   name: (identifier) @type
 )
 
 (enum_struct_field
-  name: (identifier) @variable.member
+  name: (identifier) @field
 )
 
 (enum_struct_method
-  name: (identifier) @function.method
+  name: (identifier) @method
 )
 
 ; Non-type Keywords
-(variable_storage_class) @keyword.modifier
+(variable_storage_class) @storageclass
 
-(visibility) @keyword.modifier
+(visibility) @storageclass
+
+(visibility) @storageclass
 
 (assertion) @function.builtin
 
@@ -196,6 +221,7 @@
 [
   "+"
   "-"
+  "..."
   "*"
   "/"
   "%"
@@ -228,11 +254,13 @@
   "~="
   "<<="
   ">>="
-  "..."
-  (ignore_argument)
-  (scope_access)
-  (rest_operator)
 ] @operator
+
+(ignore_argument) @operator
+
+(scope_access) @operator
+
+(rest_operator) @operator
 
 ; public Plugin myinfo
 (struct_declaration
@@ -240,26 +268,20 @@
 )
 
 ; Typedef/Typedef
-(typedef
-  name: (identifier) @type
-)
+(typeset) @type.definition
 
-(functag
-  name: (identifier) @type
-)
+(typedef) @type.definition
 
-(funcenum
-  name: (identifier) @type
-)
+(functag) @type.definition
 
-(typeset
-  name: (identifier) @type
-)
+(funcenum) @type.definition
 
 (typedef_expression) @keyword.function
 
 ; function void(int x)
 ; Enums
+(enum) @type.definition
+
 (enum
   name: (identifier) @type
 )
@@ -277,66 +299,73 @@
 
 (char_literal) @character
 
-(float_literal) @number.float
+(float_literal) @float
 
 (string_literal) @string
 
 (array_literal) @punctuation.bracket
 
-(bool_literal) @boolean
-
-(null) @constant.builtin
+[
+  (bool_literal)
+  (null)
+] @constant.builtin
 
 (
-  (identifier) @constant.builtin
-  (#eq? @constant.builtin "INVALID_HANDLE")
+  (identifier) @constant
+  (#match? @constant "INVALID_HANDLE")
+)
+
+; Comment specialisations (must be after comment)
+; These might be unnecessary and/or used incorrectly, since they're intended
+; for markup languages
+(
+  (comment) @text.todo
+  (#match? @text.todo "^/[/*][t ]TODO")
+)
+
+(
+  (comment) @text.note
+  (#match? @text.note "^/[/*][t ]NOTE")
+)
+
+(
+  (comment) @text.warning
+  (#match? @text.warning "^/[/*][t ]WARNING")
 )
 
 ; Keywords
-"return" @keyword.return
-
-[
-  "if"
-  "else"
-  "case"
-  "default"
-  "switch"
-] @keyword.conditional
-
-[
-  "do"
-  "while"
-  "for"
-  "continue"
-  "break"
-] @keyword.repeat
-
 [
   "__nullable__"
-  "defined"
+  "break"
+  "case"
+  "const"
+  "continue"
+  "default"
   "delete"
+  "do"
+  "else"
+  "enum"
+  "for"
+  "forward"
+  "funcenum"
   "functag"
   "get"
+  "if"
   "methodmap"
+  "native"
   "new"
   "property"
   "public"
+  "return"
   "set"
-  "typeset"
-  "void"
-] @keyword
-
-[
-  "enum"
-  "funcenum"
-  "struct"
-  "typedef"
-] @keyword.type
-
-[
-  "const"
-  "native"
   "static"
   "stock"
-  "forward"
-] @keyword.modifier
+  "struct"
+  "switch"
+  "typedef"
+  "typeset"
+  "void"
+  "while"
+] @keyword
+
+(identifier) @variable

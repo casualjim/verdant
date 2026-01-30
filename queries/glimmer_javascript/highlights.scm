@@ -1,11 +1,14 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/glimmer_javascript/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ember-tooling/tree-sitter-glimmer-javascript/5cc865a2a0a77cbfaf5062c8fcf2a9919bd54f87/queries/glimmer_javascript/highlights.scm
 ; inherits: ecma
 (glimmer_opening_tag) @tag.builtin
 
 (glimmer_closing_tag) @tag.builtin
 
-; Copied from javascript
+;
+;
+; Copied from the javascript queries
+;
+;
 ; Parameters
 (formal_parameters
   (identifier) @variable.parameter

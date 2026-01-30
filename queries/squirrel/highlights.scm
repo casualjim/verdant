@@ -1,21 +1,17 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/squirrel/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-squirrel/072c969749e66f000dba35a33c387650e203e96e/queries/highlights.scm
 ; Keywords
 [
+  "class"
   "clone"
   "delete"
+  "enum"
   "extends"
   "rawcall"
   "resume"
   "var"
 ] @keyword
 
-[
-  "class"
-  "enum"
-] @keyword.type
-
-"function" @keyword.function
+["function"] @keyword.function
 
 [
   "in"
@@ -44,7 +40,7 @@
   "case"
   "default"
   "break"
-] @keyword.conditional
+] @conditional
 
 ; Repeats
 [
@@ -53,35 +49,34 @@
   "do"
   "while"
   "continue"
-] @keyword.repeat
+] @repeat
 
 ; Exceptions
 [
   "try"
   "catch"
   "throw"
-] @keyword.exception
+] @exception
 
 ; Storageclasses
-"local" @keyword.modifier
+["local"] @storageclass
 
 ; Qualifiers
 [
   "static"
   "const"
-] @keyword.modifier
+] @type.qualifier
 
 ; Variables
-[
-  (identifier)
-  (global_variable)
-] @variable
+(identifier) @variable
 
 (local_declaration
-  (identifier) @variable
+  (identifier) @variable.local
   .
   "="
 )
+
+(global_variable) @variable.global
 
 (
   (identifier) @variable.builtin
@@ -91,18 +86,18 @@
 ; Parameters
 (parameter
   .
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 ; Properties (Slots)
 (deref_expression
   "."
   .
-  (identifier) @variable.member
+  (identifier) @property
 )
 
 (member_declaration
-  (identifier) @variable.member
+  (identifier) @property
   .
   "="
 )
@@ -110,14 +105,14 @@
 (
   (table_slot
     .
-    (identifier) @variable.member
+    (identifier) @property
     .
     [
       "="
       ":"
     ]
   )
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 ; Types
@@ -146,7 +141,7 @@
 (member_declaration
   (function_declaration
     "::"?
-    (_) @function.method
+    (_) @method
     .
     "("
     (_)?
@@ -189,7 +184,7 @@
   (identifier) @function
   "="
   (lambda_expression
-    "@" @string.special.symbol
+    "@" @symbol
   )
 )
 
@@ -291,7 +286,7 @@
     "wakeup"
     "wakeupthrow"
     "getstackinfos"
-    ; Weak Reference Methods
+    ; Weak Referece Methods
     "ref"
     "weakref"
   )
@@ -389,8 +384,8 @@
 
 ; Ternaries
 (ternary_expression
-  "?" @keyword.conditional.ternary
-  ":" @keyword.conditional.ternary
+  "?" @conditional.ternary
+  ":" @conditional.ternary
 )
 
 ; Literals
@@ -404,7 +399,7 @@
 
 (integer) @number
 
-(float) @number.float
+(float) @float
 
 (bool) @boolean
 

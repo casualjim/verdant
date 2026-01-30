@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ralph/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/alephium/tree-sitter-ralph/f6d81bf7a4599c77388035439cf5801cd461ff77/queries/highlights.scm
 (type_identifier) @type
 
 (identifier) @variable

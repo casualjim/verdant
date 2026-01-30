@@ -1,7 +1,17 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ispc/highlights.scm
-;; Licensed under the Apache License 2.0
-; inherits: c
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-ispc/9b2f9aec2106b94b4e099fe75e73ebd8ae707c04/queries/highlights.scm
 [
+  "break"
+  "case"
+  "continue"
+  "default"
+  "else"
+  "enum"
+  "return"
+  "sizeof"
+  "struct"
+  "switch"
+  "typedef"
+  "union"
   "soa"
   "task"
   "launch"
@@ -18,6 +28,9 @@
 ] @keyword.operator
 
 [
+  "do"
+  "for"
+  "while"
   "cdo"
   "cfor"
   "cwhile"
@@ -25,16 +38,126 @@
   "foreach_tiled"
   "foreach_active"
   "foreach_unique"
-] @keyword.repeat
-
-"cif" @keyword.conditional
+] @repeat
 
 [
+  "if"
+  "cif"
+] @conditional
+
+[
+  "int8"
+  "int16"
+  "int32"
+  "int64"
+  "uint8"
+  "uint16"
+  "uint32"
+  "uint64"
+  "float16"
+  "ptrdiff_t"
+] @type.builtin
+
+[
+  "const"
+  "volatile"
   "varying"
   "uniform"
-] @keyword.modifier
+] @type.qualifier
+
+[
+  "export"
+  "extern"
+  "inline"
+  "noinline"
+  "static"
+] @type.qualifier
+
+"__vectorcall" @attribute
 
 "__regcall" @attribute
+
+[
+  "#define"
+  "#elif"
+  "#else"
+  "#endif"
+  "#if"
+  "#ifdef"
+  "#ifndef"
+  "#include"
+  (preproc_directive)
+] @preproc
+
+[
+  "--"
+  "-"
+  "-="
+  "->"
+  "="
+  "!="
+  "*"
+  "&"
+  "&&"
+  "+"
+  "++"
+  "+="
+  "<"
+  "=="
+  ">"
+  "||"
+] @operator
+
+"." @delimiter
+
+";" @delimiter
+
+(string_literal) @string
+
+(system_lib_string) @string
+
+(null) @constant
+
+(number_literal) @number
+
+(char_literal) @number
+
+(call_expression
+  function: (identifier) @function
+)
+
+(call_expression
+  function: (field_expression
+    field: (field_identifier) @function
+  )
+)
+
+(function_declarator
+  declarator: (identifier) @function
+)
+
+(preproc_function_def
+  name: (identifier) @function.special
+)
+
+(field_identifier) @property
+
+(statement_identifier) @label
+
+(type_identifier) @type
+
+(primitive_type) @type
+
+(sized_type_specifier) @type
+
+(
+  (identifier) @constant
+  (#match? @constant "^[A-Z][A-Z\\d_]*$")
+)
+
+(identifier) @variable
+
+(comment) @comment
 
 (overload_declarator
   name:

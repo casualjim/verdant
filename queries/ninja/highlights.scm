@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ninja/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/alemuller/tree-sitter-ninja/0a95cfdc0745b6ae82f60d3a339b37f19b7b9267/queries/highlights.scm
 [
   "default"
   "pool"
@@ -10,9 +9,9 @@
 [
   "include"
   "subninja"
-] @keyword.import
+] @include
 
-":" @punctuation.delimiter
+[":"] @punctuation.delimiter
 
 [
   "="
@@ -27,9 +26,9 @@
   "}"
 ] @punctuation.special
 
-;
-; Names
-; =====
+;;
+;; Names
+;; =====
 (pool
   name: (identifier) @type
 )
@@ -50,19 +49,19 @@
   rule: (identifier) @function
 )
 
-;
-; Paths and Text
-; ==============
-(path) @string.special.path
+;;
+;; Paths and Text
+;; ==============
+(path) @string.special
 
 (text) @string
 
-;
-; Builtins
-; ========
+;;
+;; Builtins
+;; ========
 (pool
   name: (identifier) @type.builtin
-  (#eq? @type.builtin "console")
+  (#any-of? @type.builtin "console")
 )
 
 (build
@@ -70,8 +69,8 @@
   (#any-of? @function.builtin "phony" "dyndep")
 )
 
-; Top level bindings
-; ------------------
+;; Top level bindings
+;; ------------------
 (manifest
   (let
     name: (
@@ -81,8 +80,8 @@
   )
 )
 
-; Rules bindings
-; -----------------
+;; Rules bindings
+;; -----------------
 (rule
   (body
     (let
@@ -108,25 +107,23 @@
   )
 )
 
-;
-; Expansion
-; ---------
+;;
+;; Expansion
+;; ---------
 (expansion
   (identifier) @constant.macro
   (#any-of? @constant.macro "in" "out")
 )
 
-;
-; Escape sequences
-; ================
+;;
+;; Escape sequences
+;; ================
 (quote) @string.escape
 
-;
-; Others
-; ======
+;;
+;; Others
+;; ======
 [
   (split)
   (comment)
 ] @comment
-
-(comment) @spell

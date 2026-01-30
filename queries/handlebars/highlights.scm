@@ -1,17 +1,16 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/glimmer/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ember-tooling/tree-sitter-glimmer/88af85568bde3b91acb5d4c352ed094d0c1f9d84/queries/glimmer/highlights.scm
+; Tags that start with a capital letter are components
+(
+  (tag_name) @constructor
+  (#match? @constructor "^[A-Z]")
+)
+
 ; === Tag Names ===
 ; Tags that start with a lower case letter are HTML tags
 ; We'll also use this highlighting for named blocks (which start with `:`)
 (
   (tag_name) @tag
-  (#lua-match? @tag "^:?[%l]")
-)
-
-; Tags that start with a capital letter are Glimmer components
-(
-  (tag_name) @constructor
-  (#lua-match? @constructor "^%u")
+  (#match? @tag "^:?[a-z]")
 )
 
 (attribute_name) @attribute
@@ -32,18 +31,32 @@
 
 ; Highlight `if`/`each`/`let`
 (block_statement_start
-  path: (identifier) @keyword.conditional
+  path: (identifier) @keyword
 )
 
 (block_statement_end
-  path: (identifier) @keyword.conditional
+  path: (identifier) @keyword
+)
+
+(
+  (block_statement_start
+    (identifier) @keyword.conditional
+  )
+  (#eq? @keyword.conditional "if")
+)
+
+(
+  (block_statement_end
+    (identifier) @keyword.conditional
+  )
+  (#eq? @keyword.conditional "if")
 )
 
 (
   (mustache_statement
     (identifier) @keyword.conditional
   )
-  (#lua-match? @keyword.conditional "else")
+  (#eq? @keyword.conditional "else")
 )
 
 ; == Mustache Statements ===
@@ -136,7 +149,7 @@
   key: (identifier) @property
 )
 
-(comment_statement) @comment @spell
+(comment_statement) @comment
 
 (attribute_node
   "=" @operator

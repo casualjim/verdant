@@ -1,9 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/foam/highlights.scm
-;; Licensed under the Apache License 2.0
-; Comments
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/FoamScience/tree-sitter-foam/472c24f11a547820327fb1be565bcfff98ea96a4/queries/highlights.scm
+;; Comments
+(comment) @comment
 
-; Generic Key-value pairs and dictionary keywords
+;; Generic Key-value pairs and dictionary keywords
 (key_value
   keyword: (identifier) @function
 )
@@ -12,48 +11,48 @@
   key: (identifier) @type
 )
 
-; Macros
+;; Macros
 (macro
-  "$" @keyword.conditional
-  (prev_scope)* @keyword.conditional
-  (identifier)* @module
+  "$" @conditional
+  (prev_scope)* @conditional
+  (identifier)* @namespace
 )
 
-; Directives
-"#" @keyword.conditional
+;; Directives
+"#" @conditional
 
 (preproc_call
-  directive: (identifier)* @keyword.conditional
-  argument: (identifier)* @module
+  directive: (identifier)* @conditional
+  argument: (identifier)* @namespace
 )
 
 (
   (preproc_call
-    argument: (identifier)* @module
-  ) @keyword.conditional
-  (#eq? @keyword.conditional "ifeq")
+    argument: (identifier)* @namespace
+  ) @conditional
+  (#match? @conditional "ifeq")
 )
 
 (
-  (preproc_call) @keyword.conditional
-  (#any-of? @keyword.conditional "else" "endif")
+  (preproc_call) @conditional
+  (#match? @conditional "(else|endif)")
 )
 
-; Literals
-(number_literal) @number.float
+;; Literals
+(number_literal) @float
 
 (string_literal) @string
 
-(escape_sequence) @string.escape
+(escape_sequence) @escape
 
 (boolean) @boolean
 
-; Treat [m^2 s^-2] the same as if it was put in numbers format
+;; Treat [m^2 s^-2] the same as if it was put in numbers format
 (dimensions
-  dimension: (identifier) @number.float
+  dimension: (identifier) @float
 )
 
-; Punctuation
+;; Punctuation
 [
   "("
   ")"
@@ -63,16 +62,11 @@
   "}"
   "#{"
   "#}"
-  "|-"
-  "-|"
-  "<!--("
-  ")-->"
-  "$$"
-] @punctuation.bracket
+  ";"
+] @punctuation
 
-";" @punctuation.delimiter
-
+;; Special identifiers
 (
-  (identifier) @constant.builtin
-  (#any-of? @constant.builtin "uniform" "non-uniform" "and" "or")
+  (identifier) @attribute
+  (#match? @attribute "^(uniform|non-uniform|and|or)$")
 )

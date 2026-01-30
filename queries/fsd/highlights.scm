@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/facility/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/FacilityApi/tree-sitter-facility/e4bfd3e960de9f4b4648acb1c92e9b95b47d8cfb/queries/highlights.scm
 [
   ";"
   "."
@@ -20,21 +19,17 @@
 (doc_comment) @comment.documentation @spell
 
 [
-  "service"
-  "errors"
-] @keyword
-
-[
   "method"
   "event"
 ] @keyword.function
 
 [
-  "enum"
+  "service"
+  "errors"
   "data"
-] @keyword.type
-
-"extern" @keyword.modifier
+  "enum"
+  "extern"
+] @type.builtin
 
 (type) @type.builtin
 
@@ -43,7 +38,7 @@
 )
 
 (error_set
-  (identifier) @variable.member
+  (identifier) @property
 )
 
 (error_set
@@ -89,15 +84,15 @@
 ] @attribute.builtin
 
 (parameter
-  name: (identifier) @variable.parameter
+  name: (identifier) @property
 )
 
 (field
-  name: (identifier) @variable.member
+  name: (identifier) @variable
 )
 
 (method
-  name: (identifier) @function.method
+  name: (identifier) @method
 )
 
 (number_literal) @number

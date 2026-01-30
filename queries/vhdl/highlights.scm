@@ -1,12 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vhdl/highlights.scm
-;; Licensed under the Apache License 2.0
 (line_comment
-  (comment_content) @spell
-) @comment
+  (comment_content) @spell) @comment
 
 (block_comment
-  (comment_content) @spell
-) @comment.documentation
+  (comment_content) @spell) @comment.documentation
 
 (identifier) @variable
 
@@ -69,8 +65,7 @@
 ] @keyword
 
 (parameter_specification
-  "in" @keyword
-)
+  "in" @keyword)
 
 [
   "process"
@@ -80,12 +75,10 @@
 ] @keyword.coroutine
 
 (end_process
-  "end" @keyword.coroutine
-)
+  "end" @keyword.coroutine)
 
 (timeout_clause
-  "for" @keyword.coroutine
-)
+  "for" @keyword.coroutine)
 
 [
   "function"
@@ -93,8 +86,7 @@
 ] @keyword.function
 
 (subprogram_end
-  "end" @keyword.function
-)
+  "end" @keyword.function)
 
 [
   "to"
@@ -136,12 +128,10 @@
 ] @keyword.modifier
 
 (mode
-  "in" @keyword.modifier
-)
+  "in" @keyword.modifier)
 
 (force_mode
-  "in" @keyword.modifier
-)
+  "in" @keyword.modifier)
 
 [
   "while"
@@ -151,28 +141,22 @@
 ] @keyword.repeat
 
 (end_loop
-  "end" @keyword.repeat
-)
+  "end" @keyword.repeat)
 
 (for_loop
-  "for" @keyword.repeat
-)
+  "for" @keyword.repeat)
 
 (block_configuration
-  "for" @keyword
-)
+  "for" @keyword)
 
 (configuration_specification
-  "for" @keyword
-)
+  "for" @keyword)
 
 (component_configuration
-  "for" @keyword
-)
+  "for" @keyword)
 
 (end_for
-  "for" @keyword
-)
+  "for" @keyword)
 
 "return" @keyword.return
 
@@ -190,28 +174,22 @@
 ] @keyword.conditional
 
 (end_if
-  "end" @keyword.conditional
-)
+  "end" @keyword.conditional)
 
 (end_case
-  "end" @keyword.conditional
-)
+  "end" @keyword.conditional)
 
 (when_element
-  "when" @keyword.conditional
-)
+  "when" @keyword.conditional)
 
 (case_generate_alternative
-  "when" @keyword.conditional
-)
+  "when" @keyword.conditional)
 
 (else_statement
-  "else" @keyword.conditional
-)
+  "else" @keyword.conditional)
 
 (else_generate
-  "else" @keyword.conditional
-)
+  "else" @keyword.conditional)
 
 [
   "with"
@@ -219,20 +197,16 @@
 ] @keyword.conditional.ternary
 
 (when_expression
-  "when" @keyword.conditional.ternary
-)
+  "when" @keyword.conditional.ternary)
 
 (else_expression
-  "else" @keyword.conditional.ternary
-)
+  "else" @keyword.conditional.ternary)
 
 (else_waveform
-  "else" @keyword.conditional.ternary
-)
+  "else" @keyword.conditional.ternary)
 
 (else_expression_or_unaffected
-  "else" @keyword.conditional.ternary
-)
+  "else" @keyword.conditional.ternary)
 
 "null" @constant.builtin
 
@@ -245,28 +219,22 @@
 (error_directive) @keyword.directive
 
 (if_conditional_analysis
-  "if" @keyword.directive
-)
+  "if" @keyword.directive)
 
 (if_conditional_analysis
-  "then" @keyword.directive
-)
+  "then" @keyword.directive)
 
 (elsif_conditional_analysis
-  "elsif" @keyword.directive
-)
+  "elsif" @keyword.directive)
 
 (else_conditional_analysis
-  "else" @keyword.directive
-)
+  "else" @keyword.directive)
 
 (end_conditional_analysis
-  "end" @keyword.directive
-)
+  "end" @keyword.directive)
 
 (end_conditional_analysis
-  "if" @keyword.directive
-)
+  "if" @keyword.directive)
 
 (directive_body) @keyword.directive
 
@@ -335,13 +303,11 @@
 
 (based_literal
   (based_base) @type.builtin
-  (based_integer) @number
-)
+  (based_integer) @number)
 
 (based_literal
   (based_base) @type.builtin
-  (based_float) @number.float
-)
+  (based_float) @number.float)
 
 (string_literal) @string @spell
 
@@ -367,99 +333,73 @@
 
 (generic_map_aspect
   "generic" @constructor
-  "map" @constructor
-)
+  "map" @constructor)
 
 (port_map_aspect
   "port" @constructor
-  "map" @constructor
-)
+  "map" @constructor)
 
 (selection
-  (identifier) @variable.member
-)
+  (identifier) @variable.member)
 
 (_
-  view: (_) @type
-)
+  view: (_) @type)
 
 (_
-  type: (_) @type
-)
+  type: (_) @type)
 
 (_
-  library: (_) @module
-)
+  library: (_) @module)
 
 (_
-  package: (_) @module
-)
+  package: (_) @module)
 
 (_
-  entity: (_) @module
-)
+  entity: (_) @module)
 
 (_
-  component: (_) @module
-)
+  component: (_) @module)
 
 (_
-  configuration: (_) @property
-)
+  configuration: (_) @property)
 
 (_
-  architecture: (_) @property
-)
+  architecture: (_) @property)
 
 (_
-  function: (_) @function
-)
+  function: (_) @function)
 
 (_
-  procedure: (_) @function.method
-)
+  procedure: (_) @function.method)
 
 (_
-  attribute: (_) @attribute
-)
+  attribute: (_) @attribute)
 
 (_
-  constant: (_) @constant
-)
+  constant: (_) @constant)
 
 (_
-  generic: (_) @variable.parameter
-)
+  generic: (_) @variable.parameter)
 
 (_
   view: (name
-    (_)
-  ) @type
-)
+    (_)) @type)
 
 (_
   type: (name
-    (_)
-  ) @type
-)
+    (_)) @type)
 
 (_
   entity: (name
-    (_)
-  ) @module
-)
+    (_)) @module)
 
 (_
   component: (name
-    (_)
-  ) @module
-)
+    (_)) @module)
 
 (_
   configuration: (name
-    (_)
-  ) @module
-)
+    (_)) @module)
 
 (library_type) @type.builtin
 
@@ -479,13 +419,10 @@
 (library_namespace) @module.builtin
 
 (subtype_declaration
-  (identifier) @type.definition
-)
+  (identifier) @type.definition)
 
 (type_declaration
-  (identifier) @type.definition
-)
+  (identifier) @type.definition)
 
 (mode_view_declaration
-  (identifier) @type.definition
-)
+  (identifier) @type.definition)

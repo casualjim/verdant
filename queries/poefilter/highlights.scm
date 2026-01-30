@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/poe_filter/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-poe-filter/205a7d576984feb38a9fc2d8cfe729617f9e0548/queries/highlights.scm
 [
   "Show"
   "Hide"
@@ -9,23 +8,23 @@
 [
   "Import"
   "Optional"
-] @keyword.import
+] @keyword
 
 (condition
-  (name) @keyword.conditional
+  (name) @keyword
 )
 
 (action
   (name) @keyword
 )
 
-(continue) @label
+(continue) @keyword
 
 (operator) @operator
 
 (string) @string
 
-(file) @string.special.path
+(file) @string.special
 
 [
   (quality)
@@ -46,13 +45,6 @@
   "Temp"
 ] @constant
 
-(comment) @comment @spell
+(comment) @comment
 
 "\"" @punctuation.delimiter
-
-; conceal unnecessary quotes
-("\""
-  @conceal
-  (#not-has-parent? @conceal string file)
-  (#set! conceal "")
-)

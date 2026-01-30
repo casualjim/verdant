@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/query/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-query/6350ad724e7b17a7eea712d4860b4d2ae892e0b6/queries/query/highlights.scm
 (string) @string
 
 (escape_sequence) @string.escape

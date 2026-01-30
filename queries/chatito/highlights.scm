@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/chatito/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-chatito/c0ed82c665b732395073f635c74c300f09530a7f/queries/highlights.scm
 ; Punctuation
 [
   "%["
@@ -11,47 +10,43 @@
   ")"
 ] @punctuation.bracket
 
-"," @punctuation.delimiter eq: _ @operator
-
-(
-  [
-    "\""
-    "'"
-  ] @punctuation.special
-  (#set! conceal "")
-)
+[
+  eq:
+  _
+  ","
+] @punctuation.delimiter
 
 [
   "%"
   "?"
   "#"
-] @character.special
+] @punctuation.special
 
 ; Entities
 (intent) @module
 
 (slot) @type
 
-(variation) @attribute
+(variation) @variable.member
 
-(alias) @keyword.directive
+(alias) @embedded
 
 (number) @number
 
 (argument
-  key: (string) @property
+  key: (string) @attribute
   value: (string) @string
 )
 
 (escape) @string.escape
 
 ; Import
-"import" @keyword.import
+"import" @keyword
 
-(file) @string.special.path
+(file) @string.special
 
 ; Text
-(word) @spell
+(word) @markup
 
 ; Comment
-(comment) @comment @spell
+(comment) @comment

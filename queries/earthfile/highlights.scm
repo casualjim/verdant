@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/earthfile/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/glehmann/tree-sitter-earthfile/5baef88717ad0156fd29a8b12d0d8245bb1096a8/queries/highlights.scm
 (string_array
   "," @punctuation.delimiter
 )
@@ -46,29 +45,29 @@
     "FOR"
     "IN"
     "END"
-  ] @keyword.repeat
+  ] @keyword.control.repeat
 )
 
 (if_command
   [
     "IF"
     "END"
-  ] @keyword.conditional
+  ] @keyword.control.conditional
 )
 
 (elif_block
-  "ELSE IF" @keyword.conditional
+  ["ELSE IF"] @keyword.control.conditional
 )
 
 (else_block
-  "ELSE" @keyword.conditional
+  ["ELSE"] @keyword.control.conditional
 )
 
 (import_command
   [
     "IMPORT"
     "AS"
-  ] @keyword.import
+  ] @keyword.control.import
 )
 
 (try_command
@@ -76,27 +75,29 @@
     "TRY"
     "FINALLY"
     "END"
-  ] @keyword.exception
+  ] @keyword.control.exception
 )
 
 (wait_command
   [
     "WAIT"
     "END"
-  ] @keyword
+  ] @keyword.control
 )
 
 (with_docker_command
   [
     "WITH DOCKER"
     "END"
-  ] @keyword
+  ] @keyword.control
 )
 
 [
   (comment)
   (line_continuation_comment)
-] @comment @spell
+] @comment
+
+(line_continuation) @operator
 
 [
   (target_ref)
@@ -115,7 +116,7 @@
 
 (unquoted_string) @string.special
 
-(escape_sequence) @string.escape
+(escape_sequence) @constant.character.escape
 
 (variable) @variable
 
@@ -129,17 +130,10 @@
   ] @punctuation.special
 )
 
-(build_arg
-  [
-    "--"
-    (variable)
-  ] @variable.parameter
-)
+(build_arg) @variable
 
 (options
-  (_) @property
+  (_) @variable.parameter
 )
 
 "=" @operator
-
-(line_continuation) @punctuation.special

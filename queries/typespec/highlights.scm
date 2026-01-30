@@ -1,11 +1,11 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/typespec/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/happenslol/tree-sitter-typespec/395bef1e1eb4dd18365401642beb534e8a244056/queries/highlights.scm
 (identifier_or_member_expression) @type
 
 [
   "is"
   "extends"
   "valueof"
+  "typeof"
 ] @keyword.operator
 
 [
@@ -31,6 +31,8 @@
   "using"
 ] @keyword.import
 
+"const" @keyword
+
 [
   "("
   ")"
@@ -40,6 +42,8 @@
   ">"
   "["
   "]"
+  "#{"
+  "#["
 ] @punctuation.bracket
 
 [
@@ -121,6 +125,10 @@
   name: (identifier) @type
 )
 
+(interface_member
+  name: (identifier) @function.method
+)
+
 (enum_statement
   name: (identifier) @type
 )
@@ -153,4 +161,12 @@
   (model_property
     name: (identifier) @variable.parameter
   )
+)
+
+(const_statement
+  name: (identifier) @variable
+)
+
+(object_member
+  key: (identifier) @variable.member
 )

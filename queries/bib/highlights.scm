@@ -1,6 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/bibtex/highlights.scm
-;; Licensed under the Apache License 2.0
-; CREDITS @pfoerster (adapted from https://github.com/latex-lsp/tree-sitter-bibtex)
+;; Forked from https://raw.githubusercontent.com/latex-lsp/tree-sitter-bibtex/8d04ed27b3bc7929f14b7df9236797dab9f3fa66/queries/highlights.scm
 [
   (string_type)
   (preamble_type)
@@ -12,8 +10,6 @@
   (comment)
 ] @comment
 
-(comment) @spell
-
 [
   "="
   "#"
@@ -24,7 +20,7 @@
 (number) @number
 
 (field
-  name: (identifier) @property
+  name: (identifier) @variable.builtin
 )
 
 (token
@@ -36,22 +32,10 @@
   (quote_word)
 ] @string
 
-(
-  (field
-    name: (identifier) @_url
-    value: (value
-      (token
-        (brace_word) @string.special.url
-      )
-    )
-  )
-  (#any-of? @_url "url" "doi")
-)
-
 [
   (key_brace)
   (key_paren)
-] @markup.link.label
+] @attribute
 
 (string
   name: (identifier) @constant

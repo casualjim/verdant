@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/desktop/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/ValdezFOmar/tree-sitter-desktop/137292ae28e05011dbc7c5c383e2b25db1cf77c9/queries/desktop/highlights.scm
+(comment) @comment
 
 (group_name) @markup.heading
 
@@ -79,12 +78,12 @@
   (entry
     key: (identifier) @_key
     value: (list
-      (string) @constant.builtin
+      (string) @string.special
     )
   )
   (#eq? @_key "Categories")
   (#any-of?
-    @constant.builtin
+    @string.special
     ; Main categories
     "AudioVideo"
     "Audio"

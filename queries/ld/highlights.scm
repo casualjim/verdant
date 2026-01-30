@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/linkerscript/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-linkerscript/f99011a3554213b654985a4b0a65b3b032ec4621/queries/highlights.scm
 ; Keywords
 [
   "ENTRY"
@@ -17,13 +16,13 @@
   [
     "?"
     ":"
-  ] @keyword.conditional.ternary
+  ] @conditional.ternary
 )
 
 ; Variables
 (symbol) @variable
 
-(filename) @string.special.path
+(filename) @string.special @text.underline
 
 ; Functions
 (call_expression
@@ -32,9 +31,9 @@
 
 (
   (call_expression
-    function: (symbol) @keyword.directive
+    function: (symbol) @preproc
   )
-  (#eq? @keyword.directive "DEFINED")
+  (#eq? @preproc "DEFINED")
 )
 
 (
@@ -101,7 +100,7 @@
   "LENGTH"
   "len"
   "l"
-] @variable.member
+] @field.builtin
 
 ; Constants
 (
@@ -150,7 +149,7 @@
 )
 
 ; Exceptions
-"ASSERT" @keyword.exception
+"ASSERT" @exception
 
 [
   "/DISCARD/"

@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/kitty/highlights.scm
-;; Licensed under the Apache License 2.0
-(line_continuation) @punctuation.special
+;; Forked from https://raw.githubusercontent.com/OXY2DEV/tree-sitter-kitty/f821c16397ffab5b776d8781245215811438a624/queries/highlights.scm
+(line_continuation) @comment
 
 (comment
   (comment_content) @spell
@@ -20,6 +19,11 @@
 (boolean) @boolean
 
 (color) @constant
+
+(
+  (color) @constant
+  (#match? @constant "^[^#]")
+)
 
 (string) @string
 
@@ -46,6 +50,7 @@
   "="
   ","
   "'"
+  ":"
 ] @punctuation.delimiter
 
 [
@@ -71,7 +76,7 @@
 
 (
   (string) @constant
-  (#lua-match? @constant "^-")
+  (#match? @constant "^-")
 )
 
 (generic_action) @function.call

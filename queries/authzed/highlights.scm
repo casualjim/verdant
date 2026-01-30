@@ -1,24 +1,81 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/authzed/highlights.scm
-;; Licensed under the Apache License 2.0
-(identifier) @function
+;; Forked from https://raw.githubusercontent.com/mleonidas/tree-sitter-authzed/83e5c26a8687eb4688fe91d690c735cc3d21ad81/queries/highlights.scm
+; Keywords
+[
+  (caveat_literal)
+  (definition_literal)
+] @keyword
 
+"import" @keyword.import
+
+"as" @keyword
+
+; Boolean literals
+[
+  (true)
+  (false)
+] @boolean
+
+; Constants
+(nil) @constant.builtin
+
+; Comments
+[
+  (hash_literal)
+  (comment)
+] @comment
+
+; Operators
+[
+  (plus_literal)
+  (minus_literal)
+  (amp_literal)
+  (pipe_literal)
+] @operator
+
+(stabby) @operator
+
+; Binary operators
+(binary_expression
+  operator: [
+    "=="
+    "!="
+    "<"
+    "<="
+    ">"
+    ">="
+    "in"
+    "&&"
+    "||"
+  ] @operator
+)
+
+; Top-level identifiers (definition/caveat names)
+(definition
+  name: (identifier) @function
+)
+
+(caveat
+  name: (identifier) @function
+)
+
+; Block structure with function.builtin
 (block
   (relation
     (relation_literal) @function.builtin
-    (identifier) @constant
+    relation_name: (identifier) @constant
   )
 )
 
 (block
   (permission
     (permission_literal) @variable.builtin
-    (identifier) @type
+    param_name: (identifier) @type
   )
 )
 
-; relations
+; Relations
 (rel_expression
-  (identifier) @property
+  (identifier) @type
 )
 
 (relation
@@ -29,11 +86,12 @@
   )
 )
 
-; permissions
+; Permissions
 (perm_expression
   (identifier) @property
 )
 
+; Function method calls
 (call_expression
   function: (selector_expression
     operand: (identifier) @constant
@@ -47,27 +105,49 @@
   (identifier) @function
 )
 
-; misc
+; String literals
 [
-  (plus_literal)
-  (minus_literal)
-  (amp_literal)
-  (pipe_literal)
-] @operator
+  (raw_string_literal)
+  (interpreted_string_literal)
+] @string
 
+; Import statements
+(import_statement
+  path: (_) @string
+  alias: (identifier) @variable
+)
+
+; Parameters and types
+(parameter_declaration
+  name: (identifier) @parameter
+  type: (_) @type
+)
+
+(generic_type
+  base_type: (identifier) @type
+)
+
+; Built-in types
 [
-  (true)
-  (false)
-] @boolean
+  "any"
+  "int"
+  "uint"
+  "bool"
+  "string"
+  "double"
+  "bytes"
+  "duration"
+  "timestamp"
+] @type.builtin
 
-(nil) @constant.builtin
+; Wildcards
+(wildcard_literal) @operator
 
+(wildcard_type) @type.builtin
+
+; Numbers
 [
-  (caveat_literal)
-  (definition_literal)
-] @keyword
-
-[
-  (hash_literal)
-  (comment)
-] @comment
+  (int_literal)
+  (float_literal)
+  (imaginary_literal)
+] @number

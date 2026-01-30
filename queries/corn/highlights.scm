@@ -1,9 +1,7 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/corn/highlights.scm
-;; Licensed under the Apache License 2.0
-[
-  "let"
-  "in"
-] @keyword
+;; Forked from https://raw.githubusercontent.com/corn-config/tree-sitter-corn/464654742cbfd3a3de560aba120998f1d5dfa844/queries/highlights.scm
+"let" @keyword
+
+"in" @keyword
 
 [
   "{"
@@ -12,29 +10,24 @@
   "]"
 ] @punctuation.bracket
 
-"." @punctuation.delimiter
+(path_seg) @string.special.key
 
-[
-  ".."
-  "="
-] @operator
+"." @punctuation.delimiter
 
 (input) @constant
 
-(null) @constant.builtin
-
-(comment) @comment @spell
+(comment) @comment
 
 (string) @string
 
+(char) @string
+
 (integer) @number
 
-(float) @number.float
-
-(float
-  "." @number.float
-)
+(float) @float
 
 (boolean) @boolean
 
-(path_seg) @property
+(null) @keyword
+
+(ERROR) @error

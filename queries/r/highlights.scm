@@ -1,9 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/r/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/r-lib/tree-sitter-r/0e6ef7741712c09dc3ee6e81c42e919820cc65ef/queries/highlights.scm
+; highlights.scm
 ; Literals
 (integer) @number
 
-(float) @number.float
+(float) @number
 
 (complex) @number
 
@@ -16,15 +16,7 @@
 )
 
 ; Comments
-(comment) @comment @spell
-
-(
-  (program
-    .
-    (comment) @keyword.directive @nospell
-  )
-  (#lua-match? @keyword.directive "^#!/")
-)
+(comment) @comment
 
 ; Operators
 [
@@ -96,15 +88,7 @@
 
 ; Calls
 (call
-  function: (identifier) @function.call
-)
-
-(extract_operator
-  rhs: (identifier) @variable.member
-) function:
-
-(extract_operator
-  rhs: (identifier) @function.method.call
+  function: (identifier) @function
 )
 
 ; Parameters
@@ -122,7 +106,7 @@
 
 ; Namespace
 (namespace_operator
-  lhs: (identifier) @module
+  lhs: (identifier) @namespace
 )
 
 (call
@@ -142,21 +126,23 @@
   "\\" @operator
 )
 
-(return) @keyword.return
+[
+  "in"
+  (return)
+  (next)
+  (break)
+] @keyword
 
 [
   "if"
   "else"
-] @keyword.conditional
+] @conditional
 
 [
   "while"
   "repeat"
   "for"
-  "in"
-  (break)
-  (next)
-] @keyword.repeat
+] @repeat
 
 [
   (true)
@@ -171,3 +157,6 @@
   (dots)
   (dot_dot_i)
 ] @constant.builtin
+
+; Error
+(ERROR) @error

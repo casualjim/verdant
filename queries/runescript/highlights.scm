@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/runescript/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/LostCityRS/tree-sitter-runescript/cf85bbd5da0c5ad243301d889c7f84d790a4cae4/queries/highlights.scm
 ; Variables
 (identifier) @variable
 

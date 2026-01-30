@@ -1,9 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/agda/highlights.scm
-;; Licensed under the Apache License 2.0
-; Constants
-(integer) @number
+;; Forked from https://raw.githubusercontent.com/tree-sitter/tree-sitter-agda/e8d47a6987effe34d5595baf321d82d3519a8527/queries/highlights.scm
+;; Constants
+(integer) @constant
 
-; Variables and Symbols
+;; Variables and Symbols
 (typed_binding
   (atom
     (qid) @variable
@@ -36,27 +35,17 @@
 ; Set
 (SetN) @type.builtin
 
-(expr
-  .
-  (atom) @function
-)
+;; Imports and Module Declarations
+"import" @include
 
-(
-  (atom) @boolean
-  (#any-of? @boolean "true" "false" "True" "False")
-)
+(module_name) @namespace
 
-; Imports and Module Declarations
-"import" @keyword.import
+;; Pragmas and comments
+(pragma) @constant.macro
 
-(module_name) @module
+(comment) @comment
 
-; Pragmas and comments
-(pragma) @keyword.directive
-
-(comment) @comment @spell
-
-; Keywords
+;; Keywords
 [
   "where"
   "data"
@@ -80,18 +69,21 @@
   "infix"
   "infixl"
   "infixr"
+  "record"
+  "forall"
+  "∀"
+  "->"
+  "→"
+  "\\"
+  "λ"
+  "..."
+  "…"
 ] @keyword
 
-"record" @keyword.type
-
-;(expr
-;	f_name: (atom) @function)
-; Brackets
+;; Brackets
 [
   "("
   ")"
   "{"
   "}"
 ] @punctuation.bracket
-
-"=" @operator

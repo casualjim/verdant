@@ -1,13 +1,12 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/cue/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/eonpatapon/tree-sitter-cue/770737bcff2c4aa3f624d439e32b07dbb07102d3/queries/highlights.scm
 ; Includes
 [
   "package"
   "import"
-] @keyword.import
+] @include
 
 ; Namespaces
-(package_identifier) @module
+(package_identifier) @namespace
 
 (import_spec
   [
@@ -19,26 +18,26 @@
 [
   (attr_path)
   (package_path)
-] @string.special.url
+] @text.uri
 
-; In attributes
+;; In attributes
 ; Attributes
 (attribute) @attribute
 
 ; Conditionals
-"if" @keyword.conditional
+"if" @conditional
 
 ; Repeats
-"for" @keyword.repeat
+["for"] @repeat
 
 (for_clause
   "_" @punctuation.special
 )
 
 ; Keywords
-"let" @keyword
+["let"] @keyword
 
-"in" @keyword.operator
+["in"] @keyword.operator
 
 ; Operators
 [
@@ -65,7 +64,7 @@
 ; Fields & Properties
 (field
   (label
-    (identifier) @variable.member
+    (identifier) @field
   )
 )
 
@@ -100,7 +99,7 @@
 
 (
   (identifier) @type
-  (#lua-match? @type "^_?#")
+  (#match? @type "^(#|_#)")
 )
 
 [
@@ -108,7 +107,7 @@
   (pointer_type)
 ] @type
 
-; In attributes
+;; In attributes
 ; Punctuation
 [
   ","
@@ -138,6 +137,7 @@
 [
   (ellipsis)
   "?"
+  "!"
 ] @punctuation.special
 
 ; Literals
@@ -150,11 +150,11 @@
 
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (si_unit
   (float)
-  (_) @string.special.symbol
+  (_) @symbol
 )
 
 (boolean) @boolean
@@ -180,3 +180,6 @@
 
 ; Comments
 (comment) @comment @spell
+
+; Errors
+(ERROR) @error

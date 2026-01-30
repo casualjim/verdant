@@ -1,10 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vim/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-vim/1cd0a0892b389bd314a9bd09545160e5ee3c9137/queries/vim/highlights.scm
 (identifier) @variable
 
 (
   (identifier) @constant
-  (#lua-match? @constant "^[A-Z][A-Z_0-9]*$")
+  (#match? @constant "^[A-Z][A-Z_0-9]*$")
 )
 
 ; Keywords
@@ -137,7 +136,6 @@
   "view"
   "eval"
   "sign"
-  "abort"
   "substitute"
 ] @keyword
 
@@ -231,11 +229,12 @@
 (command_attribute
   name:
   _ @property
+)
+
+(command_attribute
   val: (behavior
-    name:
     _ @constant
-    val: (identifier)? @function
-  )?
+  )
 )
 
 ; Edit command
@@ -270,9 +269,11 @@
 
 (float_literal) @number.float
 
-(comment) @comment @spell
+(comment) @comment
 
-(line_continuation_comment) @comment @spell
+(line_continuation_comment) @comment
+
+(shebang) @keyword.directive
 
 (pattern) @string.special
 
@@ -322,6 +323,8 @@
   "/"
   "%"
   ".."
+  "is"
+  "isnot"
   "=="
   "!="
   ">"
@@ -331,7 +334,6 @@
   "=~"
   "!~"
   "="
-  "^="
   "+="
   "-="
   "*="
@@ -341,14 +343,8 @@
   "..="
   "<<"
   "=<<"
-  "->"
   (match_case)
 ] @operator
-
-[
-  "is"
-  "isnot"
-] @keyword.operator
 
 ; Some characters have different meanings based on the context
 (unary_operation
@@ -393,7 +389,7 @@
 ; Options
 (
   (set_value) @number
-  (#lua-match? @number "^[%d]+(%.[%d]+)?$")
+  (#match? @number "^[0-9]+([.][0-9]+)?$")
 )
 
 (inv_option

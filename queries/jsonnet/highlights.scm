@@ -1,8 +1,7 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/jsonnet/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/sourcegraph/tree-sitter-jsonnet/ddd075f1939aed8147b7aa67f042eda3fce22790/queries/highlights.scm
 (id) @variable
 
-(comment) @comment @spell
+(comment) @comment
 
 ; Literals
 (null) @constant.builtin
@@ -17,7 +16,7 @@
 ] @boolean
 
 ; Keywords
-"for" @keyword.repeat
+"for" @repeat
 
 "in" @keyword.operator
 
@@ -27,18 +26,15 @@
   "if"
   "then"
   "else"
-] @keyword.conditional
+] @conditional
 
 [
   (local)
   (tailstrict)
   "function"
-] @keyword
-
-[
   "assert"
   "error"
-] @keyword.exception
+] @keyword
 
 [
   (dollar)
@@ -97,16 +93,60 @@
 [
   (import)
   (importstr)
-] @keyword.import
+] @include
 
-; Fields
+; References
+; Make reference same color as parameter 
+; (may incur performance issues on big files)
+; Depends on locals.scm
+(
+  (id) @parameter.reference
+  (#is? @parameter.reference parameter)
+)
+
+(
+  (id) @function.reference
+  (#is? @function.reference function)
+)
+
+(
+  (id) @var.reference
+  (#is? @var.reference var)
+)
+
+(
+  (id) @define
+  (#is? @var.reference var)
+)
+
+; References do not apply to static field IDs
+; Workaround for `(#is-not? local)` not supported
 (fieldname
-  (id) @variable.member
+  (id) @field
 )
 
 (fieldname
   (string
-    (string_content) @variable.member
+    (string_start) @text.strong
+    (string_content) @field
+    (string_end) @text.strong
+  )
+)
+
+; But it does apply if ID in an expression
+(fieldname
+  ("["
+    (id) @parameter.reference
+    "]"
+    (#is? @parameter.reference parameter)
+  )
+)
+
+(fieldname
+  ("["
+    (id) @define
+    "]"
+    (#is? @var.reference var)
   )
 )
 
@@ -120,17 +160,19 @@
 (field
   function: (fieldname
     (string
+      (string_start) @text.strong
       (string_content) @function
+      (string_end) @text.strong
     )
   )
 )
 
 (param
-  identifier: (id) @variable.parameter
+  identifier: (id) @parameter
 )
 
 (bind
-  (id) @variable
+  (id) @define
 )
 
 (bind
@@ -149,8 +191,21 @@
   "("
   (args
     (named_argument
-      (id) @variable.parameter
+      (id) @parameter
     )
   )?
   ")"
 )
+
+; Emphasize implicit plus usage
+(implicit_plus
+  (_
+    "}"? @text.danger
+  )
+  (object
+    "{" @text.danger
+  )
+)
+
+; ERROR
+(ERROR) @error

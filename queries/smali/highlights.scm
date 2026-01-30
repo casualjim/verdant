@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/smali/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-smali/fdfa6a1febc43c7467aa7e937b87b607956f2346/queries/highlights.scm
 ; Types
 (class_identifier
   (identifier) @type
@@ -31,7 +30,7 @@
 ; Methods
 (method_definition
   (method_signature
-    (method_identifier) @function.method
+    (method_identifier) @method
   )
 )
 
@@ -40,7 +39,7 @@
   (body
     (full_method_signature
       (method_signature
-        (method_identifier) @function.method.call
+        (method_identifier) @method.call
       )
     )
   )
@@ -50,23 +49,23 @@
 (method_handle
   (full_method_signature
     (method_signature
-      (method_identifier) @function.method.call
+      (method_identifier) @method.call
     )
   )
 )
 
 (custom_invoke
   .
-  (identifier) @function.method.call
+  (identifier) @method.call
   (method_signature
-    (method_identifier) @function.method.call
+    (method_identifier) @method.call
   )
 )
 
 (annotation_value
   (body
     (method_signature
-      (method_identifier) @function.method.call
+      (method_identifier) @method.call
     )
   )
 )
@@ -75,7 +74,7 @@
   (body
     (full_method_signature
       (method_signature
-        (method_identifier) @function.method.call
+        (method_identifier) @method.call
       )
     )
   )
@@ -84,7 +83,7 @@
 (field_definition
   (body
     (method_signature
-      (method_identifier) @function.method.call
+      (method_identifier) @method.call
     )
   )
 )
@@ -93,7 +92,7 @@
   (body
     (full_method_signature
       (method_signature
-        (method_identifier) @function.method.call
+        (method_identifier) @method.call
       )
     )
   )
@@ -107,9 +106,10 @@
 "constructor" @constructor
 
 ; Fields
-(field_identifier) @variable.member
-
-(annotation_key) @variable.member
+[
+  (field_identifier)
+  (annotation_key)
+] @field
 
 (
   (field_identifier) @constant
@@ -124,9 +124,9 @@
 )
 
 ; Parameters
-(parameter) @variable.parameter.builtin
+(parameter) @parameter.builtin
 
-(param_identifier) @variable.parameter
+(param_identifier) @parameter
 
 ; Labels
 [
@@ -143,18 +143,18 @@
 )
 
 (
-  (opcode) @keyword.conditional
-  (#lua-match? @keyword.conditional "^if")
+  (opcode) @conditional
+  (#lua-match? @conditional "^if")
 )
 
 (
-  (opcode) @keyword.conditional
-  (#lua-match? @keyword.conditional "^cmp")
+  (opcode) @conditional
+  (#lua-match? @conditional "^cmp")
 )
 
 (
-  (opcode) @keyword.exception
-  (#lua-match? @keyword.exception "^throw")
+  (opcode) @exception
+  (#lua-match? @exception "^throw")
 )
 
 (
@@ -200,7 +200,7 @@
   (epilogue_directive)
 ] @keyword
 
-".source" @keyword.import
+[".source"] @include
 
 [
   ".method"
@@ -210,7 +210,7 @@
 [
   ".catch"
   ".catchall"
-] @keyword.exception
+] @exception
 
 ; Literals
 (string) @string
@@ -218,7 +218,7 @@
 (source_directive
   (string
     "\""
-    _ @string.special.url
+    _ @text.uri
     "\""
   )
 )
@@ -235,16 +235,16 @@
   (float)
   (NaN)
   (Infinity)
-] @number.float
+] @float
 
 (boolean) @boolean
 
 (null) @constant.builtin
 
 ; Misc
-(annotation_visibility) @keyword.modifier
+(annotation_visibility) @storageclass
 
-(access_modifier) @keyword.modifier
+(access_modifier) @type.qualifier
 
 (array_type
   "[" @punctuation.special
@@ -270,7 +270,7 @@
 ] @punctuation.delimiter
 
 (line_directive
-  (number) @string.special
+  (number) @text.underline @text.literal
 )
 
 ; Comments
@@ -279,3 +279,6 @@
 (class_definition
   (comment) @comment.documentation
 )
+
+; Errors
+(ERROR) @error

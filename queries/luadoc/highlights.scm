@@ -1,10 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/luadoc/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-luadoc/873612aadd3f684dd4e631bdf42ea8990c57634e/queries/highlights.scm
 ; Keywords
 [
   "@module"
   "@package"
-] @keyword.import @nospell
+] @include
 
 [
   "@class"
@@ -15,90 +14,86 @@
   "@generic"
   "@vararg"
   "@diagnostic"
-  "@cast"
   "@deprecated"
   "@meta"
   "@source"
   "@version"
   "@operator"
   "@nodiscard"
+  "@cast"
   "@overload"
   "@enum"
   "@language"
   "@see"
-  "@as"
   "extends"
   (diagnostic_identifier)
-] @keyword @nospell
+] @keyword
 
-"@async" @keyword.coroutine @nospell
+["@async"] @keyword.coroutine
 
 (language_injection
   "@language"
-  (identifier) @keyword @nospell
+  (identifier) @keyword
 )
 
 (function_type
   [
     "fun"
     "function"
-  ] @keyword.function @nospell
+  ] @keyword.function
 )
 
 (source_annotation
-  filename: (identifier) @string.special.path @nospell
-  extension: (identifier) @string.special.path @nospell
+  filename: (identifier) @text.uri @string.special
+  extension: (identifier) @text.uri @string.special
 )
 
 (version_annotation
   version:
-  _ @constant.builtin @nospell
+  _ @constant.builtin
 )
 
-"@return" @keyword.return @nospell
+["@return"] @keyword.return
 
 ; Qualifiers
 [
   "public"
   "protected"
   "private"
-  "package"
   "@public"
   "@protected"
   "@private"
-  "(exact)"
-  "(key)"
-] @keyword.modifier @nospell
+] @type.qualifier
 
 ; Variables
-(identifier) @variable @nospell
+(identifier) @variable
 
 [
   "..."
   "self"
-] @variable.builtin @nospell
+] @variable.builtin
 
 ; Macros
 (alias_annotation
-  (identifier) @function.macro @nospell
+  (identifier) @function.macro
 )
 
 ; Parameters
 (param_annotation
-  (identifier) @variable.parameter @nospell
+  (identifier) @parameter
 )
 
 (parameter
-  (identifier) @variable.parameter @nospell
+  (identifier) @parameter
 )
 
 ; Fields
 (field_annotation
-  (identifier) @variable.member @nospell
+  (identifier) @field
 )
 
 (table_literal_type
-  field: (identifier) @variable.member @nospell
+  field: (identifier) @field
 )
 
 (member_type
@@ -107,31 +102,22 @@
     "."
   ]
   .
-  (identifier) @variable.member @nospell
-)
-
-(member_type
-  (identifier) @module @nospell
-)
-
-(member_type
-  (identifier) @type @nospell
-  .
+  (identifier) @field
 )
 
 ; Types
 (table_type
-  "table" @type.builtin @nospell
+  "table" @type.builtin
 )
 
-(builtin_type) @type.builtin @nospell
+(builtin_type) @type.builtin
 
 (class_annotation
-  (identifier) @type @nospell
+  (identifier) @type
 )
 
 (enum_annotation
-  (identifier) @type @nospell
+  (identifier) @type
 )
 
 (
@@ -141,42 +127,26 @@
       "]"
     ] @type
   )
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 (type) @type
 
 ; Operators
-[
-  "|"
-  "+"
-  "-"
-] @operator
+["|"] @operator
 
 ; Literals
-[
-  (string)
-  (literal_type)
-  "`"
-] @string
+(string) @namespace
 
-(module_annotation
-  (string) @module @nospell
-)
+; only used in @module
+(literal_type) @string
 
-[
-  (number)
-  (numeric_literal_type)
-] @number
+(number) @number
 
 ; Punctuation
 [
   "["
   "]"
-  "[["
-  "]]"
-  "[=["
-  "]=]"
 ] @punctuation.bracket
 
 [
@@ -210,15 +180,15 @@
 (comment) @comment @spell
 
 (at_comment
-  (identifier) @type @nospell
+  (identifier) @type
   (_) @comment @spell
 )
 
 (class_at_comment
-  (identifier) @type @nospell
+  (identifier) @type
   ("extends"
     ?
-    (identifier)? @type @nospell
+    (identifier)? @type
   )
   (_) @comment @spell
 )

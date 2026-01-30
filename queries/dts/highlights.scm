@@ -1,68 +1,84 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/devicetree/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/joelspadin/tree-sitter-devicetree/e685f1f6ac1702b046415efb476444167d63e41a/queries/highlights.scm
+[
+  "/delete-node/"
+  "/delete-property/"
+  "/dts-v1/"
+  "/incbin/"
+  "/include/"
+  "/memreserve/"
+  "/omit-if-no-ref/"
+  "#define"
+  "#undef"
+  "#include"
+  "#if"
+  "#elif"
+  "#else"
+  "#endif"
+  "#ifdef"
+  "#ifndef"
+] @keyword
 
 [
-  (preproc_include)
-  (dtsi_include)
-] @keyword.import
-
-(preproc_def) @constant.macro
-
-(preproc_function_def) @function.macro
+  "!"
+  "~"
+  "-"
+  "+"
+  "*"
+  "/"
+  "%"
+  "||"
+  "&&"
+  "|"
+  "^"
+  "&"
+  "=="
+  "!="
+  ">"
+  ">="
+  "<="
+  ">"
+  "<<"
+  ">>"
+] @operator
 
 [
-  (memory_reservation)
-  (file_version)
-] @attribute
-
-[
-  (string_literal)
-  (byte_string_literal)
-  (system_lib_string)
-] @string
-
-(integer_literal) @number
-
-(identifier) @variable
-
-(node
-  (identifier) @module
-)
-
-(property
-  (identifier) @property
-)
-
-(node
-  label: (_) @label
-)
-
-(call_expression
-  (identifier) @function.macro
-)
-
-(reference) @label
-
-; referencing labeled_item.identifier
-(unit_address) @constant
-
-"=" @operator
+  ","
+  ";"
+] @punctuation.delimiter
 
 [
   "("
   ")"
-  "["
-  "]"
   "{"
   "}"
   "<"
   ">"
 ] @punctuation.bracket
 
-[
-  ";"
-  ":"
-  ","
-  "@"
-] @punctuation.delimiter
+(call_expression
+  function: (identifier) @function
+)
+
+(node
+  label: (identifier) @label
+)
+
+(property
+  label: (identifier) @label
+)
+
+(memory_reservation
+  label: (identifier) @label
+)
+
+(property
+  name: (identifier) @property
+)
+
+(identifier) @variable
+
+(unit_address) @tag
+
+(reference) @constant
+
+(comment) @comment

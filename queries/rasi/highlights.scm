@@ -1,12 +1,11 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rasi/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/Fymyte/tree-sitter-rasi/e735c6881d8b475aaa4ef8f0a2bdfd825b438143/queries/highlights.scm
+(comment) @comment
 
 "@media" @keyword
 
-"@import" @keyword.import
+"@import" @include
 
-"@theme" @keyword.import
+"@theme" @include
 
 (string_value) @string
 
@@ -28,6 +27,7 @@
   (orientation_value)
   (cursor_value)
   "inherit"
+  "DMENU"
 ] @keyword
 
 (url_image
@@ -89,24 +89,25 @@
   (angle_unit)
   (integer_distance_unit)
   (float_distance_unit)
-] @string
+] @type
 
 (percentage) @number
 
 (percentage
-  "%" @string
+  "%" @type
 )
 
-(global_selector) @character.special
-
-(id_selector) @constant
+[
+  (global_selector)
+  (id_selector)
+] @namespace
 
 (id_selector_view
   [
     "normal"
     "selected"
     "alternate"
-  ] @attribute
+  ] @property
 )
 
 (id_selector_state
@@ -114,7 +115,7 @@
     "normal"
     "urgent"
     "active"
-  ] @keyword.modifier
+  ] @tag
 )
 
 (hex_color) @number
@@ -155,4 +156,10 @@
   (identifier) @variable
 )
 
+(id_selector
+  "#" @punctuation.special
+)
+
 (property_name) @property
+
+(ERROR) @error

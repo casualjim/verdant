@@ -1,10 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ada/highlights.scm
-;; Licensed under the Apache License 2.0
-; highlight queries.
-; See the syntax at https://tree-sitter.github.io/tree-sitter/using-parsers#pattern-matching-with-queries
-; See also https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#parser-configurations
-; for a list of recommended @ tags, though not all of them have matching
-; highlights in neovim.
+;; Forked from https://raw.githubusercontent.com/briot/tree-sitter-ada/6b58259a08b1a22ba0247a7ce30be384db618da6/queries/highlights.scm
+;; highlight queries.
+;; See the syntax at https://tree-sitter.github.io/tree-sitter/using-parsers#pattern-matching-with-queries
+;; See also https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#parser-configurations
+;; for a list of recommended @ tags, though not all of them have matching
+;; highlights in neovim.
 [
   "abort"
   "abs"
@@ -15,7 +14,6 @@
   "array"
   "at"
   "begin"
-  "body"
   "declare"
   "delay"
   "delta"
@@ -28,45 +26,48 @@
   "interface"
   "is"
   "limited"
-  "mod"
-  "new"
   "null"
   "of"
   "others"
   "out"
-  "overriding"
-  "package"
   "pragma"
   "private"
-  "protected"
   "range"
-  "separate"
-  "subtype"
   "synchronized"
   "tagged"
   "task"
   "terminate"
-  "type"
   "until"
   "when"
 ] @keyword
-
-"record" @keyword.type
 
 [
   "aliased"
   "constant"
   "renames"
-] @keyword.modifier
+] @storageclass
+
+[
+  "mod"
+  "new"
+  "protected"
+  "record"
+  "subtype"
+  "type"
+] @keyword.type
 
 [
   "with"
   "use"
-] @keyword.import
+] @include
 
 [
+  "body"
   "function"
+  "overriding"
   "procedure"
+  "package"
+  "separate"
 ] @keyword.function
 
 [
@@ -84,9 +85,9 @@
   "parallel"
   "reverse"
   "some"
-] @keyword.repeat
+] @repeat
 
-"return" @keyword.return
+["return"] @keyword.return
 
 [
   "case"
@@ -95,12 +96,12 @@
   "then"
   "elsif"
   "select"
-] @keyword.conditional
+] @conditional
 
 [
   "exception"
   "raise"
-] @keyword.exception
+] @exception
 
 (comment) @comment @spell
 
@@ -110,7 +111,7 @@
 
 (numeric_literal) @number
 
-; Highlight the name of subprograms
+;; Highlight the name of subprograms
 (procedure_specification
   name: (_) @function
 )
@@ -136,26 +137,26 @@
   (identifier) @function
 )
 
-; Some keywords should take different categories depending on the context
+;; Some keywords should take different categories depending on the context
 (use_clause
-  "use" @keyword.import
-  "type" @keyword.import
+  "use" @include
+  "type" @include
 )
 
 (with_clause
-  "private" @keyword.import
+  "private" @include
 )
 
 (with_clause
-  "limited" @keyword.import
+  "limited" @include
 )
 
 (use_clause
-  (_) @module
+  (_) @namespace
 )
 
 (with_clause
-  (_) @module
+  (_) @namespace
 )
 
 (loop_statement
@@ -163,7 +164,7 @@
 )
 
 (if_statement
-  "end" @keyword.conditional
+  "end" @conditional
 )
 
 (loop_parameter_specification
@@ -186,14 +187,14 @@
 )
 
 (raise_statement
-  "with" @keyword.exception
+  "with" @exception
 )
 
-(gnatprep_declarative_if_statement) @keyword.directive
+(gnatprep_declarative_if_statement) @preproc
 
-(gnatprep_if_statement) @keyword.directive
+(gnatprep_if_statement) @preproc
 
-(gnatprep_identifier) @keyword.directive
+(gnatprep_identifier) @preproc
 
 (subprogram_declaration
   "is" @keyword.function
@@ -291,7 +292,7 @@
   "is" @keyword.type
 )
 
-; Gray the body of expression functions
+;; Gray the body of expression functions
 (expression_function_declaration
   (function_specification)
   "is"
@@ -302,7 +303,7 @@
   (aspect_specification) @attribute
 )
 
-; Highlight full subprogram specifications
+;; Highlight full subprogram specifications
 ;(subprogram_body
 ;    [
 ;       (procedure_specification)
@@ -335,3 +336,8 @@
   .
   (comment) @comment.documentation
 )
+
+;; Highlight errors in red. This is not very useful in practice, as text will
+;; be highlighted as user types, and the error could be elsewhere in the code.
+;; This also requires defining    :hi @error guifg=Red    for instance.
+(ERROR) @error

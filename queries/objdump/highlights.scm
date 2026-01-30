@@ -1,50 +1,34 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/objdump/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ColinKennedy/tree-sitter-objdump/28d3b2e25a0b1881d1b47ed1924ca276c7003d45/queries/highlights.scm
 (byte) @constant
 
 [
   (hexadecimal)
   (integer)
+  (section_address)
   (address)
 ] @number
 
-; [
-;   "file" "format"
-;   "File" "Offset:"
-;   "discriminator"
-; ] @none
-"Disassembly of section " @markup.heading
-
-(section_address) @string.special
-
 (identifier) @variable
 
-(code_location
-  (identifier) @function.call
-)
-
-(header
-  (identifier) @keyword
-)
-
 (disassembly_section_label
-  (identifier) @module
-)
-
-(disassembly_section
-  (identifier) @module
-)
+  (identifier)
+) @namespace
 
 [
-  (file_offset)
-  (discriminator)
-] @variable.member
+  "file"
+  "format"
+  "File"
+  "Offset:"
+  "discriminator"
+] @text
 
-(file_path) @string.special.path
+"Disassembly of section " @text.title
+
+(file_path) @string.special
 
 (instruction) @function
 
-(bad_instruction) @comment.warning
+(bad_instruction) @text.warning
 
 (label) @label
 

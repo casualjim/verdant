@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/heex/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/phoenixframework/tree-sitter-heex/b5a7cb5f74dc695a9ff5f04919f872ebc7a895e9/queries/highlights.scm
 ; HEEx delimiters
 [
   "%>"
@@ -20,7 +19,7 @@
   ">"
   "{"
   "}"
-] @tag.delimiter
+] @punctuation.bracket
 
 ; HEEx operators are highlighted as such
 "=" @operator
@@ -29,10 +28,11 @@
 (doctype) @constant
 
 ; HEEx comments are highlighted as such
-(comment) @comment @spell
+(comment) @comment
 
-; HEEx text content is treated as markup
-; (text) @none
+; Tree-sitter parser errors
+(ERROR) @error
+
 ; HEEx tags and slots are highlighted as HTML
 [
   (tag_name)
@@ -40,17 +40,20 @@
 ] @tag
 
 ; HEEx attributes are highlighted as HTML attributes
-(attribute_name) @tag.attribute
+(attribute_name) @attribute
+
+; HEEx special attributes are highlighted as keywords
+(special_attribute_name) @keyword
 
 [
   (attribute_value)
   (quoted_attribute_value)
 ] @string
 
-; HEEx components are highlighted as modules and function calls
+; HEEx components are highlighted as Elixir modules and functions
 (component_name
   [
-    (module) @type
+    (module) @module
     (function) @function
     "." @punctuation.delimiter
   ]

@@ -1,11 +1,10 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ron/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-ron/78938553b93075e638035f624973083451b29055/queries/highlights.scm
 ; Structs
 ;------------
 (enum_variant) @constant
 
 (struct_entry
-  (identifier) @variable.member
+  (identifier) @property
 )
 
 (struct_entry
@@ -28,7 +27,7 @@
 
 (integer) @number
 
-(float) @number.float
+(float) @float
 
 (char) @character
 
@@ -61,8 +60,10 @@
   ":"
 ] @punctuation.delimiter
 
-"-" @operator
+["-"] @operator
 
 ; Special
 ;------------
 (escape_sequence) @string.escape
+
+(ERROR) @error

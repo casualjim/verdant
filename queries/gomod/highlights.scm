@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gomod/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/camdencheek/tree-sitter-go-mod/2e886870578eeba1927a2dc4bd2e2b3f598c5f9a/queries/highlights.scm
 [
   "require"
   "replace"
@@ -12,25 +11,9 @@
 
 "=>" @operator
 
-(comment) @comment @spell
-
-(module_path) @string.special.url
-
-(tool_directive) @keyword.directive
-
-(tool) @string.special.url
+(comment) @comment
 
 [
   (version)
   (go_version)
-  (toolchain_name)
-] @string.special
-
-[
-  "("
-  ")"
-  "["
-  "]"
-] @punctuation.bracket
-
-"," @punctuation.delimiter
+] @string

@@ -1,19 +1,18 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/func/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-func/f780ca55e65e7d7360d0229331763e16c452fc98/queries/highlights.scm
 ; Include
-"#include" @keyword.import
+"#include" @include
 
 (include_path) @string
 
 ; Preproc
-"#pragma" @keyword.directive
+["#pragma"] @preproc
 
 (pragma_directive
   [
     "version"
     "not-version"
     "test-version-set"
-  ] @keyword.directive
+  ] @preproc
 )
 
 ; Keywords
@@ -26,7 +25,7 @@
   "type"
 ] @keyword
 
-"return" @keyword.return
+["return"] @keyword.return
 
 ; Conditionals
 [
@@ -36,13 +35,13 @@
   "elseif"
   "elseifnot"
   "until"
-] @keyword.conditional
+] @conditional
 
 ; Exceptions
 [
   "try"
   "catch"
-] @keyword.exception
+] @exception
 
 ; Repeats
 [
@@ -50,14 +49,14 @@
   "forall"
   "repeat"
   "while"
-] @keyword.repeat
+] @repeat
 
 ; Qualifiers
 [
   "const"
   "global"
   (var)
-] @keyword.modifier
+] @type.qualifier
 
 ; Variables
 (identifier) @variable
@@ -77,11 +76,11 @@
 )
 
 (method_call
-  method_name: (identifier) @function.method.call
+  method_name: (identifier) @method.call
 )
 
 ; Parameters
-(parameter) @variable.parameter
+(parameter) @parameter
 
 ; Types
 (type_identifier) @type

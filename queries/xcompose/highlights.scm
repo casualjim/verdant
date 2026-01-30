@@ -1,25 +1,19 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/xcompose/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-xcompose/a51d6366f041dbefec4da39a7eb3168a9b1cbc0e/queries/highlights.scm
 (keysym) @constant
-
-(
-  (keysym) @constant.builtin
-  (#eq? @constant.builtin "Multi_key")
-)
 
 (text) @string
 
-"include" @keyword.import
+"include" @keyword
+
+[
+  (modifier)
+  "None"
+] @function
 
 [
   (octal)
   (hex)
 ] @number
-
-[
-  (modifier)
-  "None"
-] @keyword.modifier
 
 [
   "%L"
@@ -39,4 +33,4 @@
   "\""
 ] @punctuation.delimiter
 
-(comment) @comment @spell
+(comment) @comment

@@ -1,78 +1,46 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/git_config/highlights.scm
-;; Licensed under the Apache License 2.0
-; Sections
-(section_name) @markup.heading
+;; Forked from https://raw.githubusercontent.com/the-mikedavis/tree-sitter-git-config/0fbc9f99d5a28865f9de8427fb0672d66f9d83a5/queries/highlights.scm
+(section_name) @tag
 
 (
-  (section_name) @keyword.import
-  (#eq? @keyword.import "include")
+  (section_name) @function.builtin
+  (#eq? @function.builtin "include")
 )
 
 (
   (section_header
-    (section_name) @keyword.import
+    (section_name) @function.builtin
     (subsection_name)
   )
-  (#any-of? @keyword.import "includeIf" "includeif")
+  (#eq? @function.builtin "includeIf")
 )
 
 (variable
   (name) @property
 )
 
-; Operators
-"=" @operator
-
-; Literals
-(integer) @number
-
 [
   (true)
   (false)
-] @boolean
+] @constant.builtin
 
-(string) @string
+(integer) @number
 
-(escape_sequence) @string.escape
-
-(
-  (string) @string.special.path
-  (#lua-match? @string.special.path "^[.]?[.]?[/]")
-)
+[
+  (string)
+  (subsection_name)
+] @string
 
 (
   (string) @string.special.path
-  (#lua-match? @string.special.path "^[~]")
+  (#match? @string.special.path "^(~|./|/)")
 )
 
-(section_header
-  [
-    "\""
-    (subsection_name)
-  ] @string.special
-)
-
-(
-  (section_header
-    (section_name) @_name
-    (subsection_name) @string.special.url
-  )
-  (#any-of? @_name "credential" "url")
-)
-
-(
-  (variable
-    (name) @_name
-    value: (string) @string.special.url
-  )
-  (#any-of? @_name "insteadOf" "insteadof")
-)
-
-; Punctuation
 [
   "["
   "]"
+  "\""
 ] @punctuation.bracket
 
-; Comments
-(comment) @comment @spell
+"=" @punctuation.delimiter
+
+(comment) @comment

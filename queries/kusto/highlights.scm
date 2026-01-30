@@ -1,8 +1,10 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/kusto/highlights.scm
-;; Licensed under the Apache License 2.0
-(identifier) @variable
+;; Forked from https://raw.githubusercontent.com/Willem-J-an/tree-sitter-kusto/8353a1296607d6ba33db7c7e312226e5fc83e8ce/queries/highlights.scm
+(source) @variable
 
-(let_keyword) @keyword
+(let_statement
+  (let_keyword) @keyword
+  (identifier) @variable
+)
 
 (function_call
   (identifier) @function.call
@@ -16,12 +18,51 @@
 ] @function.call
 
 (typed_parameter
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (function_arguments
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
+
+(operation
+  (identifier) @variable
+)
+
+(compound_expression
+  (identifier) @variable
+)
+
+(binary_expression
+  (identifier) @variable
+)
+
+(assignment
+  (identifier) @variable
+)
+
+(property_identifier
+  (identifier) @variable
+)
+
+(property_index
+  (identifier) @variable
+)
+
+(sort_by
+  (identifier) @variable
+)
+
+(range_operation
+  (identifier) @variable
+)
+
+(pipe) @punctuation.delimiter
+
+[
+  (join_types)
+  (sort_keyword)
+] @constant
 
 [
   (binary_operator)
@@ -43,11 +84,9 @@
 
 (null) @constant.builtin
 
-(comment) @comment @spell
+(comment) @comment
 
 (type) @type
-
-(join_types) @keyword.modifier
 
 [
   "("
@@ -58,8 +97,4 @@
   "}"
 ] @punctuation.bracket
 
-[
-  ","
-  ":"
-  (pipe)
-] @punctuation.delimiter
+[","] @punctuation.delimiter

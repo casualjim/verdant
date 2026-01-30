@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/bicep/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-bicep/bff59884307c0ab009bd5e81afd9324b46a6c0f9/queries/highlights.scm
 ; Includes
 [
   "import"

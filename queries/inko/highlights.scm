@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/inko/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/inko-lang/tree-sitter-inko/v0.5.1/queries/highlights.scm
 ; Brackets and operators
 [
   "("
@@ -11,117 +10,71 @@
 ] @punctuation.bracket
 
 [
-  ","
-  "->"
-  "."
-  ":"
-] @punctuation.delimiter
-
-[
-  "!="
-  "%"
-  "%="
-  "&"
-  "&="
+  "+"
+  "-"
+  "/"
   "*"
   "**"
-  "**="
-  "*="
-  "+"
-  "+="
-  "-"
-  "-="
-  "/"
-  "/="
+  "%"
   "<"
-  "<<"
-  "<<="
-  "<="
-  "=="
   ">"
+  "<="
   ">="
+  "<<"
   ">>"
-  ">>="
   ">>>"
-  ">>>="
-  "^"
-  "^="
+  "&"
   "|"
-  "|="
+  "^"
+  "=="
+  "!="
 ] @operator
 
 ; Keywords
 [
+  "and"
   "as"
-  "copy"
-  "for"
-  "impl"
-  "in"
-  "inline"
-  "let"
-  "move"
-  "mut"
-  "recover"
-  "ref"
-  "uni"
-] @keyword
-
-[
   "async"
   "await"
-] @keyword.coroutine
-
-"fn" @keyword.function
-
-"import" @keyword.import
-
-[
-  "and"
-  "or"
-] @keyword.operator
-
-[
-  "trait"
-  "type"
-] @keyword.type
-
-[
-  "extern"
-  (modifier)
-  (visibility)
-] @keyword.modifier
-
-[
-  "loop"
-  "while"
-  (break)
-  (next)
-] @keyword.repeat
-
-"return" @keyword.return
-
-[
-  "throw"
-  "try"
-] @keyword.exception
-
-[
   "case"
   "else"
+  "enum"
+  "extern"
+  "fn"
+  "for"
   "if"
+  "impl"
+  "import"
+  "in"
+  "let"
+  "loop"
   "match"
-] @keyword.conditional
-
-; Identifiers/variable references
-(identifier) @variable
+  "move"
+  "mut"
+  "or"
+  "recover"
+  "ref"
+  "return"
+  "throw"
+  "trait"
+  "try"
+  "type"
+  "uni"
+  "while"
+  (modifier)
+  (visibility)
+] @keyword
 
 ; Comments
-(line_comment) @comment @spell
+(line_comment) @comment
 
 ; Literals
-(self) @variable.builtin
-
-(nil) @constant.builtin
+[
+  (nil)
+  (self)
+  (break)
+  (next)
+] @keyword
 
 [
   (true)
@@ -130,16 +83,16 @@
 
 (integer) @number
 
-(float) @number.float
+(float) @number
 
 (string) @string
 
-(escape_sequence) @string.escape
+(escape_sequence) @escape
 
 (interpolation
   "${" @punctuation.special
   "}" @punctuation.special
-) @none
+) @embedded
 
 (constant) @constant
 
@@ -149,8 +102,6 @@
 (string_pattern) @string
 
 (constant_pattern) @constant
-
-(boolean_pattern) @boolean
 
 ; Types
 (generic_type
@@ -166,12 +117,6 @@
   _ @string
 )
 
-(import
-  (path
-    (identifier) @module
-  )
-)
-
 ; Classes
 (class
   name:
@@ -180,7 +125,7 @@
 
 (define_field
   name:
-  _ @variable.member
+  _ @property
 )
 
 ; Traits
@@ -218,19 +163,24 @@
 
 (argument
   name:
-  _ @variable.parameter
+  _ @variable
 )
 
 (named_argument
   name:
-  _ @variable.parameter
+  _ @variable
 )
 
 (call
-  name: [
-    (name)
-    (constant)
-  ] @function
+  name:
+  _ @function
 )
 
-(field) @variable.member
+(field) @property
+
+(identifier) @variable
+
+(
+  (identifier) @function
+  (#is-not? local)
+)

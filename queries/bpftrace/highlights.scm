@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/bpftrace/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/sgruszka/tree-sitter-bpftrace/0978030fdcdab74d49faaee2a60eb94607a367cc/queries/highlights.scm
 ; Comments
 [
   (line_comment)

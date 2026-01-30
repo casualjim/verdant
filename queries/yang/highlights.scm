@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/yang/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/Hubro/tree-sitter-yang/2c0e6be8dd4dcb961c345fa35c309ad4f5bd3502/queries/highlights.scm
+(comment) @comment
 
 ; Module / submodule
 [
@@ -13,7 +12,7 @@
 
 (statement_keyword
   "import"
-) @keyword.import
+) @include
 
 (extension_keyword) @function
 
@@ -60,15 +59,18 @@
 
 (unquoted_string) @string
 
-(keypath) @string.special.path
+(keypath) @string.special
 
-; Always highlight the value of an enum statement as a constant
-(enum_value) @constant
+; Always highlight the value of an enum statement as a string
+(enum_value) @string
 
-; Highlight xpath and pattern strings differently from plain strings
+; Highlight XPath strings as special strings
 (statement
   (statement_keyword
-    "must"
+    [
+      "when"
+      "must"
+    ]
   )
   (argument
     (string) @string.special
@@ -77,10 +79,36 @@
 
 (statement
   (statement_keyword
-    "pattern"
+    [
+      "when"
+      "must"
+    ]
   )
   (argument
-    (string) @string.regexp
+    (string_concatenation
+      (string) @string.special
+    )
+  )
+)
+
+; Highlight pattern strings as regex
+(statement
+  (statement_keyword
+    ["pattern"]
+  )
+  (argument
+    (string) @string.regex
+  )
+)
+
+(statement
+  (statement_keyword
+    ["pattern"]
+  )
+  (argument
+    (string_concatenation
+      (string) @string.regex
+    )
   )
 )
 
@@ -92,4 +120,7 @@
   "}"
 ] @punctuation.bracket
 
-";" @punctuation.delimiter
+[";"] @punctuation.delimiter
+
+; Errors
+(ERROR) @error

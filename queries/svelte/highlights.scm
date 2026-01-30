@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/svelte/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-svelte/ae5199db47757f785e43a14b332118a5474de1a2/queries/highlights.scm
 ; inherits: html
 (raw_text) @none
 
@@ -11,11 +10,10 @@
   "render"
 ] @keyword
 
-"const" @keyword.modifier
+"const" @type.qualifier
 
 [
   "if"
-  "else if"
   "else"
   "then"
 ] @keyword.conditional

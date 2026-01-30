@@ -1,10 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/htmldjango/highlights.scm
-;; Licensed under the Apache License 2.0
-; adapted from https://github.com/interdependence/tree-sitter-htmldjango
+;; Forked from https://raw.githubusercontent.com/interdependence/tree-sitter-htmldjango/3a643167ad9afac5d61e092f08ff5b054576fadf/queries/highlights.scm
 [
   (unpaired_comment)
   (paired_comment)
-] @comment @spell
+] @comment
 
 [
   "{{"
@@ -12,77 +10,26 @@
   "{%"
   "%}"
   (end_paired_statement)
-] @punctuation.special
+] @tag
 
-(tag_name) @function
-
-(
-  (tag_name) @keyword.conditional
-  (#any-of? @keyword.conditional "if" "elif" "else" "endif")
-)
-
-(
-  (tag_name) @keyword.repeat
-  (#any-of? @keyword.repeat "for" "endfor")
-)
+[
+  (tag_name)
+] @function
 
 (variable_name) @variable
 
-(unpaired_statement
-  (tag_name)
-  (variable
-    (variable_name) @variable.parameter
-  )
-  .
-  "="
-  .
-  (_)
-)
+(filter_name) @method
 
-(filter_name) @function.method
-
-(filter_argument) @variable.parameter
+(filter_argument) @parameter
 
 (keyword) @keyword
 
-[
-  "|"
-  "="
-  (operator)
-] @operator
+(operator) @operator
 
 (keyword_operator) @keyword.operator
 
-(string) @string
-
-(filter
-  [
-    "'"
-    "\""
-  ]
-  .
-  (filter_argument) @string
-)
-
 (number) @number
-
-(
-  (filter
-    (filter_argument) @number
-  )
-  (#lua-match? @number "^%d+$")
-)
 
 (boolean) @boolean
 
-(
-  (filter
-    (filter_argument) @boolean
-  )
-  (#any-of? @boolean "True" "False")
-)
-
-[
-  ":"
-  ","
-] @punctuation.delimiter
+(string) @string

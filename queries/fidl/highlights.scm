@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/fidl/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/google/tree-sitter-fidl/0a8910f293268e27ff554357c229ba172b0eaed2/queries/highlights.scm
 [
   "ajar"
   "alias"
@@ -8,6 +7,7 @@
   "closed"
   "compose"
   "const"
+  "enum"
   "error"
   "flexible"
   "library"
@@ -16,19 +16,15 @@
   "overlay"
   "protocol"
   "reserved"
-  "strict"
-  "using"
-] @keyword
-
-[
-  "enum"
-  "struct"
-  "table"
-  "union"
   "resource"
   "service"
+  "strict"
+  "struct"
+  "table"
   "type"
-] @keyword.type
+  "union"
+  "using"
+] @keyword
 
 (primitives_type) @type.builtin
 

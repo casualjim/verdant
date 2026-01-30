@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/hare/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-hare/eed7ddf6a66b596906aa8ca3d40521b8278adc6f/queries/highlights.scm
 ; Variables
 (identifier) @variable
 
@@ -26,49 +25,44 @@
 )
 
 ; Includes
-[
-  "use"
-  "export"
-] @keyword.import
+["use"] @include
 
 (use_statement
   (scoped_type_identifier
-    (identifier) @module
+    (identifier) @namespace
   )
 )
 
 (use_statement
-  (identifier) @module
+  (identifier) @namespace
   "{"
 )
 
 (use_statement
   .
-  (identifier) @module
+  (identifier) @namespace
   .
 )
 
 (
   (scoped_type_identifier
-    path: (_) @module
+    path: (_) @namespace
   )
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 ; Keywords
 [
   "def"
+  "enum"
+  "export"
   "let"
+  "struct"
+  "type"
+  "union"
 ] @keyword
 
-[
-  "enum"
-  "struct"
-  "union"
-  "type"
-] @keyword.type
-
-"fn" @keyword.function
+["fn"] @keyword.function
 
 [
   "defer"
@@ -94,7 +88,7 @@
   "const"
   "static"
   "nullable"
-] @keyword.modifier
+] @type.qualifier
 
 ; Attributes
 [
@@ -109,7 +103,7 @@
 ; Labels
 (
   (label) @label
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 ; Functions
@@ -132,7 +126,7 @@
     .
     "::"
     .
-    (identifier) @function.method.call
+    (identifier) @method.call
   )
 )
 
@@ -175,7 +169,7 @@
 
 ; Parameters
 (parameter
-  (_) @variable.parameter
+  (_) @parameter
   .
   ":"
 )
@@ -184,23 +178,23 @@
 (
   (member_expression
     "."
-    (_) @variable.member
+    (_) @field
   )
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 (field
   .
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (field_assignment
   .
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 ; Repeats
-"for" @keyword.repeat
+["for"] @repeat
 
 ; Conditionals
 [
@@ -210,7 +204,7 @@
   "switch"
   "match"
   "case"
-] @keyword.conditional
+] @conditional
 
 ; Operators
 [
@@ -307,7 +301,7 @@
 
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (boolean) @boolean
 
@@ -318,3 +312,6 @@
 
 ; Comments
 (comment) @comment @spell
+
+; Errors
+(ERROR) @error

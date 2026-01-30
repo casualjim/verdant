@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/bass/highlights.scm
-;; Licensed under the Apache License 2.0
-; Variables
+;; Forked from https://raw.githubusercontent.com/vito/tree-sitter-bass/28dc7059722be090d04cd751aed915b2fee2f89a/queries/nvim/highlights.scm
+;; Variables
 (list
   (symbol) @variable
 )
@@ -17,50 +16,44 @@
   (symbol) @variable
 )
 
-; Constants
-(
-  (symbol) @constant
-  (#lua-match? @constant "^_*[A-Z][A-Z0-9_]*$")
-)
-
-; Functions
+;; Functions
 (list
   .
   (symbol) @function
 )
 
-; Namespaces
+; Keywords construct a symbol
+(keyword) @constructor
+
+;; Namespaces
 (symbind
-  (symbol) @module
+  (symbol) @namespace
   .
   (keyword)
 )
 
-; Includes
+;; Includes
 (
-  (symbol) @keyword.import
-  (#any-of? @keyword.import "use" "import" "load")
+  (symbol) @include
+  (#any-of? @include "use" "import" "load")
 )
 
-; Keywords
+;; Keywords
 (
   (symbol) @keyword
   (#any-of? @keyword "do" "doc")
 )
 
-; Special Functions
-; Keywords construct a symbol
-(keyword) @constructor
-
+;; Defining
 (
   (list
     .
     (symbol) @keyword.function
     .
     (symbol) @function
-    (symbol)? @variable.parameter
+    (symbol)? @parameter
   )
-  (#any-of? @keyword.function "def" "defop" "defn" "fn")
+  (#any-of? @keyword.function "def" "defop" "defn")
 )
 
 (
@@ -69,11 +62,17 @@
     (symbol) @keyword.function
     .
     (symbol) @function
-    (symbol)? @variable.parameter
+    (symbol)? @parameter
   )
-  (#any-of? @keyword.function "def" "defop" "defn" "fn")
+  (#any-of? @keyword.function "def" "defop" "defn")
 )
 
+(
+  (symbol) @keyword.function
+  (#any-of? @keyword.function "def" "defop" "defn")
+)
+
+;; Builtins
 (
   (symbol) @function.builtin
   (#any-of?
@@ -140,8 +139,11 @@
     "path-stem"
     "with-image"
     "with-dir"
-    "with-args"
     "with-cmd"
+    "with-args"
+    "with-entrypoint"
+    "with-default-args"
+    "with-entrypoint-args"
     "with-stdin"
     "with-env"
     "with-insecure"
@@ -158,6 +160,11 @@
     "read"
     "cache-dir"
     "binds?"
+    "write"
+    "publish"
+    "export"
+    "only-globs"
+    "except-globs"
     "recall-memo"
     "store-memo"
     "mask"
@@ -172,6 +179,7 @@
     "map-pairs"
     "foldr"
     "foldl"
+    "concat"
     "append"
     "filter"
     "conj"
@@ -187,11 +195,14 @@
     "run"
     "last"
     "take"
+    "collect"
     "take-all"
     "insecure!"
     "from"
     "cd"
     "wrap-cmd"
+    "docker-build"
+    "oci-load"
     "mkfile"
     "path-base"
     "not"
@@ -203,6 +214,7 @@
   (#any-of?
     @function.macro
     "op"
+    "fn"
     "current-scope"
     "quote"
     "let"
@@ -210,26 +222,32 @@
     "module"
     "or"
     "and"
+    "->"
     "curryfn"
+    "assert"
+    "refute"
     "for"
     "$"
+    "$$"
     "linux"
+    "glob"
   )
 )
 
-; Conditionals
+;; Conditionals
 (
-  (symbol) @keyword.conditional
-  (#any-of? @keyword.conditional "if" "case" "cond" "when")
+  (symbol) @conditional
+  (#any-of? @conditional "if" "case" "cond" "when")
 )
 
-; Repeats
+;; Repeats
 (
-  (symbol) @keyword.repeat
-  (#eq? @keyword.repeat "each")
+  (symbol) @repeat
+  (#any-of? @repeat "each")
 )
 
-; Operators
+;; Operators
+; TODO: classify
 (
   (symbol) @operator
   (#any-of?
@@ -246,7 +264,28 @@
   )
 )
 
-; Punctuation
+;; Special forms
+; (-> 42 x y) highlights 42 as its default highlight
+(list
+  .
+  (symbol) @function.macro
+  (#eq? @function.macro "->")
+  .
+  (_)
+  (symbol) @function
+)
+
+; (-> x y z) highlights first x as var, y z as function
+(list
+  .
+  (symbol) @function.macro
+  (#eq? @function.macro "->")
+  .
+  (symbol) @variable.parameter
+  (symbol) @function
+)
+
+;; Punctuation
 [
   "("
   ")"
@@ -267,12 +306,14 @@
   (#eq? @punctuation.delimiter "->")
 )
 
-; Literals
+;; Literals
 (string) @string
 
 (escape_sequence) @string.escape
 
-(path) @string.special.url
+(path) @text.uri @string.special
+
+(command) @string.special
 
 (number) @number
 
@@ -283,7 +324,7 @@
   (null)
 ] @constant.builtin
 
-"^" @character.special
+["^"] @character.special
 
-; Comments
+;; Comments
 (comment) @comment @spell

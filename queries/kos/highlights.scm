@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/kos/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/kos-lang/tree-sitter-kos/03b261c1a78b71c38cf4616497f253c4a4ce118b/queries/highlights.scm
 (hash_bang) @keyword.directive
 
 (comment) @comment @spell

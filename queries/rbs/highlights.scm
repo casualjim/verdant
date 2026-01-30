@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rbs/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/joker1007/tree-sitter-rbs/5282e2f36d4109f5315c1d9486b5b0c2044622bb/queries/highlights.scm
 ; Use directive
 (use_clause
   [
@@ -8,7 +7,7 @@
   ] @type
 )
 
-; Builtin constants and Keywords
+; Buitin constants and Keywords
 [
   "true"
   "false"
@@ -19,7 +18,10 @@
 [
   "use"
   "as"
+  "class"
   "module"
+  "interface"
+  "type"
   "def"
   "attr_reader"
   "attr_writer"
@@ -27,20 +29,6 @@
   "end"
   "alias"
 ] @keyword
-
-[
-  "interface"
-  "type"
-  "class"
-] @keyword.type
-
-(class_decl
-  "end" @keyword.type
-)
-
-(interface_decl
-  "end" @keyword.type
-)
 
 "def" @keyword.function
 
@@ -51,7 +39,7 @@
   "prepend"
 ] @function.method
 
-(visibility) @keyword.modifier
+(visibility) @type.qualifier
 
 (comment) @comment @spell
 
@@ -65,7 +53,7 @@
       (operator)
       (setter)
       (constant_setter)
-    ] @function.method
+    ] @method
   )
 )
 
@@ -79,14 +67,14 @@
       (operator)
       (setter)
       (constant_setter)
-    ] @function.method
+    ] @method
   )
 )
 
 [
   (ivar_name)
   (cvar_name)
-] @variable.member
+] @property
 
 (alias_member
   (method_name) @function
@@ -111,7 +99,7 @@
 (type_variable) @constant
 
 (namespace
-  (constant) @module
+  (constant) @namespace
 )
 
 (builtin_type) @type.builtin
@@ -120,7 +108,7 @@
   (constant) @constant
 )
 
-(global_name) @variable
+(global_name) @property
 
 ; Generics Keywords
 [
@@ -130,20 +118,20 @@
 
 ; Standard Arguments
 (parameter
-  (var_name) @variable.parameter
+  (var_name) @parameter
 )
 
-(unnamed_parameter) @variable.parameter
+(unnamed_parameter) @parameter
 
 ; Keyword Arguments
-(keyword) @variable.parameter
+(keyword) @parameter
 
 ; Self
 (self) @variable.builtin
 
 ; Literal
 (type
-  (symbol_literal) @string.special.symbol
+  (symbol_literal) @symbol
 )
 
 (type
@@ -162,9 +150,12 @@
 
 (type
   (record_type
-    key: (record_key) @string.special.symbol
+    key: (record_key) @symbol
   )
 )
+
+; Annotation
+(annotation_text) @attribute
 
 ; Operators
 [
@@ -195,15 +186,19 @@
 [
   ","
   "."
-  ":"
 ] @punctuation.delimiter
+
+; RBS Inline prefix (keep comment color)
+(inline_prefix) @comment
 
 ; RBS Inline syntax
 (inline_class_annotation) @keyword
 
 (inline_doc
-  (var_name) @variable.parameter
+  (var_name) @parameter
 )
+
+(inline_doc_comment) @comment
 
 (inline_generic) @keyword
 

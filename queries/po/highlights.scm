@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/po/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-po/bd860a0f57f697162bf28e576674be9c1500db5e/queries/highlights.scm
 ; Keywords
 [
   "msgctxt"
@@ -33,6 +32,9 @@
 
 (comment
   (flag
-    (text) @keyword.directive
+    (text) @label
   )
 )
+
+; Errors
+(ERROR) @error

@@ -1,8 +1,7 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/doxygen/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-doxygen/ccd998f378c3f9345ea4eeb223f56d7b84d16687/queries/highlights.scm
 (
   (tag_name) @keyword
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 [
@@ -15,7 +14,7 @@
 (
   (tag
     (tag_name) @_param
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
   (#any-of? @_param "@param" "\\param")
 )
@@ -26,7 +25,7 @@
 
 (function_link) @function
 
-(emphasis) @markup.italic
+(emphasis) @text.emphasis
 
 [
   "\\a"
@@ -39,7 +38,7 @@
   "in"
   "out"
   "inout"
-] @keyword.modifier
+] @storageclass
 
 "~" @operator
 

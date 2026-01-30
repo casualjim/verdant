@@ -1,10 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rego/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/FallenAngel97/tree-sitter-rego/ddd39af81fe8b0288102a7cb97959dfce723e0f3/queries/highlights.scm
 ; highlights.scm
 [
   (import)
   (package)
-] @keyword.import
+] @module
 
 [
   (with)
@@ -43,7 +42,7 @@
   )
 ) @variable
 
-(comment) @comment @spell
+(comment) @comment
 
 (number) @number
 
@@ -75,7 +74,7 @@
 
 (rule
   (rule_head
-    (var) @function.method
+    (var) @attribute
   )
 )
 
@@ -83,7 +82,7 @@
   (rule_head
     (term
       (ref
-        (var) @module
+        (var) @head-var
       )
     )
   )
@@ -96,13 +95,13 @@
               (term
                 (ref
                   (var)
-                ) @_output
+                ) @output-var
               )
             )
           )
         )
       )
     )
-    (#eq? @_output @module)
+    (#eq? @output-var @head-var)
   )
 )

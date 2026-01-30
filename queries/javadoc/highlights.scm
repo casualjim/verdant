@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/javadoc/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/rmuir/tree-sitter-javadoc/141525e73c9ad2fe7df8861047d4068ddbb6c337/queries/highlights.scm
 [
   (tag_name)
   "include"
@@ -40,8 +39,29 @@
   (identifier) @function
 )
 
+(
+  (method
+    (identifier) @constructor
+  )
+  (#match? @constructor "^[A-Z]")
+)
+
 (member
   (identifier) @variable.member
+)
+
+(
+  (member
+    (identifier) @constant
+  )
+  (#match? @constant "^[A-Z_][A-Z0-9_]+$")
+)
+
+(
+  (member
+    (identifier) @type
+  )
+  (#match? @type "^[A-Z].*[a-z]")
 )
 
 [

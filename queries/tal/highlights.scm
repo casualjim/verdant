@@ -1,9 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/uxntal/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-uxntal/ad9b638b914095320de85d59c49ab271603af048/queries/highlights.scm
 ; Includes
 (include
-  "~" @keyword.import
-  _ @string.special.url
+  "~" @include
+  _ @text.uri @string.special
 )
 
 ; Variables
@@ -48,27 +47,27 @@
 
 ; Labels
 (label
-  "@" @string.special.symbol
+  "@" @symbol
   (identifier) @function
 )
 
 (sublabel_reference
-  (identifier) @module
+  (identifier) @namespace
   "/" @punctuation.delimiter
   (identifier) @label
 )
 
 ; Repeats
 (
-  (identifier) @keyword.repeat
-  (#eq? @keyword.repeat "while")
+  (identifier) @repeat
+  (#eq? @repeat "while")
 )
 
 ; Literals
 (raw_ascii) @string
 
 (hex_literal
-  "#" @string.special.symbol
+  "#" @symbol
   (hex_lit_value) @string.special
 )
 

@@ -1,17 +1,15 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/typoscript/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/Teddytrombone/tree-sitter-typoscript/1811c767f3f72be669891b524a07c58b1eb0db87/queries/highlights.scm
 (identifier) @variable.member
 
 (symfony_variable) @variable
 
 (constant) @constant
 
-(symfony_method) @function.method.call
-
 [
   (modifier_function)
   (symfony_function)
-] @function.call
+  (symfony_method)
+] @function
 
 [
   (modifier_predefined)
@@ -39,13 +37,13 @@
   "INCLUDE_TYPOSCRIPT"
 ] @keyword.import
 
-(condition_attribute) @tag.attribute
+(condition_attribute) @attribute
 
 (cobject) @type.builtin
 
 (symfony_built_in_variable) @variable.builtin
 
-(symfony_property) @variable.member
+(symfony_variable) @variable
 
 [
   (comment)
@@ -80,33 +78,13 @@
 
 (
   (symfony_condition_operator) @keyword.operator
-  (#any-of?
-    @keyword.operator
-    "and"
-    "or"
-    "xor"
-    "not"
-    "not in"
-    "in"
-    "contains"
-    "starts with"
-    "ends with"
-    "matches"
-  )
+  (#match? @keyword.operator "and|or|xor|not|not in|in|contains|starts with|ends with|matches")
 )
 
 [
   ","
   "."
 ] @punctuation.delimiter
-
-(symfony_property_access
-  "." @operator
-)
-
-(symfony_method_call
-  "." @operator
-)
 
 [
   "("

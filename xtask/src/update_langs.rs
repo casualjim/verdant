@@ -146,7 +146,7 @@ fn update_lang_block(toml: &str, lang: &crate::schema::Language) -> Result<Updat
     let parser_url = lang.parser.git.url.clone();
     let crates_io_handle =
         thread::spawn(move || add_lang::try_get_crates_io_version(&package, &parser_url));
-    let rev = add_lang::get_rev(&lang.parser.git.url)?;
+    let rev = add_lang::get_rev(&lang.parser.git.url, lang.parser.git.branch.as_deref())?;
     writeln!(log, "rev: {} -> {rev}", &lang.parser.git.rev)?;
     let content_url = add_lang::url_to_content_url(&lang.parser.git.url, &rev);
     let path_in_url = match &lang.parser.git.path {
@@ -215,7 +215,7 @@ fn update_lang_block(toml: &str, lang: &crate::schema::Language) -> Result<Updat
 
     // update in toml string
     let toml = regex_replace!(
-        r#"^(\s*git\s*=\s*\{\s*url\s*=\s*"[^"]*"\s*,\s*rev\s*=\s*")[^"]*("\s*(?:,\s*path\s*=\s*"[^"]*"\s*)?\}\s*)$"#m,
+        r#"^(\s*git\s*=\s*\{[^}]*\brev\s*=\s*")[^"]*(".*\}\s*)$"#m,
         toml,
         |_, start, end| format!("{start}{rev}{end}"),
     );

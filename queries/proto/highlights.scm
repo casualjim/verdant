@@ -1,56 +1,19 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/proto/highlights.scm
-;; Licensed under the Apache License 2.0
-(full_ident
-  (identifier) @variable
-)
-
-(full_ident
-  (identifier)
-  (identifier) @variable.member
-)
-
-(field
-  (identifier) @property
-)
-
-(field_option
-  (identifier) @property
-)
-
-(block_lit
-  (identifier) @property
-)
-
+;; Forked from https://raw.githubusercontent.com/treywood/tree-sitter-proto/e9f6b43f6844bd2189b50a422d4e2094313f6aa3/queries/highlights.scm
 [
-  "extend"
-  "extensions"
-  "oneof"
-  "option"
-  "reserved"
   "syntax"
+  "package"
+  "option"
+  "import"
+  "service"
+  "rpc"
+  "returns"
+  "message"
+  "enum"
+  "oneof"
+  "repeated"
+  "reserved"
   "to"
 ] @keyword
-
-[
-  "enum"
-  "service"
-  "message"
-] @keyword.type
-
-"rpc" @keyword.function
-
-"returns" @keyword.return
-
-[
-  "optional"
-  "repeated"
-  "required"
-] @keyword.modifier
-
-[
-  "package"
-  "import"
-] @keyword.import
 
 [
   (key_type)
@@ -59,35 +22,21 @@
   (enum_name)
   (service_name)
   (rpc_name)
-  (message_or_enum_type)
 ] @type
-
-(enum_field
-  (identifier) @constant
-)
 
 (string) @string
 
 [
-  "\"proto3\""
-  "\"proto2\""
-] @string.special
-
-(int_lit) @number
-
-(float_lit) @number.float
+  (int_lit)
+  (float_lit)
+] @number
 
 [
   (true)
   (false)
-] @boolean
+] @constant.builtin
 
-(comment) @comment @spell
-
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^/[*][*][^*].*[*]/$")
-)
+(comment) @comment
 
 [
   "("
@@ -96,15 +45,4 @@
   "]"
   "{"
   "}"
-  "<"
-  ">"
 ] @punctuation.bracket
-
-[
-  ";"
-  ","
-  "."
-  ":"
-] @punctuation.delimiter
-
-"=" @operator

@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vimdoc/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/neovim/tree-sitter-vimdoc/f061895a0eff1d5b90e4fb60d21d87be3267031a/queries/vimdoc/highlights.scm
 (h1
   (delimiter) @markup.heading.1
   (heading) @markup.heading.1
@@ -19,25 +18,19 @@
 )
 
 (column_heading
-  (delimiter) @markup.heading.4
+  (delimiter) @markup.heading.4.marker
   (#set! conceal "")
 )
 
 (tag
-  "*" @label
+  "*" @markup.heading.5.marker
   (#set! conceal "")
-)
-
-(tag
   text: (_) @label
 )
 
 (taglink
   "|" @markup.link
   (#set! conceal "")
-)
-
-(taglink
   text: (_) @markup.link
 )
 
@@ -48,29 +41,24 @@
 (codespan
   "`" @markup.raw
   (#set! conceal "")
-)
-
-(codespan
   text: (_) @markup.raw
 )
 
 (
   (codeblock) @markup.raw.block
-  (#set! priority 90)
+  (#set! "priority" 90)
 )
 
 (codeblock
-  ">" @markup.raw
-  (#set! conceal "")
-)
-
-(codeblock
-  (language) @label
+  [
+    ">"
+    (language)
+  ] @markup.raw.block
   (#set! conceal "")
 )
 
 (block
-  "<" @markup.raw
+  "<" @markup.raw.block
   (#set! conceal "")
 )
 
@@ -78,16 +66,13 @@
 
 (keycode) @string.special
 
-(
-  (url) @string.special.url
-  (#set! @string.special.url url @string.special.url)
-)
+(url) @string.special.url
 
 (modeline) @keyword.directive
 
 (
-  (note) @comment.note
-  (#any-of? @comment.note "Note:" "NOTE:" "Notes:")
+  (note) @comment.hint
+  (#any-of? @comment.hint "Note:" "NOTE:" "Notes:")
 )
 
 (

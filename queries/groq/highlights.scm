@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/groq/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/ajrussellaudio/tree-sitter-groq/1fa1ab0eb391a270957e8ad8c731b492e3645649/queries/highlights.scm
 ; Keywords
 [
   "select"

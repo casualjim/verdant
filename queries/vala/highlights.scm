@@ -1,105 +1,23 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/vala/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/vala-lang/tree-sitter-vala/97e6db3c8c73b15a9541a458d8e797a07f588ef4/queries/highlights.scm
 ; highlights.scm
-; highlight comments and symbols
-(comment) @comment @spell
+(comment) @comment
 
-(
-  (comment) @comment.documentation
-  (#lua-match? @comment.documentation "^/[*][*][^*].*[*]/$")
-)
+(type) @type
 
-(symbol) @string.special.symbol
-
-(member_access_expression
-  (_)
-  (identifier) @string.special.symbol
-)
-
-; highlight constants
-(
-  (member_access_expression
-    (identifier) @constant
-  )
-  (#lua-match? @constant "^[%u][%u%d_]*$")
-)
-
-(
-  (member_access_expression
-    (member_access_expression) @keyword.import
-    (identifier) @constant
-  )
-  (#lua-match? @constant "^[%u][%u%d_]*$")
-)
-
-; highlight types and probable types
-(type
-  (symbol
-    (_)? @module
-    (identifier) @type
-  )
-)
-
-(
-  (member_access_expression
-    .
-    (identifier) @type
-  )
-  (#match? @type "^[A-Z][A-Za-z_0-9]{2,}$")
-)
-
-; highlight creation methods in object creation expressions
-(
-  (object_creation_expression
-    (type
-      (symbol
-        (symbol
-          (symbol)? @keyword.import
-          (identifier) @type
-        )
-        (identifier) @constructor
-      )
-    )
-  )
-  (#lua-match? @constructor "^[%l][%l%d_]*$")
-)
-
-(unqualified_type
-  (symbol
-    .
-    (identifier) @type
-  )
-)
-
-(unqualified_type
-  (symbol
-    (symbol) @module
-    (identifier) @type
-  )
-)
+(unqualified_type) @type
 
 (attribute) @attribute
-
-(namespace_declaration
-  (symbol) @module
-)
 
 (method_declaration
   (symbol
     (symbol) @type
-    (identifier) @function
+    (identifier) @function.method
   )
 )
 
 (method_declaration
   (symbol
-    (identifier) @function
-  )
-)
-
-(local_declaration
-  (assignment
-    (identifier) @variable
+    (identifier) @function.method
   )
 )
 
@@ -122,11 +40,6 @@
   (symbol
     (identifier) @constructor
   )
-)
-
-(constructor_declaration
-  (_)?
-  "construct" @keyword.function
 )
 
 (enum_declaration
@@ -155,16 +68,6 @@
   )
 )
 
-; highlight macros
-(
-  (method_call_expression
-    (member_access_expression
-      (identifier) @function.macro
-    )
-  )
-  (#match? @function.macro "^assert[A-Za-z_0-9]*|error|info|debug|print|warning|warning_once$")
-)
-
 (lambda_expression
   (identifier) @variable.parameter
 )
@@ -179,33 +82,30 @@
   )
 )
 
-(field_declaration
-  (identifier) @variable.member
-)
-
 [
   (this_access)
   (base_access)
   (value_access)
-] @constant.builtin
+] @variable.builtin
 
-(boolean) @boolean
+(boolean) @constant.builtin
 
-(character) @character
-
-(escape_sequence) @string.escape
+(character) @constant
 
 (integer) @number
 
 (null) @constant.builtin
 
-(real) @number.float
+(real) @number
 
-(regex) @string.regexp
+(regex) @constant
 
 (string) @string
 
-(string_formatter) @string.special
+[
+  (escape_sequence)
+  (string_formatter)
+] @string.special
 
 (template_string) @string
 
@@ -218,140 +118,69 @@
   "void"
 ] @type.builtin
 
-(if_directive
-  expression: (_) @keyword.directive
-) @keyword
-
-(elif_directive
-  expression: (_) @keyword.directive
-) @keyword
-
-(else_directive) @keyword
-
-(endif_directive) @keyword
-
 [
   "abstract"
+  "and"
+  "as"
+  "async"
+  "break"
+  "case"
+  "catch"
+  "class"
+  "const"
   "construct"
   "continue"
   "default"
+  "delegate"
+  "delete"
+  "do"
+  "dynamic"
+  "else"
+  "enum"
   "errordomain"
+  "extern"
+  "finally"
+  "for"
+  "foreach"
   "get"
+  "if"
+  "in"
   "inline"
+  "interface"
+  "internal"
+  "is"
+  "lock"
+  "namespace"
   "new"
+  "not"
+  "or"
   "out"
   "override"
-  "partial"
-  "ref"
-  "set"
-  "signal"
-  "virtual"
-  "with"
-] @keyword
-
-[
-  "enum"
-  "class"
-  "struct"
-  "interface"
-  "namespace"
-] @keyword.type
-
-"delegate" @keyword.function
-
-[
-  "async"
-  "yield"
-] @keyword.coroutine
-
-[
-  "const"
-  "dynamic"
   "owned"
-  "weak"
-  "unowned"
-] @keyword.modifier
-
-[
-  "case"
-  "else"
-  "if"
-  "switch"
-] @keyword.conditional
-
-; specially highlight break statements in switch sections
-(switch_section
-  (break_statement
-    "break" @keyword.conditional
-  )
-)
-
-[
-  "extern"
-  "internal"
+  "partial"
   "private"
   "protected"
   "public"
-  "static"
-] @keyword.modifier
-
-[
-  "and"
-  "as"
-  "delete"
-  "in"
-  "is"
-  "lock"
-  "not"
-  "or"
+  "ref"
+  "return"
+  "set"
+  "signal"
   "sizeof"
-  "typeof"
-] @keyword.operator
-
-"using" @keyword.import
-
-(using_directive
-  (symbol) @module
-)
-
-(symbol
-  "global::" @module
-)
-
-(array_creation_expression
-  "new" @keyword.operator
-)
-
-(object_creation_expression
-  "new" @keyword.operator
-)
-
-(argument
-  "out" @keyword.operator
-)
-
-(argument
-  "ref" @keyword.operator
-)
-
-[
-  "break"
-  "continue"
-  "do"
-  "for"
-  "foreach"
-  "while"
-] @keyword.repeat
-
-[
-  "catch"
-  "finally"
+  "static"
+  "struct"
+  "switch"
   "throw"
   "throws"
   "try"
-] @keyword.exception
-
-"return" @keyword.return
+  "typeof"
+  "unowned"
+  "using"
+  "virtual"
+  "weak"
+  "while"
+  "with"
+  "yield"
+] @keyword
 
 [
   "="
@@ -360,8 +189,6 @@
   "+="
   "-"
   "-="
-  "++"
-  "--"
   "|"
   "|="
   "&"
@@ -382,7 +209,6 @@
   "?."
   "->"
   "!"
-  "!="
   "~"
   "??"
   "?"
@@ -402,7 +228,6 @@
 ] @punctuation.delimiter
 
 [
-  "$("
   "("
   ")"
   "{"

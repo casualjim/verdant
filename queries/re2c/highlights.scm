@@ -1,17 +1,17 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/re2c/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-re2c/c18a3c2f4b6665e35b7e50d6048ea3cff770c572/queries/highlights.scm
 ; Namespaces
 [
   "re2c"
+  "re2c"
   "local"
   "rules"
-] @module
+] @namespace
 
 ; Includes
 [
   "!use"
   "!include"
-] @keyword.import
+] @include
 
 ; Keywords
 [
@@ -32,6 +32,7 @@
   "sentinel"
   "condprefix"
   "condenumprefix"
+  "labelprefix"
   "startlabel"
   "posix-captures"
   "max"
@@ -46,7 +47,7 @@
   "*"
   "+"
   "?"
-] @keyword.repeat
+] @repeat
 
 ; Constants
 [
@@ -113,7 +114,7 @@
 (field_identifier) @property
 
 ; Literals
-(regex) @string.regexp
+(regex) @string.regex
 
 [
   (dstring)
@@ -149,7 +150,7 @@
 )
 
 (set_header
-  value: (dstring) @string.special
+  value: (dstring) @string.special @text.underline
 )
 
 (host_lang) @none
@@ -193,3 +194,5 @@
   (comment)
   (ignore_block)
 ] @comment @spell
+
+(ERROR) @error

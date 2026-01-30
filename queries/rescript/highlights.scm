@@ -1,16 +1,17 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rescript/highlights.scm
-;; Licensed under the Apache License 2.0
-(comment) @comment @spell
+;; Forked from https://raw.githubusercontent.com/rescript-lang/tree-sitter-rescript/5938ae1578aa559b4fa903f7cabc31da14f71c84/queries/highlights.scm
+(comment) @comment
 
 ; Identifiers
 ;------------
 ; Escaped identifiers like \"+."
 (
   (value_identifier) @constant.macro
-  (#lua-match? @constant.macro "^%.*$")
+  (#match? @constant.macro "^\\.*$")
 )
 
-(value_identifier) @variable
+(
+  (value_identifier) @variable
+)
 
 [
   (type_identifier)
@@ -18,6 +19,35 @@
   (list)
   (list_pattern)
 ] @type
+
+; Dict
+(dict
+  "dict" @type.builtin
+)
+
+(dict_pattern
+  "dict" @type.builtin
+)
+
+(dict_entry
+  (string) @property
+)
+
+(dict_pattern_entry
+  (string) @property
+)
+
+(dict_pattern_entry
+  (value_identifier) @variable.parameter
+)
+
+(parameter
+  (dict_pattern
+    (dict_pattern_entry
+      (value_identifier) @variable.parameter
+    )
+  )
+)
 
 (
   (type_identifier) @type.builtin
@@ -132,6 +162,8 @@
   parameter: (value_identifier) @variable.parameter
 )
 
+; first-level descructuring (required for nvim-tree-sitter as it only matches direct
+; children and the above patterns do not match destructuring patterns in NeoVim)
 (parameter
   (tuple_pattern
     (tuple_item_pattern
@@ -161,8 +193,8 @@
 ; function calls
 (call_expression
   function: (value_identifier_path
-    (value_identifier) @function.method.call
-    .
+    _
+    (value_identifier) @function.call
   )
 )
 
@@ -172,16 +204,14 @@
 
 ; highlight the right-hand side of a pipe operator as a function call
 (pipe_expression
-  (value_identifier) @function.call
-  .
-)
-
-(pipe_expression
-  (value_identifier_path
-    (value_identifier) @function.method.call
-    .
-  )
-  .
+  _
+  [
+    (value_identifier_path
+      _
+      (value_identifier) @function.call
+    )
+    (value_identifier) @function.call
+  ]
 )
 
 ; Meta
@@ -190,7 +220,7 @@
 
 (extension_identifier) @keyword
 
-"%" @keyword
+("%") @keyword
 
 ; Misc
 ;-----
@@ -209,7 +239,7 @@
   "rec"
 ] @keyword.modifier
 
-"type" @keyword.type
+["type"] @keyword.type
 
 [
   "and"
@@ -228,10 +258,14 @@
   "constraint"
 ] @keyword
 
-"await" @keyword.coroutine
+(
+  ("await") @keyword.coroutine
+)
 
-(function
-  "async" @keyword.coroutine
+(
+  (function
+    "async" @keyword.coroutine
+  )
 )
 
 (module_unpack
@@ -398,3 +432,7 @@
 (jsx_attribute
   (property_identifier) @tag.attribute
 )
+
+; Error
+;----------
+(ERROR) @error

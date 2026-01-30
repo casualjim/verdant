@@ -1,6 +1,9 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/tlaplus/highlights.scm
-;; Licensed under the Apache License 2.0
-; Keywords
+;; Forked from https://raw.githubusercontent.com/tlaplus-community/tree-sitter-tlaplus/8d749f9a598b47b7110c7340006c8eb8a9552566/queries/highlights.scm
+; ; Intended for consumption by GitHub and the tree-sitter highlight command
+; ; Default capture names found here:
+; ; https://github.com/tree-sitter/tree-sitter/blob/f5d1c0b8609f8697861eab352ead44916c068c74/cli/src/highlight.rs#L150-L171
+; ; In this file, captures defined earlier take precedence over captures defined later.
+; TLA⁺ Keywords
 [
   "ACTION"
   "ASSUME"
@@ -68,59 +71,43 @@
   (temporal_forall)
 ] @keyword
 
-;  Pluscal keywords
+;  PlusCal keywords
 [
-  (pcal_algorithm_start)
   "algorithm"
   "assert"
+  "await"
   "begin"
   "call"
   "define"
+  "either"
+  "else"
+  "elsif"
   "end"
   "fair"
   "goto"
+  "if"
   "macro"
   "or"
+  "print"
   "procedure"
   "process"
-  (pcal_skip)
   "variable"
   "variables"
   "when"
   "with"
-] @keyword
-
-"await" @keyword.coroutine
-
-(pcal_with
-  "=" @keyword
-)
-
-(pcal_process
-  "=" @keyword
-)
-
-[
-  "if"
   "then"
-  "else"
-  "elsif"
-  (pcal_end_if)
-  "either"
+  (pcal_algorithm_start)
   (pcal_end_either)
-] @keyword.conditional
-
-[
-  "while"
-  "do"
-  (pcal_end_while)
-  "with"
-  (pcal_end_with)
-] @keyword.repeat
-
-(pcal_return) @keyword.return
-
-"print" @function.macro
+  (pcal_end_if)
+  (pcal_return)
+  (pcal_skip)
+  (pcal_process
+    ("=")
+  )
+  (pcal_with
+    ("=")
+  )
+] @keyword
 
 ; Literals
 (binary_number
@@ -131,7 +118,7 @@
   (value) @number
 )
 
-(boolean) @boolean
+(boolean) @number
 
 (boolean_set) @type
 
@@ -163,11 +150,11 @@
 
 (string) @string
 
-(escape_char) @string.escape
+(escape_char) @string.special
 
 (string_set) @type
 
-; Namespaces
+; Namespaces and includes
 (extends
   (identifier_ref) @module
 )
@@ -177,72 +164,11 @@
 )
 
 (module
-  name: (identifier) @module
+  name: (_) @module
 )
 
 (pcal_algorithm
   name: (identifier) @module
-)
-
-; Operators, functions, and macros
-(bound_infix_op
-  symbol: (_) @operator
-)
-
-(bound_nonfix_op
-  symbol: (_) @operator
-)
-
-(bound_postfix_op
-  symbol: (_) @operator
-)
-
-(bound_prefix_op
-  symbol: (_) @operator
-)
-
-(prefix_op_symbol) @operator
-
-(infix_op_symbol) @operator
-
-(postfix_op_symbol) @operator
-
-(function_definition
-  name: (identifier) @function
-)
-
-(module_definition
-  name: (_) @keyword.import
-)
-
-(operator_definition
-  name: (_) @function.macro
-)
-
-(pcal_macro_decl
-  name: (identifier) @function.macro
-)
-
-(pcal_macro_call
-  name: (identifier) @function.macro
-)
-
-(pcal_proc_decl
-  name: (identifier) @function.macro
-)
-
-(pcal_process
-  name: (identifier) @function
-)
-
-(recursive_declaration
-  (identifier) @function.macro
-)
-
-(recursive_declaration
-  (operator_declaration
-    name: (_) @function.macro
-  )
 )
 
 ; Constants and variables
@@ -257,14 +183,15 @@
 )
 
 (pcal_var_decl
-  (identifier) @variable
+  (identifier) @variable.builtin
 )
 
 (pcal_with
   (identifier) @variable.parameter
 )
 
-("."
+(
+  (".")
   .
   (identifier) @attribute
 )
@@ -278,7 +205,7 @@
 )
 
 (variable_declaration
-  (identifier) @variable
+  (identifier) @variable.builtin
 )
 
 ; Parameters
@@ -338,6 +265,45 @@
   (identifier) @variable.parameter
 )
 
+; Operators, functions, and macros
+(function_definition
+  name: (identifier) @function
+)
+
+(module_definition
+  name: (_) @module
+)
+
+(operator_definition
+  name: (_) @operator
+)
+
+(pcal_macro_decl
+  name: (identifier) @function
+)
+
+(pcal_macro_call
+  name: (identifier) @function
+)
+
+(pcal_proc_decl
+  name: (identifier) @function
+)
+
+(pcal_process
+  name: (identifier) @function
+)
+
+(recursive_declaration
+  (identifier) @operator
+)
+
+(recursive_declaration
+  (operator_declaration
+    name: (_) @operator
+  )
+)
+
 ; Delimiters
 [
   (langle_bracket)
@@ -392,11 +358,11 @@
 )
 
 (proof_step_id
-  (level) @label
+  (level) @tag
 )
 
 (proof_step_id
-  (name) @label
+  (name) @tag
 )
 
 (proof_step_id
@@ -408,11 +374,11 @@
 )
 
 (proof_step_ref
-  (level) @label
+  (level) @tag
 )
 
 (proof_step_ref
-  (name) @label
+  (name) @tag
 )
 
 (proof_step_ref
@@ -436,20 +402,80 @@
   "*)" @comment
 )
 
-(block_comment_text) @comment @spell
+(block_comment_text) @comment
 
-(comment) @comment @spell
+(comment) @comment
 
 (single_line) @comment
 
 (_
-  label: (identifier) @label
+  label: (identifier) @tag
 )
 
 (label
-  name: (_) @label
+  name: (_) @tag
 )
 
 (pcal_goto
-  statement: (identifier) @label
+  statement: (identifier) @tag
+)
+
+; Put these last so they are overridden by everything else
+(bound_infix_op
+  symbol: (_) @function.builtin
+)
+
+(bound_nonfix_op
+  symbol: (_) @function.builtin
+)
+
+(bound_postfix_op
+  symbol: (_) @function.builtin
+)
+
+(bound_prefix_op
+  symbol: (_) @function.builtin
+)
+
+(
+  (prefix_op_symbol) @function.builtin
+)
+
+(
+  (infix_op_symbol) @function.builtin
+)
+
+(
+  (postfix_op_symbol) @function.builtin
+)
+
+; Reference highlighting
+(identifier_ref) @variable.reference
+
+(
+  (prefix_op_symbol) @variable.reference
+)
+
+(bound_prefix_op
+  symbol: (_) @variable.reference
+)
+
+(
+  (infix_op_symbol) @variable.reference
+)
+
+(bound_infix_op
+  symbol: (_) @variable.reference
+)
+
+(
+  (postfix_op_symbol) @variable.reference
+)
+
+(bound_postfix_op
+  symbol: (_) @variable.reference
+)
+
+(bound_nonfix_op
+  symbol: (_) @variable.reference
 )

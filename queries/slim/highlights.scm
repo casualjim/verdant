@@ -1,5 +1,6 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/slim/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/theoo/tree-sitter-slim/a06113f5175b805a37d20df0a6f9d722e0ab6cfe/queries/highlights.scm
+; Inspired by https://github.com/tree-sitter/tree-sitter/discussions/2025
+; and https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
 (comment) @comment @spell
 
 (tag_id) @keyword.function
@@ -151,43 +152,43 @@
 
 (
   (tag_name) @markup.link
-  (#eq? @markup.link "a")
+  (#any-of? @markup.link "a")
 )
 
 ; Headings
 (
   (tag_name) @markup.heading
-  (#eq? @markup.heading "header")
+  (#any-of? @markup.heading "header")
 )
 
 (
   (tag_name) @markup.heading.1
-  (#eq? @markup.heading.1 "h1")
+  (#any-of? @markup.heading.1 "h1")
 )
 
 (
   (tag_name) @markup.heading.2
-  (#eq? @markup.heading.2 "h2")
+  (#any-of? @markup.heading.2 "h2")
 )
 
 (
   (tag_name) @markup.heading.3
-  (#eq? @markup.heading.3 "h3")
+  (#any-of? @markup.heading.3 "h3")
 )
 
 (
   (tag_name) @markup.heading.4
-  (#eq? @markup.heading.4 "h4")
+  (#any-of? @markup.heading.4 "h4")
 )
 
 (
   (tag_name) @markup.heading.5
-  (#eq? @markup.heading.5 "h5")
+  (#any-of? @markup.heading.5 "h5")
 )
 
 (
   (tag_name) @markup.heading.6
-  (#eq? @markup.heading.6 "h6")
+  (#any-of? @markup.heading.6 "h6")
 )
 
 (

@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/hoon/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/urbit-pilled/tree-sitter-hoon/1545137aadcc63660c47db9ad98d02fa602655d0/queries/highlights.scm
 (number) @number
 
 (string) @string
@@ -16,22 +15,22 @@
   (seriesTerminator)
 ] @punctuation.delimiter
 
-(rune) @operator
+(rune) @keyword
 
 (term) @constant
 
 (aura) @constant.builtin
 
-(lineComment) @comment
+(Gap) @comment
 
 (boolean) @constant.builtin
 
-(date) @string.special
+(date) @constant.builtin
 
-(mold) @string.special.symbol
+(mold) @constant.builtin
 
-(specialIndex) @number
+(specialIndex) @constant.builtin
 
 (lark) @operator
 
-(fullContext) @string.special.symbol
+(fullContext) @constant.builtin

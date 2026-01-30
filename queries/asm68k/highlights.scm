@@ -1,9 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/m68k/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/grahambates/tree-sitter-m68k/e128454c2210c0e0c10b68fe45ddb8fee80182a3/queries/highlights.scm
 (symbol) @variable
 
 (label
-  name: (symbol) @label
+  name: (symbol) @constant
 )
 
 [
@@ -12,15 +11,15 @@
 ] @function.builtin
 
 (include
-  (directive_mnemonic) @keyword.import
+  (directive_mnemonic) @include
 )
 
 (include_bin
-  (directive_mnemonic) @keyword.import
+  (directive_mnemonic) @include
 )
 
 (include_dir
-  (directive_mnemonic) @keyword.import
+  (directive_mnemonic) @include
 )
 
 (size) @attribute
@@ -33,9 +32,10 @@
   name: (symbol) @function.macro
 )
 
-(string_literal) @string
-
-(path) @string.special.path
+[
+  (path)
+  (string_literal)
+] @string
 
 [
   (decimal_literal)
@@ -60,14 +60,18 @@
 ] @keyword
 
 (repeat
-  (control_mnemonic) @keyword.repeat
+  (control_mnemonic) @repeat
 )
 
 (conditional
-  (control_mnemonic) @keyword.conditional
+  (control_mnemonic) @conditional
 )
 
-(comment) @comment @spell
+(interpolated
+  (macro_arg) @embedded
+)
+
+(comment) @comment
 
 [
   (operator)
@@ -88,4 +92,4 @@
   ")+"
 ] @punctuation.bracket
 
-(section) @module
+(section) @namespace

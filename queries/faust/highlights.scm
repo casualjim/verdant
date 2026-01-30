@@ -1,5 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/faust/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/khiner/tree-sitter-faust/122dd101919289ea809bad643712fcb483a1bed0/queries/highlights.scm
+; https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
 ; Identifiers
 (identifier) @variable
 
@@ -220,6 +220,14 @@
 
 ; Comments
 (comment) @comment @spell
+
+; Tags
+(documentation
+  [
+    "<mdoc>"
+    "</mdoc>"
+  ] @tag
+)
 
 ; Tags
 [

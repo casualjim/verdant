@@ -1,4 +1,4 @@
-//! Forked from <https://github.com/tree-sitter/tree-sitter/blob/v0.25.2/highlight/src/lib.rs>
+//! Forked from <https://github.com/tree-sitter/tree-sitter/blob/v0.26.3/highlight/src/lib.rs>
 //!
 //! The MIT License (MIT)
 //!
@@ -504,10 +504,11 @@ impl<'a> HighlightIterLayer<'a> {
                         &mut |i, _| if i < source.len() { &source[i..] } else { &[] },
                         None,
                         Some(ParseOptions::new().progress_callback(&mut |_| {
-                            if let Some(cancellation_flag) = cancellation_flag {
-                                cancellation_flag.load(Ordering::SeqCst) != 0
+                            if cancellation_flag.is_some_and(|flag| flag.load(Ordering::SeqCst) != 0)
+                            {
+                                ops::ControlFlow::Break(())
                             } else {
-                                false
+                                ops::ControlFlow::Continue(())
                             }
                         })),
                     )

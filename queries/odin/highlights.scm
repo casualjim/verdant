@@ -1,21 +1,23 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/odin/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-odin/d2ca8efb4487e156a60d5bd6db2598b872629403/queries/highlights.scm
 ; Preprocs
 [
   (calling_convention)
   (tag)
-] @keyword.directive
+] @preproc
 
 ; Includes
 [
   "import"
   "package"
-] @keyword.import
+] @include
 
 ; Keywords
 [
   "foreign"
   "using"
+  "struct"
+  "enum"
+  "union"
   "defer"
   "cast"
   "transmute"
@@ -23,16 +25,10 @@
   "map"
   "bit_set"
   "matrix"
+  "bit_field"
 ] @keyword
 
-[
-  "struct"
-  "enum"
-  "union"
-  "bit_field"
-] @keyword.type
-
-"proc" @keyword.function
+["proc"] @keyword.function
 
 [
   "return"
@@ -42,7 +38,7 @@
 [
   "distinct"
   "dynamic"
-] @keyword.modifier
+] @storageclass
 
 ; Conditionals
 [
@@ -53,10 +49,8 @@
   "case"
   "where"
   "break"
-  "or_break"
-  "or_continue"
   (fallthrough_statement)
-] @keyword.conditional
+] @conditional
 
 (
   (ternary_expression
@@ -66,9 +60,9 @@
       "if"
       "else"
       "when"
-    ] @keyword.conditional.ternary
+    ] @conditional.ternary
   )
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 ; Repeats
@@ -76,47 +70,47 @@
   "for"
   "do"
   "continue"
-] @keyword.repeat
+] @repeat
 
 ; Variables
 (identifier) @variable
 
 ; Namespaces
 (package_declaration
-  (identifier) @module
+  (identifier) @namespace
 )
 
 (import_declaration
-  alias: (identifier) @module
+  alias: (identifier) @namespace
 )
 
 (foreign_block
-  (identifier) @module
+  (identifier) @namespace
 )
 
 (using_statement
-  (identifier) @module
+  (identifier) @namespace
 )
 
 ; Parameters
 (parameter
-  (identifier) @variable.parameter
+  (identifier) @parameter
   ":"
   "="?
   (identifier)? @constant
 )
 
 (default_parameter
-  (identifier) @variable.parameter
+  (identifier) @parameter
   ":="
 )
 
 (named_type
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (call_expression
-  argument: (identifier) @variable.parameter
+  argument: (identifier) @parameter
   "="
 )
 
@@ -261,7 +255,7 @@
 
 (field_type
   .
-  (identifier) @module
+  (identifier) @namespace
   "."
   (identifier) @type
 )
@@ -285,28 +279,28 @@
 
 (
   (identifier) @type
-  (#lua-match? @type "^[_A-Z][_a-zA-Z0-9]*$")
+  (#lua-match? @type "^[A-Z][a-zA-Z0-9]*$")
   (#not-has-parent? @type parameter procedure_declaration call_expression)
 )
 
 ; Fields
 (member_expression
   "."
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (struct_type
   "{"
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 (struct_field
-  (identifier) @variable.member
+  (identifier) @field
   "="?
 )
 
 (field
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 ; Constants
@@ -350,7 +344,7 @@
 ; Literals
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (string) @string
 
@@ -457,3 +451,6 @@
   (comment)
   (block_comment)
 ] @comment @spell
+
+; Errors
+(ERROR) @error

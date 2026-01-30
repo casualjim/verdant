@@ -1,23 +1,20 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/kdl/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-kdl/b37e3d58e5c5cf8d739b315d6114e02d42e66664/queries/highlights.scm
 ; Types
-; Variables
-(identifier) @variable
-
-; Nodes
 (node
-  (identifier) @tag
-)
-
-; Type annotation
-(type
   (identifier) @type
 )
+
+(type) @type
+
+(annotation_type) @type.builtin
 
 ; Properties
 (prop
   (identifier) @property
 )
+
+; Variables
+(identifier) @variable
 
 ; Operators
 [
@@ -34,11 +31,11 @@
 (number) @number
 
 (number
-  (decimal) @number.float
+  (decimal) @float
 )
 
 (number
-  (exponent) @number.float
+  (exponent) @float
 )
 
 (boolean) @boolean
@@ -56,7 +53,7 @@
   ")"
 ] @punctuation.bracket
 
-";" @punctuation.delimiter
+[";"] @punctuation.delimiter
 
 ; Comments
 [
@@ -66,17 +63,17 @@
 
 (node
   (node_comment)
-  (#set! priority 105)
+  (#set! "priority" 105)
 ) @comment
 
 (node
   (node_field
     (node_field_comment)
-    (#set! priority 105)
+    (#set! "priority" 105)
   ) @comment
 )
 
 (node_children
   (node_children_comment)
-  (#set! priority 105)
+  (#set! "priority" 105)
 ) @comment

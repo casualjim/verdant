@@ -1,23 +1,22 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/objc/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-objc/181a81b8f23a2d593e7ab4259981f50122909fda/queries/highlights.scm
 ; inherits: c
 ; Preprocs
 (preproc_undef
   name: (_) @constant
-) @keyword.directive
+) @preproc
 
 ; Includes
 (module_import
-  "@import" @keyword.import
-  path: (identifier) @module
+  "@import" @include
+  path: (identifier) @namespace
 )
 
 (
   (preproc_include
-    _ @keyword.import
+    _ @include
     path: (_)
   )
-  (#any-of? @keyword.import "#include" "#import")
+  (#any-of? @include "#include" "#import")
 )
 
 ; Type Qualifiers
@@ -27,7 +26,7 @@
   "__covariant"
   "__contravariant"
   (visibility_specification)
-] @keyword.modifier
+] @type.qualifier
 
 ; Storageclasses
 [
@@ -36,7 +35,7 @@
   "@dynamic"
   "volatile"
   (protocol_qualifier)
-] @keyword.modifier
+] @storageclass
 
 ; Keywords
 [
@@ -52,8 +51,8 @@
 ] @keyword
 
 (class_declaration
-  "@" @keyword.type
-  "class" @keyword.type
+  "@" @keyword
+  "class" @keyword
 )
 
 ; I hate Obj-C for allowing "@ class" :)
@@ -92,7 +91,7 @@
   "@finally"
   "__finally"
   "@throw"
-] @keyword.exception
+] @exception
 
 ; Variables
 (
@@ -110,21 +109,21 @@
 ] @function.builtin
 
 (method_definition
-  (identifier) @function.method
+  (identifier) @method
 )
 
 (method_declaration
-  (identifier) @function.method
+  (identifier) @method
 )
 
 (method_identifier
-  (identifier)? @function.method
-  ":" @function.method
-  (identifier)? @function.method
+  (identifier)? @method
+  ":" @method
+  (identifier)? @method
 )
 
 (message_expression
-  method: (identifier) @function.method.call
+  method: (identifier) @method.call
 )
 
 ; Constructors
@@ -195,12 +194,12 @@
     "__unused"
     "__weak"
   ]
-) @function.macro
+) @function.macro.builtin
 
 [
   "__real"
   "__imag"
-] @function.macro
+] @function.macro.builtin
 
 (
   (call_expression
@@ -221,7 +220,7 @@
   superclass:
   _? @type
   category:
-  _? @module
+  _? @namespace
 )
 
 (class_implementation
@@ -231,7 +230,7 @@
   superclass:
   _? @type
   category:
-  _? @module
+  _? @namespace
 )
 
 (protocol_forward_declaration
@@ -266,43 +265,43 @@
 ; Properties
 (property_implementation
   "@synthesize"
-  (identifier) @variable.member
+  (identifier) @property
 )
 
 (
-  (identifier) @variable.member
-  (#has-ancestor? @variable.member struct_declaration)
+  (identifier) @property
+  (#has-ancestor? @property struct_declaration)
 )
 
 ; Parameters
 (method_parameter
-  ":" @function.method
-  (identifier) @variable.parameter
+  ":" @method
+  (identifier) @parameter
 )
 
 (method_parameter
-  declarator: (identifier) @variable.parameter
+  declarator: (identifier) @parameter
 )
 
 (parameter_declaration
   declarator: (function_declarator
     declarator: (parenthesized_declarator
       (block_pointer_declarator
-        declarator: (identifier) @variable.parameter
+        declarator: (identifier) @parameter
       )
     )
   )
 )
 
-"..." @variable.parameter.builtin
+"..." @parameter.builtin
 
 ; Operators
-"^" @operator
+["^"] @operator
 
 ; Literals
 (platform) @string.special
 
-(version_number) @string.special
+(version_number) @text.uri @number
 
 ; Punctuation
 "@" @punctuation.special

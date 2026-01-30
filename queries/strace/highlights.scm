@@ -1,58 +1,16 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/strace/highlights.scm
-;; Licensed under the Apache License 2.0
-[
-  "killed"
-  "by"
-  "exited"
-  "with"
-  "<unfinished ...>"
-  "<..."
-  "resumed>"
-] @keyword
+;; Forked from https://raw.githubusercontent.com/sigmaSd/tree-sitter-strace/ac874ddfcc08d689fee1f4533789e06d88388f29/queries/highlights.scm
+(syscall) @function
 
-[
-  (errorName)
-  (errorDescription)
-] @keyword.exception
+(integer) @constant.numeric
 
-(syscall) @function.builtin
-
-; Literals
-[
-  (integer)
-  (pointer)
-] @number
+(pointer) @constant.numeric
 
 (value) @label
 
 (string) @string
 
-[
-  "="
-  "|"
-  "*"
-  "&&"
-  "=="
-] @operator
+(comment) @comment
 
-; Punctuation
-[
-  "+++"
-  "---"
-  "..."
-  "~"
-] @punctuation.special
+(errorName) @error
 
-[
-  "("
-  ")"
-  "["
-  "]"
-] @punctuation.bracket
-
-[
-  ","
-  "=>"
-] @punctuation.delimiter
-
-(comment) @comment @spell
+(errorDescription) @error

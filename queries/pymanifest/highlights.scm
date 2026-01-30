@@ -1,12 +1,11 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/pymanifest/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-pymanifest/debbdb83fe6356adc7261c41c69b45ba49c97294/queries/highlights.scm
 (keyword) @keyword
 
 (dir_sep) @punctuation.delimiter
 
 (glob) @punctuation.special
 
-(linebreak) @character.special
+(linebreak) @escape
 
 (char_sequence) @string.special
 
@@ -27,4 +26,6 @@
 
 (escaped_char) @string.escape
 
-(comment) @comment @spell
+(ERROR) @error
+
+(comment) @comment

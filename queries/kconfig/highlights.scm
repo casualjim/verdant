@@ -1,10 +1,15 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/kconfig/highlights.scm
-;; Licensed under the Apache License 2.0
-"source" @keyword.import
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-kconfig/9ac99fe4c0c27a35dc6f757cef534c646e944881/queries/highlights.scm
+[
+  "source"
+  "osource"
+  "rsource"
+  "orsource"
+] @include
 
 [
   "mainmenu"
   "config"
+  "configdefault"
   "menuconfig"
   "choice"
   "endchoice"
@@ -26,7 +31,7 @@
   "select"
   "imply"
   "visible if"
-] @keyword.conditional
+] @conditional
 
 [
   "def_bool"
@@ -43,9 +48,6 @@
   "<="
   ">="
   "!"
-  ":="
-  "+="
-  "?="
 ] @operator
 
 [
@@ -60,8 +62,6 @@
   "("
   ")"
 ] @punctuation.bracket
-
-"," @punctuation.delimiter
 
 (macro_variable
   [
@@ -79,6 +79,12 @@
 ] @string
 
 (config
+  name: (name
+    (symbol) @constant
+  )
+)
+
+(configdefault
   name: (name
     (symbol) @constant
   )
@@ -102,19 +108,21 @@
 )
 
 (mainmenu
-  name: (string) @markup.heading
+  name: (string) @text.title
 )
 
 (comment_entry
-  name: (string) @markup.heading
+  name: (string) @text.title
 )
 
 (menu
-  name: (string) @markup.heading
+  name: (string) @text.title
 )
 
 (source
-  (string) @string.special.url
+  (string) @text.uri @string.special
 )
 
-(comment) @comment @spell
+(comment) @comment
+
+(ERROR) @error

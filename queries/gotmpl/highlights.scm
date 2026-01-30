@@ -1,199 +1,89 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gotmpl/highlights.scm
-;; Licensed under the Apache License 2.0
-; Priorities of the highlight queries are raised, so that they overrule the
-; often surrounding and overlapping highlights from the non-gotmpl injections.
-;
+;; Forked from https://raw.githubusercontent.com/ngalaiko/tree-sitter-go-template/04270cd3512e2c7de0c5f2823725d7b0c4c01fda/queries/highlights.scm
 ; Identifiers
-(
-  [
-    (field)
-    (field_identifier)
-  ] @variable.member
-  (#set! priority 110)
-)
+[
+  (field)
+  (field_identifier)
+] @property
 
-(
-  (variable) @variable
-  (#set! priority 110)
-)
+(variable) @variable
 
 ; Function calls
 (function_call
   function: (identifier) @function
-  (#set! priority 110)
 )
 
 (method_call
   method: (selector_expression
     field: (field_identifier) @function
-    (#set! priority 110)
-  )
-)
-
-; Builtin functions
-(function_call
-  function: (identifier) @function.builtin
-  (#set! priority 110)
-  (#any-of?
-    @function.builtin
-    "and"
-    "call"
-    "html"
-    "index"
-    "slice"
-    "js"
-    "len"
-    "not"
-    "or"
-    "print"
-    "printf"
-    "println"
-    "urlquery"
-    "eq"
-    "ne"
-    "lt"
-    "ge"
-    "gt"
-    "ge"
   )
 )
 
 ; Operators
+"|" @operator
+
+":=" @operator
+
+; Builtin functions
 (
-  [
-    "|"
-    "="
-    ":="
-  ] @operator
-  (#set! priority 110)
+  (identifier) @function.builtin
+  (#match? @function.builtin "^(and|call|html|index|slice|js|len|not|or|print|printf|println|urlquery|eq|ne|lt|ge|gt|ge)$")
 )
 
 ; Delimiters
-(
-  [
-    "."
-    ","
-  ] @punctuation.delimiter
-  (#set! priority 110)
-)
+"." @punctuation.delimiter
 
-(
-  [
-    "{{"
-    "}}"
-    "{{-"
-    "-}}"
-    ")"
-    "("
-  ] @punctuation.bracket
-  (#set! priority 110)
-)
+"," @punctuation.delimiter
 
-; Actions
-(if_action
-  [
-    "if"
-    "else"
-    "end"
-  ] @keyword.conditional
-  (#set! priority 110)
-)
+"{{" @punctuation.bracket
 
-(range_action
-  [
-    "range"
-    "else"
-    "end"
-  ] @keyword.repeat
-  (#set! priority 110)
-)
+"}}" @punctuation.bracket
 
-(template_action
-  "template" @function.builtin
-  (#set! priority 110)
-)
+"{{-" @punctuation.bracket
 
-(block_action
-  [
-    "block"
-    "end"
-  ] @keyword.directive
-  (#set! priority 110)
-)
+"-}}" @punctuation.bracket
 
-(define_action
-  [
-    "define"
-    "end"
-  ] @keyword.directive.define
-  (#set! priority 110)
-)
+")" @punctuation.bracket
 
-(with_action
-  [
-    "with"
-    "else"
-    "end"
-  ] @keyword.conditional
-  (#set! priority 110)
-)
+"(" @punctuation.bracket
 
-(continue_action
-  "continue" @keyword.repeat
-  (#set! priority 110)
-)
+; Keywords
+"else" @keyword
 
-(break_action
-  "break" @keyword.repeat
-  (#set! priority 110)
-)
+"if" @keyword
+
+"range" @keyword
+
+"with" @keyword
+
+"end" @keyword
+
+"template" @keyword
+
+"define" @keyword
+
+"block" @keyword
 
 ; Literals
-(
-  [
-    (interpreted_string_literal)
-    (raw_string_literal)
-  ] @string
-  (#set! priority 110)
-)
+[
+  (interpreted_string_literal)
+  (raw_string_literal)
+  (rune_literal)
+] @string
 
-(
-  (rune_literal) @string.special.symbol
-  (#set! priority 110)
-)
+(escape_sequence) @string.special
 
-(
-  (escape_sequence) @string.escape
-  (#set! priority 110)
-)
+[
+  (int_literal)
+  (float_literal)
+  (imaginary_literal)
+] @number
 
-(
-  [
-    (int_literal)
-    (imaginary_literal)
-  ] @number
-  (#set! priority 110)
-)
+[
+  (true)
+  (false)
+  (nil)
+] @constant.builtin
 
-(
-  (float_literal) @number.float
-  (#set! priority 110)
-)
+(comment) @comment
 
-(
-  [
-    (true)
-    (false)
-  ] @boolean
-  (#set! priority 110)
-)
-
-(
-  (nil) @constant.builtin
-  (#set! priority 110)
-)
-
-(
-  (comment) @comment @spell
-  (#set! priority 110)
-)
+(ERROR) @error

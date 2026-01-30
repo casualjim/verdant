@@ -92,6 +92,8 @@ impl Parser {
 pub struct ParserGit {
     pub url: String,
     pub rev: String,
+    #[serde(default)]
+    pub branch: Option<String>,
     pub path: Option<String>,
 }
 

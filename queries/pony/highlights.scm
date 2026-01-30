@@ -1,11 +1,16 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/pony/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-pony/73ff874ae4c9e9b45462673cbc0a1e350e2522a7/queries/highlights.scm
 ; Includes
-"use" @keyword.import
+["use"] @include
 
 ; Keywords
 [
+  "type"
+  "actor"
+  "class"
   "primitive"
+  "interface"
+  "trait"
+  "struct"
   "embed"
   "let"
   "var"
@@ -18,24 +23,16 @@
 ] @keyword
 
 [
-  "class"
-  "struct"
-  "type"
-  "interface"
-  "trait"
-  "actor"
-] @keyword.type
-
-"fun" @keyword.function
-
-"be" @keyword.coroutine
+  "fun"
+  "be"
+] @keyword.function
 
 [
   "in"
   "is"
 ] @keyword.operator
 
-"return" @keyword.return
+["return"] @keyword.return
 
 ; Qualifiers
 [
@@ -50,7 +47,7 @@
   "#share"
   "#alias"
   "#any"
-] @keyword.modifier
+] @type.qualifier
 
 ; Conditionals
 [
@@ -60,38 +57,38 @@
   "then"
   "else"
   "elseif"
+  "until"
   "match"
-] @keyword.conditional
+] @conditional
 
 (if_statement
-  "end" @keyword.conditional
+  "end" @conditional
 )
 
 (iftype_statement
-  "end" @keyword.conditional
+  "end" @conditional
 )
 
 (match_statement
-  "end" @keyword.conditional
+  "end" @conditional
 )
 
 ; Repeats
 [
   "repeat"
-  "until"
   "while"
   "for"
   "continue"
   "do"
   "break"
-] @keyword.repeat
+] @repeat
 
 (do_block
-  "end" @keyword.repeat
+  "end" @repeat
 )
 
 (repeat_statement
-  "end" @keyword.repeat
+  "end" @repeat
 )
 
 ; Exceptions
@@ -99,14 +96,14 @@
   "try"
   (error)
   "compile_error"
-] @keyword.exception
+] @exception
 
 (try_statement
-  "end" @keyword.exception
+  "end" @exception
 )
 
 (recover_statement
-  "end" @keyword.exception
+  "end" @exception
 )
 
 ; Attributes
@@ -117,62 +114,64 @@
 
 (this) @variable.builtin
 
+(location) @preproc
+
 ; Fields
 (field
-  name: (identifier) @variable.member
+  name: (identifier) @field
 )
 
 (member_expression
   "."
-  (identifier) @variable.member
+  (identifier) @field
 )
 
 ; Constructors
 (constructor
-  "new" @keyword.operator
+  "new" @constructor
   (identifier) @constructor
 )
 
 ; Methods
 (method
-  (identifier) @function.method
+  (identifier) @method
 )
 
 (behavior
-  (identifier) @function.method
+  (identifier) @method
 )
 
 (ffi_method
-  (identifier) @function.method
+  (identifier) @method
 )
 
 (
   (ffi_method
     (string) @string.special
   )
-  (#set! priority 105)
+  (#set! "priority" 105)
 )
 
 (call_expression
   callee: [
-    (identifier) @function.method.call
+    (identifier) @method.call
     (ffi_identifier
-      (identifier) @function.method.call
+      (identifier) @method.call
     )
     (member_expression
       "."
-      (identifier) @function.method.call
+      (identifier) @method.call
     )
   ]
 )
 
 ; Parameters
 (parameter
-  name: (identifier) @variable.parameter
+  name: (identifier) @parameter
 )
 
 (lambda_parameter
-  name: (identifier) @variable.parameter
+  name: (identifier) @parameter
 )
 
 ; Types
@@ -189,7 +188,7 @@
 )
 
 (lambda_type
-  (identifier)? @function.method
+  (identifier)? @method
 )
 
 (
@@ -237,6 +236,7 @@
   "<="
   "<"
   "+~"
+  "-~"
   "*~"
   "/~"
   "%~"
@@ -333,7 +333,7 @@
 
 (number) @number
 
-(float) @number.float
+(float) @float
 
 (boolean) @boolean
 
@@ -376,3 +376,6 @@
   (line_comment)
   (block_comment)
 ] @comment @spell
+
+; Errors
+(ERROR) @error

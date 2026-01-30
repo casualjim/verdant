@@ -1,6 +1,5 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/starlark/highlights.scm
-;; Licensed under the Apache License 2.0
-; From tree-sitter-python licensed under MIT License
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-starlark/a453dbf3ba433db0e5ec621a38a7e59d72e4dc69/queries/highlights.scm
+;; From tree-sitter-python licensed under MIT License
 ; Copyright (c) 2016 Max Brunsfeld
 ; Variables
 (identifier) @variable
@@ -8,27 +7,27 @@
 ; Reset highlighting in f-string interpolations
 (interpolation) @none
 
-; Identifier naming conventions
+;; Identifier naming conventions
 (
   (identifier) @type
-  (#lua-match? @type "^[A-Z].*[a-z]")
+  (#match? @type "^[A-Z].*[a-z]")
 )
 
 (
   (identifier) @constant
-  (#lua-match? @constant "^[A-Z][A-Z_0-9]*$")
+  (#match? @constant "^[A-Z][A-Z_0-9]*$")
 )
 
 (
   (identifier) @constant.builtin
-  (#lua-match? @constant.builtin "^__[a-zA-Z0-9_]*__$")
+  (#match? @constant.builtin "^__[a-zA-Z0-9_]*__$")
 )
 
 (
   (identifier) @constant.builtin
   (#any-of?
     @constant.builtin
-    ; https://docs.python.org/3/library/constants.html
+    ;; https://docs.python.org/3/library/constants.html
     "NotImplemented"
     "Ellipsis"
     "quit"
@@ -41,9 +40,95 @@
 
 (
   (attribute
-    attribute: (identifier) @variable.member
+    attribute: (identifier) @field
   )
-  (#lua-match? @variable.member "^[%l_].*$")
+  (#match? @field "^([A-Z])@!.*$")
+)
+
+(
+  (identifier) @type.builtin
+  (#any-of?
+    @type.builtin
+    ;; https://docs.python.org/3/library/exceptions.html
+    "ArithmeticError"
+    "BufferError"
+    "LookupError"
+    "AssertionError"
+    "AttributeError"
+    "EOFError"
+    "FloatingPointError"
+    "ModuleNotFoundError"
+    "IndexError"
+    "KeyError"
+    "KeyboardInterrupt"
+    "MemoryError"
+    "NameError"
+    "NotImplementedError"
+    "OSError"
+    "OverflowError"
+    "RecursionError"
+    "ReferenceError"
+    "RuntimeError"
+    "StopIteration"
+    "StopAsyncIteration"
+    "SyntaxError"
+    "IndentationError"
+    "TabError"
+    "SystemError"
+    "SystemExit"
+    "TypeError"
+    "UnboundLocalError"
+    "UnicodeError"
+    "UnicodeEncodeError"
+    "UnicodeDecodeError"
+    "UnicodeTranslateError"
+    "ValueError"
+    "ZeroDivisionError"
+    "EnvironmentError"
+    "IOError"
+    "WindowsError"
+    "BlockingIOError"
+    "ChildProcessError"
+    "ConnectionError"
+    "BrokenPipeError"
+    "ConnectionAbortedError"
+    "ConnectionRefusedError"
+    "ConnectionResetError"
+    "FileExistsError"
+    "FileNotFoundError"
+    "InterruptedError"
+    "IsADirectoryError"
+    "NotADirectoryError"
+    "PermissionError"
+    "ProcessLookupError"
+    "TimeoutError"
+    "Warning"
+    "UserWarning"
+    "DeprecationWarning"
+    "PendingDeprecationWarning"
+    "SyntaxWarning"
+    "RuntimeWarning"
+    "FutureWarning"
+    "UnicodeWarning"
+    "BytesWarning"
+    "ResourceWarning"
+    ;; https://docs.python.org/3/library/stdtypes.html
+    "bool"
+    "int"
+    "float"
+    "complex"
+    "list"
+    "tuple"
+    "range"
+    "str"
+    "bytes"
+    "bytearray"
+    "memoryview"
+    "set"
+    "frozenset"
+    "dict"
+    "type"
+  )
 )
 
 (
@@ -66,12 +151,12 @@
   (#any-of? @_func "TypeVar" "NewType")
 )
 
-; Decorators
+;; Decorators
 (
   (decorator
     "@" @attribute
   )
-  (#set! priority 101)
+  (#set! "priority" 101)
 )
 
 (decorator
@@ -105,7 +190,7 @@
   (#any-of? @attribute.builtin "classmethod" "property")
 )
 
-; Builtin functions
+;; Builtin functions
 (
   (call
     function: (identifier) @function.builtin
@@ -186,7 +271,7 @@
   )
 )
 
-; Function definitions
+;; Function definitions
 (function_definition
   name: (identifier) @function
 )
@@ -213,142 +298,56 @@
   (#eq? @_isinstance "isinstance")
 )
 
-(
-  (identifier) @type.builtin
-  (#any-of?
-    @type.builtin
-    ; https://docs.python.org/3/library/exceptions.html
-    "ArithmeticError"
-    "BufferError"
-    "LookupError"
-    "AssertionError"
-    "AttributeError"
-    "EOFError"
-    "FloatingPointError"
-    "ModuleNotFoundError"
-    "IndexError"
-    "KeyError"
-    "KeyboardInterrupt"
-    "MemoryError"
-    "NameError"
-    "NotImplementedError"
-    "OSError"
-    "OverflowError"
-    "RecursionError"
-    "ReferenceError"
-    "RuntimeError"
-    "StopIteration"
-    "StopAsyncIteration"
-    "SyntaxError"
-    "IndentationError"
-    "TabError"
-    "SystemError"
-    "SystemExit"
-    "TypeError"
-    "UnboundLocalError"
-    "UnicodeError"
-    "UnicodeEncodeError"
-    "UnicodeDecodeError"
-    "UnicodeTranslateError"
-    "ValueError"
-    "ZeroDivisionError"
-    "EnvironmentError"
-    "IOError"
-    "WindowsError"
-    "BlockingIOError"
-    "ChildProcessError"
-    "ConnectionError"
-    "BrokenPipeError"
-    "ConnectionAbortedError"
-    "ConnectionRefusedError"
-    "ConnectionResetError"
-    "FileExistsError"
-    "FileNotFoundError"
-    "InterruptedError"
-    "IsADirectoryError"
-    "NotADirectoryError"
-    "PermissionError"
-    "ProcessLookupError"
-    "TimeoutError"
-    "Warning"
-    "UserWarning"
-    "DeprecationWarning"
-    "PendingDeprecationWarning"
-    "SyntaxWarning"
-    "RuntimeWarning"
-    "FutureWarning"
-    "UnicodeWarning"
-    "BytesWarning"
-    "ResourceWarning"
-    ; https://docs.python.org/3/library/stdtypes.html
-    "bool"
-    "int"
-    "float"
-    "complex"
-    "list"
-    "tuple"
-    "range"
-    "str"
-    "bytes"
-    "bytearray"
-    "memoryview"
-    "set"
-    "frozenset"
-    "dict"
-    "type"
-  )
-)
-
-; Normal parameters
+;; Normal parameters
 (parameters
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
-; Lambda parameters
+;; Lambda parameters
 (lambda_parameters
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (lambda_parameters
   (tuple_pattern
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
 ; Default parameters
 (keyword_argument
-  name: (identifier) @variable.parameter
+  name: (identifier) @parameter
 )
 
 ; Naming parameters on call-site
 (default_parameter
-  name: (identifier) @variable.parameter
+  name: (identifier) @parameter
 )
 
 (typed_parameter
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 (typed_default_parameter
-  (identifier) @variable.parameter
+  (identifier) @parameter
 )
 
 ; Variadic parameters *args, **kwargs
 (parameters
   (list_splat_pattern
     ; *args
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
 (parameters
   (dictionary_splat_pattern
     ; **kwargs
-    (identifier) @variable.parameter
+    (identifier) @parameter
   )
 )
 
-; Literals
+;; Literals
 (none) @constant.builtin
 
 [
@@ -368,16 +367,16 @@
 
 (integer) @number
 
-(float) @number.float
+(float) @float
 
 (comment) @comment @spell
 
 (
   (module
     .
-    (comment) @keyword.directive @nospell
+    (comment) @preproc
   )
-  (#lua-match? @keyword.directive "^#!/")
+  (#match? @preproc "^#!/")
 )
 
 (string) @string
@@ -388,20 +387,8 @@
 ] @string.escape
 
 ; doc-strings
-(module
-  .
-  (expression_statement
-    (string) @string.documentation @spell
-  )
-)
-
-(function_definition
-  body: (block
-    .
-    (expression_statement
-      (string) @string.documentation @spell
-    )
-  )
+(expression_statement
+  (string) @spell
 )
 
 ; Tokens
@@ -468,18 +455,16 @@
   "as"
 ] @keyword
 
-"async" @keyword.coroutine
-
-"return" @keyword.return
+["return"] @keyword.return
 
 (
   (call
-    function: (identifier) @keyword.import
+    function: (identifier) @include
     arguments: (argument_list
-      (string) @string
+      (string) @conceal
     )
   )
-  (#eq? @keyword.import "load")
+  (#eq? @include "load")
 )
 
 [
@@ -488,14 +473,14 @@
   "else"
   "match"
   "case"
-] @keyword.conditional
+] @conditional
 
 [
   "for"
   "while"
   "break"
   "continue"
-] @keyword.repeat
+] @repeat
 
 [
   "("
@@ -511,8 +496,6 @@
   "}" @punctuation.special
 )
 
-(type_conversion) @function.macro
-
 [
   ","
   "."
@@ -521,33 +504,36 @@
   (ellipsis)
 ] @punctuation.delimiter
 
-; Starlark-specific
-; Assertion calls
+;; Error
+(ERROR) @error
+
+;; Starlark-specific
+;; Assertion calls
 (assert_keyword) @keyword
 
 (assert_builtin) @function.builtin
 
-; Struct definitions
+;; Struct definitions
 (
   (call
     function: (identifier) @_func
     arguments: (argument_list
       (keyword_argument
-        name: (identifier) @variable.member
+        name: (identifier) @field
       )
     )
   )
   (#eq? @_func "struct")
 )
 
-; Function calls
+;; Function calls
 (call
   function: (identifier) @function.call
 )
 
 (call
   function: (attribute
-    attribute: (identifier) @function.method.call
+    attribute: (identifier) @method.call
   )
 )
 
@@ -555,7 +541,7 @@
   (call
     function: (identifier) @constructor
   )
-  (#lua-match? @constructor "^[A-Z]")
+  (#match? @constructor "^[A-Z]")
 )
 
 (
@@ -564,5 +550,5 @@
       attribute: (identifier) @constructor
     )
   )
-  (#lua-match? @constructor "^[A-Z]")
+  (#match? @constructor "^[A-Z]")
 )

@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/tera/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/uncenter/tree-sitter-tera/3a38c368e806268daac9923a27e72bcafbbc16bb/queries/highlights.scm
 ; Variables
 ;----------
 (identifier) @variable
@@ -12,24 +11,22 @@
 ; Properties
 ;-----------
 (member_expression
-  property: (identifier)? @variable.member
+  property: (identifier)? @variable.other.member
 )
 
 ; Literals
 ;-----------
 (string) @string
 
-(bool) @boolean
+(bool) @constant.builtin
 
-(number) @number
+(number) @constant.numeric
 
 ; Tokens
 ;-----------
 [
   "."
   ","
-  "::"
-  (frontmatter_delimiter)
 ] @punctuation.delimiter
 
 [
@@ -62,11 +59,12 @@
   "{{"
   "-}}"
   "{{-"
+  "::"
 ] @punctuation.bracket
 
 ; Tags
 ;-----------
-(comment_tag) @comment @spell
+(comment_tag) @comment
 
 ; Keywords
 ;-----------
@@ -75,18 +73,18 @@
   "elif"
   "else"
   "endif"
-] @keyword.conditional
+] @keyword.control.conditional
 
 [
   "for"
   "endfor"
-] @keyword.repeat
+] @keyword.control.repeat
 
 [
   "include"
   "import"
   "extends"
-] @keyword.import
+] @keyword.control.import
 
 [
   "in"
@@ -99,7 +97,7 @@
 [
   "break"
   "continue"
-] @keyword.return
+] @keyword.control.return
 
 [
   "set"
@@ -128,14 +126,8 @@
 )
 
 (call_expression
-  scope: (identifier)? @module
-  name: (identifier) @function.call
-)
-
-(call_expression
-  scope: (identifier) @module.builtin
-  name: (identifier) @function.call
-  (#eq? @module.builtin "self")
+  scope: (identifier)? @namespace
+  name: (identifier) @function
 )
 
 (call_expression
@@ -152,7 +144,7 @@
 )
 
 (test_expression
-  test: (identifier) @function.call
+  test: (identifier) @function
 )
 
 (test_expression
@@ -177,11 +169,67 @@
 )
 
 (filter_expression
-  filter: (identifier) @function.method.call
+  filter: (identifier) @function.method
+)
+
+(filter_expression
+  filter: (identifier) @function.builtin
+  (#any-of?
+    @function.builtin
+    ; Filters - https://keats.github.io/tera/docs/#built-in-filters
+    "lower"
+    "upper"
+    "wordcount"
+    "capitalize"
+    "replace"
+    "addslashes"
+    "slugify"
+    "title"
+    "trim"
+    "trim_start"
+    "trim_end"
+    "trim_start_matches"
+    "trim_end_matches"
+    "truncate"
+    "linebreaksbr"
+    "spaceless"
+    "indent"
+    "striptags"
+    "first"
+    "last"
+    "nth"
+    "join"
+    "length"
+    "reverse"
+    "sort"
+    "unique"
+    "slice"
+    "group_by"
+    "filter"
+    "map"
+    "concat"
+    "urlencode"
+    "urlencode_strict"
+    "abs"
+    "pluralize"
+    "round"
+    "filesizeformat"
+    "date"
+    "escape"
+    "escape_xml"
+    "safe"
+    "get"
+    "split"
+    "int"
+    "float"
+    "json_encode"
+    "as_str"
+    "default"
+  )
 )
 
 ; Namespaces
 ;-----------
 (import_statement
-  scope: (identifier) @module
+  scope: (identifier) @namespace
 )

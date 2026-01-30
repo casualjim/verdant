@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/idl/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/cathaysia/tree-sitter-idl/e6b8b4d2ba285caacf6f9e931f1f637f5bc02b03/queries/highlights.scm
 ; https://neovim.io/doc/user/treesitter.html#treesitter-highlight-groups
 (comment) @comment @spell
 

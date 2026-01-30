@@ -1,9 +1,8 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/robot/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/Hubro/tree-sitter-robot/e34def7cb0d8a66a59ec5057fe17bb4e6b17b56a/queries/highlights.scm
 [
   (comment)
   (extra_text)
-] @comment @spell
+] @comment
 
 [
   (section_header)
@@ -49,36 +48,30 @@
   "IN ZIP"
   (break_statement)
   (continue_statement)
-] @keyword.repeat
+] @repeat
 
 (for_statement
-  "END" @keyword.repeat
+  "END" @repeat
 )
 
-"WHILE" @keyword.repeat
+"WHILE" @repeat
 
 (while_statement
-  "END" @keyword.repeat
+  "END" @repeat
 )
 
 [
   "IF"
   "ELSE IF"
-] @keyword.conditional
+] @conditional
 
 (if_statement
-  "END" @keyword.conditional
+  "END" @conditional
 )
 
 (if_statement
   (else_statement
-    "ELSE" @keyword.conditional
-  )
-)
-
-(inline_if_statement
-  (inline_else_statement
-    "ELSE" @keyword.conditional
+    "ELSE" @conditional
   )
 )
 
@@ -86,81 +79,14 @@
   "TRY"
   "EXCEPT"
   "FINALLY"
-] @keyword.exception
+] @exception
 
 (try_statement
-  "END" @keyword.exception
+  "END" @exception
 )
 
 (try_statement
   (else_statement
-    "ELSE" @keyword.exception
+    "ELSE" @exception
   )
-)
-
-; Extra captures for "Documentation" settings
-(setting_statement
-  name: (setting_name) @_name
-  (arguments
-    (argument
-      (text_chunk) @spell @string.documentation
-    )
-  )
-  (#any-of? @_name "Documentation" "documentation" "DOCUMENTATION")
-)
-
-(setting_statement
-  name: (setting_name) @_name
-  (arguments
-    (continuation
-      (argument
-        (text_chunk) @spell @string.documentation
-      )
-    )
-  )
-  (#any-of? @_name "Documentation" "documentation" "DOCUMENTATION")
-)
-
-(keyword_setting
-  name: (keyword_setting_name) @_name
-  (arguments
-    (argument
-      (text_chunk) @spell @string.documentation
-    )
-  )
-  (#any-of? @_name "Documentation" "documentation" "DOCUMENTATION")
-)
-
-(keyword_setting
-  name: (keyword_setting_name) @_name
-  (arguments
-    (continuation
-      (argument
-        (text_chunk) @spell @string.documentation
-      )
-    )
-  )
-  (#any-of? @_name "Documentation" "documentation" "DOCUMENTATION")
-)
-
-(test_case_setting
-  name: (test_case_setting_name) @_name
-  (arguments
-    (argument
-      (text_chunk) @spell @string.documentation
-    )
-  )
-  (#any-of? @_name "Documentation" "documentation" "DOCUMENTATION")
-)
-
-(test_case_setting
-  name: (test_case_setting_name) @_name
-  (arguments
-    (continuation
-      (argument
-        (text_chunk) @spell @string.documentation
-      )
-    )
-  )
-  (#any-of? @_name "Documentation" "documentation" "DOCUMENTATION")
 )

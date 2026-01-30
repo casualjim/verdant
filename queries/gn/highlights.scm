@@ -1,16 +1,15 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/gn/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-gn/bc06955bc1e3c9ff8e9b2b2a55b38b94da923c05/queries/highlights.scm
 ; Includes
-"import" @keyword.import
+"import" @include
 
 ; Conditionals
 [
   "if"
   "else"
-] @keyword.conditional
+] @conditional
 
 ; Repeats
-"foreach" @keyword.repeat
+"foreach" @repeat
 
 ; Operators
 [
@@ -40,7 +39,7 @@
 
 ; Fields
 (scope_access
-  field: (identifier) @variable.member
+  field: (identifier) @field
 )
 
 ; Literals

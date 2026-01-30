@@ -1,6 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/arduino/highlights.scm
-;; Licensed under the Apache License 2.0
-; inherits: cpp
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-arduino/53eb391da4c6c5857f8defa2c583c46c2594f565/queries/highlights.scm
 (
   (identifier) @function.builtin
   (#any-of?
@@ -110,18 +108,14 @@
 )
 
 (call_expression
-  function: (primitive_type) @function.builtin
-)
-
-(call_expression
-  function: (identifier) @constructor
-  (#any-of? @constructor "SPISettings" "String")
+  function: (identifier) @constructor.builtin
+  (#any-of? @constructor.builtin "SPISettings" "String")
 )
 
 (declaration
   (type_identifier) @type.builtin
   (function_declarator
-    declarator: (identifier) @constructor
+    declarator: (identifier) @constructor.builtin
   )
   (#eq? @type.builtin "SPISettings")
 )

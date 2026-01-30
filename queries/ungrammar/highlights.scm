@@ -1,5 +1,4 @@
-;; Forked from https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/ungrammar/highlights.scm
-;; Licensed under the Apache License 2.0
+;; Forked from https://raw.githubusercontent.com/tree-sitter-grammars/tree-sitter-ungrammar/debd26fed283d80456ebafa33a06957b0c52e451/queries/highlights.scm
 (comment) @comment @spell
 
 (definition) @keyword
@@ -18,11 +17,13 @@
 [
   "*"
   "?"
-] @keyword.repeat
+] @operator.repeat
 
-":" @punctuation.delimiter
+[":"] @punctuation.delimiter
 
 [
   "("
   ")"
 ] @punctuation.bracket
+
+(ERROR) @error
