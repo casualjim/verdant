@@ -50,18 +50,6 @@ jobs:
 
       - name: Install Toolchain
         uses: dtolnay/rust-toolchain@stable
-        with:
-          target: wasm32-unknown-emscripten
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 23
-
-      - name: Setup Emscripten
-        uses: mymindstorm/setup-emsdk@v14
-        with:
-          actions-cache-folder: 'emsdk-cache'
 
       - name: Restore Cache
         uses: Swatinem/rust-cache@v2
@@ -74,6 +62,19 @@ jobs:
       - name: Prepare CI
         run: |
           bash _prepare_ci.sh
+
+      - name: Install WASM Target
+        run: rustup target add wasm32-unknown-emscripten
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          actions-cache-folder: 'emsdk-cache'
 
       - name: Build Core Package
         run: |
