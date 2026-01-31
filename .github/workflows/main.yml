@@ -1,7 +1,7 @@
 name: Main
 on:
   push:
-    branches: [main]
+    branches: [main, expand-languages]
   pull_request:
     branches: [main]
 permissions:
