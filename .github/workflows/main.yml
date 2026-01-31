@@ -3,7 +3,7 @@ on:
   push:
     branches: [main, expand-languages]
   pull_request:
-    branches: [main]
+    branches: [main, expand-languages]
 permissions:
   contents: write
 
