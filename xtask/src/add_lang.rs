@@ -551,7 +551,10 @@ fn to_https_url(url: &str) -> Option<String> {
         ssh = ssh.replacen(':', "/", 1);
         let parsed = Url::parse(&ssh).ok()?;
         let host = parsed.host_str()?;
-        let path = parsed.path().trim_start_matches('/').trim_end_matches(".git");
+        let path = parsed
+            .path()
+            .trim_start_matches('/')
+            .trim_end_matches(".git");
         if path.is_empty() {
             return None;
         }
@@ -560,7 +563,10 @@ fn to_https_url(url: &str) -> Option<String> {
     if raw.starts_with("ssh://") {
         let parsed = Url::parse(raw).ok()?;
         let host = parsed.host_str()?;
-        let path = parsed.path().trim_start_matches('/').trim_end_matches(".git");
+        let path = parsed
+            .path()
+            .trim_start_matches('/')
+            .trim_end_matches(".git");
         if path.is_empty() {
             return None;
         }

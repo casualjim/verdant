@@ -1,7 +1,6 @@
 use std::{
     collections::{BTreeSet, HashMap, HashSet, VecDeque},
-    env,
-    fs,
+    env, fs,
     path::{Path, PathBuf},
     sync::{mpsc, Arc, Mutex},
     thread,
@@ -28,7 +27,6 @@ struct GrammarMapping {
     nvim_filetype: Option<String>,
     #[serde(default)]
     effective_filetype: Option<String>,
-    // helix_file_types is not used anymore - we use effective_filetype instead
 }
 
 #[derive(Debug, Deserialize)]
@@ -54,9 +52,7 @@ pub fn run() -> Result<()> {
                 jobs = Some(value.parse::<usize>().context("invalid --jobs value")?);
             }
             "--limit" => {
-                let value = args
-                    .next()
-                    .with_context(|| "missing value for --limit")?;
+                let value = args.next().with_context(|| "missing value for --limit")?;
                 limit = Some(value.parse::<usize>().context("invalid --limit value")?);
             }
             "--help" | "-h" => {
@@ -132,8 +128,12 @@ runtime query directory with a highlights.scm for the language.
         }
         reserved_names.insert(target_name.clone());
 
-        let Some(nvim_name) = resolve_nvim_query_name(&mapping.grammar, &target_name, &nvim_query_dirs, &grammar_mappings)
-        else {
+        let Some(nvim_name) = resolve_nvim_query_name(
+            &mapping.grammar,
+            &target_name,
+            &nvim_query_dirs,
+            &grammar_mappings,
+        ) else {
             continue;
         };
 
@@ -185,14 +185,9 @@ runtime query directory with a highlights.scm for the language.
                     break;
                 };
 
-                let result = build_language_block(
-                    &grammar,
-                    &target_name,
-                    &nvim_name,
-                    &mappings,
-                    dry_run,
-                )
-                .map(|block| (target_name, block));
+                let result =
+                    build_language_block(&grammar, &target_name, &nvim_name, &mappings, dry_run)
+                        .map(|block| (target_name, block));
 
                 if result_tx.send(result).is_err() {
                     break;
@@ -220,7 +215,10 @@ runtime query directory with a highlights.scm for the language.
     }
 
     if dry_run {
-        println!("sync-breeze: dry-run, not writing {}", langs_toml_path.display());
+        println!(
+            "sync-breeze: dry-run, not writing {}",
+            langs_toml_path.display()
+        );
         return Ok(());
     }
 
@@ -257,10 +255,7 @@ runtime query directory with a highlights.scm for the language.
 
         if !update_jobs.is_empty() {
             let total = update_jobs.len();
-            let job_count = jobs
-                .unwrap_or_else(default_job_count)
-                .max(1)
-                .min(total);
+            let job_count = jobs.unwrap_or_else(default_job_count).max(1).min(total);
             let queue = Arc::new(Mutex::new(VecDeque::from(update_jobs)));
             let (result_tx, result_rx) = mpsc::channel();
 
@@ -322,12 +317,8 @@ fn grammar_mappings_path() -> Result<PathBuf> {
 
 fn load_grammar_mappings() -> Result<Vec<GrammarMapping>> {
     let path = grammar_mappings_path()?;
-    let content = fs::read_to_string(&path).with_context(|| {
-        format!(
-            "failed to read grammar mappings at {}",
-            path.display()
-        )
-    })?;
+    let content = fs::read_to_string(&path)
+        .with_context(|| format!("failed to read grammar mappings at {}", path.display()))?;
     let mappings: Vec<GrammarMapping> =
         serde_json::from_str(&content).context("invalid grammar mappings json")?;
     Ok(mappings)
@@ -336,21 +327,57 @@ fn load_grammar_mappings() -> Result<Vec<GrammarMapping>> {
 fn get_file_types(
     grammar_name: &str,
     mappings: &HashMap<String, GrammarMapping>,
-) -> Option<Vec<String>> {
-    mappings.get(grammar_name).and_then(|m| {
-        if let Some(file_types) = &m.helix_file_types {
-            let types: Vec<String> = file_types
-                .iter()
-                .filter_map(|value| value.as_str())
-                .map(|ft| format!("\"{ft}\""))
-                .collect();
-            if !types.is_empty() {
-                return Some(types);
+) -> Result<Option<Vec<String>>> {
+    let Some(mapping) = mappings.get(grammar_name) else {
+        return Ok(None);
+    };
+
+    // `file-types` in syntastica is a list of `palate::FileType` strings.
+    //
+    // effective_filetype is canonical. helix_file_types are aliases which contribute to the union
+    // (resolved via extension detection) but must not influence query resolution or create
+    // separate query dirs.
+    let effective = mapping
+        .effective_filetype
+        .as_deref()
+        .map(str::trim)
+        .filter(|ft| !ft.is_empty())
+        .map(|ft| {
+            ft.parse::<palate::FileType>().map_err(|err| {
+                anyhow::anyhow!(
+                    "sync-breeze: invalid effective_filetype {:?} for grammar {:?}: {err}",
+                    ft,
+                    grammar_name
+                )
+            })
+        })
+        .transpose()?
+        .map(|ft| ft.to_string());
+
+    let mut extra = BTreeSet::<String>::new();
+    if let Some(file_types) = &mapping.helix_file_types {
+        for value in file_types.iter().filter_map(|v| v.as_str()) {
+            let ext = value.trim().trim_start_matches('.');
+            if ext.is_empty() {
+                continue;
+            }
+            if let Some(ft) = palate::try_detect(Path::new(&format!("file.{ext}")), "") {
+                let ft = ft.to_string();
+                if effective.as_ref().is_some_and(|e| e == &ft) {
+                    continue;
+                }
+                extra.insert(ft);
             }
         }
-        // Fallback to effective_filetype if helix file types are missing/empty
-        m.effective_filetype.as_ref().map(|ft| vec![format!("\"{ft}\"")])
-    })
+    }
+
+    let mut out = Vec::<String>::new();
+    if let Some(effective) = effective {
+        out.push(format!("\"{effective}\""));
+    }
+    out.extend(extra.into_iter().map(|ft| format!("\"{ft}\"")));
+
+    Ok((!out.is_empty()).then_some(out))
 }
 
 fn fetch_nvim_runtime_query_dirs() -> Result<std::collections::BTreeSet<String>> {
@@ -363,7 +390,10 @@ fn fetch_nvim_runtime_query_dirs() -> Result<std::collections::BTreeSet<String>>
         .user_agent("syntastica xtask (sync-breeze)")
         .build()
         .context("failed to build http client")?;
-    let res = client.get(url).send().context("failed to query github api")?;
+    let res = client
+        .get(url)
+        .send()
+        .context("failed to query github api")?;
     if !res.status().is_success() {
         bail!("github api returned {}", res.status());
     }
@@ -382,9 +412,9 @@ fn fetch_nvim_runtime_query_dirs_local() -> Option<BTreeSet<String>> {
         .or_else(|| env::var("NVIM_TREESITTER_REPO").ok())
         .map(PathBuf::from)
         .or_else(|| {
-        let home = env::var("HOME").ok()?;
-        Some(Path::new(&home).join("github/nvim-treesitter/nvim-treesitter"))
-    })?;
+            let home = env::var("HOME").ok()?;
+            Some(Path::new(&home).join("github/nvim-treesitter/nvim-treesitter"))
+        })?;
 
     let queries_dir = root.join("runtime/queries");
     let entries = fs::read_dir(&queries_dir).ok()?;
@@ -405,7 +435,10 @@ fn fetch_nvim_runtime_query_dirs_local() -> Option<BTreeSet<String>> {
     }
 }
 
-fn canonical_syntastica_name(breeze_name: &str, mappings: &HashMap<String, GrammarMapping>) -> String {
+fn canonical_syntastica_name(
+    breeze_name: &str,
+    mappings: &HashMap<String, GrammarMapping>,
+) -> String {
     // First check the grammar mappings for effective_filetype
     if let Some(mapping) = mappings.get(breeze_name) {
         if let Some(effective) = &mapping.effective_filetype {
@@ -472,9 +505,7 @@ fn resolve_nvim_query_name(
         breeze_name.to_owned(),
         breeze_name.replace('-', "_"),
     ];
-    candidates
-        .into_iter()
-        .find(|name| nvim_dirs.contains(name))
+    candidates.into_iter().find(|name| nvim_dirs.contains(name))
 }
 
 fn should_skip_grammar(name: &str) -> bool {
@@ -482,7 +513,9 @@ fn should_skip_grammar(name: &str) -> bool {
 }
 
 fn default_job_count() -> usize {
-    let detected = thread::available_parallelism().map(|n| n.get()).unwrap_or(4);
+    let detected = thread::available_parallelism()
+        .map(|n| n.get())
+        .unwrap_or(4);
     detected.min(8)
 }
 
@@ -510,8 +543,7 @@ fn build_language_block(
     let wasm_unknown = !external_cpp;
 
     let (queries_injections, queries_locals) = write_queries(target_name, nvim_name, dry_run)?;
-
-    let file_types = get_file_types(&grammar.name, mappings);
+    let file_types = get_file_types(&grammar.name, mappings)?;
 
     Ok(format_language_block(
         target_name,
@@ -585,6 +617,7 @@ fn write_queries(target_name: &str, nvim_name: &str, dry_run: bool) -> Result<(b
             highlights.push('\n');
         }
     }
+    highlights = postprocess_highlights_query(target_name, highlights);
     if !dry_run {
         fs::write(out_dir.join("highlights.scm"), highlights)?;
     }
@@ -654,7 +687,10 @@ fn format_language_block(
         "external-scanner = {{ c = {external_c}, cpp = {external_cpp} }}\n"
     ));
     out.push_str(&format!("ffi-func = \"{ffi_func}\"\n"));
-    out.push_str(&format!("package = \"tree-sitter-{}\"\n", name.replace('_', "-")));
+    out.push_str(&format!(
+        "package = \"tree-sitter-{}\"\n",
+        name.replace('_', "-")
+    ));
     if generate {
         out.push_str("generate = true\n");
     }
@@ -720,12 +756,8 @@ fn update_existing_block(
             |_, start| format!("{start} ")
         )
         .into_owned();
-        block = regex_replace!(
-            r#",\s*branch\s*=\s*"[^"]*"\s*"#m,
-            &block,
-            |_| String::new()
-        )
-        .into_owned();
+        block = regex_replace!(r#",\s*branch\s*=\s*"[^"]*"\s*"#m, &block, |_| String::new())
+            .into_owned();
     }
     block = regex_replace!(
         r#"^(\s*external-scanner\s*=\s*\{\s*c\s*=\s*)(?:true|false)(\s*,\s*cpp\s*=\s*)(?:true|false)(\s*\}\s*)(#.*)?$"#m,
@@ -776,6 +808,7 @@ fn refresh_highlights_query(target_name: &str, nvim_name: &str, dry_run: bool) -
             text.push('\n');
         }
     }
+    text = postprocess_highlights_query(target_name, text);
     if dry_run {
         return Ok(());
     }
@@ -783,4 +816,81 @@ fn refresh_highlights_query(target_name: &str, nvim_name: &str, dry_run: bool) -
     fs::create_dir_all(&out_dir)?;
     fs::write(out_dir.join("highlights.scm"), text)?;
     Ok(())
+}
+
+fn postprocess_highlights_query(target_name: &str, text: String) -> String {
+    // Keep this intentionally minimal and targeted: sync-breeze updates highlights for existing
+    // languages, which can wipe out small local tweaks. We apply known, stable fixups here.
+    if target_name != "gleam" {
+        return text;
+    }
+
+    const CRATES_IO_SKIP: &str = "; crates.io skip";
+    const NON_CRATES_IO_SKIP: &str = "; non-crates.io skip";
+
+    let input_has_bit_array = text
+        .lines()
+        .any(|l| l.trim_start().starts_with("(bit_array_segment_option)"));
+    let input_has_bit_string = text
+        .lines()
+        .any(|l| l.trim_start().starts_with("(bit_string_segment_option)"));
+
+    let mut out = Vec::<String>::new();
+    fn ensure_skip(out: &mut Vec<String>, comment: &str) {
+        let already = out
+            .iter()
+            .rev()
+            .find(|l| !l.trim().is_empty())
+            .is_some_and(|l| l.trim() == comment);
+        if already {
+            return;
+        }
+        if !out.last().is_some_and(|l| l.is_empty()) {
+            out.push(String::new());
+        }
+        out.push(comment.to_string());
+    }
+
+    for line in text.lines() {
+        let trimmed = line.trim();
+        if trimmed.starts_with("(bit_array_segment_option) ")
+            && trimmed.contains("@function.builtin")
+        {
+            ensure_skip(&mut out, CRATES_IO_SKIP);
+            out.push("(bit_array_segment_option) @function.builtin".to_string());
+            continue;
+        }
+        if trimmed.starts_with("(bit_string_segment_option) ")
+            && trimmed.contains("@function.builtin")
+        {
+            ensure_skip(&mut out, NON_CRATES_IO_SKIP);
+            out.push("(bit_string_segment_option) @function.builtin".to_string());
+            continue;
+        }
+        out.push(line.to_string());
+    }
+
+    // If upstream removes one of these nodes, re-add it so codegen can still generate the
+    // crates.io / non-crates.io variants as expected.
+    if input_has_bit_array && !input_has_bit_string {
+        let needle = "(bit_array_segment_option) @function.builtin";
+        if let Some(idx) = out.iter().position(|l| l.trim() == needle) {
+            let insert_at = idx + 1;
+            let mut extra = Vec::new();
+            extra.push(String::new());
+            extra.push(NON_CRATES_IO_SKIP.to_string());
+            extra.push("(bit_string_segment_option) @function.builtin".to_string());
+            out.splice(insert_at..insert_at, extra);
+        } else {
+            out.push(String::new());
+            out.push(NON_CRATES_IO_SKIP.to_string());
+            out.push("(bit_string_segment_option) @function.builtin".to_string());
+        }
+    }
+
+    let mut out = out.join("\n");
+    if !out.ends_with('\n') {
+        out.push('\n');
+    }
+    out
 }

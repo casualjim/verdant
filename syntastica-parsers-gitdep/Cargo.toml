@@ -140,6 +140,7 @@ all = [
     "bicep",
     "bitbake",
     "blade",
+    "blueprint",
     "bp",
     "bpftrace",
     "brightscript",
@@ -150,6 +151,7 @@ all = [
     "capnp",
     "chatito",
     "circom",
+    "clarity",
     "cook",
     "corn",
     "cpon",
@@ -172,6 +174,7 @@ all = [
     "eds",
     "eelixir",
     "ejs",
+    "elisp",
     "elm",
     "elsa",
     "elvish",
@@ -190,6 +193,7 @@ all = [
     "fsh",
     "fsharp",
     "func",
+    "fusion",
     "gap",
     "gaptst",
     "gdresource",
@@ -215,6 +219,7 @@ all = [
     "handlebars",
     "hare",
     "haskellpersistent",
+    "haxe",
     "heex",
     "helm",
     "help",
@@ -260,6 +265,7 @@ all = [
     "llvm",
     "luadoc",
     "luau",
+    "magik",
     "matlab",
     "menhir",
     "mermaid",
@@ -285,6 +291,7 @@ all = [
     "pbtxt",
     "pem",
     "perl",
+    "pgn",
     "phpdoc",
     "pioasm",
     "pkl",
@@ -418,6 +425,7 @@ bibtex = []
 bicep = []
 bitbake = []
 blade = []
+blueprint = []
 bp = []
 bpftrace = []
 brightscript = []
@@ -430,6 +438,7 @@ cairo = []
 capnp = []
 chatito = []
 circom = []
+clarity = []
 clojure = []
 cmake = ["dep:tree-sitter-cmake"]
 comment = []
@@ -461,6 +470,7 @@ editorconfig = []
 eds = []
 eelixir = []
 ejs = ["dep:tree-sitter-embedded-template"]
+elisp = []
 elixir = ["dep:tree-sitter-elixir"]
 elm = []
 elsa = []
@@ -481,6 +491,7 @@ fsd = []
 fsh = []
 fsharp = []
 func = []
+fusion = []
 gap = []
 gaptst = []
 gdresource = []
@@ -515,6 +526,7 @@ handlebars = []
 hare = []
 haskell = ["dep:tree-sitter-haskell"]
 haskellpersistent = []
+haxe = []
 hcl = []
 heex = []
 helm = []
@@ -572,6 +584,7 @@ lua = ["dep:tree-sitter-lua"]
 luadoc = []
 luap = []
 luau = []
+magik = []
 make = ["dep:tree-sitter-make"]
 markdown = ["dep:tree-sitter-md"]
 markdown_inline = ["dep:tree-sitter-md"]
@@ -602,6 +615,7 @@ passwd = []
 pbtxt = []
 pem = []
 perl = []
+pgn = []
 php = ["dep:tree-sitter-php"]
 php_only = ["dep:tree-sitter-php"]
 phpdoc = []

@@ -504,7 +504,8 @@ impl<'a> HighlightIterLayer<'a> {
                         &mut |i, _| if i < source.len() { &source[i..] } else { &[] },
                         None,
                         Some(ParseOptions::new().progress_callback(&mut |_| {
-                            if cancellation_flag.is_some_and(|flag| flag.load(Ordering::SeqCst) != 0)
+                            if cancellation_flag
+                                .is_some_and(|flag| flag.load(Ordering::SeqCst) != 0)
                             {
                                 ops::ControlFlow::Break(())
                             } else {

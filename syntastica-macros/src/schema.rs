@@ -1,7 +1,7 @@
 use std::fmt::{self, Display, Formatter};
 
-use serde::Deserialize;
 use palate::FileType;
+use serde::Deserialize;
 
 #[derive(Clone, Debug, Deserialize)]
 pub struct LanguageConfig {

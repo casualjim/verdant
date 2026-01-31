@@ -121,6 +121,13 @@ pub const BLADE_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/
 pub const BLADE_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/blade/injections_crates_io.scm");
 pub const BLADE_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/blade/locals_crates_io.scm");
 
+pub const BLUEPRINT_HIGHLIGHTS: &str = include_str!("../generated_queries/blueprint/highlights.scm");
+pub const BLUEPRINT_INJECTIONS: &str = include_str!("../generated_queries/blueprint/injections.scm");
+pub const BLUEPRINT_LOCALS: &str = include_str!("../generated_queries/blueprint/locals.scm");
+pub const BLUEPRINT_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/blueprint/highlights_crates_io.scm");
+pub const BLUEPRINT_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/blueprint/injections_crates_io.scm");
+pub const BLUEPRINT_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/blueprint/locals_crates_io.scm");
+
 pub const BP_HIGHLIGHTS: &str = include_str!("../generated_queries/bp/highlights.scm");
 pub const BP_INJECTIONS: &str = include_str!("../generated_queries/bp/injections.scm");
 pub const BP_LOCALS: &str = include_str!("../generated_queries/bp/locals.scm");
@@ -204,6 +211,13 @@ pub const CIRCOM_LOCALS: &str = include_str!("../generated_queries/circom/locals
 pub const CIRCOM_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/circom/highlights_crates_io.scm");
 pub const CIRCOM_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/circom/injections_crates_io.scm");
 pub const CIRCOM_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/circom/locals_crates_io.scm");
+
+pub const CLARITY_HIGHLIGHTS: &str = include_str!("../generated_queries/clarity/highlights.scm");
+pub const CLARITY_INJECTIONS: &str = include_str!("../generated_queries/clarity/injections.scm");
+pub const CLARITY_LOCALS: &str = include_str!("../generated_queries/clarity/locals.scm");
+pub const CLARITY_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/clarity/highlights_crates_io.scm");
+pub const CLARITY_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/clarity/injections_crates_io.scm");
+pub const CLARITY_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/clarity/locals_crates_io.scm");
 
 pub const CLOJURE_HIGHLIGHTS: &str = include_str!("../generated_queries/clojure/highlights.scm");
 pub const CLOJURE_INJECTIONS: &str = include_str!("../generated_queries/clojure/injections.scm");
@@ -422,6 +436,13 @@ pub const EJS_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/ej
 pub const EJS_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/ejs/injections_crates_io.scm");
 pub const EJS_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/ejs/locals_crates_io.scm");
 
+pub const ELISP_HIGHLIGHTS: &str = include_str!("../generated_queries/elisp/highlights.scm");
+pub const ELISP_INJECTIONS: &str = include_str!("../generated_queries/elisp/injections.scm");
+pub const ELISP_LOCALS: &str = include_str!("../generated_queries/elisp/locals.scm");
+pub const ELISP_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/elisp/highlights_crates_io.scm");
+pub const ELISP_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/elisp/injections_crates_io.scm");
+pub const ELISP_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/elisp/locals_crates_io.scm");
+
 pub const ELIXIR_HIGHLIGHTS: &str = include_str!("../generated_queries/elixir/highlights.scm");
 pub const ELIXIR_INJECTIONS: &str = include_str!("../generated_queries/elixir/injections.scm");
 pub const ELIXIR_LOCALS: &str = include_str!("../generated_queries/elixir/locals.scm");
@@ -561,6 +582,13 @@ pub const FUNC_LOCALS: &str = include_str!("../generated_queries/func/locals.scm
 pub const FUNC_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/func/highlights_crates_io.scm");
 pub const FUNC_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/func/injections_crates_io.scm");
 pub const FUNC_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/func/locals_crates_io.scm");
+
+pub const FUSION_HIGHLIGHTS: &str = include_str!("../generated_queries/fusion/highlights.scm");
+pub const FUSION_INJECTIONS: &str = include_str!("../generated_queries/fusion/injections.scm");
+pub const FUSION_LOCALS: &str = include_str!("../generated_queries/fusion/locals.scm");
+pub const FUSION_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/fusion/highlights_crates_io.scm");
+pub const FUSION_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/fusion/injections_crates_io.scm");
+pub const FUSION_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/fusion/locals_crates_io.scm");
 
 pub const GAP_HIGHLIGHTS: &str = include_str!("../generated_queries/gap/highlights.scm");
 pub const GAP_INJECTIONS: &str = include_str!("../generated_queries/gap/injections.scm");
@@ -799,6 +827,13 @@ pub const HASKELLPERSISTENT_LOCALS: &str = include_str!("../generated_queries/ha
 pub const HASKELLPERSISTENT_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/haskellpersistent/highlights_crates_io.scm");
 pub const HASKELLPERSISTENT_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/haskellpersistent/injections_crates_io.scm");
 pub const HASKELLPERSISTENT_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/haskellpersistent/locals_crates_io.scm");
+
+pub const HAXE_HIGHLIGHTS: &str = include_str!("../generated_queries/haxe/highlights.scm");
+pub const HAXE_INJECTIONS: &str = include_str!("../generated_queries/haxe/injections.scm");
+pub const HAXE_LOCALS: &str = include_str!("../generated_queries/haxe/locals.scm");
+pub const HAXE_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/haxe/highlights_crates_io.scm");
+pub const HAXE_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/haxe/injections_crates_io.scm");
+pub const HAXE_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/haxe/locals_crates_io.scm");
 
 pub const HCL_HIGHLIGHTS: &str = include_str!("../generated_queries/hcl/highlights.scm");
 pub const HCL_INJECTIONS: &str = include_str!("../generated_queries/hcl/injections.scm");
@@ -1199,6 +1234,13 @@ pub const LUAU_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/l
 pub const LUAU_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/luau/injections_crates_io.scm");
 pub const LUAU_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/luau/locals_crates_io.scm");
 
+pub const MAGIK_HIGHLIGHTS: &str = include_str!("../generated_queries/magik/highlights.scm");
+pub const MAGIK_INJECTIONS: &str = include_str!("../generated_queries/magik/injections.scm");
+pub const MAGIK_LOCALS: &str = include_str!("../generated_queries/magik/locals.scm");
+pub const MAGIK_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/magik/highlights_crates_io.scm");
+pub const MAGIK_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/magik/injections_crates_io.scm");
+pub const MAGIK_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/magik/locals_crates_io.scm");
+
 pub const MAKE_HIGHLIGHTS: &str = include_str!("../generated_queries/make/highlights.scm");
 pub const MAKE_INJECTIONS: &str = include_str!("../generated_queries/make/injections.scm");
 pub const MAKE_LOCALS: &str = include_str!("../generated_queries/make/locals.scm");
@@ -1408,6 +1450,13 @@ pub const PERL_LOCALS: &str = include_str!("../generated_queries/perl/locals.scm
 pub const PERL_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/perl/highlights_crates_io.scm");
 pub const PERL_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/perl/injections_crates_io.scm");
 pub const PERL_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/perl/locals_crates_io.scm");
+
+pub const PGN_HIGHLIGHTS: &str = include_str!("../generated_queries/pgn/highlights.scm");
+pub const PGN_INJECTIONS: &str = include_str!("../generated_queries/pgn/injections.scm");
+pub const PGN_LOCALS: &str = include_str!("../generated_queries/pgn/locals.scm");
+pub const PGN_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/pgn/highlights_crates_io.scm");
+pub const PGN_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/pgn/injections_crates_io.scm");
+pub const PGN_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/pgn/locals_crates_io.scm");
 
 pub const PHP_HIGHLIGHTS: &str = include_str!("../generated_queries/php/highlights.scm");
 pub const PHP_INJECTIONS: &str = include_str!("../generated_queries/php/injections.scm");

@@ -133,8 +133,13 @@ struct UpdateLangResult {
 }
 
 enum UpdateEvent {
-    Started { name: String },
-    Finished { idx: usize, result: Result<UpdateLangResult> },
+    Started {
+        name: String,
+    },
+    Finished {
+        idx: usize,
+        result: Result<UpdateLangResult>,
+    },
 }
 
 fn update_lang_block(toml: &str, lang: &crate::schema::Language) -> Result<UpdateLangResult> {
@@ -191,23 +196,21 @@ fn update_lang_block(toml: &str, lang: &crate::schema::Language) -> Result<Updat
         .join()
         .map_err(|_| anyhow::anyhow!("update-langs crates.io worker panicked"))?;
     match &crates_io {
-        add_lang::CratesIoLookup::Match(version) => {
-            writeln!(log, "crates.io: {:?} -> {version:?}", &lang.parser.crates_io)?
-        }
-        add_lang::CratesIoLookup::Mismatch => {
-            writeln!(
-                log,
-                "crates.io: {:?} -> (repo mismatch; unchanged)",
-                &lang.parser.crates_io
-            )?
-        }
-        add_lang::CratesIoLookup::Unavailable => {
-            writeln!(
-                log,
-                "crates.io: {:?} -> (unavailable; unchanged)",
-                &lang.parser.crates_io
-            )?
-        }
+        add_lang::CratesIoLookup::Match(version) => writeln!(
+            log,
+            "crates.io: {:?} -> {version:?}",
+            &lang.parser.crates_io
+        )?,
+        add_lang::CratesIoLookup::Mismatch => writeln!(
+            log,
+            "crates.io: {:?} -> (repo mismatch; unchanged)",
+            &lang.parser.crates_io
+        )?,
+        add_lang::CratesIoLookup::Unavailable => writeln!(
+            log,
+            "crates.io: {:?} -> (unavailable; unchanged)",
+            &lang.parser.crates_io
+        )?,
     };
     // TODO: check compat for gitdep?
     writeln!(log, "external C: {external_c}")?;

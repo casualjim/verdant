@@ -145,6 +145,7 @@ all = [
     "bicep",
     "bitbake",
     "blade",
+    "blueprint",
     "bp",
     "bpftrace",
     "brightscript",
@@ -155,6 +156,7 @@ all = [
     "capnp",
     "chatito",
     "circom",
+    "clarity",
     "cook",
     "corn",
     "cpon",
@@ -177,6 +179,7 @@ all = [
     "eds",
     "eelixir",
     "ejs",
+    "elisp",
     "elm",
     "elsa",
     "elvish",
@@ -195,6 +198,7 @@ all = [
     "fsh",
     "fsharp",
     "func",
+    "fusion",
     "gap",
     "gaptst",
     "gdresource",
@@ -220,6 +224,7 @@ all = [
     "handlebars",
     "hare",
     "haskellpersistent",
+    "haxe",
     "heex",
     "helm",
     "help",
@@ -265,6 +270,7 @@ all = [
     "llvm",
     "luadoc",
     "luau",
+    "magik",
     "matlab",
     "menhir",
     "mermaid",
@@ -290,6 +296,7 @@ all = [
     "pbtxt",
     "pem",
     "perl",
+    "pgn",
     "phpdoc",
     "pioasm",
     "pkl",
@@ -432,6 +439,7 @@ bibtex = []
 bicep = []
 bitbake = []
 blade = []
+blueprint = []
 bp = []
 bpftrace = []
 brightscript = []
@@ -444,6 +452,7 @@ cairo = []
 capnp = []
 chatito = []
 circom = []
+clarity = []
 clojure = []
 cmake = []
 comment = []
@@ -475,6 +484,7 @@ editorconfig = []
 eds = []
 eelixir = []
 ejs = []
+elisp = []
 elixir = []
 elm = []
 elsa = []
@@ -495,6 +505,7 @@ fsd = []
 fsh = []
 fsharp = []
 func = []
+fusion = []
 gap = []
 gaptst = []
 gdresource = []
@@ -529,6 +540,7 @@ handlebars = []
 hare = []
 haskell = []
 haskellpersistent = []
+haxe = []
 hcl = []
 heex = []
 helm = []
@@ -586,6 +598,7 @@ lua = []
 luadoc = []
 luap = []
 luau = []
+magik = []
 make = []
 markdown = []
 markdown_inline = []
@@ -616,6 +629,7 @@ passwd = []
 pbtxt = []
 pem = []
 perl = []
+pgn = []
 php = []
 php_only = []
 phpdoc = []

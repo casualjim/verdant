@@ -515,11 +515,7 @@ fn normalize_regex_flags(pattern: &str) -> Cow<'_, str> {
     if !pattern.contains("\\c") && !pattern.contains("\\C") {
         return Cow::Borrowed(pattern);
     }
-    Cow::Owned(
-        pattern
-            .replace("\\c", "(?i)")
-            .replace("\\C", "(?-i)"),
-    )
+    Cow::Owned(pattern.replace("\\c", "(?i)").replace("\\C", "(?-i)"))
 }
 
 fn wrap_string_patterns(tree: &mut OwnedSexpr) {
@@ -527,7 +523,9 @@ fn wrap_string_patterns(tree: &mut OwnedSexpr) {
         OwnedSexpr::List(list) | OwnedSexpr::Group(list) => {
             let should_wrap = list.len() > 1
                 && matches!(list.first(), Some(OwnedSexpr::String(_)))
-                && list[1..].iter().all(|item| matches!(item, OwnedSexpr::Atom(_)));
+                && list[1..]
+                    .iter()
+                    .all(|item| matches!(item, OwnedSexpr::Atom(_)));
             if should_wrap {
                 if let Some(OwnedSexpr::String(first)) = list.first_mut() {
                     let string = std::mem::take(first);

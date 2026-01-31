@@ -1,7 +1,7 @@
 use std::borrow::Cow;
 
-use syntastica_highlight::HighlightConfiguration;
 use palate::FileType;
+use syntastica_highlight::HighlightConfiguration;
 
 use crate::Result;
 

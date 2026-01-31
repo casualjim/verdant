@@ -5,8 +5,8 @@
 
 use std::{borrow::Cow, path::Path};
 
-pub use syntastica_highlight::HighlightConfiguration;
 pub use palate::FileType;
+pub use syntastica_highlight::HighlightConfiguration;
 
 pub use crate::ts_runtime::Language;
 
