@@ -50,8 +50,21 @@ jobs:
 
       - name: Install Toolchain
         uses: dtolnay/rust-toolchain@stable
+
+      - name: Restore Cache
+        uses: Swatinem/rust-cache@v2
         with:
-          target: wasm32-unknown-emscripten
+          cache-on-failure: true
+
+      - name: Run Codegen
+        run: cargo xtask codegen
+
+      - name: Prepare CI
+        run: |
+          bash _prepare_ci.sh
+
+      - name: Install WASM Target
+        run: rustup target add wasm32-unknown-emscripten
 
       - name: Setup NodeJS
         uses: actions/setup-node@v4
@@ -63,18 +76,6 @@ jobs:
         with:
           actions-cache-folder: 'emsdk-cache'
 
-      - name: Restore Cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          cache-on-failure: true
-
-      - name: Run Codegen
-        run: cargo --target x86_64-unknown-linux-gnu xtask codegen
-
-      - name: Prepare CI
-        run: |
-          bash _prepare_ci.sh
-
       - name: Build Core Package
         run: |
           cd syntastica-js
@@ -82,7 +83,7 @@ jobs:
           npm run build
 
       - name: Build Language Packages
-        run: cargo --target x86_64-unknown-linux-gnu xtask build-js-langs
+        run: cargo xtask build-js-langs
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
