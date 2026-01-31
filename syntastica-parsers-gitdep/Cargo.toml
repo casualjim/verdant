@@ -935,7 +935,7 @@ rev = "97aead18d97708190a51d4f551ea9b05b60641c9"
 [dependencies.tree-sitter-sequel]
 optional = true
 git = "https://github.com/derekstride/tree-sitter-sql"
-rev = "7b51ecda191d36b92f5a90a8d1bc3faef1c7b8b8"
+rev = "86e3d03837d282544439620eb74d224586074b8b"
 
 [dependencies.tree-sitter-typescript]
 optional = true

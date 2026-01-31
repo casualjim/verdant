@@ -8048,7 +8048,7 @@
     "grammar": "sql",
     "grammar_repo": "https://github.com/derekstride/tree-sitter-sql",
     "grammar_repo_raw": "https://github.com/derekstride/tree-sitter-sql",
-    "grammar_rev": "7b51ecda191d36b92f5a90a8d1bc3faef1c7b8b8",
+    "grammar_rev": "86e3d03837d282544439620eb74d224586074b8b",
     "grammar_branch": "gh-pages",
     "grammar_path": null,
     "grammar_symbol_name": null,
