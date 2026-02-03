@@ -97,7 +97,7 @@ jobs:
   # run and commit auto-generated code
   codegen:
     runs-on: ubuntu-latest
-    if: github.repository == 'RubixDev/syntastica'
+    if: github.repository == 'casualjim/syntastica'
 
     steps:
       - name: Checkout repository
