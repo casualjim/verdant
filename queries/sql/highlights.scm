@@ -1,4 +1,4 @@
-;; Forked from https://raw.githubusercontent.com/derekstride/tree-sitter-sql/7b51ecda191d36b92f5a90a8d1bc3faef1c7b8b8/queries/highlights.scm
+;; Forked from https://raw.githubusercontent.com/derekstride/tree-sitter-sql/4afe285bb142542cee0aa7b689fec00a71df4741/queries/highlights.scm
 (object_reference
   name: (identifier) @type
 )

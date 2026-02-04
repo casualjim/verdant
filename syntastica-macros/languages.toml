@@ -4190,7 +4190,7 @@ group = "most"
 file-types = ["sql", "mysql"]
 [languages.parser]
 # has deployments on gh-pages branch
-git = { url = "https://github.com/derekstride/tree-sitter-sql", rev = "7b51ecda191d36b92f5a90a8d1bc3faef1c7b8b8" , branch = "gh-pages"}
+git = { url = "https://github.com/derekstride/tree-sitter-sql", rev = "4afe285bb142542cee0aa7b689fec00a71df4741" , branch = "gh-pages"}
 external-scanner = { c = true, cpp = false }
 ffi-func = "tree_sitter_sql"
 rust-const = "LANGUAGE"

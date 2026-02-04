@@ -80,7 +80,7 @@ for more information on all parser collections.
 - [ruby](https://github.com/tree-sitter/tree-sitter-ruby/tree/ab6dca77a8184abc94af6e3e82538741b5078d63)
 - [scala](https://github.com/tree-sitter/tree-sitter-scala/tree/97aead18d97708190a51d4f551ea9b05b60641c9)
 - [scss](https://github.com/serenadeai/tree-sitter-scss/tree/c478c6868648eff49eb04a4df90d703dc45b312a) (not supported by this collection)
-- [sql](https://github.com/derekstride/tree-sitter-sql/tree/7b51ecda191d36b92f5a90a8d1bc3faef1c7b8b8)
+- [sql](https://github.com/derekstride/tree-sitter-sql/tree/4afe285bb142542cee0aa7b689fec00a71df4741)
 - [sshconfig](https://github.com/tree-sitter-grammars/tree-sitter-ssh-config/tree/71d2693deadaca8cdc09e38ba41d2f6042da1616) (not supported by this collection)
 - [swift](https://github.com/alex-pinkus/tree-sitter-swift/tree/c7287392d610ca9d7c80f9edd2c6ef8f518b377b) (not supported by this collection)
 - [terraform](https://github.com/tree-sitter-grammars/tree-sitter-hcl/tree/64ad62785d442eb4d45df3a1764962dafd5bc98b) (not supported by this collection)

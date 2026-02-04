@@ -396,6 +396,9 @@
       },
       {
         "glob": "xserverrc"
+      },
+      {
+        "glob": "direnvrc"
       }
     ],
     "helix_shebangs": [
@@ -2932,7 +2935,17 @@
     "nvim_location": null,
     "nvim_filetype": "gnuplot",
     "effective_filetype": "gnuplot",
-    "match_type": "exact_url_with_name"
+    "match_type": "exact_url_with_name",
+    "helix_file_types": [
+      "gnuplot",
+      "plot",
+      "plt"
+    ],
+    "helix_language_name": "gnuplot",
+    "helix_grammar_git": "https://codeberg.org/maribu/tree-sitter-gnuplot",
+    "helix_grammar_rev": "21a3a3929facb964b3592daeb69119294ff84cf2",
+    "helix_grammar_branch": null,
+    "helix_grammar_subpath": null
   },
   {
     "grammar": "go",
@@ -8048,7 +8061,7 @@
     "grammar": "sql",
     "grammar_repo": "https://github.com/derekstride/tree-sitter-sql",
     "grammar_repo_raw": "https://github.com/derekstride/tree-sitter-sql",
-    "grammar_rev": "7b51ecda191d36b92f5a90a8d1bc3faef1c7b8b8",
+    "grammar_rev": "4afe285bb142542cee0aa7b689fec00a71df4741",
     "grammar_branch": "gh-pages",
     "grammar_path": null,
     "grammar_symbol_name": null,
@@ -8071,7 +8084,7 @@
     ],
     "helix_language_name": "sql",
     "helix_grammar_git": "https://github.com/DerekStride/tree-sitter-sql",
-    "helix_grammar_rev": "b9d109588d5b5ed986c857464830c2f0bef53f18",
+    "helix_grammar_rev": "86e3d03837d282544439620eb74d224586074b8b",
     "helix_grammar_branch": null,
     "helix_grammar_subpath": null
   },
@@ -8152,9 +8165,6 @@
       },
       {
         "glob": "BUILD.*"
-      },
-      {
-        "glob": "Tiltfile"
       },
       {
         "glob": "WORKSPACE"
