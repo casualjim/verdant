@@ -44,9 +44,9 @@ syntastica-query-preprocessor = { version = "0.7.0", path = "./syntastica-query-
 syntastica-queries = { version = "0.7.0", path = "./syntastica-queries" }
 syntastica-themes = { version = "0.7.0", path = "./syntastica-themes" }
 
-tree-sitter = "0.26.3"
+tree-sitter = "0.25.2"
 tree-sitter-c2rust = "0.25.2"
-tree-sitter-generate = "0.26.3"
+tree-sitter-generate = "0.25.1"
 
 cc = "1.2.12"
 document-features = "0.2.10"
