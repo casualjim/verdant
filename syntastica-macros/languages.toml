@@ -1364,6 +1364,8 @@ locals = true
 name = "gitcommit"
 group = "some"
 file-types = ["gitcommit"]
+# Excluded from WASM: parser has massive character tables that cause emscripten OOM
+wasm = false
 [languages.parser]
 git = { url = "https://github.com/gbprod/tree-sitter-gitcommit", rev = "a716678c0f00645fed1e6f1d0eb221481dbd6f6d" }
 external-scanner = { c = true, cpp = false }
