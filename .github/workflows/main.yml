@@ -149,15 +149,11 @@ jobs:
         with:
           node-version: 23
 
-<<<<<<< HEAD
-=======
       - name: Install tree-sitter CLI
         run: npm i -g tree-sitter-cli@0.25.10
 
-      - name: Prime grammar sources (breeze-like)
+      - name: Prime grammar sources
         run: cargo xtask build-grammars -j 8
-
->>>>>>> c8f05c9 (ci: speed up grammar priming)
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v14
         with:
