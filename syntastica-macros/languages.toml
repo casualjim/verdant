@@ -4571,6 +4571,8 @@ locals = true
 name = "tmux"
 group = "all"
 file-types = ["tmux"]
+# Excluded from WASM: emcc parser compilation is killed in CI (SIGKILL)
+wasm = false
 [languages.parser]
 git = { url = "https://github.com/Freed-Wu/tree-sitter-tmux", rev = "75d1b995b0c23400ac8e49db757a2e0386f9fa8f" }
 external-scanner = { c = false, cpp = false }
