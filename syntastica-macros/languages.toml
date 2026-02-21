@@ -5196,6 +5196,8 @@ locals = false
 name = "zsh"
 group = "most"
 file-types = ["zsh"]
+# Excluded from WASM: emcc parser compilation is killed in CI (SIGKILL)
+wasm = false
 [languages.parser]
 git = { url = "https://github.com/georgeharker/tree-sitter-zsh", rev = "v0.53.0" }
 external-scanner = { c = true, cpp = false }
