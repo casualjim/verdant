@@ -2398,6 +2398,8 @@ locals = true
 name = "kitty"
 group = "all"
 file-types = ["kitty"]
+# wasm = false: parser.c is too large and causes emcc to be OOM-killed on CI
+wasm = false
 [languages.parser]
 git = { url = "https://github.com/OXY2DEV/tree-sitter-kitty", rev = "f821c16397ffab5b776d8781245215811438a624" }
 external-scanner = { c = false, cpp = false }
