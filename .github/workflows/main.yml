@@ -198,7 +198,7 @@ jobs:
   # run and commit auto-generated code
   codegen:
     runs-on: ubuntu-latest
-    if: ${{ false }}
+    if: github.ref_name == 'expand-languages'
 
     steps:
       - name: Checkout repository
@@ -253,7 +253,7 @@ jobs:
 
       - name: Prepare Git Deployment
         run: |
-          git checkout --orphan new-main main
+          git checkout --orphan new-main "$GITHUB_REF_NAME"
           git add --force syntastica-queries/generated_queries
       - name: Create Git Deploy Commit
         uses: EndBug/add-and-commit@v9
@@ -264,8 +264,9 @@ jobs:
           push: false
       - name: Push new Git Deployment
         run: |
-          git branch -M new-main git-deploy
-          git push origin git-deploy --set-upstream --force
+          DEPLOY_BRANCH="${GITHUB_REF_NAME}-git-deploy"
+          git branch -M new-main "$DEPLOY_BRANCH"
+          git push origin "$DEPLOY_BRANCH" --set-upstream --force
 
       - name: Upload Queries as Artifact
         uses: actions/upload-artifact@v4
