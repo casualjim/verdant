@@ -1,8 +1,8 @@
 [package]
-name = "syntatica-js"
+name = "cj-syntastica-js"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true

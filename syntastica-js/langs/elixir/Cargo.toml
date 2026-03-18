@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-elixir"
+name = "cj-syntastica-js-elixir"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Elixir language support for syntatica-js"
+description = "Elixir language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

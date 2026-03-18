@@ -1,8 +1,8 @@
 [package]
-name = "syntatica-query-preprocessor"
+name = "cj-syntastica-query-preprocessor"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_query_preprocessor/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_query_preprocessor/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true

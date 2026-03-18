@@ -28,10 +28,10 @@ pub fn write() -> Result<()> {
         fs::write(
             lang_dir.join("README.md"),
             format!(
-                r###"# `syntatica-js-{lang_name}`
+                r###"# `cj-syntastica-js-{lang_name}`
 
 {lang_name_pascal} language support for
-[`syntatica-js`](https://www.npmjs.com/package/@syntatica/core).
+[`cj-syntastica-js`](https://www.npmjs.com/package/@cj-syntastica/core).
 "###
             ),
         )?;
@@ -40,14 +40,14 @@ pub fn write() -> Result<()> {
             lang_dir.join("Cargo.toml"),
             format!(
                 r###"[package]
-name = "syntatica-js-{lang_name}"
+name = "cj-syntastica-js-{lang_name}"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "{lang_name_pascal} language support for syntatica-js"
+description = "{lang_name_pascal} language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]
@@ -105,9 +105,9 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
             format!(
                 r###"{{
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntatica/lang-{lang_name}",
+  "name": "@cj-syntastica/lang-{lang_name}",
   "version": "{syntastica_version}",
-  "description": "{lang_name_pascal} language support for syntatica-js",
+  "description": "{lang_name_pascal} language support for cj-syntastica-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
   "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
   "bugs": "https://github.com/casualjim/syntastica/issues",

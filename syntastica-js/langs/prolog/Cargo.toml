@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-prolog"
+name = "cj-syntastica-js-prolog"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Prolog language support for syntatica-js"
+description = "Prolog language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

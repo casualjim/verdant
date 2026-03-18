@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-bibtex"
+name = "cj-syntastica-js-bibtex"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Bibtex language support for syntatica-js"
+description = "Bibtex language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

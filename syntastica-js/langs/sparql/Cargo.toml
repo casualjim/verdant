@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-sparql"
+name = "cj-syntastica-js-sparql"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Sparql language support for syntatica-js"
+description = "Sparql language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

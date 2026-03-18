@@ -1,8 +1,8 @@
 [package]
-name = "syntatica-parsers-git"
+name = "cj-syntastica-parsers-git"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_parsers_git/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_parsers_git/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -411,11 +411,11 @@ all = [
 ]
 
 ## Use the standard tree-sitter C runtime. See `syntastica`'s
-## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/cj-syntastica/#webassembly-support)
 ## for more information.
 runtime-c = ["syntastica-core/runtime-c"]
 ## Use the pure Rust tree-sitter runtime. See `syntastica`'s
-## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/cj-syntastica/#webassembly-support)
 ## for more information.
 runtime-c2rust = ["syntastica-core/runtime-c2rust"]
 

@@ -1,8 +1,8 @@
 [package]
-name = "syntatica-macros"
+name = "cj-syntastica-macros"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_macros/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_macros/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true

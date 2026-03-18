@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-vhdl"
+name = "cj-syntastica-js-vhdl"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Vhdl language support for syntatica-js"
+description = "Vhdl language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

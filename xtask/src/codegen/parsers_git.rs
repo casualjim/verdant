@@ -35,12 +35,12 @@ default = ["runtime-c"]
     toml += &super::parsers_toml_feature(Group::All);
 
     toml += r###"
-## Use the standard tree-sitter C runtime. See `syntatica`'s
-## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
+## Use the standard tree-sitter C runtime. See `cj-syntastica`'s
+## [WebAssembly support](https://casualjim.github.io/syntastica/cj-syntastica/#webassembly-support)
 ## for more information.
 runtime-c = ["syntastica-core/runtime-c"]
-## Use the pure Rust tree-sitter runtime. See `syntatica`'s
-## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
+## Use the pure Rust tree-sitter runtime. See `cj-syntastica`'s
+## [WebAssembly support](https://casualjim.github.io/syntastica/cj-syntastica/#webassembly-support)
 ## for more information.
 runtime-c2rust = ["syntastica-core/runtime-c2rust"]
 "###;

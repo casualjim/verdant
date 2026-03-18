@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntatica/lang-bitbake",
+  "name": "@cj-syntastica/lang-bitbake",
   "version": "0.7.0",
-  "description": "Bitbake language support for syntatica-js",
+  "description": "Bitbake language support for cj-syntastica-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
   "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
   "bugs": "https://github.com/casualjim/syntastica/issues",

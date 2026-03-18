@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-teal"
+name = "cj-syntastica-js-teal"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Teal language support for syntatica-js"
+description = "Teal language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

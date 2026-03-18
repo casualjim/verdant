@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-gomod"
+name = "cj-syntastica-js-gomod"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Gomod language support for syntatica-js"
+description = "Gomod language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

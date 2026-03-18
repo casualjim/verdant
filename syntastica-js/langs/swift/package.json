@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntatica/lang-swift",
+  "name": "@cj-syntastica/lang-swift",
   "version": "0.7.0",
-  "description": "Swift language support for syntatica-js",
+  "description": "Swift language support for cj-syntastica-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
   "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
   "bugs": "https://github.com/casualjim/syntastica/issues",

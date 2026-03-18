@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-psv"
+name = "cj-syntastica-js-psv"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Psv language support for syntatica-js"
+description = "Psv language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

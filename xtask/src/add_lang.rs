@@ -322,7 +322,7 @@ fn normalize_grammar_name(name: &str) -> String {
 
 static CRATES_IO_CLIENT: Lazy<SyncClient> = Lazy::new(|| {
     SyncClient::new(
-        "syntatica xtask (github.com/casualjim/syntastica)",
+        "cj-syntastica xtask (github.com/casualjim/syntastica)",
         Duration::from_millis(1200),
     )
     .unwrap()
@@ -330,7 +330,7 @@ static CRATES_IO_CLIENT: Lazy<SyncClient> = Lazy::new(|| {
 
 static REPO_HTTP_CLIENT: Lazy<reqwest::blocking::Client> = Lazy::new(|| {
     reqwest::blocking::Client::builder()
-        .user_agent("syntatica xtask (github.com/casualjim/syntastica)")
+        .user_agent("cj-syntastica xtask (github.com/casualjim/syntastica)")
         .redirect(Policy::limited(5))
         .timeout(Duration::from_secs(5))
         .build()

@@ -1,8 +1,8 @@
 [package]
-name = "syntatica-parsers-dynamic"
+name = "cj-syntastica-parsers-dynamic"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_parsers_dynamic/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_parsers_dynamic/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true

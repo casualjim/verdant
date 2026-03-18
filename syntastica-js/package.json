@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntatica/core",
+  "name": "@cj-syntastica/core",
   "version": "0.6.0",
   "description": "Modern and easy syntax highlighting using tree-sitter",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

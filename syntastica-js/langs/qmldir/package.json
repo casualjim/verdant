@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntatica/lang-qmldir",
+  "name": "@cj-syntastica/lang-qmldir",
   "version": "0.7.0",
-  "description": "Qmldir language support for syntatica-js",
+  "description": "Qmldir language support for cj-syntastica-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
   "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
   "bugs": "https://github.com/casualjim/syntastica/issues",

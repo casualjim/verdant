@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-apex"
+name = "cj-syntastica-js-apex"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Apex language support for syntatica-js"
+description = "Apex language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

@@ -32,17 +32,17 @@ sign-tag = true
 shared-version = true
 
 [workspace.dependencies]
-syntastica = { package = "syntatica", version = "0.7.0", path = "./" }
-syntastica-core = { package = "syntatica-core", version = "0.7.0", path = "./syntastica-core", default-features = false }
-syntastica-highlight = { package = "syntatica-highlight", version = "0.7.0", path = "./syntastica-highlight", default-features = false }
-syntastica-macros = { package = "syntatica-macros", version = "0.7.0", path = "./syntastica-macros" }
-syntastica-parsers = { package = "syntatica-parsers", version = "0.7.0", path = "./syntastica-parsers" }
-syntastica-parsers-dynamic = { package = "syntatica-parsers-dynamic", version = "0.7.0", path = "./syntastica-parsers-dynamic" }
-syntastica-parsers-git = { package = "syntatica-parsers-git", version = "0.7.0", path = "./syntastica-parsers-git" }
-syntastica-parsers-gitdep = { package = "syntatica-parsers-gitdep", version = "0.7.0", path = "./syntastica-parsers-gitdep" }
-syntastica-query-preprocessor = { package = "syntatica-query-preprocessor", version = "0.7.0", path = "./syntastica-query-preprocessor" }
-syntastica-queries = { package = "syntatica-queries", version = "0.7.0", path = "./syntastica-queries" }
-syntastica-themes = { package = "syntatica-themes", version = "0.7.0", path = "./syntastica-themes" }
+syntastica = { package = "cj-syntastica", version = "0.7.0", path = "./" }
+syntastica-core = { package = "cj-syntastica-core", version = "0.7.0", path = "./syntastica-core", default-features = false }
+syntastica-highlight = { package = "cj-syntastica-highlight", version = "0.7.0", path = "./syntastica-highlight", default-features = false }
+syntastica-macros = { package = "cj-syntastica-macros", version = "0.7.0", path = "./syntastica-macros" }
+syntastica-parsers = { package = "cj-syntastica-parsers", version = "0.7.0", path = "./syntastica-parsers" }
+syntastica-parsers-dynamic = { package = "cj-syntastica-parsers-dynamic", version = "0.7.0", path = "./syntastica-parsers-dynamic" }
+syntastica-parsers-git = { package = "cj-syntastica-parsers-git", version = "0.7.0", path = "./syntastica-parsers-git" }
+syntastica-parsers-gitdep = { package = "cj-syntastica-parsers-gitdep", version = "0.7.0", path = "./syntastica-parsers-gitdep" }
+syntastica-query-preprocessor = { package = "cj-syntastica-query-preprocessor", version = "0.7.0", path = "./syntastica-query-preprocessor" }
+syntastica-queries = { package = "cj-syntastica-queries", version = "0.7.0", path = "./syntastica-queries" }
+syntastica-themes = { package = "cj-syntastica-themes", version = "0.7.0", path = "./syntastica-themes" }
 
 tree-sitter = "0.25.2"
 tree-sitter-c2rust = "0.25.2"
@@ -71,10 +71,10 @@ opt-level = "s"
 strip = true
 
 [package]
-name = "syntatica"
+name = "cj-syntastica"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica/"
+documentation = "https://casualjim.github.io/syntastica/cj-syntastica/"
 edition.workspace = true
 keywords = ["tree-sitter", "syntect", "highlight", "parsing", "syntax"]
 license.workspace = true

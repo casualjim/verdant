@@ -1,8 +1,8 @@
 [package]
-name = "syntatica-parsers-gitdep"
+name = "cj-syntastica-parsers-gitdep"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_parsers_gitdep/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_parsers_gitdep/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true

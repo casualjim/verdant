@@ -1,12 +1,12 @@
 [package]
-name = "syntatica-js-nim_format_string"
+name = "cj-syntastica-js-nim_format_string"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "NimFormatString language support for syntatica-js"
+description = "NimFormatString language support for cj-syntastica-js"
 
 [lib]
 crate-type = ["cdylib"]

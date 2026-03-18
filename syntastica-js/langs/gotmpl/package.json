@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntatica/lang-gotmpl",
+  "name": "@cj-syntastica/lang-gotmpl",
   "version": "0.7.0",
-  "description": "Gotmpl language support for syntatica-js",
+  "description": "Gotmpl language support for cj-syntastica-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
   "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
   "bugs": "https://github.com/casualjim/syntastica/issues",

@@ -5,7 +5,7 @@ Modern and easy syntax highlighting using tree-sitter
 > **Note**
 >
 > If viewing this file on [GitHub](https://github.com/casualjim/syntastica) or
-> [crates.io](https://crates.io/crates/syntatica), some links might not be
+> [crates.io](https://crates.io/crates/cj-syntastica), some links might not be
 > working. Go to the
 > [custom docs page](https://casualjim.github.io/syntastica/syntastica/) or the
 > [docs.rs page](https://docs.rs/syntastica/) instead, which additionally
@@ -24,9 +24,9 @@ To use `syntastica`, you probably want to depend on three crates:
 So for example:
 
 ```toml
-syntatica = "<version>"
-syntatica-parsers = { version = "<version>", features = ["some"] }
-syntatica-themes = "<version>"
+cj-syntastica = "<version>"
+cj-syntastica-parsers = { version = "<version>", features = ["some"] }
+cj-syntastica-themes = "<version>"
 ```
 
 ### Use cases
@@ -43,7 +43,7 @@ cases:
    [`Processor`], [`render`], and
    [this example](#example-highlight-multiple-different-inputs)
 
-### Using `syntatica` as a Git Dependency
+### Using `cj-syntastica` as a Git Dependency
 
 Using [`syntastica-queries`](#syntastica-queries), and in turn any crate in this
 workspace which depends on [`syntastica-queries`](#syntastica-queries), as a git
@@ -54,7 +54,7 @@ depend on for example [`syntastica-parsers-git`](#syntastica-parsers-git) like
 this:
 
 ```toml
-syntatica-parsers-git = { git = "https://github.com/casualjim/syntastica", branch = "expand-languages-git-deploy" }
+cj-syntastica-parsers-git = { git = "https://github.com/casualjim/syntastica", branch = "expand-languages-git-deploy" }
 ```
 
 ## Subprojects
@@ -72,7 +72,7 @@ different advantages and drawbacks each. Three of them depend on
 one, and add it as a dependency next to `syntastica` itself.
 
 The odd one out here is
-[`syntastica-parsers-dynamic`](https://crates.io/crates/syntatica-parsers-dynamic),
+[`syntastica-parsers-dynamic`](https://crates.io/crates/cj-syntastica-parsers-dynamic),
 which unlike the others doesn't actually include any parsers but instead
 provides an interface to load them during runtime.
 
@@ -86,13 +86,13 @@ collections or combine multiple sets, have a look at the
 [`Union`](language_set::Union) type or the
 [custom languages example](https://github.com/casualjim/syntastica/blob/main/examples/custom_languages.rs).
 
-- [`syntastica-parsers`](https://crates.io/crates/syntatica-parsers) is
+- [`syntastica-parsers`](https://crates.io/crates/cj-syntastica-parsers) is
   probably the easiest to start with. It uses parsers from
   [crates.io](https://crates.io). This has the main benefit of being well
   integrated in the cargo ecosystem. However, many tree-sitter parsers do not
   get published to crates.io, and those that are, are usually very outdated.
   Thus, this collection is relatively limited.
-- <a name="syntastica-parsers-git" href="https://crates.io/crates/syntatica-parsers-git"><code>syntastica-parsers-git</code></a>
+- <a name="syntastica-parsers-git" href="https://crates.io/crates/cj-syntastica-parsers-git"><code>syntastica-parsers-git</code></a>
   is probably the best choice overall. It contains all supported languages and
   is the only choice when targeting WebAssembly. It pulls pinned revisions of
   parser git repositories in the build script and links to the C and C++ parser
@@ -112,7 +112,7 @@ collections or combine multiple sets, have a look at the
   crates.io. Unlike [`syntastica-parsers-git`](#syntastica-parsers-git) however,
   the parsers only need to be fetched once by cargo, and subsequent builds will
   be much faster.
-- [`syntastica-parsers-dynamic`](https://crates.io/crates/syntatica-parsers-dynamic)
+- [`syntastica-parsers-dynamic`](https://crates.io/crates/cj-syntastica-parsers-dynamic)
   doesn't include any parsers by itself but instead provides a
   [`LanguageSet`](language_set::LanguageSet) implementation that can find and
   load parsers at runtime. This allows for behavior similar to what the
@@ -126,7 +126,7 @@ To [render highlighted code](render) to end users, a
 [theme](theme::ResolvedTheme) is needed, which specifies the colors to use for
 which [theme key](theme::THEME_KEYS). The `syntastica` project comes with a
 separate crate containing a few default themes:
-[`syntastica-themes`](https://crates.io/crates/syntatica-themes).
+[`syntastica-themes`](https://crates.io/crates/cj-syntastica-themes).
 
 If you wish to create your own theme, have a look at the
 [custom theme example](#example-custom-theme) and the documentation for the
@@ -141,23 +141,23 @@ meant for outside use, but are instead used internally. These are listed below.
 > for any reason, you have to depend on one of them, then pin the _exact_
 > version using `<crate> = "=<version>"`.
 
-- [`syntastica-core`](https://crates.io/crates/syntatica-core) defines types,
+- [`syntastica-core`](https://crates.io/crates/cj-syntastica-core) defines types,
   traits, constants, etc. which are used in multiple of the other crates. The
   main `syntastica` crate re-exports all those items transparently, so that
   external projects only need a dependency on that. The items are defined in
   `syntastica-core` however, to avoid cyclic (dev-)dependencies inside this
   workspace.
-- [`syntastica-macros`](https://crates.io/crates/syntatica-macros) defines
+- [`syntastica-macros`](https://crates.io/crates/cj-syntastica-macros) defines
   procedural macros for use **exclusively** inside this workspace. This crate
   allows the list of languages/parsers to be in _one_ combined `languages.toml`
   file, and the different macros are used in the different places where this
   list needs to be referenced.
-- [`syntastica-highlight`](https://crates.io/crates/syntatica-highlight) is a
+- [`syntastica-highlight`](https://crates.io/crates/cj-syntastica-highlight) is a
   fork of
   [`tree-sitter-highlight`](https://crates.io/crates/tree-sitter-highlight),
   which is adjusted and trimmed down for the use in `syntastica`. It contains
   the main highlighting logic.
-- <a name="syntastica-queries" href="https://crates.io/crates/syntatica-queries"><code>syntastica-queries</code></a>
+- <a name="syntastica-queries" href="https://crates.io/crates/cj-syntastica-queries"><code>syntastica-queries</code></a>
   is a collection of tree-sitter queries for all supported languages. It is
   marked as "for internal use", because all three
   [parser collections](#parser-collections) depend on this crate and expose the
@@ -195,7 +195,7 @@ direct association with the main project and can be used completely separately.
   however (obviously), which is why during the processing of the queries (with
   `cargo xtask codegen queries`), all Lua patterns are replaced with regular
   expressions using this crate.
-- [`syntastica-query-preprocessor`](https://crates.io/crates/syntatica-query-preprocessor)
+- [`syntastica-query-preprocessor`](https://crates.io/crates/cj-syntastica-query-preprocessor)
   is a pre-processor for tree-sitter queries which allows usage of
   `; inherits <lang>` comments, conditional skipping of nodes with comments,
   usage of additional predicates like `lua-match?`, `contains?` and `any-of?`,
@@ -250,7 +250,7 @@ which makes it very cumbersome to use Emscripten for Rust. In the attempt to
 make using `syntastica` on the web a bit easier, the
 [`syntastica-js` crate](https://github.com/casualjim/syntastica/tree/main/syntastica-js)
 and accompanying
-[`@syntatica/core` NPM package](https://www.npmjs.com/package/@syntatica/core)
+[`@cj-syntastica/core` NPM package](https://www.npmjs.com/package/@cj-syntastica/core)
 provide a JavaScript/TypeScript wrapper around an Emscripten build of
 `syntastica`.
 

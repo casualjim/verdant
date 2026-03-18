@@ -1,8 +1,8 @@
 [package]
-name = "syntatica-themes"
+name = "cj-syntastica-themes"
 version.workspace = true
 authors.workspace = true
-documentation = "https://casualjim.github.io/syntastica/syntatica_themes/"
+documentation = "https://casualjim.github.io/syntastica/cj_syntastica_themes/"
 edition.workspace = true
 exclude = ["assets/theme-svgs"]
 license.workspace = true
@@ -17,11 +17,11 @@ workspace = true
 default = ["runtime-c"]
 
 ## Use the standard tree-sitter C runtime. See `syntastica`'s
-## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/cj-syntastica/#webassembly-support)
 ## for more information.
 runtime-c = ["syntastica-core/runtime-c"]
 ## Use the pure Rust tree-sitter runtime. See `syntastica`'s
-## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/cj-syntastica/#webassembly-support)
 ## for more information.
 runtime-c2rust = ["syntastica-core/runtime-c2rust"]
 

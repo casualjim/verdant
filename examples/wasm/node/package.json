@@ -7,8 +7,8 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
-    "@syntatica/core": "^0.5.1",
-    "@syntatica/lang-javascript": "^0.5.0",
-    "@syntatica/lang-rust": "^0.5.0"
+    "@cj-syntastica/core": "^0.5.1",
+    "@cj-syntastica/lang-javascript": "^0.5.0",
+    "@cj-syntastica/lang-rust": "^0.5.0"
   }
 }
