@@ -28,10 +28,10 @@ pub fn write() -> Result<()> {
         fs::write(
             lang_dir.join("README.md"),
             format!(
-                r###"# `syntastica-js-{lang_name}`
+                r###"# `syntatica-js-{lang_name}`
 
 {lang_name_pascal} language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`syntatica-js`](https://www.npmjs.com/package/@syntatica/core).
 "###
             ),
         )?;
@@ -40,14 +40,14 @@ pub fn write() -> Result<()> {
             lang_dir.join("Cargo.toml"),
             format!(
                 r###"[package]
-name = "syntastica-js-{lang_name}"
+name = "syntatica-js-{lang_name}"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "{lang_name_pascal} language support for syntastica-js"
+description = "{lang_name_pascal} language support for syntatica-js"
 
 [lib]
 crate-type = ["cdylib"]
@@ -105,22 +105,18 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
             format!(
                 r###"{{
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntastica/lang-{lang_name}",
+  "name": "@syntatica/lang-{lang_name}",
   "version": "{syntastica_version}",
-  "description": "{lang_name_pascal} language support for syntastica-js",
+  "description": "{lang_name_pascal} language support for syntatica-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
-  "homepage": "https://github.com/RubixDev/syntastica/tree/main/syntastica-js#readme",
-  "bugs": "https://github.com/RubixDev/syntastica/issues",
+  "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
+  "bugs": "https://github.com/casualjim/syntastica/issues",
   "license": "MPL-2.0",
-  "author": "RubixDev",
-  "funding": {{
-    "url": "https://ko-fi.com/rubixdev",
-    "type": "ko-fi"
-  }},
+  "author": "casualjim",
   "files": ["{lang_name}.wasm"],
   "repository": {{
     "type": "git",
-    "url": "git+https://github.com/RubixDev/syntastica.git",
+    "url": "git+https://github.com/casualjim/syntastica.git",
     "directory": "syntastica-js/langs/{lang_name}"
   }},
   "publishConfig": {{

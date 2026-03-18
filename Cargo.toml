@@ -19,11 +19,11 @@ members = [
 ]
 
 package.version = "0.7.0"
-package.authors = ["RubixDev <contact@rubixdev.de>"]
-package.documentation = "https://rubixdev.github.io/syntastica/"
+package.authors = ["casualjim"]
+package.documentation = "https://casualjim.github.io/syntastica/"
 package.edition = "2021"
 package.license = "MPL-2.0"
-package.repository = "https://github.com/RubixDev/syntastica"
+package.repository = "https://github.com/casualjim/syntastica"
 
 [workspace.metadata.release]
 enable-all-features = true
@@ -32,17 +32,17 @@ sign-tag = true
 shared-version = true
 
 [workspace.dependencies]
-syntastica = { version = "0.7.0", path = "./" }
-syntastica-core = { version = "0.7.0", path = "./syntastica-core", default-features = false }
-syntastica-highlight = { version = "0.7.0", path = "./syntastica-highlight", default-features = false }
-syntastica-macros = { version = "0.7.0", path = "./syntastica-macros" }
-syntastica-parsers = { version = "0.7.0", path = "./syntastica-parsers" }
-syntastica-parsers-dynamic = { version = "0.7.0", path = "./syntastica-parsers-dynamic" }
-syntastica-parsers-git = { version = "0.7.0", path = "./syntastica-parsers-git" }
-syntastica-parsers-gitdep = { version = "0.7.0", path = "./syntastica-parsers-gitdep" }
-syntastica-query-preprocessor = { version = "0.7.0", path = "./syntastica-query-preprocessor" }
-syntastica-queries = { version = "0.7.0", path = "./syntastica-queries" }
-syntastica-themes = { version = "0.7.0", path = "./syntastica-themes" }
+syntastica = { package = "syntatica", version = "0.7.0", path = "./" }
+syntastica-core = { package = "syntatica-core", version = "0.7.0", path = "./syntastica-core", default-features = false }
+syntastica-highlight = { package = "syntatica-highlight", version = "0.7.0", path = "./syntastica-highlight", default-features = false }
+syntastica-macros = { package = "syntatica-macros", version = "0.7.0", path = "./syntastica-macros" }
+syntastica-parsers = { package = "syntatica-parsers", version = "0.7.0", path = "./syntastica-parsers" }
+syntastica-parsers-dynamic = { package = "syntatica-parsers-dynamic", version = "0.7.0", path = "./syntastica-parsers-dynamic" }
+syntastica-parsers-git = { package = "syntatica-parsers-git", version = "0.7.0", path = "./syntastica-parsers-git" }
+syntastica-parsers-gitdep = { package = "syntatica-parsers-gitdep", version = "0.7.0", path = "./syntastica-parsers-gitdep" }
+syntastica-query-preprocessor = { package = "syntatica-query-preprocessor", version = "0.7.0", path = "./syntastica-query-preprocessor" }
+syntastica-queries = { package = "syntatica-queries", version = "0.7.0", path = "./syntastica-queries" }
+syntastica-themes = { package = "syntatica-themes", version = "0.7.0", path = "./syntastica-themes" }
 
 tree-sitter = "0.25.2"
 tree-sitter-c2rust = "0.25.2"
@@ -71,10 +71,10 @@ opt-level = "s"
 strip = true
 
 [package]
-name = "syntastica"
+name = "syntatica"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica/"
+documentation = "https://casualjim.github.io/syntastica/syntatica/"
 edition.workspace = true
 keywords = ["tree-sitter", "syntect", "highlight", "parsing", "syntax"]
 license.workspace = true

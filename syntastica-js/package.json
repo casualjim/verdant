@@ -1,17 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntastica/core",
+  "name": "@syntatica/core",
   "version": "0.6.0",
   "description": "Modern and easy syntax highlighting using tree-sitter",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
-  "homepage": "https://github.com/RubixDev/syntastica/tree/main/syntastica-js#readme",
-  "bugs": "https://github.com/RubixDev/syntastica/issues",
+  "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
+  "bugs": "https://github.com/casualjim/syntastica/issues",
   "license": "MPL-2.0",
-  "author": "RubixDev",
-  "funding": {
-    "url": "https://ko-fi.com/rubixdev",
-    "type": "ko-fi"
-  },
+  "author": "casualjim",
   "files": [
     "src/index.ts",
     "./pkg/index.js",
@@ -33,7 +29,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RubixDev/syntastica.git",
+    "url": "git+https://github.com/casualjim/syntastica.git",
     "directory": "syntastica-js"
   },
   "publishConfig": {

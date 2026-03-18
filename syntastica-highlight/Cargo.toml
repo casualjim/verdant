@@ -1,8 +1,8 @@
 [package]
-name = "syntastica-highlight"
+name = "syntatica-highlight"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_highlight/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_highlight/"
 edition.workspace = true
 license = "MIT"
 repository.workspace = true
@@ -13,11 +13,11 @@ description = "Stripped-down and slightly modified fork of tree-sitter-highlight
 default = ["runtime-c"]
 
 ## Use the standard tree-sitter C runtime. See `syntastica`'s
-## [WebAssembly support](https://rubixdev.github.io/syntastica/syntastica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
 ## for more information.
 runtime-c = ["dep:tree-sitter"]
 ## Use the pure Rust tree-sitter runtime. See `syntastica`'s
-## [WebAssembly support](https://rubixdev.github.io/syntastica/syntastica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
 ## for more information.
 runtime-c2rust = ["dep:tree-sitter-c2rust"]
 

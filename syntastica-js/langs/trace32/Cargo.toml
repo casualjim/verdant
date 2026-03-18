@@ -1,12 +1,12 @@
 [package]
-name = "syntastica-js-trace32"
+name = "syntatica-js-trace32"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Trace32 language support for syntastica-js"
+description = "Trace32 language support for syntatica-js"
 
 [lib]
 crate-type = ["cdylib"]

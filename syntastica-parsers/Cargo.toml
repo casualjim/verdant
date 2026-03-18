@@ -1,8 +1,8 @@
 [package]
-name = "syntastica-parsers"
+name = "syntatica-parsers"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_parsers/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_parsers/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true

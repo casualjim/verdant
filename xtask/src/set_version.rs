@@ -31,7 +31,7 @@ pub fn run() -> Result<()> {
 
         let cargo_toml = DEP_VERSION_REGEX
             .replace_all(&cargo_toml, |captures: &Captures| {
-                if !captures[2].starts_with("syntastica") {
+                if !captures[2].starts_with("syntatica") {
                     println!("skipping dependency {}", &captures[2]);
                     return format!("{}{}{}", &captures[1], &captures[3], &captures[4]);
                 }

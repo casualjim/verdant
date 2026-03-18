@@ -1,8 +1,8 @@
 [package]
-name = "syntastica-queries"
+name = "syntatica-queries"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_queries/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_queries/"
 edition.workspace = true
 include = ["LICENSE", "README.md", "src", "generated_queries"]
 license.workspace = true

@@ -1,21 +1,17 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntastica/lang-pbtxt",
+  "name": "@syntatica/lang-pbtxt",
   "version": "0.7.0",
-  "description": "Pbtxt language support for syntastica-js",
+  "description": "Pbtxt language support for syntatica-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
-  "homepage": "https://github.com/RubixDev/syntastica/tree/main/syntastica-js#readme",
-  "bugs": "https://github.com/RubixDev/syntastica/issues",
+  "homepage": "https://github.com/casualjim/syntastica/tree/expand-languages/syntastica-js#readme",
+  "bugs": "https://github.com/casualjim/syntastica/issues",
   "license": "MPL-2.0",
-  "author": "RubixDev",
-  "funding": {
-    "url": "https://ko-fi.com/rubixdev",
-    "type": "ko-fi"
-  },
+  "author": "casualjim",
   "files": ["pbtxt.wasm"],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RubixDev/syntastica.git",
+    "url": "git+https://github.com/casualjim/syntastica.git",
     "directory": "syntastica-js/langs/pbtxt"
   },
   "publishConfig": {

@@ -1,12 +1,12 @@
 [package]
-name = "syntastica-js-wgsl_bevy"
+name = "syntatica-js-wgsl_bevy"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "WgslBevy language support for syntastica-js"
+description = "WgslBevy language support for syntatica-js"
 
 [lib]
 crate-type = ["cdylib"]

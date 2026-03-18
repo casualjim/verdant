@@ -1,23 +1,23 @@
-# `syntastica-js`
+# `syntatica-js`
 
 Modern and easy syntax highlighting using tree-sitter; use
-[`syntastica`](https://crates.io/crates/syntastica) from JavaScript/TypeScript.
+[`syntatica`](https://crates.io/crates/syntatica) from JavaScript/TypeScript.
 
 The full JavaScript/TypeScript API docs can be found
-[here](https://rubixdev.github.io/syntastica/js/).
+[here](https://casualjim.github.io/syntastica/js/).
 
 ## Basic Usage
 
 ```ts
-import syntastica from '@syntastica/core'
+import syntastica from '@syntatica/core'
 
 // initialize the module
 await syntastica.init()
 
 // load some languages
-await syntastica.loadLanguage('node_modules/@syntastica/lang-rust/rust.wasm')
+await syntastica.loadLanguage('node_modules/@syntatica/lang-rust/rust.wasm')
 await syntastica.loadLanguage(
-    'node_modules/@syntastica/lang-javascript/javascript.wasm',
+    'node_modules/@syntatica/lang-javascript/javascript.wasm',
 )
 
 // highlight a piece of code once

@@ -1,12 +1,12 @@
 [package]
-name = "syntastica-js-haxe"
+name = "syntatica-js-haxe"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Haxe language support for syntastica-js"
+description = "Haxe language support for syntatica-js"
 
 [lib]
 crate-type = ["cdylib"]

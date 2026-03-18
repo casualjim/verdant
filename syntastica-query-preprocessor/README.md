@@ -4,7 +4,7 @@ The tree-sitter query pre-processor used by
 [`syntastica`](https://crates.io/crates/syntastica).
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#general-side-products)
+[the project overview](https://casualjim.github.io/syntastica/syntastica/#general-side-products)
 for more information.
 
 ## Overview

@@ -4,14 +4,14 @@ Collection of tree-sitter queries for
 [`syntastica`](https://crates.io/crates/syntastica).
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#crates-for-internal-use)
+[the project overview](https://casualjim.github.io/syntastica/syntastica/#crates-for-internal-use)
 for more information.
 
 This crate defines constants for three types of tree-sitter queries for lots of
 parsers. It is intended to be used via
 [`syntastica-parsers`](https://crates.io/crates/syntastica-parsers),
 [`syntastica-parsers-git`](https://crates.io/crates/syntastica-parsers-git), or
-[`syntastica-parsers-gitdep`](https://github.com/RubixDev/syntastica/tree/main/syntastica-parsers-gitdep).
+[`syntastica-parsers-gitdep`](https://github.com/casualjim/syntastica/tree/main/syntastica-parsers-gitdep).
 
 The three types of queries are:
 
@@ -28,7 +28,7 @@ to be compatible with the latest version of the parser that was published on
 [`syntastica-parsers`](https://crates.io/crates/syntastica-parsers), whereas the
 normal queries are used by
 [`syntastica-parsers-git`](https://crates.io/crates/syntastica-parsers-git) and
-[`syntastica-parsers-gitdep`](https://github.com/RubixDev/syntastica/tree/main/syntastica-parsers-gitdep).
+[`syntastica-parsers-gitdep`](https://github.com/casualjim/syntastica/tree/main/syntastica-parsers-gitdep).
 
 The crate source is automatically generated with `cargo xtask codegen` inside
 the `syntastica` workspace.

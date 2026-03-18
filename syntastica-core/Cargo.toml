@@ -1,8 +1,8 @@
 [package]
-name = "syntastica-core"
+name = "syntatica-core"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_core/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_core/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -16,11 +16,11 @@ workspace = true
 default = ["runtime-c"]
 
 ## Use the standard tree-sitter C runtime. See `syntastica`'s
-## [WebAssembly support](https://rubixdev.github.io/syntastica/syntastica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
 ## for more information.
 runtime-c = ["dep:tree-sitter", "syntastica-highlight/runtime-c"]
 ## Use the pure Rust tree-sitter runtime. See `syntastica`'s
-## [WebAssembly support](https://rubixdev.github.io/syntastica/syntastica/#webassembly-support)
+## [WebAssembly support](https://casualjim.github.io/syntastica/syntatica/#webassembly-support)
 ## for more information.
 runtime-c2rust = ["dep:tree-sitter-c2rust", "syntastica-highlight/runtime-c2rust"]
 

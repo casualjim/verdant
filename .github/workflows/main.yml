@@ -198,7 +198,7 @@ jobs:
   # run and commit auto-generated code
   codegen:
     runs-on: ubuntu-latest
-    if: ${{ false }}
+    if: github.event_name == 'push' && github.ref == 'refs/heads/expand-languages'
 
     steps:
       - name: Checkout repository
@@ -253,7 +253,7 @@ jobs:
 
       - name: Prepare Git Deployment
         run: |
-          git checkout --orphan new-main main
+          git checkout --orphan new-main expand-languages
           git add --force syntastica-queries/generated_queries
       - name: Create Git Deploy Commit
         uses: EndBug/add-and-commit@v9
@@ -264,8 +264,8 @@ jobs:
           push: false
       - name: Push new Git Deployment
         run: |
-          git branch -M new-main git-deploy
-          git push origin git-deploy --set-upstream --force
+          git branch -M new-main expand-languages-git-deploy
+          git push origin expand-languages-git-deploy --set-upstream --force
 
       - name: Upload Queries as Artifact
         uses: actions/upload-artifact@v4
@@ -292,7 +292,7 @@ jobs:
   pages:
     needs:
       - codegen
-    if: github.repository == 'RubixDev/syntastica'
+    if: github.repository == 'casualjim/syntastica'
     continue-on-error: true
     runs-on: ubuntu-latest
     env:
@@ -396,3 +396,85 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: ./target/doc
+
+  # publish crates to crates.io
+  publish:
+    name: Publish to crates.io
+    needs: [tests]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/expand-languages'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Restore Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+
+      - name: Run Codegen
+        run: cargo xtask codegen
+
+      - name: Publish syntatica-highlight
+        run: cargo publish -p syntatica-highlight --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-core
+        run: cargo publish -p syntatica-core --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-macros
+        run: cargo publish -p syntatica-macros --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-queries
+        run: cargo publish -p syntatica-queries --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-query-preprocessor
+        run: cargo publish -p syntatica-query-preprocessor --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-themes
+        run: cargo publish -p syntatica-themes --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-parsers
+        run: cargo publish -p syntatica-parsers --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-parsers-git
+        run: cargo publish -p syntatica-parsers-git --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica-parsers-dynamic
+        run: cargo publish -p syntatica-parsers-dynamic --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true
+
+      - name: Publish syntatica (main crate)
+        run: cargo publish -p syntatica --no-verify
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true

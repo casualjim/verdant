@@ -4,10 +4,10 @@ Modern and easy syntax highlighting using tree-sitter
 
 > **Note**
 >
-> If viewing this file on [GitHub](https://github.com/RubixDev/syntastica) or
-> [crates.io](https://crates.io/crates/syntastica), some links might not be
+> If viewing this file on [GitHub](https://github.com/casualjim/syntastica) or
+> [crates.io](https://crates.io/crates/syntatica), some links might not be
 > working. Go to the
-> [custom docs page](https://rubixdev.github.io/syntastica/syntastica/) or the
+> [custom docs page](https://casualjim.github.io/syntastica/syntastica/) or the
 > [docs.rs page](https://docs.rs/syntastica/) instead, which additionally
 > include the [Features](#features) section.
 
@@ -24,9 +24,9 @@ To use `syntastica`, you probably want to depend on three crates:
 So for example:
 
 ```toml
-syntastica = "<version>"
-syntastica-parsers = { version = "<version>", features = ["some"] }
-syntastica-themes = "<version>"
+syntatica = "<version>"
+syntatica-parsers = { version = "<version>", features = ["some"] }
+syntatica-themes = "<version>"
 ```
 
 ### Use cases
@@ -43,18 +43,18 @@ cases:
    [`Processor`], [`render`], and
    [this example](#example-highlight-multiple-different-inputs)
 
-### Using `syntastica` as a Git Dependency
+### Using `syntatica` as a Git Dependency
 
 Using [`syntastica-queries`](#syntastica-queries), and in turn any crate in this
 workspace which depends on [`syntastica-queries`](#syntastica-queries), as a git
 dependency with cargo is not immediately possible, because the auto-generated
-query files are not checked in. For that purpose, the `git-deploy` is updated
+query files are not checked in. For that purpose, the `expand-languages-git-deploy` branch is updated
 with the latest state of the main branch after every push. That means you can
 depend on for example [`syntastica-parsers-git`](#syntastica-parsers-git) like
 this:
 
 ```toml
-syntastica-parsers-git = { git = "https://github.com/RubixDev/syntastica", branch = "git-deploy" }
+syntatica-parsers-git = { git = "https://github.com/casualjim/syntastica", branch = "expand-languages-git-deploy" }
 ```
 
 ## Subprojects
@@ -72,7 +72,7 @@ different advantages and drawbacks each. Three of them depend on
 one, and add it as a dependency next to `syntastica` itself.
 
 The odd one out here is
-[`syntastica-parsers-dynamic`](https://crates.io/crates/syntastica-parsers-dynamic),
+[`syntastica-parsers-dynamic`](https://crates.io/crates/syntatica-parsers-dynamic),
 which unlike the others doesn't actually include any parsers but instead
 provides an interface to load them during runtime.
 
@@ -84,15 +84,15 @@ more information.
 If you want to additionally use languages that are not in any of these parser
 collections or combine multiple sets, have a look at the
 [`Union`](language_set::Union) type or the
-[custom languages example](https://github.com/RubixDev/syntastica/blob/main/examples/custom_languages.rs).
+[custom languages example](https://github.com/casualjim/syntastica/blob/main/examples/custom_languages.rs).
 
-- [`syntastica-parsers`](https://crates.io/crates/syntastica-parsers) is
+- [`syntastica-parsers`](https://crates.io/crates/syntatica-parsers) is
   probably the easiest to start with. It uses parsers from
   [crates.io](https://crates.io). This has the main benefit of being well
   integrated in the cargo ecosystem. However, many tree-sitter parsers do not
   get published to crates.io, and those that are, are usually very outdated.
   Thus, this collection is relatively limited.
-- <a name="syntastica-parsers-git" href="https://crates.io/crates/syntastica-parsers-git"><code>syntastica-parsers-git</code></a>
+- <a name="syntastica-parsers-git" href="https://crates.io/crates/syntatica-parsers-git"><code>syntastica-parsers-git</code></a>
   is probably the best choice overall. It contains all supported languages and
   is the only choice when targeting WebAssembly. It pulls pinned revisions of
   parser git repositories in the build script and links to the C and C++ parser
@@ -102,7 +102,7 @@ collections or combine multiple sets, have a look at the
   which may not be desirable. Additionally, compilation can take very long
   unless you manually specify a cache directory that can be reused between
   builds. See the crate's docs for more information on that.
-- [`syntastica-parsers-gitdep`](https://github.com/RubixDev/syntastica/tree/main/syntastica-parsers-gitdep)
+- [`syntastica-parsers-gitdep`](https://github.com/casualjim/syntastica/tree/main/syntastica-parsers-gitdep)
   is a mix of both of the above. It uses cargo git dependencies to fetch the
   parser repositories and depends on a remote Rust binding (which is why not
   _all_ parsers are included). The main disadvantages are that this collection
@@ -112,7 +112,7 @@ collections or combine multiple sets, have a look at the
   crates.io. Unlike [`syntastica-parsers-git`](#syntastica-parsers-git) however,
   the parsers only need to be fetched once by cargo, and subsequent builds will
   be much faster.
-- [`syntastica-parsers-dynamic`](https://crates.io/crates/syntastica-parsers-dynamic)
+- [`syntastica-parsers-dynamic`](https://crates.io/crates/syntatica-parsers-dynamic)
   doesn't include any parsers by itself but instead provides a
   [`LanguageSet`](language_set::LanguageSet) implementation that can find and
   load parsers at runtime. This allows for behavior similar to what the
@@ -126,7 +126,7 @@ To [render highlighted code](render) to end users, a
 [theme](theme::ResolvedTheme) is needed, which specifies the colors to use for
 which [theme key](theme::THEME_KEYS). The `syntastica` project comes with a
 separate crate containing a few default themes:
-[`syntastica-themes`](https://crates.io/crates/syntastica-themes).
+[`syntastica-themes`](https://crates.io/crates/syntatica-themes).
 
 If you wish to create your own theme, have a look at the
 [custom theme example](#example-custom-theme) and the documentation for the
@@ -141,23 +141,23 @@ meant for outside use, but are instead used internally. These are listed below.
 > for any reason, you have to depend on one of them, then pin the _exact_
 > version using `<crate> = "=<version>"`.
 
-- [`syntastica-core`](https://crates.io/crates/syntastica-core) defines types,
+- [`syntastica-core`](https://crates.io/crates/syntatica-core) defines types,
   traits, constants, etc. which are used in multiple of the other crates. The
   main `syntastica` crate re-exports all those items transparently, so that
   external projects only need a dependency on that. The items are defined in
   `syntastica-core` however, to avoid cyclic (dev-)dependencies inside this
   workspace.
-- [`syntastica-macros`](https://crates.io/crates/syntastica-macros) defines
+- [`syntastica-macros`](https://crates.io/crates/syntatica-macros) defines
   procedural macros for use **exclusively** inside this workspace. This crate
   allows the list of languages/parsers to be in _one_ combined `languages.toml`
   file, and the different macros are used in the different places where this
   list needs to be referenced.
-- [`syntastica-highlight`](https://crates.io/crates/syntastica-highlight) is a
+- [`syntastica-highlight`](https://crates.io/crates/syntatica-highlight) is a
   fork of
   [`tree-sitter-highlight`](https://crates.io/crates/tree-sitter-highlight),
   which is adjusted and trimmed down for the use in `syntastica`. It contains
   the main highlighting logic.
-- <a name="syntastica-queries" href="https://crates.io/crates/syntastica-queries"><code>syntastica-queries</code></a>
+- <a name="syntastica-queries" href="https://crates.io/crates/syntatica-queries"><code>syntastica-queries</code></a>
   is a collection of tree-sitter queries for all supported languages. It is
   marked as "for internal use", because all three
   [parser collections](#parser-collections) depend on this crate and expose the
@@ -178,10 +178,10 @@ direct association with the main project and can be used completely separately.
   [`dprint-plugin-sexpr`](https://github.com/RubixDev/dprint-plugin-sexpr) for
   more information on using this as a formatter. In `syntastica` this crate is
   used for parsing (and formatting) the tree-sitter queries in the
-  [`queries`](https://github.com/RubixDev/syntastica/tree/main/queries)
+  [`queries`](https://github.com/casualjim/syntastica/tree/main/queries)
   directory. These are processed by `cargo xtask codegen queries` and result in
   the queries inside the
-  [`generated_queries`](https://github.com/RubixDev/syntastica/tree/main/syntastica-queries/generated_queries)
+  [`generated_queries`](https://github.com/casualjim/syntastica/tree/main/syntastica-queries/generated_queries)
   directory, which are the ones that are bundled with
   [`syntastica-queries`](#syntastica-queries).
 - [`lua-pattern`](https://crates.io/crates/lua-pattern) is a parser for Lua
@@ -195,7 +195,7 @@ direct association with the main project and can be used completely separately.
   however (obviously), which is why during the processing of the queries (with
   `cargo xtask codegen queries`), all Lua patterns are replaced with regular
   expressions using this crate.
-- [`syntastica-query-preprocessor`](https://crates.io/crates/syntastica-query-preprocessor)
+- [`syntastica-query-preprocessor`](https://crates.io/crates/syntatica-query-preprocessor)
   is a pre-processor for tree-sitter queries which allows usage of
   `; inherits <lang>` comments, conditional skipping of nodes with comments,
   usage of additional predicates like `lua-match?`, `contains?` and `any-of?`,
@@ -205,7 +205,7 @@ direct association with the main project and can be used completely separately.
   manual changes. Despite having `syntastica` in the name, the crate can be used
   externally and does not depend on any of the other `syntastica-` crates. In
   `syntastica` it is used in the
-  [`codegen queries` xtask](https://github.com/RubixDev/syntastica/blob/main/xtask/src/codegen/queries.rs),
+  [`codegen queries` xtask](https://github.com/casualjim/syntastica/blob/main/xtask/src/codegen/queries.rs),
   because many of the queries are forked from
   [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter), and to
   adjust the queries for older parser versions from
@@ -232,8 +232,8 @@ To use this approach, simply set `default-features = false` and enable the
 `runtime-c2rust` feature for _all_ `syntastica` dependencies. There are two
 example projects using this approach:
 
-- [Basic usage with wasm-bindgen and wasm-pack](https://github.com/RubixDev/syntastica/tree/main/examples/wasm/wasm-pack)
-- [Usage in a Dioxus application](https://github.com/RubixDev/syntastica/tree/main/examples/wasm/dioxus)
+- [Basic usage with wasm-bindgen and wasm-pack](https://github.com/casualjim/syntastica/tree/main/examples/wasm/wasm-pack)
+- [Usage in a Dioxus application](https://github.com/casualjim/syntastica/tree/main/examples/wasm/dioxus)
 
 Note that for extra safety, you should compile this with nightly Rust and the
 `-Zwasm_c_abi=spec` option set, as otherwise the `wasm32-unknown-unknown` target
@@ -248,7 +248,7 @@ Wasm ecosystem is built around the `wasm32-unknown-unknown` target (e.g.,
 `wasm-pack` and `wasm-bindgen` can only be used with `wasm32-unknown-unknown`),
 which makes it very cumbersome to use Emscripten for Rust. In the attempt to
 make using `syntastica` on the web a bit easier, the
-[`syntastica-js` crate](https://github.com/RubixDev/syntastica/tree/main/syntastica-js)
+[`syntastica-js` crate](https://github.com/casualjim/syntastica/tree/main/syntastica-js)
 and accompanying
 [`@syntastica/core` NPM package](https://www.npmjs.com/package/@syntastica/core)
 provide a JavaScript/TypeScript wrapper around an Emscripten build of
@@ -256,15 +256,15 @@ provide a JavaScript/TypeScript wrapper around an Emscripten build of
 
 There are two example projects using `syntastica-js`:
 
-- [Usage from TypeScript in the browser with Vite and Svelte](https://github.com/RubixDev/syntastica/tree/main/examples/wasm/vite)
-- [Usage from JavaScript in NodeJS for console applications](https://github.com/RubixDev/syntastica/tree/main/examples/wasm/node)
+- [Usage from TypeScript in the browser with Vite and Svelte](https://github.com/casualjim/syntastica/tree/main/examples/wasm/vite)
+- [Usage from JavaScript in NodeJS for console applications](https://github.com/casualjim/syntastica/tree/main/examples/wasm/node)
 
 ## Examples
 
 This section contains some basic usage examples. More specific examples can be
 found in the documentation of some items such as the [`Processor`] type or the
 [`render`] function. Additionally, the
-[`examples`](https://github.com/RubixDev/syntastica/tree/main/examples)
+[`examples`](https://github.com/casualjim/syntastica/tree/main/examples)
 directory contains a few complete examples.
 
 This is the list of examples found here:
@@ -503,8 +503,8 @@ some of the logic myself and made a
 [first public commit](https://github.com/rush-rs/lirstings/commit/d2fc87213e8e2d629033f2eba99b2d019883fd43).
 This version of `lirstings` (called `ts2tex` at the time) already laid out some
 groundwork like
-[query pre-processing](https://rubixdev.github.io/syntastica/syntastica_query_preprocessor/)
-and [theming](https://rubixdev.github.io/syntastica/syntastica/theme/) that is
+[query pre-processing](https://casualjim.github.io/syntastica/syntastica_query_preprocessor/)
+and [theming](https://casualjim.github.io/syntastica/syntastica/theme/) that is
 still present in `syntastica` today. Towards the end of our project we wanted to
 use the same highlighting on our [rush playground](https://play.rush-lang.de/),
 which would require `lirstings` to become more general and support WebAssembly.

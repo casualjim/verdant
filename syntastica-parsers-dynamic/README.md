@@ -3,7 +3,7 @@
 A parser “collection” for `syntastica` which loads languages at runtime.
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#parser-collections)
+[the project overview](https://casualjim.github.io/syntastica/syntastica/#parser-collections)
 for more information on all parser collections.
 
 This parser “collection” doesn't actually include any parsers. Instead, it

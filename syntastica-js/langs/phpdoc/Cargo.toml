@@ -1,12 +1,12 @@
 [package]
-name = "syntastica-js-phpdoc"
+name = "syntatica-js-phpdoc"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
+documentation = "https://casualjim.github.io/syntastica/syntatica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Phpdoc language support for syntastica-js"
+description = "Phpdoc language support for syntatica-js"
 
 [lib]
 crate-type = ["cdylib"]

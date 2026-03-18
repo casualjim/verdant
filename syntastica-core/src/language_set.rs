@@ -33,7 +33,7 @@ pub trait SupportedLanguage<'set, S>: Sized {
     /// [`UnsupportedLanguage`](crate::Error::UnsupportedLanguage) error.
     ///
     /// `syntastica` itself does not provide a list of valid language names, but the
-    /// [official parser collections](https://rubixdev.github.io/syntastica/syntastica/#parser-collections)
+    /// [official parser collections](https://casualjim.github.io/syntastica/syntatica/#parser-collections)
     /// do. However, every string that may be returned by [`name`](SupportedLanguage::name) must
     /// result in an [`Ok`] value.
     fn for_name(name: impl AsRef<str>, set: &'set S) -> Result<Self, crate::Error>;
@@ -70,7 +70,7 @@ pub trait SupportedLanguage<'set, S>: Sized {
 ///
 /// All official syntastica parser collections provide a type called `LanguageSetImpl` which
 /// implements this trait. See
-/// [the project overview](https://rubixdev.github.io/syntastica/syntastica/#parser-collections)
+/// [the project overview](https://casualjim.github.io/syntastica/syntatica/#parser-collections)
 /// for more information on that.
 pub trait LanguageSet<'s>: Sized {
     /// A type identifying a language that is included in this set.

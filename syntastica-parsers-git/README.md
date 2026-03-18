@@ -5,7 +5,7 @@ Collection of tree-sitter parsers for
 build-script.
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#parser-collections)
+[the project overview](https://casualjim.github.io/syntastica/syntastica/#parser-collections)
 for more information on all parser collections.
 
 ## Improving compilation speed
