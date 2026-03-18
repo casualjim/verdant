@@ -6,7 +6,6 @@ name: Main
     branches: [main, expand-languages]
 permissions:
   contents: write
-  administration: write
 
 env:
   CARGO_BUILD_JOBS: 4
@@ -31,7 +30,7 @@ jobs:
         uses: Cyclenerd/hcloud-github-runner@v1
         with:
           mode: create
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
           server_type: cpx52
           location: nbg1        # Nuremberg, Germany (more capacity)
@@ -83,7 +82,7 @@ jobs:
         uses: Cyclenerd/hcloud-github-runner@v1
         with:
           mode: delete
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
           name: ${{ needs.create-test-runner.outputs.label }}
           server_id: ${{ needs.create-test-runner.outputs.server_id }}
@@ -103,7 +102,7 @@ jobs:
         uses: Cyclenerd/hcloud-github-runner@v1
         with:
           mode: create
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
           server_type: cpx52
           location: nbg1        # Nuremberg, Germany (more capacity)
@@ -191,7 +190,7 @@ jobs:
         uses: Cyclenerd/hcloud-github-runner@v1
         with:
           mode: delete
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
           name: ${{ needs.create-build-js-runner.outputs.label }}
           server_id: ${{ needs.create-build-js-runner.outputs.server_id }}
