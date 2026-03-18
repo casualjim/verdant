@@ -1,11 +1,11 @@
-import syntastica from '@syntastica/core'
+import syntastica from '@syntatica/core'
 
 // initialize the syntastica
 await syntastica.init()
 
 // load the `javascript` and `rust` languages
-await syntastica.loadLanguage('./node_modules/@syntastica/lang-rust/rust.wasm')
-await syntastica.loadLanguage('./node_modules/@syntastica/lang-javascript/javascript.wasm')
+await syntastica.loadLanguage('./node_modules/@syntatica/lang-rust/rust.wasm')
+await syntastica.loadLanguage('./node_modules/@syntatica/lang-javascript/javascript.wasm')
 
 // highlight JavaScript input with the `one::dark` theme for the terminal with no background
 console.log(syntastica.highlight('console.log("hi")', 'javascript', 'one::dark', 'terminal'))

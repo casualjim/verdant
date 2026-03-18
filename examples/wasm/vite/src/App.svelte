@@ -1,7 +1,7 @@
 <script lang="ts">
-    import syntastica, { BUILTIN_THEMES, Theme, type BuiltinTheme } from '@syntastica/core'
-    import wasmUrl from '@syntastica/core/wasm?url'
-    const langUrls = import.meta.glob('/node_modules/@syntastica/lang-*/*.wasm', {
+    import syntastica, { BUILTIN_THEMES, Theme, type BuiltinTheme } from '@syntatica/core'
+    import wasmUrl from '@syntatica/core/wasm?url'
+    const langUrls = import.meta.glob('/node_modules/@syntatica/lang-*/*.wasm', {
         query: 'url',
         import: 'default',
     })
@@ -46,7 +46,7 @@
             await initPromise
             loading = true
             await syntastica.loadLanguage(
-                (await langUrls[`/node_modules/@syntastica/lang-${lang}/${lang}.wasm`]()) as string,
+                (await langUrls[`/node_modules/@syntatica/lang-${lang}/${lang}.wasm`]()) as string,
             )
             loading = false
             loadedLanguages.push(lang)

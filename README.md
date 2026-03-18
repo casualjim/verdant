@@ -250,7 +250,7 @@ which makes it very cumbersome to use Emscripten for Rust. In the attempt to
 make using `syntastica` on the web a bit easier, the
 [`syntastica-js` crate](https://github.com/casualjim/syntastica/tree/main/syntastica-js)
 and accompanying
-[`@syntastica/core` NPM package](https://www.npmjs.com/package/@syntastica/core)
+[`@syntatica/core` NPM package](https://www.npmjs.com/package/@syntatica/core)
 provide a JavaScript/TypeScript wrapper around an Emscripten build of
 `syntastica`.
 
