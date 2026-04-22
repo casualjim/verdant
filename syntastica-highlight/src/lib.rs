@@ -22,16 +22,7 @@
 //! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //! SOFTWARE.
 
-#[cfg(all(not(feature = "runtime-c"), not(feature = "runtime-c2rust")))]
-compile_error!("Either `runtime-c` or `runtime-c2rust` must be enabled!");
-#[cfg(feature = "runtime-c")]
-use tree_sitter as ts_runtime;
-#[cfg(all(
-    feature = "runtime-c2rust",
-    not(feature = "runtime-c"), // if both features are enabled, use the c runtime
-))]
-use tree_sitter_c2rust as ts_runtime;
-
+use core::ops::ControlFlow;
 use regex::Regex;
 use std::borrow::Cow;
 use std::marker::PhantomData;
@@ -40,7 +31,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::{iter, mem, ops, slice, str};
 use streaming_iterator::StreamingIterator as _;
 use thiserror::Error;
-use ts_runtime::{
+use tree_sitter::{
     ffi, Language, Node, ParseOptions, Parser, Point, Query, QueryCapture, QueryCaptures,
     QueryCursor, QueryError, QueryMatch, QueryPredicateArg, Range, TextProvider, Tree,
 };
@@ -504,10 +495,11 @@ impl<'a> HighlightIterLayer<'a> {
                         &mut |i, _| if i < source.len() { &source[i..] } else { &[] },
                         None,
                         Some(ParseOptions::new().progress_callback(&mut |_| {
-                            if let Some(cancellation_flag) = cancellation_flag {
-                                cancellation_flag.load(Ordering::SeqCst) != 0
-                            } else {
-                                false
+                            match cancellation_flag {
+                                Some(flag) if flag.load(Ordering::SeqCst) != 0 => {
+                                    ControlFlow::Break(())
+                                }
+                                _ => ControlFlow::Continue(()),
                             }
                         })),
                     )

@@ -7,7 +7,7 @@ const EXPORTED_FUNCTIONS: &[&str] = &[
     "_process",
     "_render",
     "_get_builtin_theme",
-    // stdlib symbols, see https://github.com/tree-sitter/tree-sitter/blob/v0.25.3/lib/src/wasm/stdlib-symbols.txt
+    // stdlib symbols, see https://github.com/tree-sitter/tree-sitter/blob/v0.26.8/lib/src/wasm/stdlib-symbols.txt
     "_calloc",
     "_free",
     "_iswalnum",

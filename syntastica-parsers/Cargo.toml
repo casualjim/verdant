@@ -12,7 +12,7 @@ description = "Collection of tree-sitter parsers for syntastica, using parsers a
 workspace = true
 
 [dependencies]
-syntastica-core = { workspace = true, features = ["runtime-c"] }
+syntastica-core.workspace = true
 syntastica-macros.workspace = true
 syntastica-queries.workspace = true
 
