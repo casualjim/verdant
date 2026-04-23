@@ -45,10 +45,14 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl git build-essential pkg-config libssl-dev
+          sudo apt-get install -y curl git build-essential pkg-config libssl-dev libclang-dev
 
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Prepare CI
+        run: |
+          bash _prepare_ci.sh
 
       - name: Setup NodeJS
         uses: actions/setup-node@v4
@@ -117,7 +121,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl git build-essential pkg-config libssl-dev nodejs npm python3 python3-pip cmake unzip
+          sudo apt-get install -y curl git build-essential pkg-config libssl-dev libclang-dev nodejs npm python3 python3-pip cmake unzip
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -150,7 +154,7 @@ jobs:
           node-version: 23
 
       - name: Install tree-sitter CLI
-        run: npm i -g tree-sitter-cli@0.25.10
+        run: npm i -g tree-sitter-cli@0.26.8
 
       - name: Prime grammar sources
         run: cargo xtask build-grammars -j 8
@@ -303,6 +307,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Prepare CI
+        run: |
+          bash _prepare_ci.sh
 
       - name: Download Vite Demo package.json
         uses: actions/download-artifact@v4

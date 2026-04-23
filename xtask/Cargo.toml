@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-syntastica-core = { workspace = true, features = ["runtime-c"] }
+syntastica-core.workspace = true
 syntastica-query-preprocessor.workspace = true
 syntastica-themes.workspace = true
 

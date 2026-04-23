@@ -17,6 +17,7 @@ members = [
     "./syntastica-js",
     "./syntastica-js/langs/*",
 ]
+exclude = ["ignored"]
 
 package.version = "0.7.0"
 package.authors = ["RubixDev <contact@rubixdev.de>"]
@@ -44,9 +45,9 @@ syntastica-query-preprocessor = { version = "0.7.0", path = "./syntastica-query-
 syntastica-queries = { version = "0.7.0", path = "./syntastica-queries" }
 syntastica-themes = { version = "0.7.0", path = "./syntastica-themes" }
 
-tree-sitter = "0.25.2"
-tree-sitter-c2rust = "0.25.2"
-tree-sitter-generate = "0.25.1"
+tree-sitter = "0.26.8"
+tree-sitter-generate = "0.26.8"
+tree-sitter-language = "0.1.7"
 
 cc = "1.2.12"
 document-features = "0.2.10"
@@ -63,6 +64,19 @@ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(CHANNEL_NIGHTLY)'] }
 
 [workspace.lints.clippy]
 four_forward_slashes = "allow"
+
+# Patch tree-sitter 0.26.8 to fix emscripten duplicate-symbol bug.
+# Upstream's `lib/binding_rust/build.rs::configure_wasm_build` fires for any
+# `wasm32-unknown-*` target, including emscripten, which collides with emscripten's
+# libc. The patched copy constrains the check to `wasm32-unknown-unknown`.
+# Branch `emscripten-fix` off tag `v0.26.8` in a local clone at `ignored/tree-sitter-patched`.
+[patch.crates-io]
+tree-sitter = { path = "./ignored/tree-sitter-patched/lib" }
+tree-sitter-language = { path = "./ignored/tree-sitter-patched/crates/language" }
+tree-sitter-generate = { path = "./ignored/tree-sitter-patched/crates/generate" }
+tree-sitter-loader = { path = "./ignored/tree-sitter-patched/crates/loader" }
+tree-sitter-tags = { path = "./ignored/tree-sitter-patched/crates/tags" }
+tree-sitter-highlight = { path = "./ignored/tree-sitter-patched/crates/highlight" }
 
 # optimize wasm for small code size
 [profile.release-wasm]
@@ -86,12 +100,7 @@ workspace = true
 
 [features]
 #! ## Features
-default = ["runtime-c"]
-
-## Use the standard tree-sitter C runtime. See [WebAssembly support](#webassembly-support) for more information.
-runtime-c = ["syntastica-core/runtime-c", "syntastica-highlight/runtime-c"]
-## Use the pure Rust tree-sitter runtime. See [WebAssembly support](#webassembly-support) for more information.
-runtime-c2rust = ["syntastica-core/runtime-c2rust", "syntastica-highlight/runtime-c2rust"]
+default = []
 
 ## Provide implementations of serde's `Serialize` and `Deserialize` traits for [`Theme`](theme::Theme)
 ## and [`Style`](style::Style)
@@ -117,11 +126,11 @@ syntastica-query-preprocessor.workspace = true
 syntastica-themes.workspace = true
 
 tree-sitter.workspace = true
+tree-sitter-language.workspace = true
 
 once_cell.workspace = true
 palate = { workspace = true, features = ["detect"] }
 toml.workspace = true
-tree-sitter-language = "0.1.5"
 tree-sitter-xml = "0.7.0"
 
 [build-dependencies]

@@ -16,7 +16,7 @@ pub fn write() -> Result<()> {
     toml += r###"
 [features]
 #! ## Features
-default = ["runtime-c"]
+default = []
 
 #! Every supported language has a feature with the same name as the respective public function.
 #! Additionally the three feature groups
@@ -33,17 +33,6 @@ default = ["runtime-c"]
     toml += &super::parsers_toml_feature(Group::Most);
     toml += super::TOML_FEATURES_ALL;
     toml += &super::parsers_toml_feature(Group::All);
-
-    toml += r###"
-## Use the standard tree-sitter C runtime. See `syntastica`'s
-## [WebAssembly support](https://rubixdev.github.io/syntastica/syntastica/#webassembly-support)
-## for more information.
-runtime-c = ["syntastica-core/runtime-c"]
-## Use the pure Rust tree-sitter runtime. See `syntastica`'s
-## [WebAssembly support](https://rubixdev.github.io/syntastica/syntastica/#webassembly-support)
-## for more information.
-runtime-c2rust = ["syntastica-core/runtime-c2rust"]
-"###;
 
     toml += super::TOML_FEATURES_DOCS;
 
