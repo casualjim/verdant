@@ -126,6 +126,7 @@ syntastica-query-preprocessor.workspace = true
 syntastica-themes.workspace = true
 
 tree-sitter.workspace = true
+tree-sitter-language.workspace = true
 
 once_cell.workspace = true
 palate = { workspace = true, features = ["detect"] }
