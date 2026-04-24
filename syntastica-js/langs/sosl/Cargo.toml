@@ -6,7 +6,7 @@ documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Sosl language support for syntastica-js"
+description = "Sosl language support for verdant-js"
 
 [lib]
 crate-type = ["cdylib"]

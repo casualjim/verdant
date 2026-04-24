@@ -6,7 +6,7 @@ documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Trace32 language support for syntastica-js"
+description = "Trace32 language support for verdant-js"
 
 [lib]
 crate-type = ["cdylib"]
