@@ -1,0 +1,1 @@
+(binary_condition_expression (binary_condition_identifier)@_keyword (identifier)@injection.content (#match? @_keyword "^(match|ext|mime|name|path)$")(#set! injection.language "regex"))(command_list (command)@injection.content (#set! injection.include-children)(#set! injection.language "bash"))((comment)@injection.content (#set! injection.language "comment"))

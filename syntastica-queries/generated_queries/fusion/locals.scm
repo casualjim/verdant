@@ -1,0 +1,1 @@
+(block)@local.scope (namespace_declaration (alias_namespace)@local.definition)(property (path (path_part)@local.definition))(type namespace: (package_name)? @local.definition name: (type_name)@local.definition)(eel_arrow_function)@local.scope (eel_object)@local.scope (eel_parameter)@local.definition (eel_object_pair key: (eel_property_name)@local.definition)

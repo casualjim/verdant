@@ -1,0 +1,1 @@
+(module (property field: (identifier)@local.definition))(map_expression (property field: (identifier)@local.definition))(assignment left: (identifier)@local.definition)(pattern_binding binding: (identifier)@local.definition)(identifier)@local.reference 

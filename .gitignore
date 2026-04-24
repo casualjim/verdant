@@ -1,0 +1,6 @@
+/target
+/Cargo.lock
+/ignored/
+/syntastica-js/pkg/
+/syntastica-queries/generated_queries/
+.claude/
