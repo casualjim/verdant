@@ -1,8 +1,8 @@
-import initModule, { type SyntasticaModule } from './syntastica-js.js'
+import initModule, { type VerdantModule } from './verdant-js.js'
 
 const PTR_SIZE = Float32Array.BYTES_PER_ELEMENT
 
-let Module: SyntasticaModule = null as unknown as SyntasticaModule
+let Module: VerdantModule = null as unknown as VerdantModule
 
 /**
  * A theme name to pass to {@link highlight} or {@link render}.
@@ -149,7 +149,7 @@ export async function loadLanguage(input: string | Uint8Array): Promise<void> {
 
     const mod = await Module.loadWebAssemblyModule(await bytes, { loadAsync: true })
     const symbolNames = Object.keys(mod)
-    const langFuncName = symbolNames.find(key => key.startsWith('syntastica_lang_'))
+    const langFuncName = symbolNames.find(key => key.startsWith('verdant_lang_'))
     if (!langFuncName) {
         console.log(`Couldn't find language function in WASM file. Symbols:\n${JSON.stringify(symbolNames, null, 2)}`)
         throw new Error('loadLanguage failed: no language function found in WASM file')

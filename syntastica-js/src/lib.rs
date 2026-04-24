@@ -11,7 +11,7 @@ use std::{
     sync::{LazyLock, Mutex},
 };
 
-use syntastica::{
+use verdant::{
     language_set::{FileType, HighlightConfiguration, Language, LanguageSet, SupportedLanguage},
     renderer::{HtmlRenderer, TerminalRenderer},
     style::{Color, Style},
@@ -42,7 +42,7 @@ static LANGUAGES: LazyLock<LangSet> = LazyLock::new(LangSet::default);
 static PROCESSOR: LazyLock<Mutex<Processor<'static, LangSet>>> =
     LazyLock::new(|| Mutex::new(Processor::new(&*LANGUAGES)));
 
-syntastica_macros::js_lang_info!();
+verdant_macros::js_lang_info!();
 
 type _Highlights = Vec<Vec<(String, Option<String>)>>;
 
@@ -75,7 +75,7 @@ impl LangSet {
             cptr_to_str(info.locals_query),
         )
         .unwrap();
-        config.configure(syntastica::theme::THEME_KEYS);
+        config.configure(verdant::theme::THEME_KEYS);
         self.languages.lock().unwrap().insert(
             name,
             (
@@ -95,7 +95,7 @@ impl<'s> LanguageSet<'s> for LangSet {
     fn get_language(
         &self,
         language: Self::Language,
-    ) -> syntastica::Result<&HighlightConfiguration> {
+    ) -> verdant::Result<&HighlightConfiguration> {
         Ok(self
             .languages
             .lock()
@@ -111,14 +111,14 @@ impl<'set> SupportedLanguage<'set, LangSet> for Lang<'set> {
         self.0.into()
     }
 
-    fn for_name(name: impl AsRef<str>, set: &'set LangSet) -> syntastica::Result<Self> {
+    fn for_name(name: impl AsRef<str>, set: &'set LangSet) -> verdant::Result<Self> {
         let name = name.as_ref();
         set.languages
             .lock()
             .unwrap()
             .get_key_value(name)
             .map(|(&name, _)| Self(name, PhantomData))
-            .ok_or_else(|| syntastica::Error::UnsupportedLanguage(name.to_string()))
+            .ok_or_else(|| verdant::Error::UnsupportedLanguage(name.to_string()))
     }
 
     fn for_file_type(_file_type: FileType, _set: &'set LangSet) -> Option<Self> {
@@ -165,7 +165,7 @@ pub unsafe fn highlight(
     };
 
     let theme = match serde_json::from_str::<Theme>(&theme) {
-        Ok(Theme::Builtin(theme)) => match syntastica_themes::from_str(&theme) {
+        Ok(Theme::Builtin(theme)) => match verdant_themes::from_str(&theme) {
             Some(theme) => theme,
             None => bail!(errmsg, "unknown builtin theme '{theme}'"),
         },
@@ -212,7 +212,7 @@ pub unsafe fn process(
 }
 
 /// Render code that was previously processed by calling [`process`] given the name of a
-/// [`Renderer`](syntastica::renderer::Renderer).
+/// [`Renderer`](verdant::renderer::Renderer).
 ///
 /// The renderer name is either `HTML` or `Terminal` in any casing. To specify a background color
 /// for the terminal renderer, append a hex color literal like `terminal#282828` or `Terminal#fff`.
@@ -243,7 +243,7 @@ pub unsafe fn render(
                     (
                         code.as_str(),
                         hl.as_ref()
-                            .and_then(|hl| syntastica::theme::THEME_KEYS.iter().find(|k| k == &hl))
+                            .and_then(|hl| verdant::theme::THEME_KEYS.iter().find(|k| k == &hl))
                             .copied(),
                     )
                 })
@@ -252,7 +252,7 @@ pub unsafe fn render(
         .collect();
 
     let theme = match serde_json::from_str::<Theme>(&theme) {
-        Ok(Theme::Builtin(theme)) => match syntastica_themes::from_str(&theme) {
+        Ok(Theme::Builtin(theme)) => match verdant_themes::from_str(&theme) {
             Some(theme) => theme,
             None => bail!(errmsg, "unknown builtin theme '{theme}'"),
         },
@@ -270,12 +270,12 @@ fn _render(
     theme: ResolvedTheme,
 ) -> *const c_char {
     let out = match renderer.to_lowercase().as_str() {
-        "terminal" => syntastica::render(highlights, &mut TerminalRenderer::new(None), theme),
-        "html" => syntastica::render(highlights, &mut HtmlRenderer, theme),
+        "terminal" => verdant::render(highlights, &mut TerminalRenderer::new(None), theme),
+        "html" => verdant::render(highlights, &mut HtmlRenderer, theme),
         name => match name.strip_prefix("terminal#") {
             Some(color_hex) => match Color::from_str(color_hex) {
                 Ok(color) => {
-                    syntastica::render(highlights, &mut TerminalRenderer::new(Some(color)), theme)
+                    verdant::render(highlights, &mut TerminalRenderer::new(Some(color)), theme)
                 }
                 Err(err) => bail!(
                     errmsg,
@@ -298,7 +298,7 @@ fn _render(
 pub unsafe fn get_builtin_theme(errmsg: *mut *const c_char, theme: *const c_char) -> *const c_char {
     let theme = unsafe { string_from_ptr(theme) };
 
-    let Some(theme) = syntastica_themes::from_str(&theme) else {
+    let Some(theme) = verdant_themes::from_str(&theme) else {
         bail!(errmsg, "unknown builtin theme '{theme}'");
     };
 

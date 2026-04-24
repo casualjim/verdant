@@ -1,4 +1,4 @@
-# `syntastica-js-ocaml_interface`
+# `verdant-js-ocaml_interface`
 
 OcamlInterface language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-syntastica-core.workspace = true
-syntastica-query-preprocessor.workspace = true
-syntastica-themes.workspace = true
+verdant-core.workspace = true
+verdant-query-preprocessor.workspace = true
+verdant-themes.workspace = true
 
 anyhow = "1.0.95"
 crates_io_api = "0.11.0"

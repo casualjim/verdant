@@ -8,4 +8,4 @@
 #![warn(rust_2018_idioms)]
 #![deny(missing_docs)]
 
-syntastica_macros::parsers_dep!();
+verdant_macros::parsers_dep!();

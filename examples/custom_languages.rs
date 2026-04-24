@@ -8,7 +8,7 @@
 use std::borrow::Cow;
 
 use once_cell::sync::OnceCell;
-use syntastica::{
+use verdant::{
     language_set::{
         EitherLang, FileType, HighlightConfiguration, LanguageSet, SupportedLanguage, Union,
     },
@@ -16,7 +16,7 @@ use syntastica::{
     theme::THEME_KEYS,
     Processor,
 };
-use syntastica_parsers::{Lang, LanguageSetImpl};
+use verdant_parsers::{Lang, LanguageSetImpl};
 use tree_sitter_language::LanguageFn;
 
 /// An enum with all languages that we want to provide ourselves.
@@ -40,11 +40,11 @@ impl<'set, T> SupportedLanguage<'set, T> for CustomLang {
         self.as_ref().into()
     }
 
-    fn for_name(name: impl AsRef<str>, _set: &'set T) -> syntastica::Result<Self> {
+    fn for_name(name: impl AsRef<str>, _set: &'set T) -> verdant::Result<Self> {
         match name.as_ref() {
             "xml" => Ok(CustomLang::Xml),
             "dtd" => Ok(CustomLang::Dtd),
-            name => Err(syntastica::Error::UnsupportedLanguage(name.to_string())),
+            name => Err(verdant::Error::UnsupportedLanguage(name.to_string())),
         }
     }
 
@@ -79,7 +79,7 @@ impl LanguageSet<'_> for CustomLanguageSet {
     fn get_language(
         &self,
         language: Self::Language,
-    ) -> syntastica::Result<&HighlightConfiguration> {
+    ) -> verdant::Result<&HighlightConfiguration> {
         match language {
             // provide our languages however you like. in this example we use the languages and
             // queries exposed by the `tree-sitter-xml` crate.
@@ -105,7 +105,7 @@ fn init_lang<'a>(
     cell: &'a OnceCell<HighlightConfiguration>,
     get_lang: LanguageFn,
     queries: &str,
-) -> syntastica::Result<&'a HighlightConfiguration> {
+) -> verdant::Result<&'a HighlightConfiguration> {
     cell.get_or_try_init(|| {
         let mut conf = HighlightConfiguration::new(
             get_lang.into(),
@@ -113,7 +113,7 @@ fn init_lang<'a>(
             // For simple queries like these, preprocessing wouldn't be necessary, but
             // this is just to show how you would do it with more complex queries.
             // To see what this preprocessing does, see the crate's documentation.
-            &syntastica_query_preprocessor::process_highlights("", true, queries),
+            &verdant_query_preprocessor::process_highlights("", true, queries),
             "",
             "",
         )?;
@@ -123,7 +123,7 @@ fn init_lang<'a>(
     })
 }
 
-fn main() -> syntastica::Result<()> {
+fn main() -> verdant::Result<()> {
     let code_xml = r#"
 <?xml version="1.1" encoding="UTF-8" ?>
 <!DOCTYPE greeting [
@@ -149,11 +149,11 @@ fn main() {
     let set = Union::new(CustomLanguageSet::new(), LanguageSetImpl::new());
     let mut processor = Processor::new(&set);
     let mut renderer = TerminalRenderer::new(None);
-    let theme = syntastica_themes::one::dark();
+    let theme = verdant_themes::one::dark();
 
     println!(
         "{}",
-        syntastica::render(
+        verdant::render(
             // languages are specified by the `EitherLang` enum
             &processor.process(code_xml, EitherLang::Left(CustomLang::Xml))?,
             &mut renderer,
@@ -162,7 +162,7 @@ fn main() {
     );
     println!(
         "{}",
-        syntastica::render(
+        verdant::render(
             // "left" languages don't need to be explicitly specified as being left
             &processor.process(code_dtd, CustomLang::Dtd)?,
             &mut renderer,
@@ -172,7 +172,7 @@ fn main() {
     // languages from the fallback language set can also be used
     println!(
         "{}",
-        syntastica::render(
+        verdant::render(
             &processor.process(code_rust, EitherLang::Right(Lang::Rust))?,
             &mut renderer,
             &theme,

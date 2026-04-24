@@ -1,24 +1,24 @@
 [package]
-name = "syntastica-js-rescript"
+name = "verdant-js-rescript"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Rescript language support for syntastica-js"
+description = "Rescript language support for verdant-js"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-syntastica-macros = { workspace = true, features = ["js"] }
-syntastica-queries.workspace = true
+verdant-macros = { workspace = true, features = ["js"] }
+verdant-queries.workspace = true
 
 tree-sitter.workspace = true
 
 [build-dependencies]
-syntastica-macros = { workspace = true, features = ["js"] }
+verdant-macros = { workspace = true, features = ["js"] }
 
 cc.workspace = true
 tree-sitter-generate.workspace = true

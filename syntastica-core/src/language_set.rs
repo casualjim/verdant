@@ -1,12 +1,12 @@
 //! Defines the [`LanguageSet`] trait and some related types.
 //!
-//! Also re-exports [`syntastica_highlight::HighlightConfiguration`], [`tree_sitter::Language`],
+//! Also re-exports [`verdant_highlight::HighlightConfiguration`], [`tree_sitter::Language`],
 //! and [`palate::FileType`].
 
 use std::{borrow::Cow, path::Path};
 
 pub use palate::FileType;
-pub use syntastica_highlight::HighlightConfiguration;
+pub use verdant_highlight::HighlightConfiguration;
 
 pub use crate::ts_runtime::Language;
 

@@ -8,7 +8,7 @@
 #![warn(rust_2018_idioms)]
 // #![deny(missing_docs)]
 
-use syntastica_core::theme::ResolvedTheme;
+use verdant_core::theme::ResolvedTheme;
 
 pub mod abscs;
 pub mod aurora;
@@ -54,8 +54,8 @@ pub mod zephyr;
 ///
 /// ```
 /// assert_eq!(
-///     syntastica_themes::from_str("one::dark"),
-///     Some(syntastica_themes::one::dark()),
+///     verdant_themes::from_str("one::dark"),
+///     Some(verdant_themes::one::dark()),
 /// );
 /// ```
 pub fn from_str(theme_name: impl AsRef<str>) -> Option<ResolvedTheme> {

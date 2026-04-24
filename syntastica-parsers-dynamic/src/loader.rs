@@ -42,7 +42,7 @@ use libloading::{Library, Symbol};
 use once_cell::unsync::OnceCell;
 use regex::{Regex, RegexBuilder};
 use serde::Deserialize;
-use syntastica_core::language_set::HighlightConfiguration;
+use verdant_core::language_set::HighlightConfiguration;
 use tree_sitter::Language;
 
 static GRAMMAR_NAME_REGEX: LazyLock<Regex> =
@@ -820,7 +820,7 @@ impl LanguageConfiguration<'_> {
         &self,
         language: Language,
         paths: Option<&[PathBuf]>,
-    ) -> syntastica_core::Result<Option<&'static mut HighlightConfiguration>> {
+    ) -> verdant_core::Result<Option<&'static mut HighlightConfiguration>> {
         let (highlights_filenames, injections_filenames, locals_filenames) = match paths {
             Some(paths) => (
                 Some(
@@ -856,7 +856,7 @@ impl LanguageConfiguration<'_> {
                 },
                 "highlights.scm",
             )
-            .map_err(|err| syntastica_core::Error::Custom(err.to_string()))?;
+            .map_err(|err| verdant_core::Error::Custom(err.to_string()))?;
         let injections_query = self
             .read_queries(
                 if injections_filenames.is_some() {
@@ -866,7 +866,7 @@ impl LanguageConfiguration<'_> {
                 },
                 "injections.scm",
             )
-            .map_err(|err| syntastica_core::Error::Custom(err.to_string()))?;
+            .map_err(|err| verdant_core::Error::Custom(err.to_string()))?;
         let locals_query = self
             .read_queries(
                 if locals_filenames.is_some() {
@@ -876,7 +876,7 @@ impl LanguageConfiguration<'_> {
                 },
                 "locals.scm",
             )
-            .map_err(|err| syntastica_core::Error::Custom(err.to_string()))?;
+            .map_err(|err| verdant_core::Error::Custom(err.to_string()))?;
 
         if highlights_query.is_empty() {
             Ok(None)

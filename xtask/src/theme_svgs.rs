@@ -11,10 +11,10 @@ pub fn run() -> Result<()> {
 
     let mut md_list = String::from("## List of Themes\n");
 
-    for &theme_name in syntastica_themes::THEMES {
+    for &theme_name in verdant_themes::THEMES {
         println!("{theme_name}");
 
-        let theme = syntastica_themes::from_str(theme_name).unwrap();
+        let theme = verdant_themes::from_str(theme_name).unwrap();
         let bg = match theme.bg() {
             Some(color) => {
                 let (r, g, b) = color.into_components();

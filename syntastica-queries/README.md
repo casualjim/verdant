@@ -1,17 +1,17 @@
-# `syntastica-queries`
+# `verdant-queries`
 
 Collection of tree-sitter queries for
-[`syntastica`](https://crates.io/crates/syntastica).
+[`verdant`](https://crates.io/crates/verdant).
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#crates-for-internal-use)
+[the project overview](https://rubixdev.github.io/verdant/verdant/#crates-for-internal-use)
 for more information.
 
 This crate defines constants for three types of tree-sitter queries for lots of
 parsers. It is intended to be used via
-[`syntastica-parsers`](https://crates.io/crates/syntastica-parsers),
-[`syntastica-parsers-git`](https://crates.io/crates/syntastica-parsers-git), or
-[`syntastica-parsers-gitdep`](https://github.com/RubixDev/syntastica/tree/main/syntastica-parsers-gitdep).
+[`verdant-parsers`](https://crates.io/crates/verdant-parsers),
+[`verdant-parsers-git`](https://crates.io/crates/verdant-parsers-git), or
+[`verdant-parsers-gitdep`](https://github.com/RubixDev/verdant/tree/main/verdant-parsers-gitdep).
 
 The three types of queries are:
 
@@ -25,10 +25,10 @@ is one of `HIGHLIGHTS`, `INJECTIONS`, or `LOCALS`. The `INJECTIONS` and `LOCALS`
 may be empty for some languages. The constants with the `_CRATES_IO` suffix aim
 to be compatible with the latest version of the parser that was published on
 [crates.io](https://crates.io). These are used by
-[`syntastica-parsers`](https://crates.io/crates/syntastica-parsers), whereas the
+[`verdant-parsers`](https://crates.io/crates/verdant-parsers), whereas the
 normal queries are used by
-[`syntastica-parsers-git`](https://crates.io/crates/syntastica-parsers-git) and
-[`syntastica-parsers-gitdep`](https://github.com/RubixDev/syntastica/tree/main/syntastica-parsers-gitdep).
+[`verdant-parsers-git`](https://crates.io/crates/verdant-parsers-git) and
+[`verdant-parsers-gitdep`](https://github.com/RubixDev/verdant/tree/main/verdant-parsers-gitdep).
 
 The crate source is automatically generated with `cargo xtask codegen` inside
-the `syntastica` workspace.
+the `verdant` workspace.

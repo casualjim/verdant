@@ -1,12 +1,12 @@
 [package]
-name = "syntastica-parsers-dynamic"
+name = "verdant-parsers-dynamic"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_parsers_dynamic/"
+documentation = "https://docs.rs/verdant"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Dynamically load tree-sitter parsers and queries at runtime for syntastica"
+description = "Dynamically load tree-sitter parsers and queries at runtime for verdant"
 
 [lints]
 workspace = true
@@ -19,7 +19,7 @@ default = []
 docs = ["dep:document-features", "dep:rustc_version"]
 
 [dependencies]
-syntastica-core.workspace = true
+verdant-core.workspace = true
 
 tree-sitter.workspace = true
 tree-sitter-loader = "0.26.7"

@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntastica/lang-elvish",
+  "name": "@verdant/lang-elvish",
   "version": "0.7.0",
-  "description": "Elvish language support for syntastica-js",
+  "description": "Elvish language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
   "homepage": "https://github.com/RubixDev/syntastica/tree/main/syntastica-js#readme",
   "bugs": "https://github.com/RubixDev/syntastica/issues",
@@ -23,6 +23,6 @@
   },
   "scripts": {
     "build": "env CFLAGS=-fPIC cargo build --profile release-wasm --target wasm32-unknown-emscripten",
-    "postbuild": "cp \"${CARGO_TARGET_DIR:-../../../target}/wasm32-unknown-emscripten/release-wasm/syntastica_js_elvish.wasm\" elvish.wasm"
+    "postbuild": "cp \"${CARGO_TARGET_DIR:-../../../target}/wasm32-unknown-emscripten/release-wasm/verdant_js_elvish.wasm\" elvish.wasm"
   }
 }

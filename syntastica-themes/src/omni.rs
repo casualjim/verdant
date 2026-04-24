@@ -2,7 +2,7 @@
 
 use std::collections::BTreeMap;
 
-use syntastica_core::{
+use verdant_core::{
     style::{Color, Style},
     theme::ResolvedTheme,
 };

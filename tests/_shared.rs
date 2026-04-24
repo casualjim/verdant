@@ -1,4 +1,4 @@
-use syntastica::theme::THEME_KEYS;
+use verdant::theme::THEME_KEYS;
 use tree_sitter::{Language, Query};
 
 pub fn validate_query(lang: &Language, query: &str, kind: &str) {

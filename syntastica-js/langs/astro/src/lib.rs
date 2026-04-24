@@ -3,5 +3,5 @@
 
 use tree_sitter::Language;
 
-syntastica_macros::js_lang_info!();
-syntastica_macros::js_lang_lib!("astro");
+verdant_macros::js_lang_info!();
+verdant_macros::js_lang_lib!("astro");

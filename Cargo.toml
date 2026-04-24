@@ -20,11 +20,11 @@ members = [
 exclude = ["ignored"]
 
 package.version = "0.7.0"
-package.authors = ["RubixDev <contact@rubixdev.de>"]
-package.documentation = "https://rubixdev.github.io/syntastica/"
+package.authors = ["Ivan Porto Carrero <ivan@flanders.co.nz>"]
+package.documentation = "https://docs.rs/verdant"
 package.edition = "2021"
 package.license = "MPL-2.0"
-package.repository = "https://github.com/RubixDev/syntastica"
+package.repository = "https://github.com/casualjim/syntastica"
 
 [workspace.metadata.release]
 enable-all-features = true
@@ -33,17 +33,17 @@ sign-tag = true
 shared-version = true
 
 [workspace.dependencies]
-syntastica = { version = "0.7.0", path = "./" }
-syntastica-core = { version = "0.7.0", path = "./syntastica-core", default-features = false }
-syntastica-highlight = { version = "0.7.0", path = "./syntastica-highlight", default-features = false }
-syntastica-macros = { version = "0.7.0", path = "./syntastica-macros" }
-syntastica-parsers = { version = "0.7.0", path = "./syntastica-parsers" }
-syntastica-parsers-dynamic = { version = "0.7.0", path = "./syntastica-parsers-dynamic" }
-syntastica-parsers-git = { version = "0.7.0", path = "./syntastica-parsers-git" }
-syntastica-parsers-gitdep = { version = "0.7.0", path = "./syntastica-parsers-gitdep" }
-syntastica-query-preprocessor = { version = "0.7.0", path = "./syntastica-query-preprocessor" }
-syntastica-queries = { version = "0.7.0", path = "./syntastica-queries" }
-syntastica-themes = { version = "0.7.0", path = "./syntastica-themes" }
+verdant = { version = "0.7.0", path = "./" }
+verdant-core = { version = "0.7.0", path = "./syntastica-core", default-features = false }
+verdant-highlight = { version = "0.7.0", path = "./syntastica-highlight", default-features = false }
+verdant-macros = { version = "0.7.0", path = "./syntastica-macros" }
+verdant-parsers = { version = "0.7.0", path = "./syntastica-parsers" }
+verdant-parsers-dynamic = { version = "0.7.0", path = "./syntastica-parsers-dynamic" }
+verdant-parsers-git = { version = "0.7.0", path = "./syntastica-parsers-git" }
+verdant-parsers-gitdep = { version = "0.7.0", path = "./syntastica-parsers-gitdep" }
+verdant-query-preprocessor = { version = "0.7.0", path = "./syntastica-query-preprocessor" }
+verdant-queries = { version = "0.7.0", path = "./syntastica-queries" }
+verdant-themes = { version = "0.7.0", path = "./syntastica-themes" }
 
 tree-sitter = "0.26.8"
 tree-sitter-generate = "0.26.8"
@@ -85,10 +85,10 @@ opt-level = "s"
 strip = true
 
 [package]
-name = "syntastica"
+name = "verdant"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica/"
+documentation = "https://docs.rs/verdant"
 edition.workspace = true
 keywords = ["tree-sitter", "syntect", "highlight", "parsing", "syntax"]
 license.workspace = true
@@ -104,26 +104,26 @@ default = []
 
 ## Provide implementations of serde's `Serialize` and `Deserialize` traits for [`Theme`](theme::Theme)
 ## and [`Style`](style::Style)
-serde = ["syntastica-core/serde"]
+serde = ["verdant-core/serde"]
 
 ## Enable this when building the docs
 docs = ["dep:document-features", "dep:rustc_version"]
 
 [dependencies]
-syntastica-core.workspace = true
-syntastica-highlight.workspace = true
+verdant-core.workspace = true
+verdant-highlight.workspace = true
 
 aho-corasick = "1.1.3"
 document-features = { workspace = true, optional = true }
 thiserror.workspace = true
 
 [dev-dependencies]
-syntastica-macros.workspace = true
-syntastica-parsers = { workspace = true, features = ["all"] }
-syntastica-parsers-git = { workspace = true, features = ["all"] }
-syntastica-queries.workspace = true
-syntastica-query-preprocessor.workspace = true
-syntastica-themes.workspace = true
+verdant-macros.workspace = true
+verdant-parsers = { workspace = true, features = ["all"] }
+verdant-parsers-git = { workspace = true, features = ["all"] }
+verdant-queries.workspace = true
+verdant-query-preprocessor.workspace = true
+verdant-themes.workspace = true
 
 tree-sitter.workspace = true
 tree-sitter-language.workspace = true

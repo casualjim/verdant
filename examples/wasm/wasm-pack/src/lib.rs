@@ -1,5 +1,5 @@
-use syntastica::renderer::HtmlRenderer;
-use syntastica_parsers_git::{Lang, LanguageSetImpl};
+use verdant::renderer::HtmlRenderer;
+use verdant_parsers_git::{Lang, LanguageSetImpl};
 use wasm_bindgen::prelude::*;
 
 // run this code when the module is loaded
@@ -11,12 +11,12 @@ async fn run() -> Result<(), JsValue> {
     let body = document.body().expect("document should have a body");
 
     // do some highlighting
-    let html = syntastica::highlight(
+    let html = verdant::highlight(
         "fn main() {\n    println!(\"Hello, World!\");\n}",
         Lang::Rust,
         &LanguageSetImpl::new(),
         &mut HtmlRenderer,
-        syntastica_themes::one::dark(),
+        verdant_themes::one::dark(),
     )
     .map_err(JsError::from)?;
 

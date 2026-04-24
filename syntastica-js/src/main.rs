@@ -1,3 +1,3 @@
-pub use syntastica_js::*;
+pub use verdant_js::*;
 
 fn main() {}

@@ -17,7 +17,7 @@ use std::{
 };
 
 use anyhow::Result;
-use syntastica_core::language_set::{
+use verdant_core::language_set::{
     FileType, HighlightConfiguration, LanguageSet, SupportedLanguage,
 };
 
@@ -47,7 +47,7 @@ impl<'loader> SupportedLanguage<'loader, LanguageLoader> for Lang<'loader> {
     fn for_name(
         name: impl AsRef<str>,
         set: &'loader LanguageLoader,
-    ) -> syntastica_core::Result<Self> {
+    ) -> verdant_core::Result<Self> {
         let name = name.as_ref();
         if set.highlight_configs.borrow().contains_key(name) {
             return Ok(Self(name.into(), PhantomData));
@@ -56,13 +56,13 @@ impl<'loader> SupportedLanguage<'loader, LanguageLoader> for Lang<'loader> {
         let (lang, lang_config) = set
             .loader
             .language_configuration_for_name(name)
-            .map_err(|err| syntastica_core::Error::Custom(err.to_string()))?
-            .ok_or_else(|| syntastica_core::Error::UnsupportedLanguage(name.to_string()))?;
+            .map_err(|err| verdant_core::Error::Custom(err.to_string()))?
+            .ok_or_else(|| verdant_core::Error::UnsupportedLanguage(name.to_string()))?;
 
         let config_ref = lang_config
             // TODO: allow custom query paths
             .highlight_config(lang, None)?
-            .ok_or_else(|| syntastica_core::Error::UnsupportedLanguage(name.to_string()))?;
+            .ok_or_else(|| verdant_core::Error::UnsupportedLanguage(name.to_string()))?;
 
         let name = Box::<str>::from(name);
         set.highlight_configs
@@ -113,7 +113,7 @@ impl LanguageLoader {
     /// The directories are scanned once during creation.
     pub fn new(parser_search_dirs: Vec<PathBuf>) -> Result<Self> {
         let mut loader = Loader::new()?;
-        loader.configure_highlights(syntastica_core::theme::THEME_KEYS);
+        loader.configure_highlights(verdant_core::theme::THEME_KEYS);
         loader.find_all_languages(&Config {
             parser_directories: parser_search_dirs,
         })?;
@@ -130,7 +130,7 @@ impl<'loader> LanguageSet<'loader> for LanguageLoader {
     fn get_language(
         &self,
         language: Self::Language,
-    ) -> syntastica_core::Result<&HighlightConfiguration> {
+    ) -> verdant_core::Result<&HighlightConfiguration> {
         Ok(self
             .highlight_configs
             .borrow()

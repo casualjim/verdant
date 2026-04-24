@@ -1,13 +1,13 @@
 [package]
-name = "syntastica-queries"
+name = "verdant-queries"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_queries/"
+documentation = "https://docs.rs/verdant"
 edition.workspace = true
 include = ["LICENSE", "README.md", "src", "generated_queries"]
 license.workspace = true
 repository.workspace = true
-description = "Collection of tree-sitter queries for syntastica"
+description = "Collection of tree-sitter queries for verdant"
 
 [lints]
 workspace = true

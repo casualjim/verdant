@@ -1,12 +1,12 @@
 [package]
-name = "syntastica-query-preprocessor"
+name = "verdant-query-preprocessor"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_query_preprocessor/"
+documentation = "https://docs.rs/verdant"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "The tree-sitter query pre-processor used by syntastica"
+description = "The tree-sitter query pre-processor used by verdant"
 
 [dependencies]
 lazy-regex = "3.4.1"

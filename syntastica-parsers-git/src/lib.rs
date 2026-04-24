@@ -8,7 +8,7 @@
 #![warn(rust_2018_idioms)]
 #![deny(missing_docs)]
 
-syntastica_macros::parsers_ffi!();
+verdant_macros::parsers_ffi!();
 
 /// Basic implementation of libc functions that tree-sitter parsers link against on
 /// `wasm32-unknown-unknown`. The `tree-sitter-language` crate ships headers and stdio/stdlib/string
