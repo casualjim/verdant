@@ -109,18 +109,14 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
   "version": "{verdant_version}",
   "description": "{lang_name_pascal} language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
-  "homepage": "https://github.com/RubixDev/syntastica/tree/main/syntastica-js#readme",
-  "bugs": "https://github.com/RubixDev/syntastica/issues",
+  "homepage": "https://github.com/casualjim/verdant/tree/main/syntastica-js#readme",
+  "bugs": "https://github.com/casualjim/verdant/issues",
   "license": "MPL-2.0",
-  "author": "RubixDev",
-  "funding": {{
-    "url": "https://ko-fi.com/rubixdev",
-    "type": "ko-fi"
-  }},
+  "author": "Ivan Porto Carrero",
   "files": ["{lang_name}.wasm"],
   "repository": {{
     "type": "git",
-    "url": "git+https://github.com/RubixDev/syntastica.git",
+    "url": "git+https://github.com/casualjim/verdant.git",
     "directory": "syntastica-js/langs/{lang_name}"
   }},
   "publishConfig": {{

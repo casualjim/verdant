@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Preps a fresh Ubuntu VM to reproduce/perform the syntastica build-js CI build.
+# Preps a fresh Ubuntu VM to reproduce/perform the verdant build-js CI build.
 # Designed for Hetzner Cloud Ubuntu 24.04, but should work on most recent Ubuntu.
 #
 # Usage:
-#   ./scripts/prepare-hetzner-buildjs-vm.sh --repo https://github.com/casualjim/syntastica --ref expand-languages
+#   ./scripts/prepare-hetzner-buildjs-vm.sh --repo https://github.com/casualjim/verdant --ref main
 #   ./scripts/prepare-hetzner-buildjs-vm.sh --full-build
 #
 # What it does:
@@ -16,8 +16,8 @@ set -euo pipefail
 # - Installs Emscripten SDK (emsdk)
 # - Clones the repo and runs the "prep" steps that should populate the parser cache
 
-REPO_URL="https://github.com/casualjim/syntastica"
-REF="expand-languages"
+REPO_URL="https://github.com/casualjim/verdant"
+REF="main"
 WORKDIR="$HOME/syntastica"
 CACHE_ROOT="/var/cache/syntastica"
 SWAP_GB="16"

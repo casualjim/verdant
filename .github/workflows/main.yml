@@ -297,7 +297,7 @@ jobs:
   pages:
     needs:
       - codegen
-    if: github.repository == 'RubixDev/syntastica'
+    if: github.repository == 'casualjim/verdant'
     continue-on-error: true
     runs-on: ubuntu-latest
     env:

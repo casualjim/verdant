@@ -24,7 +24,7 @@ package.authors = ["Ivan Porto Carrero <ivan@flanders.co.nz>"]
 package.documentation = "https://docs.rs/verdant"
 package.edition = "2021"
 package.license = "MPL-2.0"
-package.repository = "https://github.com/casualjim/syntastica"
+package.repository = "https://github.com/casualjim/verdant"
 
 [workspace.metadata.release]
 enable-all-features = true
