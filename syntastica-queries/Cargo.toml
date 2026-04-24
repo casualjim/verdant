@@ -1,5 +1,5 @@
 [package]
-name = "syntastica-queries"
+name = "verdant-queries"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_queries/"

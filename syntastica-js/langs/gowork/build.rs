@@ -11,7 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("cargo::rustc-link-arg={flag}");
         }
 
-        syntastica_macros::js_lang_build!("gowork");
+        verdant_macros::js_lang_build!("gowork");
     }
     Ok(())
 }

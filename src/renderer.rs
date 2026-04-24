@@ -5,7 +5,7 @@
 use std::borrow::{Borrow, Cow};
 
 use aho_corasick::AhoCorasick;
-use syntastica_core::theme::ResolvedTheme;
+use verdant_core::theme::ResolvedTheme;
 
 use crate::{
     style::{Color, Style},
@@ -129,7 +129,7 @@ pub fn resolve_styles<'src>(
 /// ## Example
 ///
 /// ```
-/// use syntastica::{renderer::HtmlRenderer, theme};
+/// use verdant::{renderer::HtmlRenderer, theme};
 ///
 /// // define a theme
 /// let theme = theme! { "keyword": "#ff0000" }.resolve_links().unwrap();
@@ -138,7 +138,7 @@ pub fn resolve_styles<'src>(
 /// let highlights = vec![vec![("<fn>", Some("keyword")), ("none", None)]];
 ///
 /// // render to HTML
-/// let output = syntastica::render(&highlights, &mut HtmlRenderer, theme);
+/// let output = verdant::render(&highlights, &mut HtmlRenderer, theme);
 ///
 /// assert_eq!(
 ///     output,
@@ -217,7 +217,7 @@ impl Renderer for HtmlRenderer {
 /// ## Example
 ///
 /// ```
-/// use syntastica::{renderer::TerminalRenderer, theme};
+/// use verdant::{renderer::TerminalRenderer, theme};
 ///
 /// // define a theme
 /// let theme = theme! { "keyword": "#ff0000" }.resolve_links().unwrap();
@@ -226,7 +226,7 @@ impl Renderer for HtmlRenderer {
 /// let highlights = vec![vec![("fn", Some("keyword")), (" none", None)]];
 ///
 /// // render to a string without a background color
-/// let output = syntastica::render(&highlights, &mut TerminalRenderer::new(None), theme);
+/// let output = verdant::render(&highlights, &mut TerminalRenderer::new(None), theme);
 ///
 /// assert_eq!(output, "\x1b[38;2;255;0;0mfn\x1b[0m none");
 /// ```

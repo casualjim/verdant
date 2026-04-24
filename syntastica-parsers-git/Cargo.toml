@@ -1,5 +1,5 @@
 [package]
-name = "syntastica-parsers-git"
+name = "verdant-parsers-git"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_parsers_git/"
@@ -12,9 +12,9 @@ description = "Collection of tree-sitter parsers for syntastica, fetching with g
 workspace = true
 
 [dependencies]
-syntastica-core.workspace = true
-syntastica-macros.workspace = true
-syntastica-queries.workspace = true
+verdant-core.workspace = true
+verdant-macros.workspace = true
+verdant-queries.workspace = true
 
 document-features = { workspace = true, optional = true }
 once_cell.workspace = true
@@ -25,7 +25,7 @@ strum = { workspace = true, features = ["derive", "phf"] }
 wasm32-unknown-unknown-openbsd-libc = { version = "0.2.1", package = "wasm32-unknown-unknown-openbsd-libc-wctypes-fix" }
 
 [build-dependencies]
-syntastica-macros.workspace = true
+verdant-macros.workspace = true
 
 cc.workspace = true
 rustc_version = { workspace = true, optional = true }

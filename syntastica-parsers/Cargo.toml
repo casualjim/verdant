@@ -1,5 +1,5 @@
 [package]
-name = "syntastica-parsers"
+name = "verdant-parsers"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_parsers/"
@@ -12,9 +12,9 @@ description = "Collection of tree-sitter parsers for syntastica, using parsers a
 workspace = true
 
 [dependencies]
-syntastica-core.workspace = true
-syntastica-macros.workspace = true
-syntastica-queries.workspace = true
+verdant-core.workspace = true
+verdant-macros.workspace = true
+verdant-queries.workspace = true
 
 document-features = { workspace = true, optional = true }
 once_cell.workspace = true

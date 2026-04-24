@@ -1,4 +1,4 @@
-# `syntastica-js-asm68k`
+# `verdant-js-asm68k`
 
 Asm68k language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

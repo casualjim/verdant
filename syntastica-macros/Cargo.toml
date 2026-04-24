@@ -1,5 +1,5 @@
 [package]
-name = "syntastica-macros"
+name = "verdant-macros"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_macros/"

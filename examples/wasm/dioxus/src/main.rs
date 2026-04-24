@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use syntastica::renderer::HtmlRenderer;
-use syntastica_parsers_git::{Lang, LanguageSetImpl};
+use verdant::renderer::HtmlRenderer;
+use verdant_parsers_git::{Lang, LanguageSetImpl};
 
 const MAIN_CSS: Asset = asset!("/assets/main.css");
 
@@ -13,12 +13,12 @@ fn App() -> Element {
     // on an actual website it would be smart to run syntsatica in a web worker as to not
     // freeze the user interface while waiting
     let html = use_hook(|| {
-        syntastica::highlight(
+        verdant::highlight(
             "fn main() {\n    println!(\"Hello, World!\");\n}",
             Lang::Rust,
             &LanguageSetImpl::new(),
             &mut HtmlRenderer,
-            syntastica_themes::one::dark(),
+            verdant_themes::one::dark(),
         )
         .map_err(|e| e.to_string())
     });

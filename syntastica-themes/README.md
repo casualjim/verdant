@@ -1,7 +1,7 @@
-# `syntastica-themes`
+# `verdant-themes`
 
-A collection of themes for [`syntastica`](https://crates.io/crates/syntastica).
+A collection of themes for [`verdant`](https://crates.io/crates/verdant).
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#theme-collection)
+[the project overview](https://rubixdev.github.io/verdant/verdant/#theme-collection)
 for more information.

@@ -1,8 +1,8 @@
-# `syntastica-core`
+# `verdant-core`
 
 Shared types and traits used by other
-[`syntastica`](https://crates.io/crates/syntastica) crates.
+[`verdant`](https://crates.io/crates/verdant) crates.
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#crates-for-internal-use)
+[the project overview](https://rubixdev.github.io/verdant/verdant/#crates-for-internal-use)
 for more information.

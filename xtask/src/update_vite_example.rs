@@ -13,7 +13,7 @@ pub fn run() -> Result<()> {
     let status = Command::new("npm")
         .current_dir(&demo_dir)
         .arg("install")
-        .args(langs.iter().map(|lang| format!("@syntastica/lang-{lang}")))
+        .args(langs.iter().map(|lang| format!("@verdant/lang-{lang}")))
         .status()?;
     if !status.success() {
         bail!("npm exited with non-zero exit code: {status}");

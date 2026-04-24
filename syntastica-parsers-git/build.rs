@@ -11,7 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     if !(cfg!(feature = "docs") && env::var("DOCS_RS").is_ok()) {
-        syntastica_macros::parsers_git!();
+        verdant_macros::parsers_git!();
     }
 
     // for documenting features when using nightly

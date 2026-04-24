@@ -1,10 +1,10 @@
-# `syntastica` wasm-pack Example
+# `verdant` wasm-pack Example
 
-This folder contains an example project showcasing use of `syntastica` in
+This folder contains an example project showcasing use of `verdant` in
 websites using `wasm-bindgen` and `wasm-pack`.
 
 The demo can be found online
-[here](https://rubixdev.github.io/syntastica/demos/wasm-pack/).
+[here](https://rubixdev.github.io/verdant/demos/wasm-pack/).
 
 You can run a development server locally by executing these commands:
 

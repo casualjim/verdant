@@ -1,15 +1,15 @@
-# `syntastica-query-preprocessor`
+# `verdant-query-preprocessor`
 
 The tree-sitter query pre-processor used by
-[`syntastica`](https://crates.io/crates/syntastica).
+[`verdant`](https://crates.io/crates/verdant).
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#general-side-products)
+[the project overview](https://rubixdev.github.io/verdant/verdant/#general-side-products)
 for more information.
 
 ## Overview
 
-`syntastica-query-preprocessor` is a pre-processor for tree-sitter queries which
+`verdant-query-preprocessor` is a pre-processor for tree-sitter queries which
 allows usage of `; inherits <lang>` comments, conditional skipping of nodes with
 comments, usage of additional predicates like `lua-match?`, `contains?` and
 `any-of?`, Neovim's old injections syntax, and order reversing for priority
@@ -58,7 +58,7 @@ Additional behavior differs for the kind of queries:
   whereas the official
   [tree-sitter Rust bindings](https://crates.io/crates/tree-sitter) do the
   opposite.~~ This is no longer the case, as `tree-sitter-highlight` and as such
-  `syntastica-highlight` now also prioritize later queries over previous ones.
+  `verdant-highlight` now also prioritize later queries over previous ones.
 - For injection queries, Neovim used to use `@<lang_name>`, `@content`,
   `@language`, and `@combined` captures. These will be replaced with the new
   (and official) syntax using `#set! injection.language "<lang_name>"`,

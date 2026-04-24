@@ -54,9 +54,9 @@ pub enum Error {
 
     /// Highlighting failed, usually because of tree-sitter version mismatches.
     ///
-    /// Contains a [`syntastica_highlight::Error`].
+    /// Contains a [`verdant_highlight::Error`].
     #[error(transparent)]
-    Highlight(#[from] syntastica_highlight::Error),
+    Highlight(#[from] verdant_highlight::Error),
 
     /// A custom error which may be returned by external crates if no other variant fits.
     ///

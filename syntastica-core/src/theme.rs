@@ -401,7 +401,7 @@ impl ThemeValue {
 ///
 /// ```
 /// use std::collections::BTreeMap;
-/// use syntastica_core::{
+/// use verdant_core::{
 ///     theme,
 ///     theme::{Theme, ThemeValue},
 /// };

@@ -1,4 +1,4 @@
-# `syntastica-js-bp`
+# `verdant-js-bp`
 
 Bp language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

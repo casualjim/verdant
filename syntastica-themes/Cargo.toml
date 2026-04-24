@@ -1,5 +1,5 @@
 [package]
-name = "syntastica-themes"
+name = "verdant-themes"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_themes/"
@@ -20,7 +20,7 @@ default = []
 docs = ["dep:document-features", "dep:rustc_version"]
 
 [dependencies]
-syntastica-core.workspace = true
+verdant-core.workspace = true
 
 document-features = { workspace = true, optional = true }
 

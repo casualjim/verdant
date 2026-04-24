@@ -12,11 +12,11 @@ pub mod renderer;
 
 pub use processor::Processor;
 pub use renderer::render;
-pub use syntastica_core::*;
+pub use verdant_core::*;
 
 use language_set::LanguageSet;
 use renderer::Renderer;
-use syntastica_core::style::Style;
+use verdant_core::style::Style;
 use theme::ResolvedTheme;
 
 /// Source code with theme-independent style information attached, as returned by the [`Processor`].

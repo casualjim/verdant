@@ -4,9 +4,9 @@
 
 use std::{borrow::Cow, collections::HashMap, env, error::Error};
 
-use syntastica::renderer::Renderer;
-use syntastica_core::style::Style;
-use syntastica_parsers_git::{Lang, LanguageSetImpl};
+use verdant::renderer::Renderer;
+use verdant_core::style::Style;
+use verdant_parsers_git::{Lang, LanguageSetImpl};
 
 fn main() -> Result<(), Box<dyn Error>> {
     let examples: HashMap<String, String> =
@@ -14,12 +14,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let theme_name = env::args()
         .nth(1)
         .unwrap_or_else(|| "one::light".to_string());
-    let theme = syntastica_themes::from_str(&theme_name)
+    let theme = verdant_themes::from_str(&theme_name)
         .ok_or_else(|| format!("unknown theme `{theme_name}`"))?;
 
     println!(
         "{}",
-        syntastica::highlight(
+        verdant::highlight(
             &examples["rust"],
             Lang::Rust,
             &LanguageSetImpl::new(),

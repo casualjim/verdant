@@ -1,4 +1,4 @@
-# `syntastica-js-usd`
+# `verdant-js-usd`
 
 Usd language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

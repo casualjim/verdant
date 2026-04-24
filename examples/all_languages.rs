@@ -1,7 +1,7 @@
 use std::{collections::BTreeMap, env};
 
-use syntastica::{language_set::SupportedLanguage, renderer::TerminalRenderer, Processor};
-use syntastica_parsers_git::{Lang, LanguageSetImpl};
+use verdant::{language_set::SupportedLanguage, renderer::TerminalRenderer, Processor};
+use verdant_parsers_git::{Lang, LanguageSetImpl};
 
 fn main() {
     let filter = env::args().nth(1).unwrap_or_default();
@@ -29,13 +29,13 @@ fn example(
     processor: &mut Processor<LanguageSetImpl>,
     code: &str,
     lang_name: &str,
-) -> syntastica::Result<()> {
+) -> verdant::Result<()> {
     println!(
         "{}",
-        syntastica::render(
+        verdant::render(
             &processor.process(code.trim(), Lang::for_name(lang_name, &())?)?,
             &mut TerminalRenderer::new(None),
-            syntastica_themes::one::dark(),
+            verdant_themes::one::dark(),
         )
     );
     Ok(())

@@ -1,7 +1,7 @@
-# `syntastica-macros`
+# `verdant-macros`
 
-Macros for internal use in [`syntastica`](https://crates.io/crates/syntastica).
+Macros for internal use in [`verdant`](https://crates.io/crates/verdant).
 
 See
-[the project overview](https://rubixdev.github.io/syntastica/syntastica/#crates-for-internal-use)
+[the project overview](https://rubixdev.github.io/verdant/verdant/#crates-for-internal-use)
 for more information.

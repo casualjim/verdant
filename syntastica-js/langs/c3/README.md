@@ -1,4 +1,4 @@
-# `syntastica-js-c3`
+# `verdant-js-c3`
 
 C3 language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

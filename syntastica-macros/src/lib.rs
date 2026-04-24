@@ -109,7 +109,7 @@ pub fn parsers_ffi(_: TokenStream) -> TokenStream {
         let cfg = ffi_group_cfg(group);
         quote! {
             #[cfg(#cfg)]
-            fn #ffi_func() -> ::syntastica_core::language_set::Language;
+            fn #ffi_func() -> ::verdant_core::language_set::Language;
         }
     });
     let functions = LANGUAGE_CONFIG.languages.iter().map(|lang| {
@@ -136,7 +136,7 @@ pub fn parsers_ffi(_: TokenStream) -> TokenStream {
         quote! {
             #[cfg(all(any(feature = #feat, feature = #name_str) #not_wasm_cfg))]
             #[doc = #doc]
-            pub fn #name() -> ::syntastica_core::language_set::Language {
+            pub fn #name() -> ::verdant_core::language_set::Language {
                 #[cfg(not(all(feature = "docs", doc)))]
                 unsafe { #ffi_func() }
                 #[cfg(all(feature = "docs", doc))]
@@ -145,7 +145,7 @@ pub fn parsers_ffi(_: TokenStream) -> TokenStream {
         }
     });
     parsers(
-        "syntastica_parsers_git",
+        "verdant_parsers_git",
         functions,
         |_| true,
         Some(quote! {
@@ -160,12 +160,12 @@ pub fn parsers_ffi(_: TokenStream) -> TokenStream {
 
 #[proc_macro]
 pub fn parsers_gitdep(_: TokenStream) -> TokenStream {
-    parsers_rust("syntastica_parsers_gitdep", false, "")
+    parsers_rust("verdant_parsers_gitdep", false, "")
 }
 
 #[proc_macro]
 pub fn parsers_dep(_: TokenStream) -> TokenStream {
-    parsers_rust("syntastica_parsers", true, "_CRATES_IO")
+    parsers_rust("verdant_parsers", true, "_CRATES_IO")
 }
 
 fn parsers_rust(crate_name: &str, crates_io: bool, query_suffix: &str) -> TokenStream {
@@ -182,7 +182,7 @@ fn parsers_rust(crate_name: &str, crates_io: bool, query_suffix: &str) -> TokenS
                         "Get the parser for [{}]({}/tree/{}).",
                         lang.name, lang.parser.git.url, lang.parser.git.rev,
                     ),
-                    quote! { ::syntastica_core::language_set::Language::new(#package::#ident) }
+                    quote! { ::verdant_core::language_set::Language::new(#package::#ident) }
                 )
             },
             (_, Some(func)) if lang.parser.supports(!crates_io) => {
@@ -205,7 +205,7 @@ fn parsers_rust(crate_name: &str, crates_io: bool, query_suffix: &str) -> TokenS
         quote! {
             #[cfg(any(feature = #feat, feature = #name_str))]
             #[doc = #doc]
-            pub fn #name() -> ::syntastica_core::language_set::Language {
+            pub fn #name() -> ::verdant_core::language_set::Language {
                 #body
             }
         }
@@ -257,7 +257,7 @@ fn parsers(
                 let ft = format_ident!("{ft:?}");
                 quote! {
                     #[cfg(all(feature = #name_str #not_wasm_cfg))]
-                    (::syntastica_core::language_set::FileType::#ft, Lang::#variant)
+                    (::verdant_core::language_set::FileType::#ft, Lang::#variant)
                 }
             })
         });
@@ -289,9 +289,9 @@ fn parsers(
         let not_wasm_cfg = not_wasm_cfg(lang);
 
         quote! { #[cfg(all(feature = #name_str #not_wasm_cfg))] [
-            ::syntastica_queries::#highlights,
-            ::syntastica_queries::#injections,
-            ::syntastica_queries::#locals,
+            ::verdant_queries::#highlights,
+            ::verdant_queries::#injections,
+            ::verdant_queries::#locals,
         ] }
     });
     let lang_enum_example_use = format!("use {crate_name}::{{Lang, LANGUAGES, LANGUAGE_NAMES}};");
@@ -310,7 +310,7 @@ fn parsers(
                     lang.file_types
                         .iter()
                         .map(|ft| format!(
-                            "[`{ft}`](::syntastica_core::language_set::FileType::{ft:?})"
+                            "[`{ft}`](::verdant_core::language_set::FileType::{ft:?})"
                         ))
                         .collect::<Vec<_>>()
                         .join(", ")
@@ -357,7 +357,7 @@ fn parsers(
                 fn #name() {
                     assert_eq!(crate::#name(), crate::Lang::#variant.get());
                     let set = crate::LanguageSetImpl::new();
-                    let result = ::syntastica_core::language_set::LanguageSet::get_language(
+                    let result = ::verdant_core::language_set::LanguageSet::get_language(
                         &set,
                         crate::Lang::#variant,
                     );
@@ -374,7 +374,7 @@ fn parsers(
     quote_use! {
         # use std::{borrow::Cow, collections::HashMap};
 
-        # use syntastica_core::{
+        # use verdant_core::{
             language_set::{HighlightConfiguration, LanguageSet, Language, FileType, SupportedLanguage},
             Error, Result,
             theme::THEME_KEYS,
@@ -410,16 +410,16 @@ fn parsers(
         /// An enum of every supported language in the current feature set.
         ///
         /// An instance of the respective tree-stter
-        /// [`Language`](::syntastica_core::language_set::Language) can be obtained with the
+        /// [`Language`](::verdant_core::language_set::Language) can be obtained with the
         /// [`get`](Lang::get) method.
         ///
         /// You can also get a [`Lang`] from its name using
-        /// [`for_name`](::syntastica_core::language_set::SupportedLanguage::for_name), or for a
-        /// [`FileType`](::syntastica_core::language_set::FileType) using
-        /// [`for_file_type`](::syntastica_core::language_set::SupportedLanguage::for_file_type).
+        /// [`for_name`](::verdant_core::language_set::SupportedLanguage::for_name), or for a
+        /// [`FileType`](::verdant_core::language_set::FileType) using
+        /// [`for_file_type`](::verdant_core::language_set::SupportedLanguage::for_file_type).
         /// See the docs for each variant to see its "name" and the supported file types.
         /// Both of these require the
-        /// [`SupportedLanguage`](::syntastica_core::language_set::SupportedLanguage) trait to be
+        /// [`SupportedLanguage`](::verdant_core::language_set::SupportedLanguage) trait to be
         /// in scope.
         ///
         /// See [`LANGUAGES`] for a list containing all variants and [`LANGUAGE_NAMES`] for a list
@@ -434,7 +434,7 @@ fn parsers(
         ///
         /// ```
         #[doc = #lang_enum_example_use]
-        /// use syntastica_core::language_set::{SupportedLanguage, FileType};
+        /// use verdant_core::language_set::{SupportedLanguage, FileType};
         ///
         /// // you can get a `Lang` from its name
         /// assert_eq!(Lang::Rust, Lang::for_name("rust", &()).unwrap());
@@ -474,7 +474,7 @@ fn parsers(
 
         impl Lang {
             /// Get an instance of the respective
-            /// [`Language`](::syntastica_core::language_set::Language).
+            /// [`Language`](::verdant_core::language_set::Language).
             pub fn get(&self) -> Language {
                 match self {
                     #(#lang_get_match)*
@@ -483,7 +483,7 @@ fn parsers(
             }
 
             /// Create an instance of the corresponding
-            /// [`HighlightConfiguration`](::syntastica_core::language_set::HighlightConfiguration).
+            /// [`HighlightConfiguration`](::verdant_core::language_set::HighlightConfiguration).
             pub fn get_config(&self) -> Result<HighlightConfiguration> {
                 let idx = IDX_MAP[self];
                 let lang = FUNCS[idx]();
@@ -534,7 +534,7 @@ fn parsers(
             }
         }
 
-        /// An implementation of [`LanguageSet`](::syntastica_core::language_set::LanguageSet)
+        /// An implementation of [`LanguageSet`](::verdant_core::language_set::LanguageSet)
         /// including all languages in the enabled feature set.
         ///
         /// Languages are loaded the first time they are requested and will then be reused for
@@ -608,10 +608,10 @@ pub fn queries_test(_: TokenStream) -> TokenStream {
             quote! {
                 #[test]
                 fn #name() {
-                    let lang = ::syntastica_parsers_git::#name();
-                    validate_query(&lang, ::syntastica_queries::#highlights, "highlights");
-                    validate_query(&lang, ::syntastica_queries::#injections, "injections");
-                    validate_query(&lang, ::syntastica_queries::#locals, "locals");
+                    let lang = ::verdant_parsers_git::#name();
+                    validate_query(&lang, ::verdant_queries::#highlights, "highlights");
+                    validate_query(&lang, ::verdant_queries::#injections, "injections");
+                    validate_query(&lang, ::verdant_queries::#locals, "locals");
                 }
             }
         })
@@ -633,10 +633,10 @@ pub fn queries_test_crates_io(_: TokenStream) -> TokenStream {
             quote! {
                 #[test]
                 fn #name() {
-                    let lang = ::syntastica_parsers::#name();
-                    validate_query(&lang, ::syntastica_queries::#highlights, "highlights");
-                    validate_query(&lang, ::syntastica_queries::#injections, "injections");
-                    validate_query(&lang, ::syntastica_queries::#locals, "locals");
+                    let lang = ::verdant_parsers::#name();
+                    validate_query(&lang, ::verdant_queries::#highlights, "highlights");
+                    validate_query(&lang, ::verdant_queries::#injections, "injections");
+                    validate_query(&lang, ::verdant_queries::#locals, "locals");
                 }
             }
         })
@@ -776,7 +776,7 @@ pub fn js_lang_lib(input: TokenStream) -> TokenStream {
         .find(|lang| lang.name == lang_name)
         .unwrap_or_else(|| panic!("language '{lang_name}' is not defined"));
 
-    let func = format_ident!("syntastica_lang_{lang_name}");
+    let func = format_ident!("verdant_lang_{lang_name}");
     let ffi_func = format_ident!("{}", &lang.parser.ffi_func);
     let name = std::ffi::CString::new(lang_name.as_str()).unwrap();
     let file_types = lang
@@ -813,9 +813,9 @@ pub fn js_lang_lib(input: TokenStream) -> TokenStream {
                 file_types: FILE_TYPES.as_ptr(),
                 file_types_len: FILE_TYPES.len(),
                 language: unsafe { #ffi_func() },
-                highlights_query: str_to_cstr(::syntastica_queries::#highlights),
-                injections_query: str_to_cstr(::syntastica_queries::#injections),
-                locals_query: str_to_cstr(::syntastica_queries::#locals),
+                highlights_query: str_to_cstr(::verdant_queries::#highlights),
+                injections_query: str_to_cstr(::verdant_queries::#injections),
+                locals_query: str_to_cstr(::verdant_queries::#locals),
             };
             unsafe { ptr.write(info) };
             ptr

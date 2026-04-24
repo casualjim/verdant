@@ -3,5 +3,5 @@
 
 use tree_sitter::Language;
 
-syntastica_macros::js_lang_info!();
-syntastica_macros::js_lang_lib!("jsonc");
+verdant_macros::js_lang_info!();
+verdant_macros::js_lang_lib!("jsonc");

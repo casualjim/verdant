@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntastica/core",
+  "name": "verdant-js",
   "version": "0.6.0",
   "description": "Modern and easy syntax highlighting using tree-sitter",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
@@ -16,9 +16,9 @@
     "src/index.ts",
     "./pkg/index.js",
     "./pkg/index.d.ts",
-    "./pkg/syntastica-js.js",
-    "./pkg/syntastica-js.d.ts",
-    "./pkg/syntastica_js.wasm"
+    "./pkg/verdant-js.js",
+    "./pkg/verdant-js.d.ts",
+    "./pkg/verdant_js.wasm"
   ],
   "module": "pkg/index.js",
   "main": "pkg/index.js",
@@ -28,7 +28,7 @@
       "require": "./pkg/index.js",
       "types": "./pkg/index.d.ts"
     },
-    "./wasm": "./pkg/syntastica_js.wasm"
+    "./wasm": "./pkg/verdant_js.wasm"
   },
   "type": "module",
   "repository": {
@@ -42,8 +42,8 @@
   "scripts": {
     "prebuild": "rm -rf pkg && mkdir -p pkg",
     "build:wasm": "env CFLAGS=-fPIC cargo build --profile release-wasm --target wasm32-unknown-emscripten",
-    "postbuild:wasm": "cpy \"${CARGO_TARGET_DIR:-../target}/wasm32-unknown-emscripten/release-wasm/syntastica*{-js.js,_js.wasm}\" pkg",
-    "prebuild:js": "cpy src/syntastica-js.d.ts pkg --flat",
+    "postbuild:wasm": "cpy \"${CARGO_TARGET_DIR:-../target}/wasm32-unknown-emscripten/release-wasm/verdant*{-js.js,_js.wasm}\" pkg",
+    "prebuild:js": "cpy src/verdant-js.d.ts pkg --flat",
     "build:js": "tsc",
     "build": "npm-run-all build:*",
     "doc": "typedoc"

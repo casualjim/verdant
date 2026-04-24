@@ -1,5 +1,5 @@
 [package]
-name = "syntastica-query-preprocessor"
+name = "verdant-query-preprocessor"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_query_preprocessor/"

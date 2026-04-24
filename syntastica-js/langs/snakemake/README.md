@@ -1,4 +1,4 @@
-# `syntastica-js-snakemake`
+# `verdant-js-snakemake`
 
 Snakemake language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

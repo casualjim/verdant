@@ -115,7 +115,7 @@ runtime query directory with a highlights.scm for the language.
             }
         }
 
-        let target_name = canonical_syntastica_name(&mapping.grammar, &grammar_mappings);
+        let target_name = canonical_verdant_name(&mapping.grammar, &grammar_mappings);
         if reserved_names.contains(&target_name) {
             if update_existing {
                 to_update.insert(target_name.clone(), mapping.clone());
@@ -435,7 +435,7 @@ fn fetch_nvim_runtime_query_dirs_local() -> Option<BTreeSet<String>> {
     }
 }
 
-fn canonical_syntastica_name(
+fn canonical_verdant_name(
     breeze_name: &str,
     mappings: &HashMap<String, GrammarMapping>,
 ) -> String {
@@ -486,7 +486,7 @@ fn sanitize_lang_name(name: &str) -> String {
 
 fn resolve_nvim_query_name(
     breeze_name: &str,
-    syntastica_name: &str,
+    verdant_name: &str,
     nvim_dirs: &std::collections::BTreeSet<String>,
     mappings: &HashMap<String, GrammarMapping>,
 ) -> Option<String> {
@@ -501,7 +501,7 @@ fn resolve_nvim_query_name(
 
     // Fallback to candidate names
     let candidates = [
-        syntastica_name.to_owned(),
+        verdant_name.to_owned(),
         breeze_name.to_owned(),
         breeze_name.replace('-', "_"),
     ];

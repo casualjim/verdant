@@ -1,5 +1,5 @@
 [package]
-name = "syntastica-highlight"
+name = "verdant-highlight"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_highlight/"

@@ -1,10 +1,10 @@
-use syntastica_core::ts_runtime::Node;
-use syntastica_core::{
+use verdant_core::ts_runtime::Node;
+use verdant_core::{
     language_set::{LanguageSet, SupportedLanguage},
     theme::THEME_KEYS,
     Result,
 };
-use syntastica_highlight::{Highlight, HighlightEvent, Highlighter};
+use verdant_highlight::{Highlight, HighlightEvent, Highlighter};
 
 use crate::Highlights;
 
@@ -30,8 +30,8 @@ use crate::Highlights;
 /// a [`Processor`] instance.
 ///
 /// ```
-/// use syntastica::{style::Style, Processor};
-/// use syntastica_parsers::{Lang, LanguageSetImpl};
+/// use verdant::{style::Style, Processor};
+/// use verdant_parsers::{Lang, LanguageSetImpl};
 ///
 /// let highlights = Processor::process_once(
 ///     "fn",       // the code to process
@@ -50,8 +50,8 @@ use crate::Highlights;
 /// instance which can then be used to process multiple different inputs.
 ///
 /// ```
-/// use syntastica::{style::Style, Processor};
-/// use syntastica_parsers_git::{Lang, LanguageSetImpl};
+/// use verdant::{style::Style, Processor};
+/// use verdant_parsers_git::{Lang, LanguageSetImpl};
 ///
 /// // get a `LanguageSet`
 /// let language_set = LanguageSetImpl::new();
@@ -143,15 +143,15 @@ impl<'set, Set: LanguageSet<'set>> Processor<'set, Set> {
     ///
     /// # Example
     /// ```
-    /// use syntastica::{language_set::LanguageSet, renderer::TerminalRenderer, Processor};
-    /// use syntastica_parsers::{Lang, LanguageSetImpl};
+    /// use verdant::{language_set::LanguageSet, renderer::TerminalRenderer, Processor};
+    /// use verdant_parsers::{Lang, LanguageSetImpl};
     /// use tree_sitter::{InputEdit, Parser, Point};
     ///
     /// // create a LanguageSet, Processor, Renderer, and ResolvedTheme
     /// let set = LanguageSetImpl::new();
     /// let mut processor = Processor::new(&set);
     /// let mut renderer = TerminalRenderer::new(None);
-    /// let theme = syntastica_themes::one::dark();
+    /// let theme = verdant_themes::one::dark();
     ///
     /// // create a tree-sitter parser
     /// let mut parser = Parser::new();
@@ -163,7 +163,7 @@ impl<'set, Set: LanguageSet<'set>> Processor<'set, Set> {
     /// let mut tree = parser.parse(code, None).unwrap();
     /// println!(
     ///     "{}",
-    ///     syntastica::render(
+    ///     verdant::render(
     ///         &processor.process_tree(code, Lang::Rust, &tree.root_node())?,
     ///         &mut renderer,
     ///         &theme,
@@ -185,7 +185,7 @@ impl<'set, Set: LanguageSet<'set>> Processor<'set, Set> {
     /// let new_tree = parser.parse(new_code, Some(&tree)).unwrap();
     /// println!(
     ///     "{}",
-    ///     syntastica::render(
+    ///     verdant::render(
     ///         &processor.process_tree(new_code, Lang::Rust, &new_tree.root_node())?,
     ///         &mut renderer,
     ///         &theme,
@@ -269,7 +269,7 @@ impl<'set, Set: LanguageSet<'set>> Processor<'set, Set> {
 }
 
 fn process_highlight_iter(
-    iter: impl Iterator<Item = std::result::Result<HighlightEvent, syntastica_highlight::Error>>,
+    iter: impl Iterator<Item = std::result::Result<HighlightEvent, verdant_highlight::Error>>,
     code: &str,
 ) -> Result<Highlights<'_>> {
     let mut out = vec![vec![]];

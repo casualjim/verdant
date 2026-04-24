@@ -26,33 +26,33 @@ pub fn make_queries() -> Result<BTreeMap<String, [String; 6]>> {
             };
 
         let highlights = query_file(
-            syntastica_query_preprocessor::process_highlights_with_inherits,
+            verdant_query_preprocessor::process_highlights_with_inherits,
             true,
             NON_CRATES_IO_SKIP_COMMENT,
         );
         let injections = query_file(
-            syntastica_query_preprocessor::process_injections_with_inherits,
+            verdant_query_preprocessor::process_injections_with_inherits,
             lang.queries.injections,
             NON_CRATES_IO_SKIP_COMMENT,
         );
         let locals = query_file(
-            syntastica_query_preprocessor::process_locals_with_inherits,
+            verdant_query_preprocessor::process_locals_with_inherits,
             lang.queries.locals,
             NON_CRATES_IO_SKIP_COMMENT,
         );
 
         let highlights_crates_io = query_file(
-            syntastica_query_preprocessor::process_highlights_with_inherits,
+            verdant_query_preprocessor::process_highlights_with_inherits,
             true,
             CRATES_IO_SKIP_COMMENT,
         );
         let injections_crates_io = query_file(
-            syntastica_query_preprocessor::process_injections_with_inherits,
+            verdant_query_preprocessor::process_injections_with_inherits,
             lang.queries.injections,
             CRATES_IO_SKIP_COMMENT,
         );
         let locals_crates_io = query_file(
-            syntastica_query_preprocessor::process_locals_with_inherits,
+            verdant_query_preprocessor::process_locals_with_inherits,
             lang.queries.locals,
             CRATES_IO_SKIP_COMMENT,
         );

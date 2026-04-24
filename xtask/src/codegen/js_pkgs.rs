@@ -28,10 +28,10 @@ pub fn write() -> Result<()> {
         fs::write(
             lang_dir.join("README.md"),
             format!(
-                r###"# `syntastica-js-{lang_name}`
+                r###"# `verdant-js-{lang_name}`
 
 {lang_name_pascal} language support for
-[`syntastica-js`](https://www.npmjs.com/package/@syntastica/core).
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).
 "###
             ),
         )?;
@@ -40,26 +40,26 @@ pub fn write() -> Result<()> {
             lang_dir.join("Cargo.toml"),
             format!(
                 r###"[package]
-name = "syntastica-js-{lang_name}"
+name = "verdant-js-{lang_name}"
 version.workspace = true
 authors.workspace = true
 documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "{lang_name_pascal} language support for syntastica-js"
+description = "{lang_name_pascal} language support for verdant-js"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-syntastica-macros = {{ workspace = true, features = ["js"] }}
-syntastica-queries.workspace = true
+verdant-macros = {{ workspace = true, features = ["js"] }}
+verdant-queries.workspace = true
 
 tree-sitter.workspace = true
 
 [build-dependencies]
-syntastica-macros = {{ workspace = true, features = ["js"] }}
+verdant-macros = {{ workspace = true, features = ["js"] }}
 
 cc.workspace = true
 tree-sitter-generate.workspace = true
@@ -83,7 +83,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {{
             println!("cargo::rustc-link-arg={{flag}}");
         }}
 
-        syntastica_macros::js_lang_build!("{lang_name}");
+        verdant_macros::js_lang_build!("{lang_name}");
     }}
     Ok(())
 }}
@@ -93,7 +93,7 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
             ),
         )?;
 
-        let syntastica_version = toml::from_str::<Table>(
+        let verdant_version = toml::from_str::<Table>(
             &fs::read_to_string(crate::WORKSPACE_DIR.join("Cargo.toml")).unwrap(),
         )
         .unwrap()["workspace"]["package"]["version"]
@@ -105,9 +105,9 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
             format!(
                 r###"{{
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@syntastica/lang-{lang_name}",
-  "version": "{syntastica_version}",
-  "description": "{lang_name_pascal} language support for syntastica-js",
+  "name": "@verdant/lang-{lang_name}",
+  "version": "{verdant_version}",
+  "description": "{lang_name_pascal} language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
   "homepage": "https://github.com/RubixDev/syntastica/tree/main/syntastica-js#readme",
   "bugs": "https://github.com/RubixDev/syntastica/issues",
@@ -128,7 +128,7 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
   }},
   "scripts": {{
     "build": "env CFLAGS=-fPIC cargo build --profile release-wasm --target wasm32-unknown-emscripten",
-    "postbuild": "cp \"${{CARGO_TARGET_DIR:-../../../target}}/wasm32-unknown-emscripten/release-wasm/syntastica_js_{lang_name}.wasm\" {lang_name}.wasm"
+    "postbuild": "cp \"${{CARGO_TARGET_DIR:-../../../target}}/wasm32-unknown-emscripten/release-wasm/verdant_js_{lang_name}.wasm\" {lang_name}.wasm"
   }}
 }}
 "###
@@ -143,8 +143,8 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
 
 use tree_sitter::Language;
 
-syntastica_macros::js_lang_info!();
-syntastica_macros::js_lang_lib!("{lang_name}");
+verdant_macros::js_lang_info!();
+verdant_macros::js_lang_lib!("{lang_name}");
 "###
             ),
         )?;

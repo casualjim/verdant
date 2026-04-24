@@ -1,4 +1,4 @@
-export interface SyntasticaModule extends EmscriptenModule {
+export interface VerdantModule extends EmscriptenModule {
     _add_language(infoPtr: number): void
     _highlight(errmsgPtr: number, codePtr: number, langPtr: number, themePtr: number, rendererPtr: number): number
     _process(errmsgPtr: number, codePtr: number, langPtr: number): number
@@ -24,5 +24,5 @@ export interface SyntasticaModule extends EmscriptenModule {
     ): Promise<Record<string, () => number>>
 }
 
-declare const module: EmscriptenModuleFactory<SyntasticaModule>
+declare const module: EmscriptenModuleFactory<VerdantModule>
 export = module
