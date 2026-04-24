@@ -2,11 +2,11 @@
 name = "verdant-highlight"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_highlight/"
+documentation = "https://docs.rs/verdant"
 edition.workspace = true
 license = "MIT"
 repository.workspace = true
-description = "Stripped-down and slightly modified fork of tree-sitter-highlight for use by syntastica"
+description = "Stripped-down and slightly modified fork of tree-sitter-highlight for use by verdant"
 
 [dependencies]
 tree-sitter.workspace = true

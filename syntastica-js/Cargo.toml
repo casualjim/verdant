@@ -2,7 +2,7 @@
 name = "verdant-js"
 version.workspace = true
 authors.workspace = true
-documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
+documentation = "https://docs.rs/verdant"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
