@@ -424,57 +424,17 @@ jobs:
       - name: Install Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Install cargo-release
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-release
+
       - name: Restore Cache
         uses: Swatinem/rust-cache@v2
         with:
           cache-on-failure: true
 
-      - name: Publish verdant-highlight
-        run: cargo publish -p verdant-highlight --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-core
-        run: sleep 20 && cargo publish -p verdant-core --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-query-preprocessor
-        run: sleep 20 && cargo publish -p verdant-query-preprocessor --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-queries
-        run: sleep 20 && cargo publish -p verdant-queries --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-macros
-        run: sleep 20 && cargo publish -p verdant-macros --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-themes
-        run: sleep 20 && cargo publish -p verdant-themes --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-parsers-dynamic
-        run: sleep 20 && cargo publish -p verdant-parsers-dynamic --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-parsers
-        run: sleep 20 && cargo publish -p verdant-parsers --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant-parsers-git
-        run: sleep 20 && cargo publish -p verdant-parsers-git --no-verify
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
-      - name: Publish verdant
-        run: sleep 20 && cargo publish -p verdant --no-verify
+      - name: Publish
+        run: cargo release publish --execute --no-verify
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
