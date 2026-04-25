@@ -1,0 +1,1 @@
+(funcdef (identifier)@local.definition)(funcdefargs (identifier)@local.definition)(funcname)@local.reference (index (identifier)@local.reference)

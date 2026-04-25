@@ -1,0 +1,28 @@
+[package]
+name = "verdant-themes"
+version.workspace = true
+authors.workspace = true
+documentation = "https://docs.rs/verdant"
+edition.workspace = true
+exclude = ["assets/theme-svgs"]
+license.workspace = true
+repository.workspace = true
+description = "A collection of themes for verdant"
+
+[lints]
+workspace = true
+
+[features]
+#! ## Features
+default = []
+
+## Enable this when building the docs
+docs = ["dep:document-features", "dep:rustc_version"]
+
+[dependencies]
+verdant-core.workspace = true
+
+document-features = { workspace = true, optional = true }
+
+[build-dependencies]
+rustc_version = { workspace = true, optional = true }

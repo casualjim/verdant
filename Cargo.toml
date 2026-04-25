@@ -1,0 +1,140 @@
+[workspace]
+members = [
+    "./xtask",
+    "./rsexpr",
+    "./lua-pattern",
+    "./tree-sitter-wasm-build-tool",
+    "./syntastica-core",
+    "./syntastica-query-preprocessor",
+    "./syntastica-queries",
+    "./syntastica-parsers",
+    "./syntastica-parsers-git",
+    "./syntastica-parsers-gitdep",
+    "./syntastica-parsers-dynamic",
+    "./syntastica-macros",
+    "./syntastica-themes",
+    "./syntastica-highlight",
+    "./syntastica-js",
+    "./syntastica-js/langs/*",
+]
+exclude = ["ignored"]
+
+package.version = "0.7.0"
+package.authors = ["Ivan Porto Carrero <ivan@flanders.co.nz>"]
+package.documentation = "https://docs.rs/verdant"
+package.edition = "2021"
+package.license = "MPL-2.0"
+package.repository = "https://github.com/casualjim/verdant"
+
+[workspace.metadata.release]
+enable-all-features = true
+sign-commit = true
+sign-tag = true
+shared-version = true
+
+[workspace.dependencies]
+verdant = { version = "0.7.0", path = "./" }
+verdant-core = { version = "0.7.0", path = "./syntastica-core", default-features = false }
+verdant-highlight = { version = "0.7.0", path = "./syntastica-highlight", default-features = false }
+verdant-macros = { version = "0.7.0", path = "./syntastica-macros" }
+verdant-parsers = { version = "0.7.0", path = "./syntastica-parsers" }
+verdant-parsers-dynamic = { version = "0.7.0", path = "./syntastica-parsers-dynamic" }
+verdant-parsers-git = { version = "0.7.0", path = "./syntastica-parsers-git" }
+verdant-parsers-gitdep = { version = "0.7.0", path = "./syntastica-parsers-gitdep" }
+verdant-query-preprocessor = { version = "0.7.0", path = "./syntastica-query-preprocessor" }
+verdant-queries = { version = "0.7.0", path = "./syntastica-queries" }
+verdant-themes = { version = "0.7.0", path = "./syntastica-themes" }
+
+tree-sitter = "0.26.8"
+tree-sitter-generate = "0.26.8"
+tree-sitter-language = "0.1.7"
+
+cc = "1.2.12"
+document-features = "0.2.10"
+once_cell = "1.20.2"
+rustc_version = "0.4.1"
+serde = "1.0.217"
+strum = "0.27.1"
+palate = { version = "0.3.8", default-features = false }
+thiserror = "2.0.11"
+toml = "0.8.20"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(CHANNEL_NIGHTLY)'] }
+
+[workspace.lints.clippy]
+four_forward_slashes = "allow"
+
+# Patch tree-sitter 0.26.8 to fix emscripten duplicate-symbol bug.
+# Upstream's `lib/binding_rust/build.rs::configure_wasm_build` fires for any
+# `wasm32-unknown-*` target, including emscripten, which collides with emscripten's
+# libc. The patched copy constrains the check to `wasm32-unknown-unknown`.
+# Branch `emscripten-fix` off tag `v0.26.8` in a local clone at `ignored/tree-sitter-patched`.
+[patch.crates-io]
+tree-sitter = { path = "./ignored/tree-sitter-patched/lib" }
+tree-sitter-language = { path = "./ignored/tree-sitter-patched/crates/language" }
+tree-sitter-generate = { path = "./ignored/tree-sitter-patched/crates/generate" }
+tree-sitter-loader = { path = "./ignored/tree-sitter-patched/crates/loader" }
+tree-sitter-tags = { path = "./ignored/tree-sitter-patched/crates/tags" }
+tree-sitter-highlight = { path = "./ignored/tree-sitter-patched/crates/highlight" }
+
+# optimize wasm for small code size
+[profile.release-wasm]
+inherits = "release"
+opt-level = "s"
+strip = true
+
+[package]
+name = "verdant"
+version.workspace = true
+authors.workspace = true
+documentation = "https://docs.rs/verdant"
+edition.workspace = true
+keywords = ["tree-sitter", "syntect", "highlight", "parsing", "syntax"]
+license.workspace = true
+repository.workspace = true
+description = "Modern and easy syntax highlighting using tree-sitter"
+
+[lints]
+workspace = true
+
+[features]
+#! ## Features
+default = []
+
+## Provide implementations of serde's `Serialize` and `Deserialize` traits for [`Theme`](theme::Theme)
+## and [`Style`](style::Style)
+serde = ["verdant-core/serde"]
+
+## Enable this when building the docs
+docs = ["dep:document-features", "dep:rustc_version"]
+
+[dependencies]
+verdant-core.workspace = true
+verdant-highlight.workspace = true
+
+aho-corasick = "1.1.3"
+document-features = { workspace = true, optional = true }
+thiserror.workspace = true
+
+[dev-dependencies]
+verdant-macros.workspace = true
+verdant-parsers = { workspace = true, features = ["all"] }
+verdant-parsers-git = { workspace = true, features = ["all"] }
+verdant-queries.workspace = true
+verdant-query-preprocessor.workspace = true
+verdant-themes.workspace = true
+
+tree-sitter.workspace = true
+tree-sitter-language.workspace = true
+
+once_cell.workspace = true
+palate = { workspace = true, features = ["detect"] }
+toml.workspace = true
+tree-sitter-xml = "0.7.0"
+
+[build-dependencies]
+rustc_version = { workspace = true, optional = true }
+
+[package.metadata.docs.rs]
+all-features = true

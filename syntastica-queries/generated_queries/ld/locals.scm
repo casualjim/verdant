@@ -1,0 +1,1 @@
+[(symbol)(filename)(quoted_symbol)]@local.reference (output_section name: (symbol)@local.definition)(memory_command name: (symbol)@local.definition)(phdrs_command name: (symbol)@local.definition)

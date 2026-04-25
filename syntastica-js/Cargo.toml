@@ -1,0 +1,17 @@
+[package]
+name = "verdant-js"
+version.workspace = true
+authors.workspace = true
+documentation = "https://docs.rs/verdant"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Use syntastica from JavaScript"
+
+[dependencies]
+verdant = { workspace = true, features = ["serde"] }
+verdant-macros = { workspace = true, features = ["js"] }
+verdant-themes.workspace = true
+
+serde = { workspace = true, features = ["derive"] }
+serde_json = "1.0.140"

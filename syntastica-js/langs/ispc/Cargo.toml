@@ -1,0 +1,24 @@
+[package]
+name = "verdant-js-ispc"
+version.workspace = true
+authors.workspace = true
+documentation = "https://rubixdev.github.io/syntastica/syntastica_js/"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Ispc language support for verdant-js"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+verdant-macros = { workspace = true, features = ["js"] }
+verdant-queries.workspace = true
+
+tree-sitter.workspace = true
+
+[build-dependencies]
+verdant-macros = { workspace = true, features = ["js"] }
+
+cc.workspace = true
+tree-sitter-generate.workspace = true

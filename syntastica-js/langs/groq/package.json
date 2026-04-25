@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
+  "name": "@verdant/lang-groq",
+  "version": "0.7.0",
+  "description": "Groq language support for verdant-js",
+  "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
+  "homepage": "https://github.com/casualjim/verdant/tree/main/syntastica-js#readme",
+  "bugs": "https://github.com/casualjim/verdant/issues",
+  "license": "MPL-2.0",
+  "author": "Ivan Porto Carrero",
+  "files": ["groq.wasm"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/casualjim/verdant.git",
+    "directory": "syntastica-js/langs/groq"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "env CFLAGS=-fPIC cargo build --profile release-wasm --target wasm32-unknown-emscripten",
+    "postbuild": "cp \"${CARGO_TARGET_DIR:-../../../target}/wasm32-unknown-emscripten/release-wasm/verdant_js_groq.wasm\" groq.wasm"
+  }
+}

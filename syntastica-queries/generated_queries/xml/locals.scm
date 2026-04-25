@@ -1,0 +1,1 @@
+(elementdecl (Name)@local.definition)(elementdecl (contentspec (children (Name)@local.reference)))(AttlistDecl . (Name)@local.reference)(STag (Name)@local.reference)(ETag (Name)@local.reference)(EmptyElemTag (Name)@local.reference)(AttDef (Name)@local.definition)(Attribute (Name)@local.reference)(GEDecl (Name)@local.definition)(EntityRef (Name)@local.reference)

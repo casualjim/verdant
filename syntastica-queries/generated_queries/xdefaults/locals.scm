@@ -1,0 +1,1 @@
+(define_directive name: (identifier)@local.definition)(define_function_directive name: (identifier)@local.definition)(parameters (identifier)@local.definition)(identifier)@local.reference (resources)@local.scope 

@@ -1,0 +1,18 @@
+[package]
+name = "verdant-queries"
+version.workspace = true
+authors.workspace = true
+documentation = "https://docs.rs/verdant"
+edition.workspace = true
+include = ["LICENSE", "README.md", "src", "generated_queries"]
+license.workspace = true
+repository.workspace = true
+description = "Collection of tree-sitter queries for verdant"
+
+[lints]
+workspace = true
+
+[dependencies]
+
+[package.metadata.docs.rs]
+all-features = true

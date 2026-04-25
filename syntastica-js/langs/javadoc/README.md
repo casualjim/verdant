@@ -1,0 +1,4 @@
+# `verdant-js-javadoc`
+
+Javadoc language support for
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

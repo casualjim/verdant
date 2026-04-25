@@ -1,0 +1,1 @@
+[(program)(macro)(memory_execution)(subroutine)]@local.scope (identifier)@local.reference (label "@" . (identifier)@local.definition)(macro "%" . (identifier)@local.definition)

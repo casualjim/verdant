@@ -1,0 +1,4 @@
+# `verdant-js-cpp`
+
+Cpp language support for
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

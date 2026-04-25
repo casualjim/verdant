@@ -1,0 +1,4 @@
+# `verdant-js-ziggy_schema`
+
+ZiggySchema language support for
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).
