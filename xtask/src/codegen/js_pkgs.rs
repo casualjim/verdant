@@ -1,10 +1,32 @@
 use std::fs;
 
-use anyhow::Result;
+use anyhow::{Context, Result};
+use fancy_regex::Regex;
 use heck::ToPascalCase as _;
 use toml::Table;
 
 pub fn write() -> Result<()> {
+    let verdant_version = toml::from_str::<Table>(
+        &fs::read_to_string(crate::WORKSPACE_DIR.join("Cargo.toml")).unwrap(),
+    )
+    .unwrap()["workspace"]["package"]["version"]
+        .as_str()
+        .unwrap()
+        .to_string();
+
+    // Keep the hand-maintained core `syntastica-js/package.json` version in sync with the
+    // workspace version (its many other fields are not generated, so only the version is patched).
+    let core_pkg_path = crate::WORKSPACE_DIR.join("syntastica-js/package.json");
+    let core_pkg = fs::read_to_string(&core_pkg_path)?;
+    let version_regex = Regex::new(r#"("version"[ \t]*:[ \t]*")(.*?)(")"#).unwrap();
+    let core_pkg = version_regex
+        .replace(&core_pkg, |captures: &fancy_regex::Captures<'_>| {
+            format!("{}{verdant_version}{}", &captures[1], &captures[3])
+        })
+        .into_owned();
+    fs::write(&core_pkg_path, core_pkg)
+        .with_context(|| "failed to update syntastica-js/package.json version")?;
+
     let langs_dir = crate::WORKSPACE_DIR.join("syntastica-js/langs");
     let _ = fs::remove_dir_all(&langs_dir);
     fs::create_dir_all(&langs_dir)?;
@@ -93,13 +115,6 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
             ),
         )?;
 
-        let verdant_version = toml::from_str::<Table>(
-            &fs::read_to_string(crate::WORKSPACE_DIR.join("Cargo.toml")).unwrap(),
-        )
-        .unwrap()["workspace"]["package"]["version"]
-            .as_str()
-            .unwrap()
-            .to_string();
         fs::write(
             lang_dir.join("package.json"),
             format!(
