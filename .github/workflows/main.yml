@@ -299,7 +299,6 @@ jobs:
     needs:
       - codegen
     if: github.repository == 'casualjim/verdant'
-    continue-on-error: true
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: '--deny warnings -Zwasm_c_abi=spec'

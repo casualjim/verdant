@@ -129,6 +129,12 @@ fn compile_parser(
     }
 
     if target == "wasm32-unknown-unknown" {
+        // The openbsd-libc crate supplies the libc *headers* parser/scanner C sources
+        // compile against. Its compiled libc is a lazy static archive: members are only
+        // pulled in to satisfy otherwise-undefined symbols, so the functions also
+        // defined by tree-sitter-language (malloc, strncpy, ...) or by the
+        // `wasm_c_bridge` module in this crate's lib.rs (isw*, strcmp, ...) stay
+        // dormant and do not cause duplicate-symbol link errors.
         c_config.include(
             // this is set by the `wasm32-unknown-unknown-openbsd-libc` crate
             std::env::var_os("DEP_WASM32_UNKNOWN_UNKNOWN_OPENBSD_LIBC_INCLUDE")
