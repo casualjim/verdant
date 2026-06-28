@@ -1,0 +1,1 @@
+[(component_name)(slot_name)(tag_name)]@local.reference [(component)(slot)(tag)]@local.scope 

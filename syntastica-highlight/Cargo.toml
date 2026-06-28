@@ -1,0 +1,16 @@
+[package]
+name = "verdant-highlight"
+version.workspace = true
+authors.workspace = true
+documentation = "https://docs.rs/verdant"
+edition.workspace = true
+license = "MIT"
+repository.workspace = true
+description = "Stripped-down and slightly modified fork of tree-sitter-highlight for use by verdant"
+
+[dependencies]
+tree-sitter.workspace = true
+
+regex = "1.11.1"
+streaming-iterator = "0.1.9"
+thiserror.workspace = true

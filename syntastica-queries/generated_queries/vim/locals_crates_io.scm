@@ -1,0 +1,1 @@
+[(script_file)(function_definition)]@local.scope (function_declaration name: (identifier)@local.definition)(function_declaration parameters: (parameters (identifier)@local.definition))(let_statement [(scoped_identifier)(identifier)]@local.definition)(identifier)@local.reference 

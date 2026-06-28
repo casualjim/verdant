@@ -1,0 +1,4 @@
+# `verdant-js-rifleconf`
+
+Rifleconf language support for
+[`verdant-js`](https://www.npmjs.com/package/verdant-js).

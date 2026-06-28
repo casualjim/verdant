@@ -1,0 +1,1 @@
+[(source_file)(field)(for_clause)]@local.scope (identifier)@local.reference (import_spec path: (string)@local.definition)(field (label (identifier)@local.definition))(package_identifier)@local.definition (for_clause (identifier)@local.definition (expression))(for_clause (identifier)(identifier)@local.definition (expression))(let_clause (identifier)@local.definition)

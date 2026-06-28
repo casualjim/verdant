@@ -1,0 +1,1 @@
+([(line_comment)(block_comment)]@injection.content (#set! injection.language "comment"))((block_comment)@injection.content (#match? @injection.content "\\/[\\*][\\*][[ \\t\\n\\v\\f\\r]]")(#set! injection.language "javadoc"))((line_comment)@injection.content (#match? @injection.content "^\\/\\/\\/[ \\t\\n\\v\\f\\r]")(#set! injection.language "javadoc"))
