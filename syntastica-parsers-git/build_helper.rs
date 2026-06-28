@@ -129,16 +129,33 @@ fn compile_parser(
     }
 
     if target == "wasm32-unknown-unknown" {
-        // The openbsd-libc crate supplies the libc *headers* parser/scanner C sources
-        // compile against. Its compiled libc is a lazy static archive: members are only
-        // pulled in to satisfy otherwise-undefined symbols, so the functions also
-        // defined by tree-sitter-language (malloc, strncpy, ...) or by the
-        // `wasm_c_bridge` module in this crate's lib.rs (isw*, strcmp, ...) stay
-        // dormant and do not cause duplicate-symbol link errors.
+        // tree-sitter-language vendors a self-contained, clang-safe wasm libc header
+        // set (unlike the old OpenBSD sysroot, which broke on clang 22 via its
+        // `__int_fast8_t` machinery). The matching libc symbols (malloc, strncpy,
+        // mem*, ...) are compiled by tree-sitter-language's `configure_wasm_build`,
+        // run by the tree-sitter runtime crate already in the link, and the
+        // `wasm_c_bridge` module in this crate's lib.rs supplies the remaining
+        // stragglers (isw*, ...). So we only need the headers here.
+        //
+        // Those headers are intentionally minimal (no `printf`, `inttypes.h` only
+        // defines `PRId32`), but some scanners use the wider libc surface. A small
+        // shim (written from `include_str!` so it travels with this file wherever
+        // it is `include!`d) is placed *ahead* of them so `#include <stdio.h>` /
+        // `<inttypes.h>` resolve here and compose, via `include_next`, with the base.
+        let shim_dir = out_dir.join("wasm-shim");
+        fs::create_dir_all(&shim_dir)?;
+        fs::write(shim_dir.join("stdio.h"), include_str!("wasm-shim/stdio.h"))?;
+        fs::write(shim_dir.join("inttypes.h"), include_str!("wasm-shim/inttypes.h"))?;
+        fs::write(shim_dir.join("ctype.h"), include_str!("wasm-shim/ctype.h"))?;
+        fs::write(shim_dir.join("string.h"), include_str!("wasm-shim/string.h"))?;
+        fs::write(shim_dir.join("wctype.h"), include_str!("wasm-shim/wctype.h"))?;
+        fs::write(shim_dir.join("wchar.h"), include_str!("wasm-shim/wchar.h"))?;
+        fs::write(shim_dir.join("assert.h"), include_str!("wasm-shim/assert.h"))?;
+        c_config.include(&shim_dir);
         c_config.include(
-            // this is set by the `wasm32-unknown-unknown-openbsd-libc` crate
-            std::env::var_os("DEP_WASM32_UNKNOWN_UNKNOWN_OPENBSD_LIBC_INCLUDE")
-                .expect("failed to find wasm libc"),
+            // set by the `tree-sitter-language` crate's build script
+            std::env::var_os("DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS")
+                .expect("DEP_TREE_SITTER_LANGUAGE_WASM_HEADERS not set; tree-sitter-language must be a wasm32-unknown-unknown dependency"),
         );
     }
 

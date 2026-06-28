@@ -14,10 +14,9 @@ verdant_macros::parsers_ffi!();
 /// against on `wasm32-unknown-unknown` but that nothing else in the link provides.
 ///
 /// The `tree-sitter` runtime build compiles tree-sitter-language's stdio/stdlib/string
-/// sources (`malloc`, `free`, `strncpy`, `mem*`, `abort`, ...) and
-/// `tree-sitter-wasm-build-tool` supplies the wide-ctype headers and `isw*`
-/// implementations. We must NOT redefine any of those here — doing so produces
-/// duplicate-symbol link errors. Only the few stragglers below are left for us.
+/// sources (`malloc`, `free`, `strncpy`, `mem*`, `abort`, ...), whose headers the
+/// scanners also compile against. We must NOT redefine any of those here — doing so
+/// produces duplicate-symbol link errors. Only the few stragglers below are left for us.
 #[cfg(all(
     target_arch = "wasm32",
     target_vendor = "unknown",
