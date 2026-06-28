@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-ada",
+  "name": "@lotsa/verdant-lang-ada",
   "version": "0.7.0",
   "description": "Ada language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

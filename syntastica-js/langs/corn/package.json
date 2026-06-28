@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-corn",
+  "name": "@lotsa/verdant-lang-corn",
   "version": "0.7.0",
   "description": "Corn language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

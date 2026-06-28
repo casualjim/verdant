@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-luap",
+  "name": "@lotsa/verdant-lang-luap",
   "version": "0.7.0",
   "description": "Luap language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

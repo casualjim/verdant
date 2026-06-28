@@ -1,4 +1,4 @@
 # `verdant-js-wgsl_bevy`
 
 WgslBevy language support for
-[`verdant-js`](https://www.npmjs.com/package/verdant-js).
+[`@lotsa/verdant-js`](https://www.npmjs.com/package/@lotsa/verdant-js).

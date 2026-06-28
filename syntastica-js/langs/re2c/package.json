@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-re2c",
+  "name": "@lotsa/verdant-lang-re2c",
   "version": "0.7.0",
   "description": "Re2c language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

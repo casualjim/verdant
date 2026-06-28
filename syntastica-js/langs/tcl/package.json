@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-tcl",
+  "name": "@lotsa/verdant-lang-tcl",
   "version": "0.7.0",
   "description": "Tcl language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-sface",
+  "name": "@lotsa/verdant-lang-sface",
   "version": "0.7.0",
   "description": "Sface language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

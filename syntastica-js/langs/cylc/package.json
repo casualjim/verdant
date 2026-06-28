@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-cylc",
+  "name": "@lotsa/verdant-lang-cylc",
   "version": "0.7.0",
   "description": "Cylc language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

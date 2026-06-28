@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "verdant-js",
+  "name": "@lotsa/verdant-js",
   "version": "0.7.0",
   "description": "Modern and easy syntax highlighting using tree-sitter",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

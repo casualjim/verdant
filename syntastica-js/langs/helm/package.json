@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-helm",
+  "name": "@lotsa/verdant-lang-helm",
   "version": "0.7.0",
   "description": "Helm language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

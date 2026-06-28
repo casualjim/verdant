@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-strace",
+  "name": "@lotsa/verdant-lang-strace",
   "version": "0.7.0",
   "description": "Strace language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

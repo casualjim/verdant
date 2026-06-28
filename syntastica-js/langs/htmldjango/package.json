@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-htmldjango",
+  "name": "@lotsa/verdant-lang-htmldjango",
   "version": "0.7.0",
   "description": "Htmldjango language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

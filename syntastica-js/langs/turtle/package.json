@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-turtle",
+  "name": "@lotsa/verdant-lang-turtle",
   "version": "0.7.0",
   "description": "Turtle language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-gitignore",
+  "name": "@lotsa/verdant-lang-gitignore",
   "version": "0.7.0",
   "description": "Gitignore language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

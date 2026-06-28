@@ -53,7 +53,7 @@ pub fn write() -> Result<()> {
                 r###"# `verdant-js-{lang_name}`
 
 {lang_name_pascal} language support for
-[`verdant-js`](https://www.npmjs.com/package/verdant-js).
+[`@lotsa/verdant-js`](https://www.npmjs.com/package/@lotsa/verdant-js).
 "###
             ),
         )?;
@@ -120,7 +120,7 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
             format!(
                 r###"{{
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-{lang_name}",
+  "name": "@lotsa/verdant-lang-{lang_name}",
   "version": "{verdant_version}",
   "description": "{lang_name_pascal} language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
