@@ -60,7 +60,7 @@ thiserror = "2.0.11"
 toml = "0.8.20"
 
 [workspace.lints.rust]
-unexpected_cfgs = { level = "warn", check-cfg = ['cfg(CHANNEL_NIGHTLY)'] }
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(CHANNEL_NIGHTLY)', 'cfg(docsrs)'] }
 
 [workspace.lints.clippy]
 four_forward_slashes = "allow"

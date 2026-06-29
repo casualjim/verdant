@@ -56,7 +56,7 @@ pub fn run() -> Result<()> {
     if is_arg("queries") {
         let mut queries_lib_rs = r###"
 #![doc = include_str!("../README.md")]
-#![cfg_attr(all(doc, CHANNEL_NIGHTLY), feature(doc_auto_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 #![cfg_attr(rustfmt, rustfmt_skip)]
 "###
         .trim_start()

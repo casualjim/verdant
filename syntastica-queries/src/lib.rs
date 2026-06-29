@@ -1,5 +1,5 @@
 #![doc = include_str!("../README.md")]
-#![cfg_attr(all(doc, CHANNEL_NIGHTLY), feature(doc_auto_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 #![cfg_attr(rustfmt, rustfmt_skip)]
 
 pub const ADA_HIGHLIGHTS: &str = include_str!("../generated_queries/ada/highlights.scm");
