@@ -451,7 +451,9 @@ jobs:
           cache-on-failure: true
 
       - name: Publish
-        run: cargo release publish --execute --no-verify
+        # Releases run from a tag (detached HEAD); cargo release's default
+        # allow-branch (['*', '!HEAD']) rejects that, so permit HEAD explicitly.
+        run: cargo release publish --execute --no-verify --allow-branch HEAD
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
@@ -495,7 +497,9 @@ jobs:
               echo "skip $name@$ver (already published)"
             else
               echo "publish $name@$ver"
-              npm publish "$dir"
+              # Publish from inside the dir: a bare path arg is read as a registry
+              # package name by npm, not a folder.
+              ( cd "$dir" && npm publish )
             fi
           }
           publish_dir syntastica-js
