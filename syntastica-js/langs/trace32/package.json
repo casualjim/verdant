@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-trace32",
+  "name": "@lotsa/verdant-lang-trace32",
   "version": "0.7.0",
   "description": "Trace32 language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

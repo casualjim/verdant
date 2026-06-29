@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-yang",
+  "name": "@lotsa/verdant-lang-yang",
   "version": "0.7.0",
   "description": "Yang language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

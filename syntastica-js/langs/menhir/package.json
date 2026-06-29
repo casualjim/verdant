@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-menhir",
+  "name": "@lotsa/verdant-lang-menhir",
   "version": "0.7.0",
   "description": "Menhir language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

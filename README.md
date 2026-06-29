@@ -254,7 +254,7 @@ which makes it very cumbersome to use Emscripten for Rust. In the attempt to
 make using `verdant` on the web a bit easier, the
 [`verdant-js` crate](https://github.com/RubixDev/verdant/tree/main/verdant-js)
 and accompanying
-[`@verdant/core` NPM package](https://www.npmjs.com/package/@verdant/core)
+[`@lotsa/verdant-js` NPM package](https://www.npmjs.com/package/@lotsa/verdant-js)
 provide a JavaScript/TypeScript wrapper around an Emscripten build of
 `verdant`.
 

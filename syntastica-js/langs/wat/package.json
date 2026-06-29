@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-wat",
+  "name": "@lotsa/verdant-lang-wat",
   "version": "0.7.0",
   "description": "Wat language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

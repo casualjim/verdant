@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-nim_format_string",
+  "name": "@lotsa/verdant-lang-nim_format_string",
   "version": "0.7.0",
   "description": "NimFormatString language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

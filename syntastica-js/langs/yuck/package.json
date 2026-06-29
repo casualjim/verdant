@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-yuck",
+  "name": "@lotsa/verdant-lang-yuck",
   "version": "0.7.0",
   "description": "Yuck language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

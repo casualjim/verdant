@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-circom",
+  "name": "@lotsa/verdant-lang-circom",
   "version": "0.7.0",
   "description": "Circom language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

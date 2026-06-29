@@ -1,4 +1,4 @@
-# `verdant-js`
+# `@lotsa/verdant-js`
 
 Modern and easy syntax highlighting using tree-sitter; use
 [`verdant`](https://crates.io/crates/verdant) from JavaScript/TypeScript.
@@ -9,15 +9,15 @@ The full JavaScript/TypeScript API docs can be found
 ## Basic Usage
 
 ```ts
-import verdant from '@verdant/core'
+import verdant from '@lotsa/verdant-js'
 
 // initialize the module
 await verdant.init()
 
 // load some languages
-await verdant.loadLanguage('node_modules/@verdant/lang-rust/rust.wasm')
+await verdant.loadLanguage('node_modules/@lotsa/verdant-lang-rust/rust.wasm')
 await verdant.loadLanguage(
-    'node_modules/@verdant/lang-javascript/javascript.wasm',
+    'node_modules/@lotsa/verdant-lang-javascript/javascript.wasm',
 )
 
 // highlight a piece of code once

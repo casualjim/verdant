@@ -21,8 +21,9 @@ once_cell.workspace = true
 strum = { workspace = true, features = ["derive", "phf"] }
 
 [target.wasm32-unknown-unknown.dependencies]
-# TODO: switch to official when https://github.com/trevyn/wasm32-unknown-unknown-openbsd-libc/pull/3 is merged
-wasm32-unknown-unknown-openbsd-libc = { version = "0.2.1", package = "wasm32-unknown-unknown-openbsd-libc-wctypes-fix" }
+# Supplies the clang-safe wasm libc headers (and, via its `configure_wasm_build`,
+# the matching libc symbols) the parser/scanner C sources compile and link against.
+tree-sitter-language.workspace = true
 
 [build-dependencies]
 verdant-macros.workspace = true

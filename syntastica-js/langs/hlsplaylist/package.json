@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-hlsplaylist",
+  "name": "@lotsa/verdant-lang-hlsplaylist",
   "version": "0.7.0",
   "description": "Hlsplaylist language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

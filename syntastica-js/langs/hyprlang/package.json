@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-hyprlang",
+  "name": "@lotsa/verdant-lang-hyprlang",
   "version": "0.7.0",
   "description": "Hyprlang language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

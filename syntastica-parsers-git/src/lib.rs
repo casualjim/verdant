@@ -10,10 +10,13 @@
 
 verdant_macros::parsers_ffi!();
 
-/// Basic implementation of libc functions that tree-sitter parsers link against on
-/// `wasm32-unknown-unknown`. The `tree-sitter-language` crate ships headers and stdio/stdlib/string
-/// sources (consumed by the `tree-sitter` runtime's own build), but not implementations of the
-/// wide-ctype or assertion helpers that parser scanners need. We provide those here in Rust.
+/// Implementations of the libc functions that tree-sitter parser scanners link
+/// against on `wasm32-unknown-unknown` but that nothing else in the link provides.
+///
+/// The `tree-sitter` runtime build compiles tree-sitter-language's stdio/stdlib/string
+/// sources (`malloc`, `free`, `strncpy`, `mem*`, `abort`, ...), whose headers the
+/// scanners also compile against. We must NOT redefine any of those here — doing so
+/// produces duplicate-symbol link errors. Only the few stragglers below are left for us.
 #[cfg(all(
     target_arch = "wasm32",
     target_vendor = "unknown",
@@ -22,22 +25,12 @@ verdant_macros::parsers_ffi!();
 ))]
 #[allow(non_camel_case_types)]
 mod wasm_c_bridge {
-    use std::{
-        alloc::{GlobalAlloc, Layout, System},
-        collections::HashMap,
-        ffi::{c_void, CStr},
-        sync::{LazyLock, Mutex},
-    };
+    use std::ffi::{c_void, CStr};
 
     type wint_t = u32;
     type size_t = usize;
     type c_char = i8;
     type int = i32;
-
-    #[no_mangle]
-    extern "C" fn abort() {
-        panic!("program aborted");
-    }
 
     #[no_mangle]
     extern "C" fn towupper(wc: wint_t) -> wint_t {
@@ -146,19 +139,6 @@ mod wasm_c_bridge {
     }
 
     #[no_mangle]
-    unsafe extern "C" fn strncpy(
-        dest: *mut c_char,
-        src: *const c_char,
-        count: size_t,
-    ) -> *mut c_char {
-        for i in 0..count {
-            let cp = src.add(i).read();
-            dest.add(i).write(cp)
-        }
-        dest
-    }
-
-    #[no_mangle]
     unsafe extern "C" fn memchr(ptr: *const c_void, ch: int, count: size_t) -> *mut c_void {
         let ptr = ptr as *const u8;
         let ch = ch as u8;
@@ -168,61 +148,5 @@ mod wasm_c_bridge {
             }
         }
         std::ptr::null_mut()
-    }
-
-    static LAYOUTS: LazyLock<Mutex<HashMap<usize, Layout>>> = LazyLock::new(Default::default);
-    const MIN_ALIGN: usize = 8;
-
-    #[no_mangle]
-    unsafe extern "C" fn malloc(size: size_t) -> *mut c_void {
-        let layout = Layout::from_size_align_unchecked(size, MIN_ALIGN);
-        let ptr = System.alloc(layout);
-        if !ptr.is_null() {
-            LAYOUTS.lock().unwrap().insert(ptr as usize, layout);
-        }
-        ptr as *mut _
-    }
-
-    #[no_mangle]
-    unsafe extern "C" fn calloc(num: size_t, size: size_t) -> *mut c_void {
-        let layout = Layout::from_size_align_unchecked(num * size, MIN_ALIGN);
-        let ptr = System.alloc_zeroed(layout);
-        if !ptr.is_null() {
-            LAYOUTS.lock().unwrap().insert(ptr as usize, layout);
-        }
-        ptr as *mut _
-    }
-
-    #[no_mangle]
-    unsafe extern "C" fn realloc(ptr: *mut c_void, new_size: size_t) -> *mut c_void {
-        if ptr.is_null() {
-            return malloc(new_size);
-        }
-        let layout = *LAYOUTS
-            .lock()
-            .unwrap()
-            .get(&(ptr as usize))
-            .unwrap_unchecked();
-        let ptr = System.realloc(ptr as *mut _, layout, new_size);
-        if !ptr.is_null() {
-            LAYOUTS.lock().unwrap().insert(
-                ptr as usize,
-                Layout::from_size_align_unchecked(new_size, layout.align()),
-            );
-        }
-        ptr as *mut _
-    }
-
-    #[no_mangle]
-    unsafe extern "C" fn free(ptr: *mut c_void) {
-        if ptr.is_null() {
-            return;
-        }
-        let layout = LAYOUTS
-            .lock()
-            .unwrap()
-            .remove(&(ptr as usize))
-            .unwrap_unchecked();
-        System.dealloc(ptr as *mut _, layout);
     }
 }

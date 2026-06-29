@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-v",
+  "name": "@lotsa/verdant-lang-v",
   "version": "0.7.0",
   "description": "V language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

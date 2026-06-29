@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-luau",
+  "name": "@lotsa/verdant-lang-luau",
   "version": "0.7.0",
   "description": "Luau language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

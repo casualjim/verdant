@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-idris2",
+  "name": "@lotsa/verdant-lang-idris2",
   "version": "0.7.0",
   "description": "Idris2 language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

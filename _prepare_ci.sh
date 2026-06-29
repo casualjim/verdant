@@ -12,14 +12,19 @@ header="
 "
 echo -n "${raw//"$header"*/"$header"}" > "$file"
 
-# Fetch and patch tree-sitter v0.26.8 for the emscripten duplicate-symbol fix.
+# Fetch and patch tree-sitter for the emscripten duplicate-symbol fix.
 # Upstream's `lib/binding_rust/build.rs::configure_wasm_build` fires for any
 # `wasm32-unknown-*` target, colliding with emscripten's own libc. The workspace
 # Cargo.toml has a `[patch.crates-io]` pointing at ./ignored/tree-sitter-patched.
+# Bump this single version to track a new tree-sitter release.
+ts_version="v0.26.10"
 patched_dir="./ignored/tree-sitter-patched"
 if [ ! -d "$patched_dir/.git" ]; then
     mkdir -p "$(dirname "$patched_dir")"
-    git clone --depth 1 --branch v0.26.8 https://github.com/tree-sitter/tree-sitter "$patched_dir"
+    git clone --depth 1 --branch "$ts_version" https://github.com/tree-sitter/tree-sitter "$patched_dir"
+else
+    git -C "$patched_dir" fetch --depth 1 origin tag "$ts_version"
+    git -C "$patched_dir" checkout -f "$ts_version"
 fi
 
 build_rs="$patched_dir/lib/binding_rust/build.rs"

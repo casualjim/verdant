@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-fennel",
+  "name": "@lotsa/verdant-lang-fennel",
   "version": "0.7.0",
   "description": "Fennel language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],

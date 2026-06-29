@@ -45,8 +45,8 @@ verdant-query-preprocessor = { version = "0.7.0", path = "./syntastica-query-pre
 verdant-queries = { version = "0.7.0", path = "./syntastica-queries" }
 verdant-themes = { version = "0.7.0", path = "./syntastica-themes" }
 
-tree-sitter = "0.26.8"
-tree-sitter-generate = "0.26.8"
+tree-sitter = "0.26.10"
+tree-sitter-generate = "0.26.10"
 tree-sitter-language = "0.1.7"
 
 cc = "1.2.12"
@@ -65,11 +65,11 @@ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(CHANNEL_NIGHTLY)'] }
 [workspace.lints.clippy]
 four_forward_slashes = "allow"
 
-# Patch tree-sitter 0.26.8 to fix emscripten duplicate-symbol bug.
+# Patch tree-sitter 0.26.10 to fix emscripten duplicate-symbol bug.
 # Upstream's `lib/binding_rust/build.rs::configure_wasm_build` fires for any
 # `wasm32-unknown-*` target, including emscripten, which collides with emscripten's
 # libc. The patched copy constrains the check to `wasm32-unknown-unknown`.
-# Branch `emscripten-fix` off tag `v0.26.8` in a local clone at `ignored/tree-sitter-patched`.
+# The clone at `ignored/tree-sitter-patched` is created and patched by `_prepare_ci.sh`.
 [patch.crates-io]
 tree-sitter = { path = "./ignored/tree-sitter-patched/lib" }
 tree-sitter-language = { path = "./ignored/tree-sitter-patched/crates/language" }

@@ -1,4 +1,4 @@
 # `verdant-js-nqc`
 
 Nqc language support for
-[`verdant-js`](https://www.npmjs.com/package/verdant-js).
+[`@lotsa/verdant-js`](https://www.npmjs.com/package/@lotsa/verdant-js).

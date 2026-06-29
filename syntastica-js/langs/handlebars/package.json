@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@verdant/lang-handlebars",
+  "name": "@lotsa/verdant-lang-handlebars",
   "version": "0.7.0",
   "description": "Handlebars language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
