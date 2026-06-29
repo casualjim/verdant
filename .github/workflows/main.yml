@@ -8,6 +8,12 @@ name: Main
 permissions:
   contents: write
 
+# Cancel superseded runs for the same ref to avoid stacked Hetzner spend.
+# Tags are unique refs, so release runs are never cancelled by branch pushes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   CARGO_BUILD_JOBS: 4
   CARGO_INCREMENTAL: 0
@@ -21,6 +27,8 @@ jobs:
   create-test-runner:
     name: Create Hetzner runner for tests
     runs-on: ubuntu-latest
+    # Heavy validation runs on main/PRs; tag pushes only publish an already-green SHA.
+    if: github.ref_type != 'tag'
 
     outputs:
       label: ${{ steps.create-hcloud-runner.outputs.label }}
@@ -80,7 +88,7 @@ jobs:
       - create-test-runner
       - tests
     runs-on: ubuntu-latest
-    if: ${{ always() }}
+    if: ${{ always() && github.ref_type != 'tag' }}
 
     steps:
       - name: Delete runner
@@ -97,6 +105,8 @@ jobs:
   create-build-js-runner:
     name: Create Hetzner runner for build-js
     runs-on: ubuntu-latest
+    # Heavy validation runs on main/PRs; tag pushes only publish an already-green SHA.
+    if: github.ref_type != 'tag'
 
     outputs:
       label: ${{ steps.create-hcloud-runner.outputs.label }}
@@ -188,7 +198,7 @@ jobs:
       - create-build-js-runner
       - build-js
     runs-on: ubuntu-latest
-    if: ${{ always() }}
+    if: ${{ always() && github.ref_type != 'tag' }}
 
     steps:
       - name: Delete runner
@@ -410,8 +420,9 @@ jobs:
   publish:
     name: Publish to crates.io
     runs-on: ubuntu-latest
+    # Release runs publish-only: the tagged SHA was already validated on main, and the
+    # heavy Hetzner jobs are skipped on tag refs, so no re-validation gate is needed here.
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [tests]
 
     steps:
       - name: Checkout repository
