@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["verdant_lang_json5"],"struct":["LangInfo"]};

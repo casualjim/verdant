@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["verdant_lang_typescript"],"struct":["LangInfo"]};

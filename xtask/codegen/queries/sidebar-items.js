@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["make_queries"],"static":["QUERIES_DIR"]};

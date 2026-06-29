@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UpdateEvent"],"fn":["run","update_lang_block"],"struct":["UpdateLangResult"]};

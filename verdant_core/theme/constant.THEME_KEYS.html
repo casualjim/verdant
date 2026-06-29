@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="All theme keys that are recognized by syntastica."><title>THEME_KEYS in verdant_core::theme - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-1ed95124.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="verdant_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.98.0-nightly (df6ee909e 2026-06-28)" data-channel="nightly" data-search-js="search-9944d736.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc constant"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">THEME_KEYS</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../verdant_core/index.html">verdant_<wbr>core</a><span class="version">0.7.0</span></h2></div><div class="sidebar-elems"><div id="rustdoc-modnav"><h2><a href="index.html">In verdant_<wbr>core::<wbr>theme</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">verdant_core</a>::<wbr><a href="index.html">theme</a></div><h1>Constant <span class="constant">THEME_<wbr>KEYS</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/verdant_core/theme.rs.html#30">Source</a> </span></div><pre class="rust item-decl"><code>pub const THEME_KEYS: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>];</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>All theme keys that are recognized by syntastica.</p>
+<p>A <a href="struct.Theme.html" title="struct verdant_core::theme::Theme"><code>Theme</code></a> or <a href="struct.ResolvedTheme.html" title="struct verdant_core::theme::ResolvedTheme"><code>ResolvedTheme</code></a> should define styles for any subset of these.</p>
+<details>
+<summary>View the full list</summary>
+
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code>[
+    <span class="string">"none"</span>,                        <span class="comment">// completely disable the highlight
+
+    // punctuation
+    </span><span class="string">"punctuation.delimiter"</span>,       <span class="comment">// delimiters (e.g. `;` / `.` / `,`)
+    </span><span class="string">"punctuation.bracket"</span>,         <span class="comment">// brackets (e.g. `()` / `{}` / `[]`)
+    </span><span class="string">"punctuation.special"</span>,         <span class="comment">// special symbols (e.g. `{}` in string interpolation)
+
+    // literals
+    </span><span class="string">"string"</span>,                      <span class="comment">// string literals
+    </span><span class="string">"string.documentation"</span>,        <span class="comment">// string documenting code (e.g. Python docstrings)
+    </span><span class="string">"string.regexp"</span>,               <span class="comment">// regular expressions
+    </span><span class="string">"string.escape"</span>,               <span class="comment">// escape sequences
+    </span><span class="string">"string.special"</span>,              <span class="comment">// other special strings (e.g. dates)
+    </span><span class="string">"string.special.symbol"</span>,       <span class="comment">// symbols or atoms
+    </span><span class="string">"string.special.url"</span>,          <span class="comment">// URIs (e.g. hyperlinks)
+    </span><span class="string">"string.special.path"</span>,         <span class="comment">// filenames
+    </span><span class="string">"character"</span>,                   <span class="comment">// character literals
+    </span><span class="string">"character.special"</span>,           <span class="comment">// special characters (e.g. wildcards)
+    </span><span class="string">"boolean"</span>,                     <span class="comment">// boolean literals
+    </span><span class="string">"number"</span>,                      <span class="comment">// numeric literals
+    </span><span class="string">"number.float"</span>,                <span class="comment">// floating-point number literals
+
+    // functions
+    </span><span class="string">"function"</span>,                    <span class="comment">// function definitions
+    </span><span class="string">"function.builtin"</span>,            <span class="comment">// built-in functions
+    </span><span class="string">"function.call"</span>,               <span class="comment">// function calls
+    </span><span class="string">"function.macro"</span>,              <span class="comment">// preprocessor macros
+    </span><span class="string">"function.method"</span>,             <span class="comment">// method definitions
+    </span><span class="string">"function.method.call"</span>,        <span class="comment">// method calls
+    </span><span class="string">"constructor"</span>,                 <span class="comment">// constructor calls and definitions
+    </span><span class="string">"operator"</span>,                    <span class="comment">// symbolic operators (e.g. `+` / `*`)
+
+    // keywords
+    </span><span class="string">"keyword"</span>,                     <span class="comment">// keywords not fitting into specific categories
+    </span><span class="string">"keyword.coroutine"</span>,           <span class="comment">// keywords related to coroutines (e.g. `go` in Go, `async/await` in Python)
+    </span><span class="string">"keyword.function"</span>,            <span class="comment">// keywords that define a function (e.g. `func` in Go, `def` in Python)
+    </span><span class="string">"keyword.operator"</span>,            <span class="comment">// operators that are English words (e.g. `and` / `or`)
+    </span><span class="string">"keyword.import"</span>,              <span class="comment">// keywords for including or exporting modules (e.g. `import` / `from` in Python)
+    </span><span class="string">"keyword.type"</span>,                <span class="comment">// keywords describing namespaces and composite types (e.g. `struct`, `enum`)
+    </span><span class="string">"keyword.modifier"</span>,            <span class="comment">// keywords modifying other constructs (e.g. `const`, `static`, `public`)
+    </span><span class="string">"keyword.repeat"</span>,              <span class="comment">// keywords related to loops (e.g. `for` / `while`)
+    </span><span class="string">"keyword.return"</span>,              <span class="comment">// keywords like `return` and `yield`
+    </span><span class="string">"keyword.debug"</span>,               <span class="comment">// keywords related to debugging
+    </span><span class="string">"keyword.exception"</span>,           <span class="comment">// keywords related to exceptions (e.g. `throw` / `catch`)
+    </span><span class="string">"keyword.conditional"</span>,         <span class="comment">// keywords related to conditionals (e.g. `if` / `else`)
+    </span><span class="string">"keyword.conditional.ternary"</span>, <span class="comment">// ternary operator (e.g. `?` / `:`)
+    </span><span class="string">"keyword.directive"</span>,           <span class="comment">// various preprocessor directives &amp; shebangs
+    </span><span class="string">"keyword.directive.define"</span>,    <span class="comment">// preprocessor definition directives
+
+    // types
+    </span><span class="string">"type"</span>,                        <span class="comment">// type or class definitions and annotations
+    </span><span class="string">"type.builtin"</span>,                <span class="comment">// built-in types
+    </span><span class="string">"type.definition"</span>,             <span class="comment">// identifiers in type definitions (e.g. `typedef &lt;type&gt; &lt;identifier&gt;` in C)
+    </span><span class="string">"attribute"</span>,                   <span class="comment">// attribute annotations (e.g. Python decorators, Rust lifetimes)
+    </span><span class="string">"attribute.builtin"</span>,           <span class="comment">// builtin annotations (e.g. `@property` in Python)
+    </span><span class="string">"property"</span>,                    <span class="comment">// the key in key/value pairs
+
+    // identifiers
+    </span><span class="string">"variable"</span>,                    <span class="comment">// various variable names
+    </span><span class="string">"variable.builtin"</span>,            <span class="comment">// built-in variable names (e.g. `this`)
+    </span><span class="string">"variable.parameter"</span>,          <span class="comment">// parameters of a function
+    </span><span class="string">"variable.parameter.builtin"</span>,  <span class="comment">// special parameters (e.g. `_`, `it`)
+    </span><span class="string">"variable.member"</span>,             <span class="comment">// object and struct fields
+    </span><span class="string">"constant"</span>,                    <span class="comment">// constant identifiers
+    </span><span class="string">"constant.builtin"</span>,            <span class="comment">// built-in constant values
+    </span><span class="string">"constant.macro"</span>,              <span class="comment">// constants defined by the preprocessor
+    </span><span class="string">"module"</span>,                      <span class="comment">// modules or namespaces
+    </span><span class="string">"module.builtin"</span>,              <span class="comment">// built-in modules or namespaces
+    </span><span class="string">"label"</span>,                       <span class="comment">// GOTO and other labels (e.g. `label:` in C), including heredoc labels
+
+    // markup
+    </span><span class="string">"markup.strong"</span>,               <span class="comment">// bold text
+    </span><span class="string">"markup.italic"</span>,               <span class="comment">// italic text
+    </span><span class="string">"markup.strikethrough"</span>,        <span class="comment">// struck-through text
+    </span><span class="string">"markup.underline"</span>,            <span class="comment">// underlined text (only for literal underline markup!)
+    </span><span class="string">"markup.heading"</span>,              <span class="comment">// headings, titles (including markers)
+    </span><span class="string">"markup.heading.1"</span>,            <span class="comment">// top-level heading
+    </span><span class="string">"markup.heading.2"</span>,            <span class="comment">// section heading
+    </span><span class="string">"markup.heading.3"</span>,            <span class="comment">// subsection heading
+    </span><span class="string">"markup.heading.4"</span>,            <span class="comment">// and so on
+    </span><span class="string">"markup.heading.5"</span>,            <span class="comment">// and so forth
+    </span><span class="string">"markup.heading.6"</span>,            <span class="comment">// six levels ought to be enough for anybody
+    </span><span class="string">"markup.quote"</span>,                <span class="comment">// block quotes
+    </span><span class="string">"markup.math"</span>,                 <span class="comment">// math environments (e.g. `$ ... $` in LaTeX)
+    </span><span class="string">"markup.link"</span>,                 <span class="comment">// text references, footnotes, citations, etc.
+    </span><span class="string">"markup.link.label"</span>,           <span class="comment">// link, reference descriptions
+    </span><span class="string">"markup.link.url"</span>,             <span class="comment">// URL-style links
+    </span><span class="string">"markup.raw"</span>,                  <span class="comment">// literal or verbatim text (e.g. inline code)
+    </span><span class="string">"markup.raw.block"</span>,            <span class="comment">// literal or verbatim text as a stand-alone block
+    </span><span class="string">"markup.list"</span>,                 <span class="comment">// list markers
+    </span><span class="string">"markup.list.checked"</span>,         <span class="comment">// checked todo-style list markers
+    </span><span class="string">"markup.list.unchecked"</span>,       <span class="comment">// unchecked todo-style list markers
+    </span><span class="string">"diff.plus"</span>,                   <span class="comment">// added text (for diff files)
+    </span><span class="string">"diff.minus"</span>,                  <span class="comment">// deleted text (for diff files)
+    </span><span class="string">"diff.delta"</span>,                  <span class="comment">// changed text (for diff files)
+
+    // comments
+    </span><span class="string">"comment"</span>,                     <span class="comment">// line and block comments
+    </span><span class="string">"comment.documentation"</span>,       <span class="comment">// comments documenting code
+    </span><span class="string">"comment.error"</span>,               <span class="comment">// error-type comments (e.g. `ERROR`, `FIXME`, `DEPRECATED`)
+    </span><span class="string">"comment.warning"</span>,             <span class="comment">// warning-type comments (e.g. `WARNING`, `FIX`, `HACK`)
+    </span><span class="string">"comment.todo"</span>,                <span class="comment">// todo-type comments (e.g. `TODO`, `WIP`)
+    </span><span class="string">"comment.note"</span>,                <span class="comment">// note-type comments (e.g. `NOTE`, `INFO`, `XXX`)
+
+    // tags
+    </span><span class="string">"tag"</span>,                         <span class="comment">// XML-style tag names (and similar)
+    </span><span class="string">"tag.builtin"</span>,                 <span class="comment">// builtin tag names (e.g. HTML5 tags)
+    </span><span class="string">"tag.attribute"</span>,               <span class="comment">// XML-style tag attributes
+    </span><span class="string">"tag.delimiter"</span>,               <span class="comment">// XML-style tag delimiters
+    // additional captures used by queries
+
+    </span><span class="string">"annotation"</span>,
+    <span class="string">"array"</span>,
+    <span class="string">"assignment"</span>,
+    <span class="string">"assignvalue"</span>,
+    <span class="string">"cImport"</span>,
+    <span class="string">"char.elm"</span>,
+    <span class="string">"char.gren"</span>,
+    <span class="string">"character.escape.elm"</span>,
+    <span class="string">"character.escape.gren"</span>,
+    <span class="string">"clean"</span>,
+    <span class="string">"cmd"</span>,
+    <span class="string">"comment.block"</span>,
+    <span class="string">"comment.block.documentation"</span>,
+    <span class="string">"comment.discard"</span>,
+    <span class="string">"comment.doc"</span>,
+    <span class="string">"comment.doc.__attribute__"</span>,
+    <span class="string">"comment.elm"</span>,
+    <span class="string">"comment.gren"</span>,
+    <span class="string">"comment.hint"</span>,
+    <span class="string">"comment.line"</span>,
+    <span class="string">"comment.unused"</span>,
+    <span class="string">"conditional"</span>,
+    <span class="string">"conditional.ternary"</span>,
+    <span class="string">"constant.boolean"</span>,
+    <span class="string">"constant.builtin.boolean"</span>,
+    <span class="string">"constant.character"</span>,
+    <span class="string">"constant.character.escape"</span>,
+    <span class="string">"constant.language"</span>,
+    <span class="string">"constant.null"</span>,
+    <span class="string">"constant.numeric"</span>,
+    <span class="string">"constant.numeric.elm"</span>,
+    <span class="string">"constant.numeric.float"</span>,
+    <span class="string">"constant.numeric.gren"</span>,
+    <span class="string">"constant.numeric.integer"</span>,
+    <span class="string">"constructor.builtin"</span>,
+    <span class="string">"define"</span>,
+    <span class="string">"delimiter"</span>,
+    <span class="string">"else"</span>,
+    <span class="string">"embedded"</span>,
+    <span class="string">"emphasis"</span>,
+    <span class="string">"emphasis.strong"</span>,
+    <span class="string">"error"</span>,
+    <span class="string">"escape"</span>,
+    <span class="string">"exception"</span>,
+    <span class="string">"exec"</span>,
+    <span class="string">"fi"</span>,
+    <span class="string">"field"</span>,
+    <span class="string">"field.builtin"</span>,
+    <span class="string">"float"</span>,
+    <span class="string">"function.elm"</span>,
+    <span class="string">"function.gren"</span>,
+    <span class="string">"function.macro.builtin"</span>,
+    <span class="string">"function.method.builtin"</span>,
+    <span class="string">"function.reference"</span>,
+    <span class="string">"function.signal"</span>,
+    <span class="string">"function.special"</span>,
+    <span class="string">"head-var"</span>,
+    <span class="string">"identifier"</span>,
+    <span class="string">"identifier.constant"</span>,
+    <span class="string">"identifier.parameter"</span>,
+    <span class="string">"if"</span>,
+    <span class="string">"ignoreme.module"</span>,
+    <span class="string">"import"</span>,
+    <span class="string">"include"</span>,
+    <span class="string">"keyword.constructor"</span>,
+    <span class="string">"keyword.control"</span>,
+    <span class="string">"keyword.control.conditional"</span>,
+    <span class="string">"keyword.control.elm"</span>,
+    <span class="string">"keyword.control.exception"</span>,
+    <span class="string">"keyword.control.gren"</span>,
+    <span class="string">"keyword.control.import"</span>,
+    <span class="string">"keyword.control.repeat"</span>,
+    <span class="string">"keyword.control.return"</span>,
+    <span class="string">"keyword.operator.arrow.elm"</span>,
+    <span class="string">"keyword.operator.arrow.gren"</span>,
+    <span class="string">"keyword.operator.assignment.elm"</span>,
+    <span class="string">"keyword.operator.assignment.gren"</span>,
+    <span class="string">"keyword.operator.elm"</span>,
+    <span class="string">"keyword.operator.gren"</span>,
+    <span class="string">"keyword.other"</span>,
+    <span class="string">"keyword.other.elm"</span>,
+    <span class="string">"keyword.other.gren"</span>,
+    <span class="string">"keyword.other.port.elm"</span>,
+    <span class="string">"keyword.other.port.gren"</span>,
+    <span class="string">"keyword.phaser"</span>,
+    <span class="string">"keyword.storage"</span>,
+    <span class="string">"keyword.storage.modifier"</span>,
+    <span class="string">"keyword.storage.modifier.mut"</span>,
+    <span class="string">"keyword.storage.modifier.ref"</span>,
+    <span class="string">"keyword.storage.type"</span>,
+    <span class="string">"keyword.type.elm"</span>,
+    <span class="string">"keyword.type.gren"</span>,
+    <span class="string">"keyword.variable"</span>,
+    <span class="string">"local"</span>,
+    <span class="string">"local.function.elm"</span>,
+    <span class="string">"local.function.gren"</span>,
+    <span class="string">"markup"</span>,
+    <span class="string">"markup.bold"</span>,
+    <span class="string">"markup.heading.4.marker"</span>,
+    <span class="string">"markup.heading.5.marker"</span>,
+    <span class="string">"markup.heading.marker"</span>,
+    <span class="string">"meta.import.elm"</span>,
+    <span class="string">"meta.import.gren"</span>,
+    <span class="string">"method"</span>,
+    <span class="string">"method.call"</span>,
+    <span class="string">"namespace"</span>,
+    <span class="string">"namespace.roc-special.builtin"</span>,
+    <span class="string">"operator.binary"</span>,
+    <span class="string">"operator.repeat"</span>,
+    <span class="string">"operator.roc-special.in-typedef"</span>,
+    <span class="string">"operator.unary"</span>,
+    <span class="string">"output-var"</span>,
+    <span class="string">"param"</span>,
+    <span class="string">"parameter"</span>,
+    <span class="string">"parameter.builtin"</span>,
+    <span class="string">"parameter.exception"</span>,
+    <span class="string">"parameter.reference"</span>,
+    <span class="string">"preproc"</span>,
+    <span class="string">"property.definition"</span>,
+    <span class="string">"punctuation"</span>,
+    <span class="string">"punctuation.bracket.roc-special.in-typedef"</span>,
+    <span class="string">"punctuation.delimiter.roc-special.in-typedef"</span>,
+    <span class="string">"punctuation.section.braces"</span>,
+    <span class="string">"punctuation.separator.comma.elm"</span>,
+    <span class="string">"punctuation.separator.comma.gren"</span>,
+    <span class="string">"regexp"</span>,
+    <span class="string">"repeat"</span>,
+    <span class="string">"source.glsl"</span>,
+    <span class="string">"special"</span>,
+    <span class="string">"special.roc-special.exposed"</span>,
+    <span class="string">"special.roc-special.package"</span>,
+    <span class="string">"special.roc-special.provided"</span>,
+    <span class="string">"storage.type.elm"</span>,
+    <span class="string">"storage.type.gren"</span>,
+    <span class="string">"storageclass"</span>,
+    <span class="string">"string.code"</span>,
+    <span class="string">"string.elm"</span>,
+    <span class="string">"string.gren"</span>,
+    <span class="string">"string.regex"</span>,
+    <span class="string">"string.special.key"</span>,
+    <span class="string">"string.special.regex"</span>,
+    <span class="string">"string.special.uri"</span>,
+    <span class="string">"structure"</span>,
+    <span class="string">"symbol"</span>,
+    <span class="string">"tag.error"</span>,
+    <span class="string">"text"</span>,
+    <span class="string">"text.danger"</span>,
+    <span class="string">"text.emphasis"</span>,
+    <span class="string">"text.literal"</span>,
+    <span class="string">"text.note"</span>,
+    <span class="string">"text.reference"</span>,
+    <span class="string">"text.strong"</span>,
+    <span class="string">"text.title"</span>,
+    <span class="string">"text.todo"</span>,
+    <span class="string">"text.underline"</span>,
+    <span class="string">"text.uri"</span>,
+    <span class="string">"text.warning"</span>,
+    <span class="string">"title"</span>,
+    <span class="string">"type.deprecated"</span>,
+    <span class="string">"type.enum"</span>,
+    <span class="string">"type.enum.variant"</span>,
+    <span class="string">"type.parameter"</span>,
+    <span class="string">"type.qualifier"</span>,
+    <span class="string">"type.roc-special.inferred"</span>,
+    <span class="string">"union.elm"</span>,
+    <span class="string">"union.gren"</span>,
+    <span class="string">"var.reference"</span>,
+    <span class="string">"variable.array"</span>,
+    <span class="string">"variable.global"</span>,
+    <span class="string">"variable.hash"</span>,
+    <span class="string">"variable.local"</span>,
+    <span class="string">"variable.other.member"</span>,
+    <span class="string">"variable.other.member.roc-special.in-typedef"</span>,
+    <span class="string">"variable.reference"</span>,
+    <span class="string">"variable.scalar"</span>,
+    <span class="string">"warning"</span>,
+    <span class="string">"whole_identifier"</span>,
+]</code></pre></div></details>
+<p>The list is based on the list from
+<a href="https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md">nvim-treesitter</a>.</p>
+</div></details></section></div></main></body></html>

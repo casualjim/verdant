@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"fn":["highlight"],"macro":[["theme",1]],"mod":["language_set","renderer","style","theme","ts_runtime"],"struct":["Processor"],"type":["Highlights","Result","ThemedHighlights"]};

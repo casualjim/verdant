@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["lua_pattern",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/error/trait.Error.html\" title=\"trait core::error::Error\">Error</a> for <a class=\"enum\" href=\"lua_pattern/enum.Error.html\" title=\"enum lua_pattern::Error\">Error</a>",0],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/error/trait.Error.html\" title=\"trait core::error::Error\">Error</a> for <a class=\"enum\" href=\"lua_pattern/enum.ToRegexError.html\" title=\"enum lua_pattern::ToRegexError\">ToRegexError</a>",0]]],["rsexpr",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/error/trait.Error.html\" title=\"trait core::error::Error\">Error</a> for <a class=\"enum\" href=\"rsexpr/enum.Error.html\" title=\"enum rsexpr::Error\">Error</a>",0]]],["verdant_core",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/error/trait.Error.html\" title=\"trait core::error::Error\">Error</a> for <a class=\"enum\" href=\"verdant_core/enum.Error.html\" title=\"enum verdant_core::Error\">Error</a>",0]]],["verdant_highlight",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/error/trait.Error.html\" title=\"trait core::error::Error\">Error</a> for <a class=\"enum\" href=\"verdant_highlight/enum.Error.html\" title=\"enum verdant_highlight::Error\">Error</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[536,252,270,285]}

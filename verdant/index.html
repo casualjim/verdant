@@ -1,0 +1,470 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`verdant`"><title>verdant - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-1ed95124.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="verdant" data-themes="" data-resource-suffix="" data-rustdoc-version="1.98.0-nightly (df6ee909e 2026-06-28)" data-channel="nightly" data-search-js="search-9944d736.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">Crate verdant</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../verdant/index.html">verdant</a><span class="version">0.7.0</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#verdant" title="`verdant`"><code>verdant</code></a><ul><li><a href="#overview" title="Overview">Overview</a></li><li><a href="#subprojects" title="Subprojects">Subprojects</a></li><li><a href="#webassembly-support" title="WebAssembly support">WebAssembly support</a></li><li><a href="#examples" title="Examples">Examples</a></li><li><a href="#versioning" title="Versioning">Versioning</a></li><li><a href="#inspiration" title="Inspiration">Inspiration</a></li><li><a href="#features" title="Features">Features</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#macros" title="Macros">Macros</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#functions" title="Functions">Functions</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>verdant</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/verdant/lib.rs.html#1-69">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="verdant"><a class="doc-anchor" href="#verdant">§</a><code>verdant</code></h2>
+<blockquote>
+<p><strong>Note: This is a fork of <a href="https://github.com/RubixDev/syntastica">syntastica</a> renamed to <code>verdant</code> for independent publishing on crates.io.
+The upstream project does not accept large PRs adding new language support.
+If that changes, this fork will return to contributing upstream.</strong></p>
+</blockquote>
+<p>Modern and easy syntax highlighting using tree-sitter</p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>If viewing this file on <a href="https://github.com/RubixDev/verdant">GitHub</a> or
+<a href="https://crates.io/crates/verdant">crates.io</a>, some links might not be
+working. Go to the
+<a href="https://rubixdev.github.io/verdant/verdant/">custom docs page</a> or the
+<a href="https://docs.rs/verdant/">docs.rs page</a> instead, which additionally
+include the <a href="#features">Features</a> section.</p>
+</blockquote>
+<h3 id="overview"><a class="doc-anchor" href="#overview">§</a>Overview</h3>
+<p>To use <code>verdant</code>, you probably want to depend on three crates:</p>
+<ol>
+<li>The main <code>verdant</code> crate for all the logic.</li>
+<li>A parser collection to provide language support (see
+<a href="#parser-collections">parser collections</a>)</li>
+<li>The theme collection for some default themes (see
+<a href="#theme-collection">theme collection</a>)</li>
+</ol>
+<p>So for example:</p>
+<div class="example-wrap"><pre class="language-toml"><code>verdant = &quot;&lt;version&gt;&quot;
+verdant-parsers = { version = &quot;&lt;version&gt;&quot;, features = [&quot;some&quot;] }
+verdant-themes = &quot;&lt;version&gt;&quot;</code></pre></div><h4 id="use-cases"><a class="doc-anchor" href="#use-cases">§</a>Use cases</h4>
+<p><code>verdant</code> has three main ways of highlighting code, for three different use
+cases:</p>
+<ol>
+<li>Highlight <em>one</em> input <em>exactly once</em>: see <a href="fn.highlight.html" title="fn verdant::highlight"><code>highlight</code></a> and
+<a href="#example-highlight-once">this example</a></li>
+<li>Highlight <em>one</em> input <em>multiple times</em> (e.g. with different themes or
+renderers): see <a href="struct.Processor.html#method.process_once" title="associated function verdant::Processor::process_once"><code>Processor::process_once</code></a>, <a href="renderer/fn.render.html" title="fn verdant::renderer::render"><code>render</code></a>, and
+<a href="#example-highlight-the-same-input-multiple-times">this example</a></li>
+<li>Highlight <em>multiple</em> different inputs <em>any</em> number of times: see
+<a href="struct.Processor.html" title="struct verdant::Processor"><code>Processor</code></a>, <a href="renderer/fn.render.html" title="fn verdant::renderer::render"><code>render</code></a>, and
+<a href="#example-highlight-multiple-different-inputs">this example</a></li>
+</ol>
+<h4 id="using-verdant-as-a-git-dependency"><a class="doc-anchor" href="#using-verdant-as-a-git-dependency">§</a>Using <code>verdant</code> as a Git Dependency</h4>
+<p>Using <a href="#verdant-queries"><code>verdant-queries</code></a>, and in turn any crate in this
+workspace which depends on <a href="#verdant-queries"><code>verdant-queries</code></a>, as a git
+dependency with cargo is not immediately possible, because the auto-generated
+query files are not checked in. For that purpose, the <code>git-deploy</code> is updated
+with the latest state of the main branch after every push. That means you can
+depend on for example <a href="#verdant-parsers-git"><code>verdant-parsers-git</code></a> like
+this:</p>
+<div class="example-wrap"><pre class="language-toml"><code>verdant-parsers-git = { git = &quot;https://github.com/RubixDev/verdant&quot;, branch = &quot;git-deploy&quot; }</code></pre></div><h3 id="subprojects"><a class="doc-anchor" href="#subprojects">§</a>Subprojects</h3>
+<p>Besides the main <code>verdant</code> crate, many other crates for different purposes
+were developed and are included in the repository. This section aims to provide
+a good overview.</p>
+<h4 id="parser-collections"><a class="doc-anchor" href="#parser-collections">§</a>Parser collections</h4>
+<p>The main <code>verdant</code> crate provides no tree-sitter parsers and queries by
+itself. However, the project does provide four different parser collections with
+different advantages and drawbacks each. Three of them depend on
+<a href="#verdant-queries"><code>verdant-queries</code></a> for the tree-sitter queries. Choose
+one, and add it as a dependency next to <code>verdant</code> itself.</p>
+<p>The odd one out here is
+<a href="https://crates.io/crates/verdant-parsers-dynamic"><code>verdant-parsers-dynamic</code></a>,
+which unlike the others doesn’t actually include any parsers but instead
+provides an interface to load them during runtime.</p>
+<p>The other three parser collections all provide the same public API and have
+features for all supported languages, as well as the three feature groups
+<code>some</code>, <code>most</code>, and <code>all</code>. Take a look at the respective crate documentation for
+more information.</p>
+<p>If you want to additionally use languages that are not in any of these parser
+collections or combine multiple sets, have a look at the
+<a href="language_set/struct.Union.html" title="struct verdant::language_set::Union"><code>Union</code></a> type or the
+<a href="https://github.com/RubixDev/verdant/blob/main/examples/custom_languages.rs">custom languages example</a>.</p>
+<ul>
+<li><a href="https://crates.io/crates/verdant-parsers"><code>verdant-parsers</code></a> is
+probably the easiest to start with. It uses parsers from
+<a href="https://crates.io">crates.io</a>. This has the main benefit of being well
+integrated in the cargo ecosystem. However, many tree-sitter parsers do not
+get published to crates.io, and those that are, are usually very outdated.
+Thus, this collection is relatively limited.</li>
+<li><a name="verdant-parsers-git" href="https://crates.io/crates/verdant-parsers-git"><code>verdant-parsers-git</code></a>
+is probably the best choice overall. It contains all supported languages and
+is the only choice when targeting WebAssembly. It pulls pinned revisions of
+parser git repositories in the build script and links to the C and C++ parser
+sources. As such, it does not depend on the upstream parsers to have
+up-to-date Rust bindings. However, this way of fetching the parsers requires
+the <code>git</code> command to be accessible and internet access during compilation,
+which may not be desirable. Additionally, compilation can take very long
+unless you manually specify a cache directory that can be reused between
+builds. See the crate’s docs for more information on that.</li>
+<li><a href="https://github.com/RubixDev/verdant/tree/main/verdant-parsers-gitdep"><code>verdant-parsers-gitdep</code></a>
+is a mix of both of the above. It uses cargo git dependencies to fetch the
+parser repositories and depends on a remote Rust binding (which is why not
+<em>all</em> parsers are included). The main disadvantages are that this collection
+cannot be published to crates.io, because it depends on crates that are not on
+crates.io (namely the parsers). This means, to use it you must also depend on
+it using a git dependency, which in turn forbids your crate to be published on
+crates.io. Unlike <a href="#verdant-parsers-git"><code>verdant-parsers-git</code></a> however,
+the parsers only need to be fetched once by cargo, and subsequent builds will
+be much faster.</li>
+<li><a href="https://crates.io/crates/verdant-parsers-dynamic"><code>verdant-parsers-dynamic</code></a>
+doesn’t include any parsers by itself but instead provides a
+<a href="language_set/trait.LanguageSet.html" title="trait verdant::language_set::LanguageSet"><code>LanguageSet</code></a> implementation that can find and
+load parsers at runtime. This allows for behavior similar to what the
+tree-sitter CLI does, and opens up more possibilities for end-users, but also
+places more responsibilities on them, as the appropriate queries also need to
+be provided manually.</li>
+</ul>
+<h4 id="theme-collection"><a class="doc-anchor" href="#theme-collection">§</a>Theme collection</h4>
+<p>To <a href="renderer/fn.render.html" title="fn verdant::renderer::render">render highlighted code</a> to end users, a
+<a href="theme/struct.ResolvedTheme.html" title="struct verdant::theme::ResolvedTheme">theme</a> is needed, which specifies the colors to use for
+which <a href="theme/constant.THEME_KEYS.html" title="constant verdant::theme::THEME_KEYS">theme key</a>. The <code>verdant</code> project comes with a
+separate crate containing a few default themes:
+<a href="https://crates.io/crates/verdant-themes"><code>verdant-themes</code></a>.</p>
+<p>If you wish to create your own theme, have a look at the
+<a href="#example-custom-theme">custom theme example</a> and the documentation for the
+<a href="macro.theme.html" title="macro verdant::theme"><code>theme!</code></a> macro.</p>
+<h4 id="crates-for-internal-use"><a class="doc-anchor" href="#crates-for-internal-use">§</a>Crates for internal use</h4>
+<p>The <code>verdant</code> repository/workspace also includes some crates which are not
+meant for outside use, but are instead used internally. These are listed below.</p>
+<blockquote>
+<p>Note: <strong>There are no guarantees about the public API of these crates!</strong> If,
+for any reason, you have to depend on one of them, then pin the <em>exact</em>
+version using <code>&lt;crate&gt; = "=&lt;version&gt;"</code>.</p>
+</blockquote>
+<ul>
+<li><a href="https://crates.io/crates/verdant-core"><code>verdant-core</code></a> defines types,
+traits, constants, etc. which are used in multiple of the other crates. The
+main <code>verdant</code> crate re-exports all those items transparently, so that
+external projects only need a dependency on that. The items are defined in
+<code>verdant-core</code> however, to avoid cyclic (dev-)dependencies inside this
+workspace.</li>
+<li><a href="https://crates.io/crates/verdant-macros"><code>verdant-macros</code></a> defines
+procedural macros for use <strong>exclusively</strong> inside this workspace. This crate
+allows the list of languages/parsers to be in <em>one</em> combined <code>languages.toml</code>
+file, and the different macros are used in the different places where this
+list needs to be referenced.</li>
+<li><a href="https://crates.io/crates/verdant-highlight"><code>verdant-highlight</code></a> is a
+fork of
+<a href="https://crates.io/crates/tree-sitter-highlight"><code>tree-sitter-highlight</code></a>,
+which is adjusted and trimmed down for the use in <code>verdant</code>. It contains
+the main highlighting logic.</li>
+<li><a name="verdant-queries" href="https://crates.io/crates/verdant-queries"><code>verdant-queries</code></a>
+is a collection of tree-sitter queries for all supported languages. It is
+marked as “for internal use”, because all three
+<a href="#parser-collections">parser collections</a> depend on this crate and expose the
+queries through their implementation of
+<a href="language_set/trait.LanguageSet.html" title="trait verdant::language_set::LanguageSet"><code>LanguageSet</code></a>. Unlike the previous crates in this
+list however, you may actually want to depend on this crate yourself, if you
+<em>only</em> need the queries.</li>
+</ul>
+<h4 id="general-side-products"><a class="doc-anchor" href="#general-side-products">§</a>General side-products</h4>
+<p>This list includes crates which were developed for <code>verdant</code> but have no
+direct association with the main project and can be used completely separately.</p>
+<ul>
+<li><a href="https://crates.io/crates/rsexpr"><code>rsexpr</code></a> is a generic S-expression parser
+with added support for square-brackets, strings, and comments. Additionally,
+the parsed S-expressions can be pretty-printed to provide a uniform
+formatting. See
+<a href="https://github.com/RubixDev/dprint-plugin-sexpr"><code>dprint-plugin-sexpr</code></a> for
+more information on using this as a formatter. In <code>verdant</code> this crate is
+used for parsing (and formatting) the tree-sitter queries in the
+<a href="https://github.com/RubixDev/verdant/tree/main/queries"><code>queries</code></a>
+directory. These are processed by <code>cargo xtask codegen queries</code> and result in
+the queries inside the
+<a href="https://github.com/RubixDev/verdant/tree/main/verdant-queries/generated_queries"><code>generated_queries</code></a>
+directory, which are the ones that are bundled with
+<a href="#verdant-queries"><code>verdant-queries</code></a>.</li>
+<li><a href="https://crates.io/crates/lua-pattern"><code>lua-pattern</code></a> is a parser for Lua
+patterns. These are similar to regular expressions, but generally more
+limited. The crate also provides a best-effort conversion to regular
+expression strings. In <code>verdant</code> this is used, as many of the source
+queries are forked from
+<a href="https://github.com/nvim-treesitter/nvim-treesitter">nvim-treesitter</a> which
+makes heavy use of <code>#lua-match?</code> predicates for matching with Lua patterns.
+The official tree-sitter Rust bindings do not support Lua pattern matching
+however (obviously), which is why during the processing of the queries (with
+<code>cargo xtask codegen queries</code>), all Lua patterns are replaced with regular
+expressions using this crate.</li>
+<li><a href="https://crates.io/crates/verdant-query-preprocessor"><code>verdant-query-preprocessor</code></a>
+is a pre-processor for tree-sitter queries which allows usage of
+<code>; inherits &lt;lang&gt;</code> comments, conditional skipping of nodes with comments,
+usage of additional predicates like <code>lua-match?</code>, <code>contains?</code> and <code>any-of?</code>,
+Neovim’s old injections syntax, and order reversing for priority flipping. The
+crate can be used to use queries designed for Neovim with the official
+<a href="https://crates.io/crates/tree-sitter">tree-sitter Rust bindings</a> with minimal
+manual changes. Despite having <code>verdant</code> in the name, the crate can be used
+externally and does not depend on any of the other <code>verdant-</code> crates. In
+<code>verdant</code> it is used in the
+<a href="https://github.com/RubixDev/verdant/blob/main/xtask/src/codegen/queries.rs"><code>codegen queries</code> xtask</a>,
+because many of the queries are forked from
+<a href="https://github.com/nvim-treesitter/nvim-treesitter">nvim-treesitter</a>, and to
+adjust the queries for older parser versions from
+<a href="https://crates.io">crates.io</a>.</li>
+</ul>
+<h3 id="webassembly-support"><a class="doc-anchor" href="#webassembly-support">§</a>WebAssembly support</h3>
+<p><code>verdant</code> can be used with WebAssembly, although the current support is a bit
+lacking. There are currently two primary ways to use <code>verdant</code> in a
+WebAssembly context.</p>
+<h4 id="1-using-the-tree-sitter-c2rust-runtime"><a class="doc-anchor" href="#1-using-the-tree-sitter-c2rust-runtime">§</a>1. Using the <code>tree-sitter-c2rust</code> runtime</h4>
+<p>In order to make <code>verdant</code> compile to <code>wasm32-unknown-unknown</code> targets,
+feature flags can be used to use the
+<a href="https://crates.io/crates/tree-sitter-c2rust">c2rust transpilation of tree-sitter</a>
+instead of the
+<a href="https://crates.io/crates/tree-sitter">official C implementation</a>. This is only
+supported by the <code>verdant-parsers-git</code> parser collection as only that
+collection has enough control over the parser build process to allow for Wasm
+support.</p>
+<p>To use this approach, simply set <code>default-features = false</code> and enable the
+<code>runtime-c2rust</code> feature for <em>all</em> <code>verdant</code> dependencies. There are two
+example projects using this approach:</p>
+<ul>
+<li><a href="https://github.com/RubixDev/verdant/tree/main/examples/wasm/wasm-pack">Basic usage with wasm-bindgen and wasm-pack</a></li>
+<li><a href="https://github.com/RubixDev/verdant/tree/main/examples/wasm/dioxus">Usage in a Dioxus application</a></li>
+</ul>
+<p>Note that for extra safety, you should compile this with nightly Rust and the
+<code>-Zwasm_c_abi=spec</code> option set, as otherwise the <code>wasm32-unknown-unknown</code> target
+doesn’t yet conform with the C ABI. In my personal testing I haven’t had any
+issues on stable Rust either though.</p>
+<h4 id="2-using-emscripten--the-verdant-js-package"><a class="doc-anchor" href="#2-using-emscripten--the-verdant-js-package">§</a>2. Using Emscripten / the <code>verdant-js</code> package</h4>
+<p><code>verdant</code> can also be compiled to <code>wasm32-unknown-emscripten</code> which has much
+better support for C and C++ interop. But annoyingly, basically the entire Rust
+Wasm ecosystem is built around the <code>wasm32-unknown-unknown</code> target (e.g.,
+<code>wasm-pack</code> and <code>wasm-bindgen</code> can only be used with <code>wasm32-unknown-unknown</code>),
+which makes it very cumbersome to use Emscripten for Rust. In the attempt to
+make using <code>verdant</code> on the web a bit easier, the
+<a href="https://github.com/RubixDev/verdant/tree/main/verdant-js"><code>verdant-js</code> crate</a>
+and accompanying
+<a href="https://www.npmjs.com/package/@lotsa/verdant-js"><code>@lotsa/verdant-js</code> NPM package</a>
+provide a JavaScript/TypeScript wrapper around an Emscripten build of
+<code>verdant</code>.</p>
+<p>There are two example projects using <code>verdant-js</code>:</p>
+<ul>
+<li><a href="https://github.com/RubixDev/verdant/tree/main/examples/wasm/vite">Usage from TypeScript in the browser with Vite and Svelte</a></li>
+<li><a href="https://github.com/RubixDev/verdant/tree/main/examples/wasm/node">Usage from JavaScript in NodeJS for console applications</a></li>
+</ul>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3>
+<p>This section contains some basic usage examples. More specific examples can be
+found in the documentation of some items such as the <a href="struct.Processor.html" title="struct verdant::Processor"><code>Processor</code></a> type or the
+<a href="renderer/fn.render.html" title="fn verdant::renderer::render"><code>render</code></a> function. Additionally, the
+<a href="https://github.com/RubixDev/verdant/tree/main/examples"><code>examples</code></a>
+directory contains a few complete examples.</p>
+<p>This is the list of examples found here:</p>
+<ul>
+<li><a href="#example-highlight-once">Highlight once</a></li>
+<li><a href="#example-highlight-the-same-input-multiple-times">Highlight the same input multiple times</a></li>
+<li><a href="#example-highlight-multiple-different-inputs">Highlight multiple different inputs</a></li>
+<li><a href="#example-detect-language-from-file-type">Detect the language based on a file type</a></li>
+<li><a href="#example-custom-theme">Specify a custom theme</a></li>
+</ul>
+<h4 id="example-highlight-once"><a class="doc-anchor" href="#example-highlight-once">§</a>Example: highlight once</h4>
+<p>This example shows the easiest and quickest way to use <code>verdant</code>. See the
+section about <a href="#use-cases">use cases</a> for when it is appropriate to use
+<code>verdant</code> this way.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>verdant::renderer::TerminalRenderer;
+<span class="kw">use </span>verdant_parsers::{Lang, LanguageSetImpl};
+
+<span class="kw">let </span>output = verdant::highlight(
+    <span class="comment">// the code to highlight
+    </span><span class="string">r#"fn main() { println!("42"); }"#</span>,
+    <span class="comment">// the input's language
+    </span>Lang::Rust,
+    <span class="comment">// use `verdant-parsers` language set
+    </span><span class="kw-2">&amp;</span>LanguageSetImpl::new(),
+    <span class="comment">// use the TerminalRenderer with no background color
+    </span><span class="kw-2">&amp;mut </span>TerminalRenderer::new(<span class="prelude-val">None</span>),
+    <span class="comment">// use the gruvbox dark theme from `verdant-themes`
+    </span>verdant_themes::gruvbox::dark(),
+)
+.unwrap_or_else(|err| <span class="macro">panic!</span>(<span class="string">"highlighting failed: {err}"</span>));
+
+<span class="macro">println!</span>(<span class="string">"{output}"</span>);</code></pre></div><h4 id="example-highlight-the-same-input-multiple-times"><a class="doc-anchor" href="#example-highlight-the-same-input-multiple-times">§</a>Example: highlight the same input multiple times</h4>
+<p>This example shows how to render the same input with two different themes using
+two different renderers.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>verdant::{Processor, style::Color, renderer::<span class="kw-2">*</span>};
+<span class="kw">use </span>verdant_parsers::{Lang, LanguageSetImpl};
+
+<span class="comment">// process the input once, but store the raw highlight information
+</span><span class="kw">let </span>highlights = Processor::process_once(
+    <span class="comment">// the code to highlight
+    </span><span class="string">r#"fn main() { println!("42"); }"#</span>,
+    <span class="comment">// the input's language
+    </span>Lang::Rust,
+    <span class="comment">// use `verdant-parsers` language set
+    </span><span class="kw-2">&amp;</span>LanguageSetImpl::new(),
+)
+.unwrap_or_else(|err| <span class="macro">panic!</span>(<span class="string">"highlighting failed: {err}"</span>));
+
+<span class="comment">// render the highlights to the terminal using the
+// gruvbox dark theme on a dark gray background
+</span><span class="macro">println!</span>(<span class="string">"{}"</span>, verdant::render(
+    <span class="kw-2">&amp;</span>highlights,
+    <span class="kw-2">&amp;mut </span>TerminalRenderer::new(<span class="prelude-val">Some</span>(Color::new(<span class="number">40</span>, <span class="number">40</span>, <span class="number">40</span>))),
+    verdant_themes::gruvbox::dark(),
+));
+
+<span class="comment">// render the same input to HTML using the onelight theme
+</span><span class="kw">let </span>html = verdant::render(
+    <span class="kw-2">&amp;</span>highlights,
+    <span class="kw-2">&amp;mut </span>HtmlRenderer::new(),
+    verdant_themes::one::light(),
+);
+<span class="comment">// you could for example write that to a file called `index.html`:
+// std::fs::write("index.html", html).unwrap();</span></code></pre></div><h4 id="example-highlight-multiple-different-inputs"><a class="doc-anchor" href="#example-highlight-multiple-different-inputs">§</a>Example: highlight multiple different inputs</h4>
+<p>This example shows how a <a href="struct.Processor.html" title="struct verdant::Processor"><code>Processor</code></a> can be reused if multiple different
+inputs should be highlighted.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>verdant::{Processor, style::Color, renderer::<span class="kw-2">*</span>};
+<span class="kw">use </span>verdant_parsers::{Lang, LanguageSetImpl};
+
+<span class="comment">// create a language set and a `Processor`
+</span><span class="kw">let </span>language_set = LanguageSetImpl::new();
+<span class="kw">let </span><span class="kw-2">mut </span>processor = Processor::new(<span class="kw-2">&amp;</span>language_set);
+<span class="comment">// Note: `language_set` has to be stored in a variable, because the processor
+// is bound to the lifetime of the reference passed to `new`
+
+// process some input
+</span><span class="kw">let </span>highlights_rust = processor.process(
+    <span class="comment">// the code to highlight
+    </span><span class="string">r#"fn main() { println!("42"); }"#</span>,
+    <span class="comment">// the input's language
+    </span>Lang::Rust,
+)
+.unwrap_or_else(|err| <span class="macro">panic!</span>(<span class="string">"highlighting failed: {err}"</span>));
+
+<span class="comment">// process some other input in another language
+</span><span class="kw">let </span>highlights_js = processor.process(<span class="string">r"console.log('42')"</span>, Lang::Javascript)
+    .unwrap_or_else(|err| <span class="macro">panic!</span>(<span class="string">"highlighting failed: {err}"</span>));
+
+<span class="comment">// render the rust code to the terminal using the
+// gruvbox dark theme on a dark gray background
+</span><span class="macro">println!</span>(<span class="string">"{}"</span>, verdant::render(
+    <span class="kw-2">&amp;</span>highlights_rust,
+    <span class="kw-2">&amp;mut </span>TerminalRenderer::new(<span class="prelude-val">Some</span>(Color::new(<span class="number">40</span>, <span class="number">40</span>, <span class="number">40</span>))),
+    verdant_themes::gruvbox::dark(),
+));
+
+<span class="comment">// render the same rust code to HTML using the onelight theme
+</span><span class="kw">let </span>html = verdant::render(
+    <span class="kw-2">&amp;</span>highlights_rust,
+    <span class="kw-2">&amp;mut </span>HtmlRenderer::new(),
+    verdant_themes::one::light(),
+);
+<span class="comment">// you could for example write that to a file called `index.html`:
+// std::fs::write("index.html", html).unwrap();
+
+// now render the javascript code to the terminal using the
+// onedark theme and no background color
+</span><span class="macro">println!</span>(<span class="string">"{}"</span>, verdant::render(
+    <span class="kw-2">&amp;</span>highlights_js,
+    <span class="kw-2">&amp;mut </span>TerminalRenderer::new(<span class="prelude-val">None</span>),
+    verdant_themes::one::dark(),
+));</code></pre></div><h4 id="example-detect-language-from-file-type"><a class="doc-anchor" href="#example-detect-language-from-file-type">§</a>Example: detect language from file type</h4>
+<p>This is an alteration of the <a href="#example-highlight-once">first example</a> showing
+how to detect the language to use based on a file type. See that first example
+for explanations of the rest of the code.</p>
+<p><code>verdant</code> uses <a href="https://crates.io/crates/palate"><code>palate</code></a> for file types which
+provides automatic detection.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>verdant::{renderer::TerminalRenderer, language_set::{LanguageSet, SupportedLanguage}};
+<span class="kw">use </span>verdant_parsers::{Lang, LanguageSetImpl};
+
+<span class="comment">// detect the file type given a file's path and content.
+// this requires a dependency on `palate`
+</span><span class="kw">let </span>ft = palate::detect(<span class="string">"main.rs"</span>, <span class="string">""</span>);
+
+<span class="kw">let </span>language_set = LanguageSetImpl::new();
+<span class="kw">let </span>output = verdant::highlight(
+    <span class="string">r#"fn main() { println!("42"); }"#</span>,
+    <span class="comment">// the `SupportedLanguage` trait provides a `for_file_type` function
+    // which returns an `Option&lt;Lang&gt;`
+    // make sure to have the trait in scope
+    </span>Lang::for_file_type(ft, <span class="kw-2">&amp;</span>()).unwrap(),
+    <span class="kw-2">&amp;</span>language_set,
+    <span class="kw-2">&amp;mut </span>TerminalRenderer::new(<span class="prelude-val">None</span>),
+    verdant_themes::gruvbox::dark(),
+)
+.unwrap_or_else(|err| <span class="macro">panic!</span>(<span class="string">"highlighting failed: {err}"</span>));
+
+<span class="macro">println!</span>(<span class="string">"{output}"</span>);</code></pre></div><h4 id="example-custom-theme"><a class="doc-anchor" href="#example-custom-theme">§</a>Example: custom theme</h4>
+<p>This is an alteration of the <a href="#example-highlight-once">first example</a> showing
+how to create a simple custom theme. See that first example for explanations of
+the rest of the code, and see the documentation of the <a href="macro.theme.html" title="macro verdant::theme"><code>theme!</code></a> macro for more
+information.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>verdant::{renderer::TerminalRenderer, theme};
+<span class="kw">use </span>verdant_parsers::{Lang, LanguageSetImpl};
+
+<span class="kw">let </span>theme = <span class="macro">theme!</span> {
+    <span class="comment">// specify colors using hex literals
+    </span><span class="string">"purple"</span>: <span class="string">"#c678dd"</span>,
+    <span class="string">"blue"</span>: <span class="string">"#61afef"</span>,
+    <span class="string">"green"</span>: <span class="string">"#98c379"</span>,
+
+    <span class="comment">// link to other keys using a `$` sign
+    </span><span class="string">"keyword"</span>: <span class="string">"$purple"</span>,
+    <span class="string">"function"</span>: <span class="string">"$blue"</span>,
+
+    <span class="comment">// specify more styling options in curly braces
+    // (note that currently this order is required by the macro)
+    </span><span class="string">"string"</span>: {
+        color: <span class="prelude-val">None</span>,
+        bg: <span class="prelude-val">None</span>,
+        underline: <span class="bool-val">false</span>,
+        strikethrough: <span class="bool-val">false</span>,
+        italic: <span class="bool-val">true</span>,
+        bold: <span class="bool-val">false</span>,
+        link: <span class="string">"green"</span>,
+    },
+};
+
+<span class="kw">let </span>output = verdant::highlight(
+    <span class="string">r#"fn main() { println!("42"); }"#</span>,
+    Lang::Rust,
+    <span class="kw-2">&amp;</span>LanguageSetImpl::new(),
+    <span class="kw-2">&amp;mut </span>TerminalRenderer::new(<span class="prelude-val">None</span>),
+    theme,
+)
+.unwrap_or_else(|err| <span class="macro">panic!</span>(<span class="string">"highlighting failed: {err}"</span>));
+
+<span class="macro">println!</span>(<span class="string">"{output}"</span>);</code></pre></div><h3 id="versioning"><a class="doc-anchor" href="#versioning">§</a>Versioning</h3>
+<p>All crates in this workspace whose names start with <code>verdant</code> share the same
+version. The typical semantic versioning rules are used across the public APIs
+of <em>all</em> of these, except for
+<a href="#crates-for-internal-use">the ones listed as internal</a>. The
+<a href="#general-side-products">other crates in this workspace</a> have their own separate
+versions.</p>
+<p>Versions are specified as <code>MAJOR.MINOR.PATCH</code>. As long as the <code>MAJOR</code> version
+specifier is still at <code>0</code>, changes to the <code>MINOR</code> version may also be breaking
+changes. The <code>PATCH</code> part is only incremented if the public API stays fully
+compatible, with one exception: Changes to the bundled parsers and queries in
+the parser collections do <strong>not</strong> count as breaking changes. This implies that
+if a parser stops being compatible with one of the collections, it is not
+considered a breaking change to remove that parser.</p>
+<h3 id="inspiration"><a class="doc-anchor" href="#inspiration">§</a>Inspiration</h3>
+<p>The entire idea of this project started out as a way to use tree-sitter code
+highlighting in a LaTeX project. While working with
+<a href="https://github.com/MikMuellerDev">@MikMuellerDev</a> on
+<a href="https://github.com/rush-rs/paper">our paper</a> on <a href="https://rush-lang.de/">rush</a> I
+created a CLI app called <a href="https://github.com/rush-rs/lirstings"><code>lirstings</code></a>.
+The initial sketch simply called out to the <code>tree-sitter-cli</code> and converted the
+output HTML to LaTeX code. However, not long after that I already implemented
+some of the logic myself and made a
+<a href="https://github.com/rush-rs/lirstings/commit/d2fc87213e8e2d629033f2eba99b2d019883fd43">first public commit</a>.
+This version of <code>lirstings</code> (called <code>ts2tex</code> at the time) already laid out some
+groundwork like
+<a href="https://rubixdev.github.io/verdant/verdant_query_preprocessor/">query pre-processing</a>
+and <a href="https://rubixdev.github.io/verdant/verdant/theme/">theming</a> that is
+still present in <code>verdant</code> today. Towards the end of our project we wanted to
+use the same highlighting on our <a href="https://play.rush-lang.de/">rush playground</a>,
+which would require <code>lirstings</code> to become more general and support WebAssembly.
+Work on that started in the
+<a href="https://github.com/rush-rs/lirstings/tree/generalize">generalize branch</a> just
+enough to suffice for our needs at the time.</p>
+<p>After the entire rush project was done and after taking a break for a while, I
+started <code>verdant</code> with the intent to be a library from the ground up, and a
+possible replacement for <a href="https://crates.io/crates/syntect"><code>syntect</code></a>. The main
+difference from <code>lirstings</code> at the start was the parser collection(s), providing
+a rigid set of parsers and queries for users. Over time <code>verdant</code> then grew
+to the big project it is today.</p>
+<h3 id="features"><a class="doc-anchor" href="#features">§</a>Features</h3>
+<ul>
+<li><span class="stab portability"><code>serde</code></span> —  Provide implementations of serde’s <code>Serialize</code> and <code>Deserialize</code> traits for <a href="theme/struct.Theme.html" title="struct verdant::theme::Theme"><code>Theme</code></a>
+and <a href="style/struct.Style.html" title="struct verdant::style::Style"><code>Style</code></a></li>
+<li><span class="stab portability"><code>docs</code></span> —  Enable this when building the docs</li>
+</ul>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.render"><code>pub use renderer::<a class="fn" href="renderer/fn.render.html" title="fn verdant::renderer::render">render</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="language_set/index.html" title="mod verdant::language_set">language_<wbr>set</a></dt><dd>Defines the <a href="language_set/trait.LanguageSet.html" title="trait verdant::language_set::LanguageSet"><code>LanguageSet</code></a> trait and some related types.</dd><dt><a class="mod" href="renderer/index.html" title="mod verdant::renderer">renderer</a></dt><dd>This module contains the <a href="renderer/trait.Renderer.html" title="trait verdant::renderer::Renderer"><code>Renderer</code></a> trait and two implementors: <a href="renderer/struct.TerminalRenderer.html" title="struct verdant::renderer::TerminalRenderer"><code>TerminalRenderer</code></a> and
+<a href="renderer/struct.HtmlRenderer.html" title="struct verdant::renderer::HtmlRenderer"><code>HtmlRenderer</code></a>, as well as the <a href="renderer/fn.render.html" title="fn verdant::renderer::render"><code>render</code></a> function, which is re-exported at the crate root.
+See the individual documentation of these items for more information and examples.</dd><dt><a class="mod" href="style/index.html" title="mod verdant::style">style</a></dt><dd>Defines the <a href="style/struct.Style.html" title="struct verdant::style::Style"><code>Style</code></a> and <a href="style/type.Color.html" title="type verdant::style::Color"><code>Color</code></a> types used by
+<a href="theme/struct.ResolvedTheme.html" title="struct verdant::theme::ResolvedTheme"><code>ResolvedTheme</code></a>s.</dd><dt><a class="mod" href="theme/index.html" title="mod verdant::theme">theme</a></dt><dd>Defines items related to theming the output.</dd><dt><a class="mod" href="ts_runtime/index.html" title="mod verdant::ts_runtime">ts_<wbr>runtime</a></dt><dd>Rust Tree-sitter</dd></dl><h2 id="macros" class="section-header">Macros<a href="#macros" class="anchor">§</a></h2><dl class="item-table"><dt><a class="macro" href="macro.theme.html" title="macro verdant::theme">theme</a></dt><dd>Convenience macro for constructing new <a href="theme/struct.Theme.html" title="struct verdant::theme::Theme"><code>Theme</code></a>s.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.Processor.html" title="struct verdant::Processor">Processor</a></dt><dd>A type for easy reuse of resources when highlighting multiple inputs.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.Error.html" title="enum verdant::Error">Error</a></dt><dd>The main error type.</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.highlight.html" title="fn verdant::highlight">highlight</a></dt><dd>Convenience function for <a href="struct.Processor.html" title="struct verdant::Processor">processing</a> and directly <a href="renderer/fn.render.html" title="fn verdant::renderer::render">rendering</a> code once.</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.Highlights.html" title="type verdant::Highlights">Highlights</a></dt><dd>Source code with theme-independent style information attached, as returned by the <a href="struct.Processor.html" title="struct verdant::Processor"><code>Processor</code></a>.</dd><dt><a class="type" href="type.Result.html" title="type verdant::Result">Result</a></dt><dd>The main result type.</dd><dt><a class="type" href="type.ThemedHighlights.html" title="type verdant::ThemedHighlights">Themed<wbr>Highlights</a></dt><dd>Source code with theme-specific style information attached.</dd></dl><script type="text/json" id="notable-traits-data">{"&<Vec<T, A> as Index<I>>::Output":"<h3>Notable traits for <code><a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;</code></h3><pre><code><div class=\"where\">impl&lt;A&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/std/io/trait.Write.html\" title=\"trait std::io::Write\">Write</a> for <a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;<div class=\"where\">where\n    A: <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/alloc/trait.Allocator.html\" title=\"trait core::alloc::Allocator\">Allocator</a>,</div></div>","&mut <Vec<T, A> as Index<I>>::Output":"<h3>Notable traits for <code><a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;</code></h3><pre><code><div class=\"where\">impl&lt;A&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/std/io/trait.Write.html\" title=\"trait std::io::Write\">Write</a> for <a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;<div class=\"where\">where\n    A: <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/alloc/trait.Allocator.html\" title=\"trait core::alloc::Allocator\">Allocator</a>,</div></div>","<Vec<T, A> as IntoIterator>::IntoIter":"<h3>Notable traits for <code><a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;</code></h3><pre><code><div class=\"where\">impl&lt;A&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/std/io/trait.Write.html\" title=\"trait std::io::Write\">Write</a> for <a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;<div class=\"where\">where\n    A: <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/alloc/trait.Allocator.html\" title=\"trait core::alloc::Allocator\">Allocator</a>,</div></div>","<Vec<T> as IntoDeserializer<'de, E>>::Deserializer":"<h3>Notable traits for <code><a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;</code></h3><pre><code><div class=\"where\">impl&lt;A&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/std/io/trait.Write.html\" title=\"trait std::io::Write\">Write</a> for <a class=\"struct\" href=\"https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html\" title=\"struct alloc::vec::Vec\">Vec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.u8.html\">u8</a>, A&gt;<div class=\"where\">where\n    A: <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/alloc/trait.Allocator.html\" title=\"trait core::alloc::Allocator\">Allocator</a>,</div></div>"}</script></section></div></main></body></html>

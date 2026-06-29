@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Convenience macro for constructing new `Theme`s."><title>theme in verdant_core - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-1ed95124.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="verdant_core" data-themes="" data-resource-suffix="" data-rustdoc-version="1.98.0-nightly (df6ee909e 2026-06-28)" data-channel="nightly" data-search-js="search-9944d736.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-f7c3ffd8.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc macro"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><rustdoc-topbar><h2><a href="#">theme</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../verdant_core/index.html">verdant_<wbr>core</a><span class="version">0.7.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">theme</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#example" title="Example">Example</a></li></ul></section><div id="rustdoc-modnav"><h2 class="in-crate"><a href="index.html">In crate verdant_<wbr>core</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="index.html">verdant_core</a></div><h1>Macro <span class="macro">theme</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/verdant_core/theme.rs.html#451-455">Source</a> </span></div><pre class="rust item-decl"><code>macro_rules! theme {
+    ($($tt:tt)*) =&gt; { ... };
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Convenience macro for constructing new <a href="theme/struct.Theme.html" title="struct verdant_core::theme::Theme"><code>Theme</code></a>s.</p>
+<p>Currently, the macro is very strict about the input’s structure. See the <a href="#example">example</a>
+below to learn more. Also note that for <a href="theme/enum.ThemeValue.html#variant.Extended" title="variant verdant_core::theme::ThemeValue::Extended">extended values</a>, either
+<a href="theme/enum.ThemeValue.html#variant.Extended.field.color" title="field verdant_core::theme::ThemeValue::color"><code>color</code></a> or <a href="theme/enum.ThemeValue.html#variant.Extended.field.link" title="field verdant_core::theme::ThemeValue::link"><code>link</code></a> must be set, or
+any call to <a href="theme/struct.Theme.html#method.resolve_links" title="method verdant_core::theme::Theme::resolve_links"><code>resolve_links</code></a> will fail.</p>
+<p>See the documentation for <a href="theme/struct.Theme.html" title="struct verdant_core::theme::Theme"><code>Theme</code></a> and <a href="theme/struct.ResolvedTheme.html" title="struct verdant_core::theme::ResolvedTheme"><code>ResolvedTheme</code></a> for more information on themes.</p>
+<h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::collections::BTreeMap;
+<span class="kw">use </span>verdant_core::{
+    theme,
+    theme::{Theme, ThemeValue},
+};
+
+<span class="kw">let </span>theme = <span class="macro">theme!</span> {
+    <span class="comment">// specify colors using hex literals
+    </span><span class="string">"purple"</span>: <span class="string">"#c678dd"</span>,
+    <span class="string">"blue"</span>: <span class="string">"#61afef"</span>,
+    <span class="string">"green"</span>: <span class="string">"#98c379"</span>,
+
+    <span class="comment">// link to other keys using a `$` sign
+    </span><span class="string">"keyword"</span>: <span class="string">"$purple"</span>,
+    <span class="string">"function"</span>: <span class="string">"$blue"</span>,
+
+    <span class="comment">// specify more styling options in curly braces
+    // (note that currently this order required by the macro)
+    </span><span class="string">"string"</span>: {
+        color: <span class="prelude-val">None</span>, <span class="comment">// either `None` or `"#&lt;color&gt;"`
+        </span>bg: <span class="prelude-val">None</span>, <span class="comment">// either `None` or `"#&lt;color&gt;"`
+        </span>underline: <span class="bool-val">false</span>,
+        strikethrough: <span class="bool-val">false</span>,
+        italic: <span class="bool-val">true</span>,
+        bold: <span class="bool-val">false</span>,
+        link: <span class="string">"green"</span>, <span class="comment">// either `None` or `"&lt;key&gt;"`
+    </span>},
+};
+
+<span class="macro">assert_eq!</span>(theme, Theme::new(BTreeMap::from([
+    (<span class="string">"purple"</span>.to_owned(), ThemeValue::Simple(<span class="string">"#c678dd"</span>.to_owned())),
+    (<span class="string">"blue"</span>.to_owned(), ThemeValue::Simple(<span class="string">"#61afef"</span>.to_owned())),
+    (<span class="string">"green"</span>.to_owned(), ThemeValue::Simple(<span class="string">"#98c379"</span>.to_owned())),
+    (<span class="string">"keyword"</span>.to_owned(), ThemeValue::Simple(<span class="string">"$purple"</span>.to_owned())),
+    (<span class="string">"function"</span>.to_owned(), ThemeValue::Simple(<span class="string">"$blue"</span>.to_owned())),
+    (<span class="string">"string"</span>.to_owned(), ThemeValue::Extended {
+        color: <span class="prelude-val">None</span>,
+        bg: <span class="prelude-val">None</span>,
+        underline: <span class="bool-val">false</span>,
+        strikethrough: <span class="bool-val">false</span>,
+        italic: <span class="bool-val">true</span>,
+        bold: <span class="bool-val">false</span>,
+        link: <span class="prelude-val">Some</span>(<span class="string">"green"</span>.to_owned()),
+    }),
+])));</code></pre></div></div></details></section></div></main></body></html>
