@@ -118,6 +118,99 @@ mod wasm_c_bridge {
         char::from_u32(ch).is_some_and(|ch| ch.is_ascii_hexdigit()) as int
     }
 
+    // Narrow (`int`-based) ctype family. The `wasm-shim/ctype.h` header provides
+    // these as `static inline` for scanners that `#include <ctype.h>`, but a scanner
+    // that calls e.g. `isdigit` without including ctype.h gets an implicit declaration
+    // and emits an *external* reference, which is then undefined at link. Provide real
+    // symbols here (the same way the `isw*` family above is handled) so those callers
+    // resolve; wasm-ld garbage-collects any that go unreferenced. ASCII semantics,
+    // matching `wasm-shim/ctype.h`.
+    fn as_byte(c: int) -> Option<u8> {
+        u8::try_from(c).ok()
+    }
+
+    #[no_mangle]
+    extern "C" fn isascii(c: int) -> int {
+        ((c as u32) < 128) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isdigit(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_digit()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isalpha(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_alphabetic()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isalnum(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_alphanumeric()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isxdigit(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_hexdigit()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isspace(c: int) -> int {
+        // space or 0x09..=0x0d (\t \n \v \f \r); note `is_ascii_whitespace` omits \v.
+        as_byte(c).is_some_and(|c| c == b' ' || (0x09..=0x0d).contains(&c)) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isblank(c: int) -> int {
+        as_byte(c).is_some_and(|c| c == b' ' || c == b'\t') as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isupper(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_uppercase()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn islower(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_lowercase()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn iscntrl(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_control()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isgraph(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_graphic()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn isprint(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_graphic() || c == b' ') as int
+    }
+
+    #[no_mangle]
+    extern "C" fn ispunct(c: int) -> int {
+        as_byte(c).is_some_and(|c| c.is_ascii_punctuation()) as int
+    }
+
+    #[no_mangle]
+    extern "C" fn tolower(c: int) -> int {
+        match as_byte(c) {
+            Some(c) => c.to_ascii_lowercase() as int,
+            None => c,
+        }
+    }
+
+    #[no_mangle]
+    extern "C" fn toupper(c: int) -> int {
+        match as_byte(c) {
+            Some(c) => c.to_ascii_uppercase() as int,
+            None => c,
+        }
+    }
+
     #[no_mangle]
     unsafe extern "C" fn __assert2(
         file: *const c_char,
