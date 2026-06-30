@@ -138,6 +138,14 @@ mod wasm_c_bridge {
         lhs.cmp(rhs) as int
     }
 
+    // haskell's scanner calls `setlocale(LC_ALL, "C.UTF-8")` and ignores the
+    // result. wasm has no libc locale support, so this is a no-op that echoes the
+    // requested locale back (a non-null return signals "accepted").
+    #[no_mangle]
+    extern "C" fn setlocale(_category: int, locale: *const c_char) -> *const c_char {
+        locale
+    }
+
     #[no_mangle]
     unsafe extern "C" fn memchr(ptr: *const c_void, ch: int, count: size_t) -> *mut c_void {
         let ptr = ptr as *const u8;

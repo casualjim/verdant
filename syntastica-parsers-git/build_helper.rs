@@ -151,6 +151,10 @@ fn compile_parser(
         fs::write(shim_dir.join("wctype.h"), include_str!("wasm-shim/wctype.h"))?;
         fs::write(shim_dir.join("wchar.h"), include_str!("wasm-shim/wchar.h"))?;
         fs::write(shim_dir.join("assert.h"), include_str!("wasm-shim/assert.h"))?;
+        fs::write(shim_dir.join("search.h"), include_str!("wasm-shim/search.h"))?;
+        fs::write(shim_dir.join("locale.h"), include_str!("wasm-shim/locale.h"))?;
+        fs::create_dir_all(shim_dir.join("sys"))?;
+        fs::write(shim_dir.join("sys/types.h"), include_str!("wasm-shim/sys/types.h"))?;
         c_config.include(&shim_dir);
         c_config.include(
             // set by the `tree-sitter-language` crate's build script
