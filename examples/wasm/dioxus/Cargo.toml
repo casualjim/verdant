@@ -14,9 +14,9 @@ desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
 
 [dependencies]
-verdant = { version = "0.7.2", path = "../../..", default-features = false }
-verdant-parsers-git = { version = "0.7.2", path = "../../../syntastica-parsers-git", default-features = false, features = ["rust"] }
-verdant-themes = { version = "0.7.2", path = "../../../syntastica-themes", default-features = false }
+verdant = { version = "0.7.3", path = "../../..", default-features = false }
+verdant-parsers-git = { version = "0.7.3", path = "../../../syntastica-parsers-git", default-features = false, features = ["rust"] }
+verdant-themes = { version = "0.7.3", path = "../../../syntastica-themes", default-features = false }
 
 dioxus = "0.6.0"
 

@@ -19,7 +19,7 @@ members = [
 ]
 exclude = ["ignored"]
 
-package.version = "0.7.2"
+package.version = "0.7.3"
 package.authors = ["Ivan Porto Carrero <ivan@flanders.co.nz>"]
 package.documentation = "https://docs.rs/verdant"
 package.edition = "2021"
@@ -33,17 +33,17 @@ sign-tag = true
 shared-version = true
 
 [workspace.dependencies]
-verdant = { version = "0.7.2", path = "./" }
-verdant-core = { version = "0.7.2", path = "./syntastica-core", default-features = false }
-verdant-highlight = { version = "0.7.2", path = "./syntastica-highlight", default-features = false }
-verdant-macros = { version = "0.7.2", path = "./syntastica-macros" }
-verdant-parsers = { version = "0.7.2", path = "./syntastica-parsers" }
-verdant-parsers-dynamic = { version = "0.7.2", path = "./syntastica-parsers-dynamic" }
-verdant-parsers-git = { version = "0.7.2", path = "./syntastica-parsers-git" }
-verdant-parsers-gitdep = { version = "0.7.2", path = "./syntastica-parsers-gitdep" }
-verdant-query-preprocessor = { version = "0.7.2", path = "./syntastica-query-preprocessor" }
-verdant-queries = { version = "0.7.2", path = "./syntastica-queries" }
-verdant-themes = { version = "0.7.2", path = "./syntastica-themes" }
+verdant = { version = "0.7.3", path = "./" }
+verdant-core = { version = "0.7.3", path = "./syntastica-core", default-features = false }
+verdant-highlight = { version = "0.7.3", path = "./syntastica-highlight", default-features = false }
+verdant-macros = { version = "0.7.3", path = "./syntastica-macros" }
+verdant-parsers = { version = "0.7.3", path = "./syntastica-parsers" }
+verdant-parsers-dynamic = { version = "0.7.3", path = "./syntastica-parsers-dynamic" }
+verdant-parsers-git = { version = "0.7.3", path = "./syntastica-parsers-git" }
+verdant-parsers-gitdep = { version = "0.7.3", path = "./syntastica-parsers-gitdep" }
+verdant-query-preprocessor = { version = "0.7.3", path = "./syntastica-query-preprocessor" }
+verdant-queries = { version = "0.7.3", path = "./syntastica-queries" }
+verdant-themes = { version = "0.7.3", path = "./syntastica-themes" }
 
 tree-sitter = "0.26.10"
 tree-sitter-generate = "0.26.10"
