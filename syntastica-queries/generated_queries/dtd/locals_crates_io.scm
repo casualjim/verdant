@@ -1,0 +1,1 @@
+(elementdecl (Name)@local.definition)(elementdecl (contentspec (children (Name)@local.reference)))(AttlistDecl . (Name)@local.reference)

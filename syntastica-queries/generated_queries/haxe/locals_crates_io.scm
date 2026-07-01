@@ -1,0 +1,1 @@
+[(block)(function_declaration)]@local.scope @local.scope (function_arg name: (identifier)@local.definition)(variable_declaration name: (identifier)@local.definition)(block (identifier))@local.reference 

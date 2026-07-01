@@ -1,0 +1,1 @@
+((comment)@injection.content (#set! injection.language "comment"))((setting key: (key)@_key (#match? @_key "^(script|init-script|env-script|pre-script|post-script|err-script|exit-script)$")value: (_ (string_content)@injection.content))(#set! injection.language "bash"))

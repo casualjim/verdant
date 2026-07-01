@@ -1,0 +1,1 @@
+(parenthesis)@local.scope (anonymous_function)@local.scope (object)@local.scope (field)@local.scope (local_bind)@local.scope (field function: (fieldname (id)@local.definition)(#set! definition.function.scope "parent"))(bind (id)@local.definition)(bind function: (id)@local.definition)(param (id)@local.definition)(id)@local.reference 

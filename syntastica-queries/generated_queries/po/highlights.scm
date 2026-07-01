@@ -1,0 +1,1 @@
+["msgctxt" "msgid" "msgid_plural" "msgstr" "msgstr_plural"]@keyword ["[" "]"]@punctuation.bracket (string)@string (escape_sequence)@string.escape (number)@number (comment)@comment @spell (comment (reference (text)@string.special.path))(comment (flag (text)@label))(ERROR)@error 

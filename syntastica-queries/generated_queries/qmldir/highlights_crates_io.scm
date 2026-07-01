@@ -1,0 +1,1 @@
+(command (identifier)@preproc)(keyword)@keyword (number)@number (float)@float [(identifier)(unit)]@variable (comment)@comment @spell 
