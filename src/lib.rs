@@ -67,3 +67,23 @@ where
         theme.try_into()?,
     ))
 }
+
+#[cfg(test)]
+mod tests {
+    use verdant_parsers::{Lang, LanguageSetImpl};
+
+    use super::*;
+
+    /// `code_span` is tagged `@markup.raw @nospell`; the unindexed `@nospell` must not erase `markup.raw`.
+    #[test]
+    fn unindexed_capture_keeps_earlier_highlight() {
+        let set = LanguageSetImpl::new();
+        let highlights = Processor::process_once("`code`", Lang::MarkdownInline, &set).unwrap();
+        let names: Vec<_> = highlights
+            .iter()
+            .flatten()
+            .filter_map(|(_, n)| *n)
+            .collect();
+        assert!(names.contains(&"markup.raw"), "got {names:?}");
+    }
+}
