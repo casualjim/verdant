@@ -1055,8 +1055,11 @@ where
 
                     // Skip captures starting with `_`.
                     // (syntastica addition)
-                    if layer.config.names()[following_match.captures[capture_index].index as usize]
-                        .starts_with('_')
+                    // Also skip captures without a highlight index (e.g. `@nospell`), so they
+                    // cannot erase an earlier indexed capture on the same node.
+                    let following_index = following_match.captures[capture_index].index as usize;
+                    if layer.config.names()[following_index].starts_with('_')
+                        || layer.config.highlight_indices[following_index].is_none()
                     {
                         continue;
                     }
