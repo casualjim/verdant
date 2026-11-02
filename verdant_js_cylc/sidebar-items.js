@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["verdant_lang_cylc"],"struct":["LangInfo"]};
