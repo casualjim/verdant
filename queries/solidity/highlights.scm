@@ -169,7 +169,6 @@
     (expression
       (identifier)
     ) @type
-    .
   )
 )
 

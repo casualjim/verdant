@@ -96,6 +96,7 @@ fn compile_parser(
 
     if generate && !src_dir.join("src/parser.c").is_file() {
         println!("generating parser for {name}");
+        let mut diagnostics = Vec::new();
         tree_sitter_generate::generate_parser_in_directory(
             &src_dir,
             None::<PathBuf>,
@@ -105,7 +106,11 @@ fn compile_parser(
             env::var("SYNTASTICA_PARSERS_JS_RUNTIME").ok().as_deref(),
             true,
             tree_sitter_generate::OptLevel::default(),
+            &mut diagnostics,
         )?;
+        for diagnostic in &diagnostics {
+            println!("cargo:warning={diagnostic}");
+        }
     }
 
     println!("building parser for {name}");
@@ -145,16 +150,37 @@ fn compile_parser(
         let shim_dir = out_dir.join("wasm-shim");
         fs::create_dir_all(&shim_dir)?;
         fs::write(shim_dir.join("stdio.h"), include_str!("wasm-shim/stdio.h"))?;
-        fs::write(shim_dir.join("inttypes.h"), include_str!("wasm-shim/inttypes.h"))?;
+        fs::write(
+            shim_dir.join("inttypes.h"),
+            include_str!("wasm-shim/inttypes.h"),
+        )?;
         fs::write(shim_dir.join("ctype.h"), include_str!("wasm-shim/ctype.h"))?;
-        fs::write(shim_dir.join("string.h"), include_str!("wasm-shim/string.h"))?;
-        fs::write(shim_dir.join("wctype.h"), include_str!("wasm-shim/wctype.h"))?;
+        fs::write(
+            shim_dir.join("string.h"),
+            include_str!("wasm-shim/string.h"),
+        )?;
+        fs::write(
+            shim_dir.join("wctype.h"),
+            include_str!("wasm-shim/wctype.h"),
+        )?;
         fs::write(shim_dir.join("wchar.h"), include_str!("wasm-shim/wchar.h"))?;
-        fs::write(shim_dir.join("assert.h"), include_str!("wasm-shim/assert.h"))?;
-        fs::write(shim_dir.join("search.h"), include_str!("wasm-shim/search.h"))?;
-        fs::write(shim_dir.join("locale.h"), include_str!("wasm-shim/locale.h"))?;
+        fs::write(
+            shim_dir.join("assert.h"),
+            include_str!("wasm-shim/assert.h"),
+        )?;
+        fs::write(
+            shim_dir.join("search.h"),
+            include_str!("wasm-shim/search.h"),
+        )?;
+        fs::write(
+            shim_dir.join("locale.h"),
+            include_str!("wasm-shim/locale.h"),
+        )?;
         fs::create_dir_all(shim_dir.join("sys"))?;
-        fs::write(shim_dir.join("sys/types.h"), include_str!("wasm-shim/sys/types.h"))?;
+        fs::write(
+            shim_dir.join("sys/types.h"),
+            include_str!("wasm-shim/sys/types.h"),
+        )?;
         c_config.include(&shim_dir);
         c_config.include(
             // set by the `tree-sitter-language` crate's build script

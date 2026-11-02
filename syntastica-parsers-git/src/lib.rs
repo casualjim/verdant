@@ -25,62 +25,15 @@ verdant_macros::parsers_ffi!();
 ))]
 #[allow(non_camel_case_types)]
 mod wasm_c_bridge {
-    use std::ffi::{c_void, CStr};
+    use std::ffi::CStr;
 
     type wint_t = u32;
-    type size_t = usize;
     type c_char = i8;
     type int = i32;
 
     #[no_mangle]
-    extern "C" fn towupper(wc: wint_t) -> wint_t {
-        let Some(char) = char::from_u32(wc) else {
-            return wc;
-        };
-        let mut uppercase = char.to_uppercase();
-        if uppercase.len() == 1 {
-            uppercase.next().unwrap() as wint_t
-        } else {
-            wc
-        }
-    }
-
-    #[no_mangle]
-    extern "C" fn towlower(wc: wint_t) -> wint_t {
-        let Some(char) = char::from_u32(wc) else {
-            return wc;
-        };
-        let mut lowercase = char.to_lowercase();
-        if lowercase.len() == 1 {
-            lowercase.next().unwrap() as wint_t
-        } else {
-            wc
-        }
-    }
-
-    #[no_mangle]
-    extern "C" fn iswalnum(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_alphanumeric()) as int
-    }
-
-    #[no_mangle]
-    extern "C" fn iswalpha(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_alphabetic()) as int
-    }
-
-    #[no_mangle]
-    extern "C" fn iswblank(ch: wint_t) -> int {
-        (ch == b' ' as wint_t || ch == b'\t' as wint_t) as int
-    }
-
-    #[no_mangle]
     extern "C" fn iswcntrl(ch: wint_t) -> int {
         char::from_u32(ch).is_some_and(|ch| ch.is_control()) as int
-    }
-
-    #[no_mangle]
-    extern "C" fn iswdigit(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_numeric()) as int
     }
 
     #[no_mangle]
@@ -89,33 +42,8 @@ mod wasm_c_bridge {
     }
 
     #[no_mangle]
-    extern "C" fn iswlower(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_lowercase()) as int
-    }
-
-    #[no_mangle]
     extern "C" fn iswprint(ch: wint_t) -> int {
         char::from_u32(ch).is_some_and(|ch| ch.is_ascii_graphic() || ch == ' ') as int
-    }
-
-    #[no_mangle]
-    extern "C" fn iswpunct(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_ascii_punctuation()) as int
-    }
-
-    #[no_mangle]
-    extern "C" fn iswspace(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_whitespace()) as int
-    }
-
-    #[no_mangle]
-    extern "C" fn iswupper(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_uppercase()) as int
-    }
-
-    #[no_mangle]
-    extern "C" fn iswxdigit(ch: wint_t) -> int {
-        char::from_u32(ch).is_some_and(|ch| ch.is_ascii_hexdigit()) as int
     }
 
     // Narrow (`int`-based) ctype family. The `wasm-shim/ctype.h` header provides
@@ -158,11 +86,6 @@ mod wasm_c_bridge {
     extern "C" fn isspace(c: int) -> int {
         // space or 0x09..=0x0d (\t \n \v \f \r); note `is_ascii_whitespace` omits \v.
         as_byte(c).is_some_and(|c| c == b' ' || (0x09..=0x0d).contains(&c)) as int
-    }
-
-    #[no_mangle]
-    extern "C" fn isblank(c: int) -> int {
-        as_byte(c).is_some_and(|c| c == b' ' || c == b'\t') as int
     }
 
     #[no_mangle]
@@ -224,30 +147,11 @@ mod wasm_c_bridge {
         panic!("assertion failed in {file} on line {line} in {func}: {error}");
     }
 
-    #[no_mangle]
-    unsafe extern "C" fn strcmp(lhs: *const c_char, rhs: *const c_char) -> int {
-        let lhs = CStr::from_ptr(lhs);
-        let rhs = CStr::from_ptr(rhs);
-        lhs.cmp(rhs) as int
-    }
-
     // haskell's scanner calls `setlocale(LC_ALL, "C.UTF-8")` and ignores the
     // result. wasm has no libc locale support, so this is a no-op that echoes the
     // requested locale back (a non-null return signals "accepted").
     #[no_mangle]
     extern "C" fn setlocale(_category: int, locale: *const c_char) -> *const c_char {
         locale
-    }
-
-    #[no_mangle]
-    unsafe extern "C" fn memchr(ptr: *const c_void, ch: int, count: size_t) -> *mut c_void {
-        let ptr = ptr as *const u8;
-        let ch = ch as u8;
-        for i in 0..count {
-            if ptr.add(i).read() == ch {
-                return ptr.add(i) as *mut _;
-            }
-        }
-        std::ptr::null_mut()
     }
 }

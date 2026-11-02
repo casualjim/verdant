@@ -45,9 +45,9 @@ verdant-query-preprocessor = { version = "0.7.3", path = "./syntastica-query-pre
 verdant-queries = { version = "0.7.3", path = "./syntastica-queries" }
 verdant-themes = { version = "0.7.3", path = "./syntastica-themes" }
 
-tree-sitter = "0.26.10"
-tree-sitter-generate = "0.26.10"
-tree-sitter-language = "0.1.7"
+tree-sitter = "0.27.1"
+tree-sitter-generate = "0.27.1"
+tree-sitter-language = "0.1.9"
 
 cc = "1.2.12"
 document-features = "0.2.10"

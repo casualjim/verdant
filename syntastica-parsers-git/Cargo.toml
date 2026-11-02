@@ -164,7 +164,6 @@ all = [
     "csharp",
     "cuda",
     "cue",
-    "cylc",
     "d",
     "desktop",
     "dhall",
@@ -457,7 +456,6 @@ css = []
 csv = []
 cuda = []
 cue = []
-cylc = []
 d = []
 dart = []
 desktop = []

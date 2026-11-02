@@ -158,7 +158,6 @@ specifically, you don't have to worry about this.
 - [csharp](https://github.com/tree-sitter/tree-sitter-c-sharp/tree/f05a2ca99d329de2e6c32f26a21c6169b2bfcbb7)
 - [cuda](https://github.com/tree-sitter-grammars/tree-sitter-cuda/tree/48b066f334f4cf2174e05a50218ce2ed98b6fd01)
 - [cue](https://github.com/eonpatapon/tree-sitter-cue/tree/770737bcff2c4aa3f624d439e32b07dbb07102d3)
-- [cylc](https://github.com/elliotfontaine/tree-sitter-cylc/tree/6d1d81137112299324b526477ce1db989ab58fb8)
 - [d](https://github.com/gdamore/tree-sitter-d/tree/fb028c8f14f4188286c2eef143f105def6fbf24f)
 - [desktop](https://github.com/ValdezFOmar/tree-sitter-desktop/tree/137292ae28e05011dbc7c5c383e2b25db1cf77c9)
 - [dhall](https://github.com/jbellerb/tree-sitter-dhall/tree/62013259b26ac210d5de1abf64cf1b047ef88000)

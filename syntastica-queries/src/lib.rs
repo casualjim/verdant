@@ -303,13 +303,6 @@ pub const CUE_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/cu
 pub const CUE_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/cue/injections_crates_io.scm");
 pub const CUE_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/cue/locals_crates_io.scm");
 
-pub const CYLC_HIGHLIGHTS: &str = include_str!("../generated_queries/cylc/highlights.scm");
-pub const CYLC_INJECTIONS: &str = include_str!("../generated_queries/cylc/injections.scm");
-pub const CYLC_LOCALS: &str = include_str!("../generated_queries/cylc/locals.scm");
-pub const CYLC_HIGHLIGHTS_CRATES_IO: &str = include_str!("../generated_queries/cylc/highlights_crates_io.scm");
-pub const CYLC_INJECTIONS_CRATES_IO: &str = include_str!("../generated_queries/cylc/injections_crates_io.scm");
-pub const CYLC_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/cylc/locals_crates_io.scm");
-
 pub const D_HIGHLIGHTS: &str = include_str!("../generated_queries/d/highlights.scm");
 pub const D_INJECTIONS: &str = include_str!("../generated_queries/d/injections.scm");
 pub const D_LOCALS: &str = include_str!("../generated_queries/d/locals.scm");

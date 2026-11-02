@@ -128,7 +128,6 @@ for more information on all parser collections.
 - [csharp](https://github.com/tree-sitter/tree-sitter-c-sharp) (not supported by this collection)
 - [cuda](https://github.com/tree-sitter-grammars/tree-sitter-cuda) (not supported by this collection)
 - [cue](https://github.com/eonpatapon/tree-sitter-cue) (not supported by this collection)
-- [cylc](https://github.com/elliotfontaine/tree-sitter-cylc) (not supported by this collection)
 - [d](https://github.com/gdamore/tree-sitter-d) (not supported by this collection)
 - [desktop](https://github.com/ValdezFOmar/tree-sitter-desktop) (not supported by this collection)
 - [dhall](https://github.com/jbellerb/tree-sitter-dhall) (not supported by this collection)

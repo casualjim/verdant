@@ -22,8 +22,8 @@ docs = ["dep:document-features", "dep:rustc_version"]
 verdant-core.workspace = true
 
 tree-sitter.workspace = true
-tree-sitter-loader = "0.26.7"
-tree-sitter-tags = "0.26.7"
+tree-sitter-loader = "0.27.1"
+tree-sitter-tags = "0.27.1"
 
 anyhow = "1.0.96"
 cc.workspace = true

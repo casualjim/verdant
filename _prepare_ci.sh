@@ -10,14 +10,14 @@ header="
 ### the verdant workspace. #############
 ###########################################
 "
-echo -n "${raw//"$header"*/"$header"}" > "$file"
+echo -n "${raw//"$header"*/"$header"}" >"$file"
 
 # Fetch and patch tree-sitter for the emscripten duplicate-symbol fix.
 # Upstream's `lib/binding_rust/build.rs::configure_wasm_build` fires for any
 # `wasm32-unknown-*` target, colliding with emscripten's own libc. The workspace
 # Cargo.toml has a `[patch.crates-io]` pointing at ./ignored/tree-sitter-patched.
 # Bump this single version to track a new tree-sitter release.
-ts_version="v0.26.10"
+ts_version="v0.27.1"
 patched_dir="./ignored/tree-sitter-patched"
 if [ ! -d "$patched_dir/.git" ]; then
     mkdir -p "$(dirname "$patched_dir")"

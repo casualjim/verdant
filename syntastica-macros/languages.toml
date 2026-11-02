@@ -649,20 +649,6 @@ injections = true
 locals = true
 
 
-[[languages]]
-name = "cylc"
-group = "all"
-file-types = ["cylc"]
-[languages.parser]
-git = { url = "https://github.com/elliotfontaine/tree-sitter-cylc", rev = "6d1d81137112299324b526477ce1db989ab58fb8" }
-external-scanner = { c = false, cpp = false }
-ffi-func = "tree_sitter_cylc"
-package = "tree-sitter-cylc"
-[languages.queries]
-nvim-like = true
-injections = true
-locals = false
-
 
 [[languages]]
 name = "d"
