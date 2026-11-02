@@ -92,6 +92,16 @@ pub struct Highlighter {
     cursors: Vec<QueryCursor>,
 }
 
+// tree-sitter 0.27 only implements `Send`/`Sync` for `Parser` and `Language`
+// on non-wasm targets. The JS package runs on emscripten's single-threaded
+// runtime and guards its `Processor` behind a `Mutex`, so the guarantees that
+// hold on other targets hold here too: `Language` is an immutable static, and
+// the `Parser` is only ever used behind the mutex.
+#[cfg(target_family = "wasm")]
+unsafe impl Send for Highlighter {}
+#[cfg(target_family = "wasm")]
+unsafe impl Sync for HighlightConfiguration {}
+
 #[derive(Debug)]
 struct LocalDef<'a> {
     name: &'a str,
