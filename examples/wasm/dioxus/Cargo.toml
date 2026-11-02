@@ -18,7 +18,7 @@ verdant = { version = "0.7.3", path = "../../..", default-features = false }
 verdant-parsers-git = { version = "0.7.3", path = "../../../syntastica-parsers-git", default-features = false, features = ["rust"] }
 verdant-themes = { version = "0.7.3", path = "../../../syntastica-themes", default-features = false }
 
-dioxus = "0.7.0"
+dioxus = "0.7.10"
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
