@@ -8,7 +8,9 @@
 use std::borrow::Cow;
 
 use once_cell::sync::OnceCell;
-use verdant::{
+use tree_sitter_language::LanguageFn;
+use verdant_parsers::{Lang, LanguageSetImpl};
+use verdant_syntax::{
     language_set::{
         EitherLang, FileType, HighlightConfiguration, LanguageSet, SupportedLanguage, Union,
     },
@@ -16,8 +18,6 @@ use verdant::{
     theme::THEME_KEYS,
     Processor,
 };
-use verdant_parsers::{Lang, LanguageSetImpl};
-use tree_sitter_language::LanguageFn;
 
 /// An enum with all languages that we want to provide ourselves.
 enum CustomLang {
@@ -40,11 +40,11 @@ impl<'set, T> SupportedLanguage<'set, T> for CustomLang {
         self.as_ref().into()
     }
 
-    fn for_name(name: impl AsRef<str>, _set: &'set T) -> verdant::Result<Self> {
+    fn for_name(name: impl AsRef<str>, _set: &'set T) -> verdant_syntax::Result<Self> {
         match name.as_ref() {
             "xml" => Ok(CustomLang::Xml),
             "dtd" => Ok(CustomLang::Dtd),
-            name => Err(verdant::Error::UnsupportedLanguage(name.to_string())),
+            name => Err(verdant_syntax::Error::UnsupportedLanguage(name.to_string())),
         }
     }
 
@@ -79,7 +79,7 @@ impl LanguageSet<'_> for CustomLanguageSet {
     fn get_language(
         &self,
         language: Self::Language,
-    ) -> verdant::Result<&HighlightConfiguration> {
+    ) -> verdant_syntax::Result<&HighlightConfiguration> {
         match language {
             // provide our languages however you like. in this example we use the languages and
             // queries exposed by the `tree-sitter-xml` crate.
@@ -105,7 +105,7 @@ fn init_lang<'a>(
     cell: &'a OnceCell<HighlightConfiguration>,
     get_lang: LanguageFn,
     queries: &str,
-) -> verdant::Result<&'a HighlightConfiguration> {
+) -> verdant_syntax::Result<&'a HighlightConfiguration> {
     cell.get_or_try_init(|| {
         let mut conf = HighlightConfiguration::new(
             get_lang.into(),
@@ -123,7 +123,7 @@ fn init_lang<'a>(
     })
 }
 
-fn main() -> verdant::Result<()> {
+fn main() -> verdant_syntax::Result<()> {
     let code_xml = r#"
 <?xml version="1.1" encoding="UTF-8" ?>
 <!DOCTYPE greeting [
@@ -153,7 +153,7 @@ fn main() {
 
     println!(
         "{}",
-        verdant::render(
+        verdant_syntax::render(
             // languages are specified by the `EitherLang` enum
             &processor.process(code_xml, EitherLang::Left(CustomLang::Xml))?,
             &mut renderer,
@@ -162,7 +162,7 @@ fn main() {
     );
     println!(
         "{}",
-        verdant::render(
+        verdant_syntax::render(
             // "left" languages don't need to be explicitly specified as being left
             &processor.process(code_dtd, CustomLang::Dtd)?,
             &mut renderer,
@@ -172,7 +172,7 @@ fn main() {
     // languages from the fallback language set can also be used
     println!(
         "{}",
-        verdant::render(
+        verdant_syntax::render(
             &processor.process(code_rust, EitherLang::Right(Lang::Rust))?,
             &mut renderer,
             &theme,

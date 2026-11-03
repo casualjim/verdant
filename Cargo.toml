@@ -19,9 +19,9 @@ members = [
 ]
 exclude = ["ignored"]
 
-package.version = "0.7.4"
+package.version = "0.7.5"
 package.authors = ["Ivan Porto Carrero <ivan@flanders.co.nz>"]
-package.documentation = "https://docs.rs/verdant"
+package.documentation = "https://docs.rs/verdant-syntax"
 package.edition = "2021"
 package.license = "MPL-2.0"
 package.repository = "https://github.com/casualjim/verdant"
@@ -33,17 +33,17 @@ sign-tag = true
 shared-version = true
 
 [workspace.dependencies]
-verdant = { version = "0.7.4", path = "./" }
-verdant-core = { version = "0.7.4", path = "./syntastica-core", default-features = false }
-verdant-highlight = { version = "0.7.4", path = "./syntastica-highlight", default-features = false }
-verdant-macros = { version = "0.7.4", path = "./syntastica-macros" }
-verdant-parsers = { version = "0.7.4", path = "./syntastica-parsers" }
-verdant-parsers-dynamic = { version = "0.7.4", path = "./syntastica-parsers-dynamic" }
-verdant-parsers-git = { version = "0.7.4", path = "./syntastica-parsers-git" }
-verdant-parsers-gitdep = { version = "0.7.4", path = "./syntastica-parsers-gitdep" }
-verdant-query-preprocessor = { version = "0.7.4", path = "./syntastica-query-preprocessor" }
-verdant-queries = { version = "0.7.4", path = "./syntastica-queries" }
-verdant-themes = { version = "0.7.4", path = "./syntastica-themes" }
+verdant-syntax = { version = "0.7.5", path = "./" }
+verdant-core = { version = "0.7.5", path = "./syntastica-core", default-features = false }
+verdant-highlight = { version = "0.7.5", path = "./syntastica-highlight", default-features = false }
+verdant-macros = { version = "0.7.5", path = "./syntastica-macros" }
+verdant-parsers = { version = "0.7.5", path = "./syntastica-parsers" }
+verdant-parsers-dynamic = { version = "0.7.5", path = "./syntastica-parsers-dynamic" }
+verdant-parsers-git = { version = "0.7.5", path = "./syntastica-parsers-git" }
+verdant-parsers-gitdep = { version = "0.7.5", path = "./syntastica-parsers-gitdep" }
+verdant-query-preprocessor = { version = "0.7.5", path = "./syntastica-query-preprocessor" }
+verdant-queries = { version = "0.7.5", path = "./syntastica-queries" }
+verdant-themes = { version = "0.7.5", path = "./syntastica-themes" }
 
 tree-sitter = "0.27.1"
 tree-sitter-generate = "0.27.1"
@@ -85,10 +85,10 @@ opt-level = "s"
 strip = true
 
 [package]
-name = "verdant"
+name = "verdant-syntax"
 version.workspace = true
 authors.workspace = true
-documentation = "https://docs.rs/verdant"
+documentation = "https://docs.rs/verdant-syntax"
 edition.workspace = true
 keywords = ["tree-sitter", "syntect", "highlight", "parsing", "syntax"]
 license.workspace = true

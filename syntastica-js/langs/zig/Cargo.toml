@@ -8,6 +8,9 @@ license.workspace = true
 repository.workspace = true
 description = "Zig language support for verdant-js"
 
+[package.metadata.release]
+release = false
+
 [lib]
 crate-type = ["cdylib"]
 

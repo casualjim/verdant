@@ -2,7 +2,7 @@
 name = "verdant-query-preprocessor"
 version.workspace = true
 authors.workspace = true
-documentation = "https://docs.rs/verdant"
+documentation = "https://docs.rs/verdant-syntax"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true

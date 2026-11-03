@@ -71,6 +71,9 @@ license.workspace = true
 repository.workspace = true
 description = "{lang_name_pascal} language support for verdant-js"
 
+[package.metadata.release]
+release = false
+
 [lib]
 crate-type = ["cdylib"]
 

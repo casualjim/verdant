@@ -1,7 +1,7 @@
 use std::{collections::BTreeMap, env};
 
-use verdant::{language_set::SupportedLanguage, renderer::TerminalRenderer, Processor};
 use verdant_parsers_git::{Lang, LanguageSetImpl};
+use verdant_syntax::{language_set::SupportedLanguage, renderer::TerminalRenderer, Processor};
 
 fn main() {
     let filter = env::args().nth(1).unwrap_or_default();
@@ -29,10 +29,10 @@ fn example(
     processor: &mut Processor<LanguageSetImpl>,
     code: &str,
     lang_name: &str,
-) -> verdant::Result<()> {
+) -> verdant_syntax::Result<()> {
     println!(
         "{}",
-        verdant::render(
+        verdant_syntax::render(
             &processor.process(code.trim(), Lang::for_name(lang_name, &())?)?,
             &mut TerminalRenderer::new(None),
             verdant_themes::one::dark(),

@@ -129,7 +129,7 @@ pub fn resolve_styles<'src>(
 /// ## Example
 ///
 /// ```
-/// use verdant::{renderer::HtmlRenderer, theme};
+/// use verdant_syntax::{renderer::HtmlRenderer, theme};
 ///
 /// // define a theme
 /// let theme = theme! { "keyword": "#ff0000" }.resolve_links().unwrap();
@@ -138,7 +138,7 @@ pub fn resolve_styles<'src>(
 /// let highlights = vec![vec![("<fn>", Some("keyword")), ("none", None)]];
 ///
 /// // render to HTML
-/// let output = verdant::render(&highlights, &mut HtmlRenderer, theme);
+/// let output = verdant_syntax::render(&highlights, &mut HtmlRenderer, theme);
 ///
 /// assert_eq!(
 ///     output,
@@ -217,7 +217,7 @@ impl Renderer for HtmlRenderer {
 /// ## Example
 ///
 /// ```
-/// use verdant::{renderer::TerminalRenderer, theme};
+/// use verdant_syntax::{renderer::TerminalRenderer, theme};
 ///
 /// // define a theme
 /// let theme = theme! { "keyword": "#ff0000" }.resolve_links().unwrap();
@@ -226,7 +226,7 @@ impl Renderer for HtmlRenderer {
 /// let highlights = vec![vec![("fn", Some("keyword")), (" none", None)]];
 ///
 /// // render to a string without a background color
-/// let output = verdant::render(&highlights, &mut TerminalRenderer::new(None), theme);
+/// let output = verdant_syntax::render(&highlights, &mut TerminalRenderer::new(None), theme);
 ///
 /// assert_eq!(output, "\x1b[38;2;255;0;0mfn\x1b[0m none");
 /// ```

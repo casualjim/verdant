@@ -1,5 +1,5 @@
-use verdant::theme::THEME_KEYS;
 use tree_sitter::{Language, Query};
+use verdant_syntax::theme::THEME_KEYS;
 
 pub fn validate_query(lang: &Language, query: &str, kind: &str) {
     match Query::new(lang, query) {

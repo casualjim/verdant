@@ -11,7 +11,7 @@ use std::{
     sync::{LazyLock, Mutex},
 };
 
-use verdant::{
+use verdant_syntax::{
     language_set::{FileType, HighlightConfiguration, Language, LanguageSet, SupportedLanguage},
     renderer::{HtmlRenderer, TerminalRenderer},
     style::{Color, Style},
@@ -75,7 +75,7 @@ impl LangSet {
             cptr_to_str(info.locals_query),
         )
         .unwrap();
-        config.configure(verdant::theme::THEME_KEYS);
+        config.configure(verdant_syntax::theme::THEME_KEYS);
         self.languages.lock().unwrap().insert(
             name,
             (
@@ -95,7 +95,7 @@ impl<'s> LanguageSet<'s> for LangSet {
     fn get_language(
         &self,
         language: Self::Language,
-    ) -> verdant::Result<&HighlightConfiguration> {
+    ) -> verdant_syntax::Result<&HighlightConfiguration> {
         Ok(self
             .languages
             .lock()
@@ -111,14 +111,14 @@ impl<'set> SupportedLanguage<'set, LangSet> for Lang<'set> {
         self.0.into()
     }
 
-    fn for_name(name: impl AsRef<str>, set: &'set LangSet) -> verdant::Result<Self> {
+    fn for_name(name: impl AsRef<str>, set: &'set LangSet) -> verdant_syntax::Result<Self> {
         let name = name.as_ref();
         set.languages
             .lock()
             .unwrap()
             .get_key_value(name)
             .map(|(&name, _)| Self(name, PhantomData))
-            .ok_or_else(|| verdant::Error::UnsupportedLanguage(name.to_string()))
+            .ok_or_else(|| verdant_syntax::Error::UnsupportedLanguage(name.to_string()))
     }
 
     fn for_file_type(_file_type: FileType, _set: &'set LangSet) -> Option<Self> {
@@ -212,7 +212,7 @@ pub unsafe fn process(
 }
 
 /// Render code that was previously processed by calling [`process`] given the name of a
-/// [`Renderer`](verdant::renderer::Renderer).
+/// [`Renderer`](verdant_syntax::renderer::Renderer).
 ///
 /// The renderer name is either `HTML` or `Terminal` in any casing. To specify a background color
 /// for the terminal renderer, append a hex color literal like `terminal#282828` or `Terminal#fff`.
@@ -243,7 +243,9 @@ pub unsafe fn render(
                     (
                         code.as_str(),
                         hl.as_ref()
-                            .and_then(|hl| verdant::theme::THEME_KEYS.iter().find(|k| k == &hl))
+                            .and_then(|hl| {
+                                verdant_syntax::theme::THEME_KEYS.iter().find(|k| k == &hl)
+                            })
                             .copied(),
                     )
                 })
@@ -270,13 +272,15 @@ fn _render(
     theme: ResolvedTheme,
 ) -> *const c_char {
     let out = match renderer.to_lowercase().as_str() {
-        "terminal" => verdant::render(highlights, &mut TerminalRenderer::new(None), theme),
-        "html" => verdant::render(highlights, &mut HtmlRenderer, theme),
+        "terminal" => verdant_syntax::render(highlights, &mut TerminalRenderer::new(None), theme),
+        "html" => verdant_syntax::render(highlights, &mut HtmlRenderer, theme),
         name => match name.strip_prefix("terminal#") {
             Some(color_hex) => match Color::from_str(color_hex) {
-                Ok(color) => {
-                    verdant::render(highlights, &mut TerminalRenderer::new(Some(color)), theme)
-                }
+                Ok(color) => verdant_syntax::render(
+                    highlights,
+                    &mut TerminalRenderer::new(Some(color)),
+                    theme,
+                ),
                 Err(err) => bail!(
                     errmsg,
                     "invalid background color '{color_hex}' for TerminalRenderer: {err}"

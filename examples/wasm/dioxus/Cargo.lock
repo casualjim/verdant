@@ -5872,8 +5872,8 @@ name = "syntastica-dioxus-demo"
 version = "0.1.0"
 dependencies = [
  "dioxus",
- "verdant",
  "verdant-parsers-git",
+ "verdant-syntax",
  "verdant-themes",
 ]
 
@@ -6549,18 +6549,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
 
 [[package]]
-name = "verdant"
-version = "0.7.3"
-dependencies = [
- "aho-corasick",
- "thiserror 2.0.21",
- "verdant-core",
- "verdant-highlight",
-]
-
-[[package]]
 name = "verdant-core"
-version = "0.7.3"
+version = "0.7.5"
 dependencies = [
  "palate",
  "palette",
@@ -6571,7 +6561,7 @@ dependencies = [
 
 [[package]]
 name = "verdant-highlight"
-version = "0.7.3"
+version = "0.7.5"
 dependencies = [
  "regex",
  "streaming-iterator",
@@ -6581,7 +6571,7 @@ dependencies = [
 
 [[package]]
 name = "verdant-macros"
-version = "0.7.3"
+version = "0.7.5"
 dependencies = [
  "heck 0.5.0",
  "once_cell",
@@ -6595,7 +6585,7 @@ dependencies = [
 
 [[package]]
 name = "verdant-parsers-git"
-version = "0.7.3"
+version = "0.7.5"
 dependencies = [
  "cc",
  "once_cell",
@@ -6609,11 +6599,21 @@ dependencies = [
 
 [[package]]
 name = "verdant-queries"
-version = "0.7.3"
+version = "0.7.5"
+
+[[package]]
+name = "verdant-syntax"
+version = "0.7.5"
+dependencies = [
+ "aho-corasick",
+ "thiserror 2.0.21",
+ "verdant-core",
+ "verdant-highlight",
+]
 
 [[package]]
 name = "verdant-themes"
-version = "0.7.3"
+version = "0.7.5"
 dependencies = [
  "verdant-core",
 ]

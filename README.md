@@ -1,6 +1,6 @@
-# `verdant`
+# `verdant-syntax`
 
-> **Note: This is a fork of [syntastica](https://github.com/RubixDev/syntastica) renamed to `verdant` for independent publishing on crates.io.
+> **Note: This is a fork of [syntastica](https://github.com/RubixDev/syntastica) renamed to `verdant-syntax` for independent publishing on crates.io.
 > The upstream project does not accept large PRs adding new language support.
 > If that changes, this fork will return to contributing upstream.**
 
@@ -9,10 +9,10 @@ Modern and easy syntax highlighting using tree-sitter
 > **Note**
 >
 > If viewing this file on [GitHub](https://github.com/RubixDev/verdant) or
-> [crates.io](https://crates.io/crates/verdant), some links might not be
+> [crates.io](https://crates.io/crates/verdant-syntax), some links might not be
 > working. Go to the
-> [custom docs page](https://rubixdev.github.io/verdant/verdant/) or the
-> [docs.rs page](https://docs.rs/verdant/) instead, which additionally
+> [custom docs page](https://rubixdev.github.io/verdant/verdant-syntax/) or the
+> [docs.rs page](https://docs.rs/verdant-syntax/) instead, which additionally
 > include the [Features](#features) section.
 
 ## Overview
@@ -286,10 +286,10 @@ section about [use cases](#use-cases) for when it is appropriate to use
 `verdant` this way.
 
 ```rust
-use verdant::renderer::TerminalRenderer;
+use verdant_syntax::renderer::TerminalRenderer;
 use verdant_parsers::{Lang, LanguageSetImpl};
 
-let output = verdant::highlight(
+let output = verdant_syntax::highlight(
     // the code to highlight
     r#"fn main() { println!("42"); }"#,
     // the input's language
@@ -312,7 +312,7 @@ This example shows how to render the same input with two different themes using
 two different renderers.
 
 ```rust
-use verdant::{Processor, style::Color, renderer::*};
+use verdant_syntax::{Processor, style::Color, renderer::*};
 use verdant_parsers::{Lang, LanguageSetImpl};
 
 // process the input once, but store the raw highlight information
@@ -328,14 +328,14 @@ let highlights = Processor::process_once(
 
 // render the highlights to the terminal using the
 // gruvbox dark theme on a dark gray background
-println!("{}", verdant::render(
+println!("{}", verdant_syntax::render(
     &highlights,
     &mut TerminalRenderer::new(Some(Color::new(40, 40, 40))),
     verdant_themes::gruvbox::dark(),
 ));
 
 // render the same input to HTML using the onelight theme
-let html = verdant::render(
+let html = verdant_syntax::render(
     &highlights,
     &mut HtmlRenderer::new(),
     verdant_themes::one::light(),
@@ -350,7 +350,7 @@ This example shows how a [`Processor`] can be reused if multiple different
 inputs should be highlighted.
 
 ```rust
-use verdant::{Processor, style::Color, renderer::*};
+use verdant_syntax::{Processor, style::Color, renderer::*};
 use verdant_parsers::{Lang, LanguageSetImpl};
 
 // create a language set and a `Processor`
@@ -374,14 +374,14 @@ let highlights_js = processor.process(r"console.log('42')", Lang::Javascript)
 
 // render the rust code to the terminal using the
 // gruvbox dark theme on a dark gray background
-println!("{}", verdant::render(
+println!("{}", verdant_syntax::render(
     &highlights_rust,
     &mut TerminalRenderer::new(Some(Color::new(40, 40, 40))),
     verdant_themes::gruvbox::dark(),
 ));
 
 // render the same rust code to HTML using the onelight theme
-let html = verdant::render(
+let html = verdant_syntax::render(
     &highlights_rust,
     &mut HtmlRenderer::new(),
     verdant_themes::one::light(),
@@ -391,7 +391,7 @@ let html = verdant::render(
 
 // now render the javascript code to the terminal using the
 // onedark theme and no background color
-println!("{}", verdant::render(
+println!("{}", verdant_syntax::render(
     &highlights_js,
     &mut TerminalRenderer::new(None),
     verdant_themes::one::dark(),
@@ -408,7 +408,7 @@ for explanations of the rest of the code.
 provides automatic detection.
 
 ```rust
-use verdant::{renderer::TerminalRenderer, language_set::{LanguageSet, SupportedLanguage}};
+use verdant_syntax::{renderer::TerminalRenderer, language_set::{LanguageSet, SupportedLanguage}};
 use verdant_parsers::{Lang, LanguageSetImpl};
 
 // detect the file type given a file's path and content.
@@ -416,7 +416,7 @@ use verdant_parsers::{Lang, LanguageSetImpl};
 let ft = palate::detect("main.rs", "");
 
 let language_set = LanguageSetImpl::new();
-let output = verdant::highlight(
+let output = verdant_syntax::highlight(
     r#"fn main() { println!("42"); }"#,
     // the `SupportedLanguage` trait provides a `for_file_type` function
     // which returns an `Option<Lang>`
@@ -439,7 +439,7 @@ the rest of the code, and see the documentation of the [`theme!`] macro for more
 information.
 
 ```rust
-use verdant::{renderer::TerminalRenderer, theme};
+use verdant_syntax::{renderer::TerminalRenderer, theme};
 use verdant_parsers::{Lang, LanguageSetImpl};
 
 let theme = theme! {
@@ -465,7 +465,7 @@ let theme = theme! {
     },
 };
 
-let output = verdant::highlight(
+let output = verdant_syntax::highlight(
     r#"fn main() { println!("42"); }"#,
     Lang::Rust,
     &LanguageSetImpl::new(),

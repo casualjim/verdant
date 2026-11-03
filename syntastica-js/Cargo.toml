@@ -2,14 +2,17 @@
 name = "verdant-js"
 version.workspace = true
 authors.workspace = true
-documentation = "https://docs.rs/verdant"
+documentation = "https://docs.rs/verdant-syntax"
 edition.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Use syntastica from JavaScript"
+description = "Use verdant from JavaScript"
+
+[package.metadata.release]
+release = false
 
 [dependencies]
-verdant = { workspace = true, features = ["serde"] }
+verdant-syntax = { workspace = true, features = ["serde"] }
 verdant-macros = { workspace = true, features = ["js"] }
 verdant-themes.workspace = true
 

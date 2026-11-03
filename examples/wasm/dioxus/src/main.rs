@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
-use verdant::renderer::HtmlRenderer;
 use verdant_parsers_git::{Lang, LanguageSetImpl};
+use verdant_syntax::renderer::HtmlRenderer;
 
 const MAIN_CSS: Asset = asset!("/assets/main.css");
 
@@ -13,7 +13,7 @@ fn App() -> Element {
     // on an actual website it would be smart to run syntsatica in a web worker as to not
     // freeze the user interface while waiting
     let html = use_hook(|| {
-        verdant::highlight(
+        verdant_syntax::highlight(
             "fn main() {\n    println!(\"Hello, World!\");\n}",
             Lang::Rust,
             &LanguageSetImpl::new(),

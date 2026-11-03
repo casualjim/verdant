@@ -30,7 +30,7 @@ use crate::Highlights;
 /// a [`Processor`] instance.
 ///
 /// ```
-/// use verdant::{style::Style, Processor};
+/// use verdant_syntax::{style::Style, Processor};
 /// use verdant_parsers::{Lang, LanguageSetImpl};
 ///
 /// let highlights = Processor::process_once(
@@ -50,7 +50,7 @@ use crate::Highlights;
 /// instance which can then be used to process multiple different inputs.
 ///
 /// ```
-/// use verdant::{style::Style, Processor};
+/// use verdant_syntax::{style::Style, Processor};
 /// use verdant_parsers_git::{Lang, LanguageSetImpl};
 ///
 /// // get a `LanguageSet`
@@ -143,7 +143,7 @@ impl<'set, Set: LanguageSet<'set>> Processor<'set, Set> {
     ///
     /// # Example
     /// ```
-    /// use verdant::{language_set::LanguageSet, renderer::TerminalRenderer, Processor};
+    /// use verdant_syntax::{language_set::LanguageSet, renderer::TerminalRenderer, Processor};
     /// use verdant_parsers::{Lang, LanguageSetImpl};
     /// use tree_sitter::{InputEdit, Parser, Point};
     ///
@@ -163,7 +163,7 @@ impl<'set, Set: LanguageSet<'set>> Processor<'set, Set> {
     /// let mut tree = parser.parse(code, None).unwrap();
     /// println!(
     ///     "{}",
-    ///     verdant::render(
+    ///     verdant_syntax::render(
     ///         &processor.process_tree(code, Lang::Rust, &tree.root_node())?,
     ///         &mut renderer,
     ///         &theme,
@@ -185,7 +185,7 @@ impl<'set, Set: LanguageSet<'set>> Processor<'set, Set> {
     /// let new_tree = parser.parse(new_code, Some(&tree)).unwrap();
     /// println!(
     ///     "{}",
-    ///     verdant::render(
+    ///     verdant_syntax::render(
     ///         &processor.process_tree(new_code, Lang::Rust, &new_tree.root_node())?,
     ///         &mut renderer,
     ///         &theme,

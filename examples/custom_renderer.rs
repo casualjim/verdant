@@ -4,9 +4,9 @@
 
 use std::{borrow::Cow, collections::HashMap, env, error::Error};
 
-use verdant::renderer::Renderer;
 use verdant_core::style::Style;
 use verdant_parsers_git::{Lang, LanguageSetImpl};
+use verdant_syntax::renderer::Renderer;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let examples: HashMap<String, String> =
@@ -19,7 +19,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     println!(
         "{}",
-        verdant::highlight(
+        verdant_syntax::highlight(
             &examples["rust"],
             Lang::Rust,
             &LanguageSetImpl::new(),
