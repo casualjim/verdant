@@ -452,7 +452,7 @@ jobs:
       - name: Publish
         # Releases run from a tag (detached HEAD); cargo release's default
         # allow-branch (['*', '!HEAD']) rejects that, so permit HEAD explicitly.
-        run: cargo release publish --execute --no-verify --allow-branch HEAD --workspace
+        run: cargo release publish --execute --no-confirm --no-verify --allow-branch HEAD --workspace
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
