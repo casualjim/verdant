@@ -45,6 +45,13 @@ pub fn write() -> Result<()> {
         fs::write(lang_dir.join("LICENSE"), include_str!("../../../LICENSE"))?;
 
         let lang_name = &lang.name;
+        // npm rejects the standalone token `hack` in package names, so the Hack
+        // language ships as `hacklang` on npm only.
+        let npm_name = if lang.name == "hack" {
+            "hacklang"
+        } else {
+            lang_name
+        };
         let lang_name_pascal = &lang.name.to_pascal_case();
 
         fs::write(
@@ -123,7 +130,7 @@ include!("../../../syntastica-parsers-git/build_helper.rs");
             format!(
                 r###"{{
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
-  "name": "@lotsa/verdant-lang-{lang_name}",
+  "name": "@lotsa/verdant-lang-{npm_name}",
   "version": "{verdant_version}",
   "description": "{lang_name_pascal} language support for verdant-js",
   "keywords": ["tree-sitter", "highlight", "parsing", "syntax"],
