@@ -1,0 +1,1 @@
+[(list)(scope)(cons)]@local.scope (symbol)@local.reference ((list . (symbol)@_fnkw . (symbol)@local.definition (symbol)? @local.definition)(#match? @_fnkw "^(def|defop|defn|fn)$"))((cons . (symbol)@_fnkw . (symbol)@local.definition (symbol)? @local.definition)(#match? @_fnkw "^(def|defop|defn|fn)$"))

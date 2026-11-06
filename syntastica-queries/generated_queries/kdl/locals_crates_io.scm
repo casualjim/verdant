@@ -1,0 +1,1 @@
+(document)@local.scope (node (node_children)@local.scope)(node_children (node)@local.scope)(identifier)@local.reference (node_field)@local.definition (node (identifier)@local.definition)(type)@local.definition 

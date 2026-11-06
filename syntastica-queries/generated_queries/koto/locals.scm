@@ -1,0 +1,1 @@
+(function body: (_)@local.scope)(arg (variable)@local.definition)(assign (identifier)@local.definition)(for_args (variable)@local.definition)(match_patterns (variable)@local.definition)(import_item (identifier)@local.definition)(entry_block (identifier)@local.definition)(entry_inline (identifier)@local.definition)(identifier)@local.reference 

@@ -1,0 +1,1 @@
+(directive ["<%" "<%=" "<%%" "<%%=" "%>"]@keyword)(comment)@comment 

@@ -1,0 +1,1 @@
+["eval" "let"]@keyword (function)@function (method)@method (parameter)@parameter (identifier)@variable ["\\" "->" "=" (step)]@operator ["(" ")"]@punctuation.bracket [":"]@punctuation.delimiter (comment)@comment 

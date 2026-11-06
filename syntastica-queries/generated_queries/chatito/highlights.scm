@@ -1,0 +1,1 @@
+["%[" "@[" "~[" "*[" "]" "(" ")"]@punctuation.bracket [eq: _ ","]@punctuation.delimiter ["%" "?" "#"]@punctuation.special (intent)@module (slot)@type (variation)@variable.member (alias)@embedded (number)@number (argument key: (string)@attribute value: (string)@string)(escape)@string.escape ["import"]@keyword (file)@string.special (word)@markup (comment)@comment 

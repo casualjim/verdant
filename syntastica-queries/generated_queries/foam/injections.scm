@@ -1,0 +1,1 @@
+((comment)@injection.content (#set! injection.language "comment"))(code (code_body)@injection.content (#set! injection.language "cpp"))((string_literal)@injection.content (#set! injection.language "regex"))(pyfoam_variable code_body: (_)@injection.content (#set! injection.language "python"))(pyfoam_expression code_body: (_)@injection.content (#set! injection.language "python"))

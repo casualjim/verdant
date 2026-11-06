@@ -1,0 +1,1 @@
+[(object)(array)]@local.scope (assign_block (assignment (input)@local.definition))(value (input)@local.reference)

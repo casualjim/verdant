@@ -1,0 +1,12 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "verdant",
+  "entryPoints": [
+    "./src"
+  ],
+  "categorizeByGroup": false,
+  "navigationLinks": {
+    "Rust Docs": "https://docs.rs/verdant-syntax",
+    "GitHub": "https://github.com/casualjim/verdant/"
+  }
+}
