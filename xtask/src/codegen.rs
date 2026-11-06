@@ -1,8 +1,15 @@
-use std::{env, fs};
+use std::{
+    collections::{BTreeMap, HashSet},
+    env, fs,
+};
 
-use anyhow::Result;
+use anyhow::{ensure, Result};
+use toml::Table;
 
-use crate::schema::Group;
+use crate::{
+    schema::{Group, Language},
+    LANGUAGE_CONFIG,
+};
 
 mod js_lists;
 mod js_pkgs;
@@ -24,8 +31,14 @@ const TOML_FEATURES_HEAD: &str = r##"
 [features]
 #! ### Features
 default = []
-
-#! Every supported language has a feature with the same name as the respective public function.
+"##;
+const TOML_FEATURES_INTRO: &str = r##"
+#! Most languages have a feature with the same name as the respective public function. To stay
+#! within crates.io's limit of 300 features per crate, less common languages are only enabled by
+#! the feature of their language family (listed below) or by `all`, and languages that share a
+#! parser repository (like `typescript` and `tsx`) share one feature. The README of this crate
+#! names the feature that enables each language.
+#!
 #! Additionally the three feature groups
 #! <span class="stab portability"><code>some</code></span>,
 #! <span class="stab portability"><code>most</code></span>, and
@@ -33,6 +46,10 @@ default = []
 #! are available.
 
 ## Include parsers for the most widely known supported languages.
+"##;
+const TOML_FEATURES_FAMILIES: &str = r##"
+#! ### Language families
+#! Each of these features enables a family of related languages.
 "##;
 const TOML_FEATURES_MOST: &str = r##"
 ## Implies <span class="stab portability"><code>some</code></span>.
@@ -140,11 +157,51 @@ pub const {lang}_LOCALS_CRATES_IO: &str = include_str!("../generated_queries/{na
     Ok(())
 }
 
-#[derive(PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 enum ParserCollection {
     Git,
     GitDep,
     Dep,
+}
+
+/// A language together with the languages bundled with it, which one feature enables.
+fn bundle(owner: &Language) -> Vec<&Language> {
+    LANGUAGE_CONFIG
+        .languages
+        .iter()
+        .filter(|lang| {
+            lang.name == owner.name || lang.bundled_with.as_deref() == Some(owner.name.as_str())
+        })
+        .collect()
+}
+
+/// The languages naming each family in `family`, in `languages.toml` order.
+fn families() -> BTreeMap<&'static str, Vec<&'static Language>> {
+    let mut families: BTreeMap<_, Vec<_>> = BTreeMap::new();
+    for lang in &LANGUAGE_CONFIG.languages {
+        if let Some(family) = &lang.family {
+            families.entry(family.as_str()).or_default().push(lang);
+        }
+    }
+    families
+}
+
+/// The `dep:` entries pulling in the parsers `collection` has for `lang` and its bundle.
+fn dep_features(lang: &Language, collection: ParserCollection) -> Vec<String> {
+    let mut deps = vec![];
+    if collection != ParserCollection::Git {
+        for member in bundle(lang) {
+            let dep = format!("dep:{}", member.parser.package);
+            if member
+                .parser
+                .supports(collection == ParserCollection::GitDep)
+                && !deps.contains(&dep)
+            {
+                deps.push(dep);
+            }
+        }
+    }
+    deps
 }
 
 fn parsers_toml_feature(group: Group) -> String {
@@ -152,11 +209,16 @@ fn parsers_toml_feature(group: Group) -> String {
     if let Some(group) = group.next_smaller() {
         feature_str += &format!("    \"{group}\",\n");
     }
-    let mut seen = std::collections::HashSet::new();
-    for lang in crate::LANGUAGE_CONFIG
+    if group == Group::All {
+        for family in families().keys() {
+            feature_str += &format!("    \"{family}\",\n");
+        }
+    }
+    let mut seen = HashSet::new();
+    for lang in LANGUAGE_CONFIG
         .languages
         .iter()
-        .filter(|lang| lang.group == group)
+        .filter(|lang| lang.group == group && LANGUAGE_CONFIG.has_own_feature(lang))
     {
         if !seen.insert(lang.name.clone()) {
             continue;
@@ -168,22 +230,66 @@ fn parsers_toml_feature(group: Group) -> String {
     feature_str + "]\n"
 }
 
+/// Wraps the names of a family's languages into documentation comment lines.
+fn family_doc(names: &[&str]) -> String {
+    let mut lines = vec![String::from(
+        "## Include parsers for the languages of this family:",
+    )];
+    for (i, name) in names.iter().enumerate() {
+        let end = if i + 1 == names.len() { "." } else { "," };
+        let line = lines.last_mut().expect("`lines` starts non-empty");
+        if line.len() + name.len() + 2 > 100 {
+            lines.push(format!("## {name}{end}"));
+        } else {
+            *line += &format!(" {name}{end}");
+        }
+    }
+    lines.join("\n") + "\n"
+}
+
+fn parsers_toml_family_features(collection: ParserCollection) -> String {
+    let mut out = String::from(TOML_FEATURES_FAMILIES);
+    for (family, owners) in families() {
+        let names = owners
+            .iter()
+            .flat_map(|owner| bundle(owner))
+            .map(|lang| lang.name.as_str())
+            .collect::<Vec<_>>();
+        out += "\n";
+        out += &family_doc(&names);
+
+        // owners with their own feature are enabled through it, all others directly
+        let mut entries = vec![];
+        for owner in owners {
+            if LANGUAGE_CONFIG.has_own_feature(owner) {
+                entries.push(owner.name.clone());
+            } else {
+                entries.extend(dep_features(owner, collection));
+            }
+        }
+        out += &format!("{family} = [");
+        for entry in &entries {
+            out += &format!("\n    \"{entry}\",");
+        }
+        out += if entries.is_empty() { "]\n" } else { "\n]\n" };
+    }
+    out
+}
+
 fn parsers_toml_lang_features(collection: ParserCollection) -> String {
     let mut out = String::new();
-    let mut seen = std::collections::HashSet::new();
-    for lang in &crate::LANGUAGE_CONFIG.languages {
-        if !seen.insert(lang.name.clone()) {
+    let mut seen = HashSet::new();
+    for lang in &LANGUAGE_CONFIG.languages {
+        if !seen.insert(lang.name.clone()) || !LANGUAGE_CONFIG.has_own_feature(lang) {
             continue;
         }
         out += &lang.name;
         out += " = [";
-        if collection != ParserCollection::Git
-            && lang.parser.supports(collection == ParserCollection::GitDep)
-        {
-            out += "\"dep:";
-            out += &lang.parser.package;
-            out += "\"";
-        }
+        out += &dep_features(lang, collection)
+            .iter()
+            .map(|dep| format!("\"{dep}\""))
+            .collect::<Vec<_>>()
+            .join(", ");
         out += "]\n";
     }
     out
@@ -230,4 +336,23 @@ version = "={version}"
         };
         *toml += &dep_str;
     }
+}
+
+/// crates.io rejects a crate declaring more `[features]` than this.
+const CRATES_IO_MAX_FEATURES: usize = 300;
+
+/// Fail codegen instead of the tag-triggered publish job when a manifest is over the limit.
+fn check_crates_io_feature_limit(toml: &str, package: &str) -> Result<()> {
+    let manifest = toml.parse::<Table>()?;
+    let count = manifest
+        .get("features")
+        .and_then(|features| features.as_table())
+        .map_or(0, Table::len);
+    ensure!(
+        count <= CRATES_IO_MAX_FEATURES,
+        "`{package}` declares {count} features but crates.io allows at most \
+         {CRATES_IO_MAX_FEATURES}; put more languages into families (`family` in \
+         `syntastica-macros/languages.toml`)"
+    );
+    Ok(())
 }

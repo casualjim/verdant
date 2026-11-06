@@ -82,8 +82,10 @@ provides an interface to load them during runtime.
 
 The other three parser collections all provide the same public API and have
 features for all supported languages, as well as the three feature groups
-`some`, `most`, and `all`. Take a look at the respective crate documentation for
-more information.
+`some`, `most`, and `all`. To stay within the limit of 300 features per crate on
+crates.io, less common languages are enabled by the feature of their language
+family (like `shell` or `lisps`) instead of a feature of their own. Take a look
+at the respective crate documentation for more information.
 
 If you want to additionally use languages that are not in any of these parser
 collections or combine multiple sets, have a look at the

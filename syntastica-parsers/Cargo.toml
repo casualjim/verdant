@@ -36,7 +36,12 @@ all-features = true
 #! ### Features
 default = []
 
-#! Every supported language has a feature with the same name as the respective public function.
+#! Most languages have a feature with the same name as the respective public function. To stay
+#! within crates.io's limit of 300 features per crate, less common languages are only enabled by
+#! the feature of their language family (listed below) or by `all`, and languages that share a
+#! parser repository (like `typescript` and `tsx`) share one feature. The README of this crate
+#! names the feature that enables each language.
+#!
 #! Additionally the three feature groups
 #! <span class="stab portability"><code>some</code></span>,
 #! <span class="stab portability"><code>most</code></span>, and
@@ -49,11 +54,11 @@ some = [
     "c",
     "cpp",
     "css",
+    "diff",
     "dockerfile",
     "gitattributes",
     "gitcommit",
     "gitconfig",
-    "gitdiff",
     "gitignore",
     "gitrebase",
     "go",
@@ -68,7 +73,6 @@ some = [
     "python",
     "rust",
     "toml",
-    "tsx",
     "typescript",
     "yaml",
 ]
@@ -84,7 +88,6 @@ most = [
     "comment",
     "csv",
     "dart",
-    "diff",
     "elixir",
     "fish",
     "haskell",
@@ -96,11 +99,9 @@ most = [
     "luap",
     "make",
     "markdown",
-    "markdown_inline",
     "nginx",
     "nix",
     "php",
-    "php_only",
     "printf",
     "ps1",
     "regex",
@@ -110,8 +111,6 @@ most = [
     "sql",
     "sshconfig",
     "swift",
-    "terraform",
-    "tsv",
     "typst",
     "xml",
     "zig",
@@ -122,259 +121,113 @@ most = [
 ## Include parsers for all supported languages.
 all = [
     "most",
+    "assembly",
+    "beam",
+    "build-systems",
+    "c-family",
+    "config-languages",
+    "data-formats",
+    "game-scripting",
+    "go-family",
+    "jvm-family",
+    "linux-config",
+    "lisps",
+    "lua-family",
+    "markup",
+    "php-family",
+    "python-family",
+    "query-languages",
+    "ruby-family",
+    "rust-family",
+    "schemas",
+    "shaders",
+    "shell",
+    "tracing",
+    "ui-dsl",
+    "web-frameworks",
+    "web3",
     "ada",
     "agda",
     "apex",
-    "arduino",
-    "asm68k",
-    "astro",
     "authzed",
-    "awk",
-    "bass",
     "beancount",
-    "bib",
-    "bibtex",
     "bicep",
-    "bitbake",
-    "blade",
-    "blueprint",
-    "bp",
-    "bpftrace",
     "brightscript",
-    "bzl",
     "c3",
     "caddy",
-    "cairo",
-    "capnp",
     "chatito",
-    "circom",
-    "clarity",
     "cook",
-    "corn",
-    "cpon",
-    "csharp",
-    "cuda",
-    "cue",
     "d",
-    "desktop",
-    "dhall",
-    "disassembly",
-    "djot",
     "dot",
-    "doxygen",
-    "dtd",
-    "dts",
-    "earthfile",
     "ebnf",
-    "editorconfig",
     "eds",
-    "eelixir",
-    "ejs",
-    "elisp",
     "elm",
     "elsa",
-    "elvish",
-    "enforce",
-    "erb",
-    "erlang",
-    "eruby",
     "faust",
-    "fennel",
-    "fidl",
     "firrtl",
     "foam",
     "forth",
     "fortran",
-    "fsd",
     "fsh",
     "fsharp",
-    "func",
     "fusion",
     "gap",
     "gaptst",
-    "gdresource",
-    "gdscript",
-    "gdshaderinc",
-    "gleam",
-    "glimmer_javascript",
-    "glimmer_typescript",
-    "glsl",
-    "gn",
     "gnuplot",
-    "goctl",
-    "gomod",
-    "gosum",
-    "gotmpl",
-    "gowork",
-    "gpg",
     "gren",
-    "groovy",
-    "groq",
     "gstlaunch",
     "hack",
-    "handlebars",
     "hare",
     "haskellpersistent",
     "haxe",
-    "heex",
-    "helm",
-    "help",
-    "hexdump",
-    "hjson",
-    "hlsl",
     "hlsplaylist",
-    "hocon",
     "hoon",
-    "htmlangular",
-    "htmldjango",
     "http",
     "hurl",
-    "hyprlang",
-    "idl",
     "idris2",
     "inko",
-    "ispc",
-    "janet",
-    "javadoc",
-    "jinja",
-    "jinja_inline",
-    "jproperties",
-    "jq",
-    "jsonnet",
     "julia",
-    "just",
-    "kcl",
-    "kconfig",
-    "kdl",
-    "kitty",
     "kos",
     "koto",
-    "kusto",
-    "lalrpop",
     "latex",
-    "ld",
     "ledger",
-    "leo",
     "liquid",
     "liquidsoap",
-    "lisp",
-    "llvm",
-    "luadoc",
-    "luau",
     "magik",
     "matlab",
     "menhir",
     "mermaid",
-    "meson",
-    "mlir",
-    "muttrc",
-    "nasm",
-    "nickel",
     "nim",
     "nim_format_string",
-    "ninja",
-    "nqc",
-    "nu",
-    "objc",
-    "objdump",
     "ocaml",
-    "ocaml_interface",
-    "ocamlinterface",
     "ocamllex",
     "odin",
     "pascal",
-    "passwd",
-    "pbtxt",
     "pem",
     "perl",
     "pgn",
-    "phpdoc",
-    "pioasm",
-    "pkl",
     "po",
-    "pod",
-    "poefilter",
     "pony",
     "prisma",
-    "problog",
     "prolog",
-    "promql",
-    "prql",
-    "psv",
     "pug",
     "puppet",
     "purescript",
-    "pymanifest",
-    "ql",
-    "qml",
-    "qmldir",
     "query",
     "r",
-    "racket",
-    "ralph",
-    "rasi",
     "razor",
-    "rbs",
-    "re2c",
-    "readline",
     "rego",
-    "requirements",
     "rescript",
-    "rifleconf",
     "rnoweb",
     "robot",
     "robots",
     "roc",
-    "ron",
-    "rst",
-    "runescript",
-    "rush",
-    "scfg",
-    "scheme",
-    "sface",
-    "sflog",
-    "shaderslang",
-    "slim",
-    "slint",
-    "smali",
-    "smithy",
-    "snakemake",
-    "solidity",
-    "soql",
-    "sosl",
-    "sourcepawn",
-    "sparql",
-    "sproto",
-    "squirrel",
-    "strace",
-    "styled",
     "supercollider",
-    "superhtml",
-    "svelte",
-    "sway",
-    "sxhkdrc",
-    "systemtap",
-    "tablegen",
-    "tact",
-    "tal",
     "tape",
     "tcl",
-    "teal",
-    "templ",
-    "tera",
-    "tex",
-    "thrift",
     "tiger",
     "tla",
-    "tmux",
     "todotxt",
-    "trace32",
-    "turtle",
-    "twig",
-    "typespec",
-    "typoscript",
-    "udevrules",
-    "ungrammar",
     "unison",
     "ursa",
     "usd",
@@ -385,21 +238,160 @@ all = [
     "vim",
     "vrl",
     "vto",
-    "vue",
-    "wat",
-    "wgsl",
-    "wgsl_bevy",
     "wing",
-    "wit",
-    "wxml",
-    "xcompose",
-    "xdefaults",
     "yang",
-    "yuck",
-    "zathurarc",
-    "ziggy",
-    "ziggy_schema",
 ]
+
+#! ### Language families
+#! Each of these features enables a family of related languages.
+
+## Include parsers for the languages of this family: asm, asm68k, disassembly, hexdump, ld, nasm,
+## objdump, pioasm, smali, tal, wat.
+assembly = [
+    "asm",
+]
+
+## Include parsers for the languages of this family: eelixir, elixir, erlang, gleam, heex, sface.
+beam = [
+    "elixir",
+    "dep:tree-sitter-gleam",
+]
+
+## Include parsers for the languages of this family: bitbake, bp, bzl, cmake, earthfile, gn, just,
+## make, meson, ninja, snakemake.
+build-systems = [
+    "cmake",
+    "make",
+]
+
+## Include parsers for the languages of this family: arduino, c, cpp, cuda, doxygen, ispc, llvm,
+## mlir, nqc, objc, re2c, tablegen.
+c-family = [
+    "c",
+    "cpp",
+]
+
+## Include parsers for the languages of this family: cue, dhall, hcl, terraform, jsonnet, kcl,
+## nickel, pkl.
+config-languages = [
+    "hcl",
+]
+
+## Include parsers for the languages of this family: corn, cpon, editorconfig, hjson, hocon, ini,
+## jproperties, json, json5, jsonc, kdl, scfg, toml, yaml, ziggy, ziggy_schema.
+data-formats = [
+    "ini",
+    "json",
+    "json5",
+    "jsonc",
+    "toml",
+    "yaml",
+]
+
+## Include parsers for the languages of this family: enforce, gdresource, gdscript, gdshaderinc,
+## poefilter, runescript, sourcepawn, squirrel.
+game-scripting = []
+
+## Include parsers for the languages of this family: go, goctl, gomod, gosum, gotmpl, helm, gowork,
+## templ.
+go-family = [
+    "go",
+]
+
+## Include parsers for the languages of this family: groovy, java, javadoc, kotlin, scala.
+jvm-family = [
+    "java",
+    "kotlin",
+    "scala",
+]
+
+## Include parsers for the languages of this family: desktop, dts, gpg, hyprlang, kconfig, kitty,
+## muttrc, passwd, rasi, readline, rifleconf, sshconfig, sxhkdrc, tmux, udevrules, xcompose,
+## xdefaults, yuck, zathurarc.
+linux-config = [
+    "sshconfig",
+]
+
+## Include parsers for the languages of this family: bass, clojure, elisp, fennel, janet, lisp,
+## racket, scheme.
+lisps = [
+    "clojure",
+]
+
+## Include parsers for the languages of this family: lua, luadoc, luap, luau, teal.
+lua-family = [
+    "lua",
+    "luap",
+]
+
+## Include parsers for the languages of this family: bib, bibtex, djot, help, markdown,
+## markdown_inline, pod, rst, typst.
+markup = [
+    "markdown",
+    "typst",
+]
+
+## Include parsers for the languages of this family: blade, php, php_only, phpdoc, twig, typoscript.
+php-family = [
+    "php",
+]
+
+## Include parsers for the languages of this family: htmldjango, jinja, jinja_inline, pymanifest,
+## python, requirements.
+python-family = [
+    "python",
+]
+
+## Include parsers for the languages of this family: groq, jq, kusto, promql, prql, ql, sparql, sql,
+## turtle.
+query-languages = [
+    "dep:tree-sitter-ql",
+    "sql",
+]
+
+## Include parsers for the languages of this family: ejs, erb, eruby, rbs, ruby, slim.
+ruby-family = [
+    "dep:tree-sitter-embedded-template",
+    "ruby",
+]
+
+## Include parsers for the languages of this family: lalrpop, ron, rush, rust, tera, ungrammar.
+rust-family = [
+    "dep:tree-sitter-rush",
+    "rust",
+]
+
+## Include parsers for the languages of this family: capnp, fidl, fsd, graphql, idl, pbtxt, proto,
+## smithy, sproto, thrift, typespec, wit.
+schemas = [
+    "graphql",
+    "proto",
+]
+
+## Include parsers for the languages of this family: glsl, hlsl, shaderslang, wgsl, wgsl_bevy.
+shaders = []
+
+## Include parsers for the languages of this family: awk, bash, elvish, fish, nu, ps1, zsh.
+shell = [
+    "bash",
+    "fish",
+    "ps1",
+    "zsh",
+]
+
+## Include parsers for the languages of this family: bpftrace, strace, systemtap, trace32.
+tracing = []
+
+## Include parsers for the languages of this family: blueprint, qml, qmldir, slint.
+ui-dsl = []
+
+## Include parsers for the languages of this family: astro, glimmer_javascript, glimmer_typescript,
+## handlebars, htmlangular, styled, superhtml, svelte, vue, wxml.
+web-frameworks = []
+
+## Include parsers for the languages of this family: cairo, circom, clarity, func, leo, ralph,
+## solidity, sway, tact.
+web3 = []
 
 ## Meant to be enabled when building docs
 docs = ["dep:document-features", "dep:rustc_version"]
@@ -407,317 +399,140 @@ docs = ["dep:document-features", "dep:rustc_version"]
 ada = []
 agda = []
 apex = []
-arduino = []
 asm = ["dep:tree-sitter-asm"]
-asm68k = []
-astro = []
 authzed = []
-awk = []
 bash = ["dep:tree-sitter-bash"]
-bass = []
 beancount = []
-bib = []
-bibtex = []
 bicep = []
-bitbake = []
-blade = []
-blueprint = []
-bp = []
-bpftrace = []
 brightscript = []
-bzl = []
 c = ["dep:tree-sitter-c"]
 c3 = []
 c_sharp = ["dep:tree-sitter-c-sharp"]
 caddy = []
-cairo = []
-capnp = []
 chatito = []
-circom = []
-clarity = []
 clojure = []
 cmake = ["dep:tree-sitter-cmake"]
 comment = []
 cook = []
-corn = []
-cpon = []
 cpp = ["dep:tree-sitter-cpp"]
-csharp = []
 css = ["dep:tree-sitter-css"]
 csv = []
-cuda = []
-cue = []
 d = []
 dart = []
-desktop = []
-dhall = []
 diff = ["dep:tree-sitter-diff"]
-disassembly = []
-djot = []
 dockerfile = []
 dot = []
-doxygen = []
-dtd = []
-dts = []
-earthfile = []
 ebnf = []
-editorconfig = []
 eds = []
-eelixir = []
-ejs = ["dep:tree-sitter-embedded-template"]
-elisp = []
 elixir = ["dep:tree-sitter-elixir"]
 elm = []
 elsa = []
-elvish = []
-enforce = []
-erb = ["dep:tree-sitter-embedded-template"]
-erlang = []
-eruby = []
 faust = []
-fennel = []
-fidl = []
 firrtl = []
 fish = ["dep:tree-sitter-fish"]
 foam = []
 forth = []
 fortran = []
-fsd = []
 fsh = []
 fsharp = []
-func = []
 fusion = []
 gap = []
 gaptst = []
-gdresource = []
-gdscript = []
-gdshaderinc = []
 gitattributes = []
 gitcommit = []
 gitconfig = []
-gitdiff = []
 gitignore = []
 gitrebase = []
-gleam = ["dep:tree-sitter-gleam"]
-glimmer_javascript = []
-glimmer_typescript = []
-glsl = []
-gn = []
 gnuplot = []
 go = ["dep:tree-sitter-go"]
-goctl = []
-gomod = []
-gosum = []
-gotmpl = []
-gowork = []
-gpg = []
 graphql = []
 gren = []
-groovy = []
-groq = []
 gstlaunch = []
 hack = []
-handlebars = []
 hare = []
 haskell = ["dep:tree-sitter-haskell"]
 haskellpersistent = []
 haxe = []
 hcl = []
-heex = []
-helm = []
-help = []
-hexdump = []
-hjson = []
-hlsl = []
 hlsplaylist = []
-hocon = []
 hoon = []
 html = ["dep:tree-sitter-html"]
-htmlangular = []
-htmldjango = []
 http = []
 hurl = []
-hyprlang = []
-idl = []
 idris2 = []
 ini = []
 inko = []
-ispc = []
-janet = []
 java = ["dep:tree-sitter-java"]
-javadoc = []
 javascript = ["dep:tree-sitter-javascript"]
-jinja = []
-jinja_inline = []
-jproperties = []
-jq = []
 jsdoc = ["dep:tree-sitter-jsdoc"]
 json = ["dep:tree-sitter-json"]
 json5 = []
 jsonc = []
-jsonnet = []
 julia = ["dep:tree-sitter-julia"]
-just = []
-kcl = []
-kconfig = []
-kdl = []
-kitty = []
 kos = []
 kotlin = []
 koto = []
-kusto = []
-lalrpop = []
 latex = []
-ld = []
 ledger = []
-leo = []
 liquid = []
 liquidsoap = []
-lisp = []
-llvm = []
 lua = ["dep:tree-sitter-lua"]
-luadoc = []
 luap = []
-luau = []
 magik = []
 make = ["dep:tree-sitter-make"]
 markdown = ["dep:tree-sitter-md"]
-markdown_inline = ["dep:tree-sitter-md"]
 matlab = []
 menhir = []
 mermaid = []
-meson = []
-mlir = []
-muttrc = []
-nasm = []
 nginx = []
-nickel = []
 nim = []
 nim_format_string = []
-ninja = []
 nix = ["dep:tree-sitter-nix"]
-nqc = []
-nu = []
-objc = []
-objdump = []
 ocaml = ["dep:tree-sitter-ocaml"]
-ocaml_interface = ["dep:tree-sitter-ocaml"]
-ocamlinterface = []
 ocamllex = []
 odin = []
 pascal = []
-passwd = []
-pbtxt = []
 pem = []
 perl = []
 pgn = []
 php = ["dep:tree-sitter-php"]
-php_only = ["dep:tree-sitter-php"]
-phpdoc = []
-pioasm = []
-pkl = []
 po = []
-pod = []
-poefilter = []
 pony = []
 printf = ["dep:tree-sitter-printf"]
 prisma = []
-problog = []
 prolog = []
-promql = []
 proto = []
-prql = []
 ps1 = []
-psv = []
 pug = []
 puppet = []
 purescript = []
-pymanifest = []
 python = ["dep:tree-sitter-python"]
-ql = ["dep:tree-sitter-ql"]
-qml = []
-qmldir = []
 query = []
 r = []
-racket = []
-ralph = []
-rasi = []
 razor = []
-rbs = []
-re2c = []
-readline = []
 regex = ["dep:tree-sitter-regex"]
 rego = []
-requirements = []
 rescript = []
-rifleconf = []
 rnoweb = []
 robot = []
 robots = []
 roc = []
-ron = []
-rst = []
 ruby = ["dep:tree-sitter-ruby"]
-runescript = []
-rush = ["dep:tree-sitter-rush"]
 rust = ["dep:tree-sitter-rust"]
 scala = ["dep:tree-sitter-scala"]
-scfg = []
-scheme = []
 scss = []
-sface = []
-sflog = []
-shaderslang = []
-slim = []
-slint = []
-smali = []
-smithy = []
-snakemake = []
-solidity = []
-soql = []
-sosl = []
-sourcepawn = []
-sparql = []
-sproto = []
 sql = ["dep:tree-sitter-sequel"]
-squirrel = []
 sshconfig = []
-strace = []
-styled = []
 supercollider = []
-superhtml = []
-svelte = []
-sway = []
 swift = ["dep:tree-sitter-swift"]
-sxhkdrc = []
-systemtap = []
-tablegen = []
-tact = []
-tal = []
 tape = []
 tcl = []
-teal = []
-templ = []
-tera = []
-terraform = []
-tex = []
-thrift = []
 tiger = []
 tla = []
-tmux = []
 todotxt = []
 toml = []
-trace32 = []
-tsv = []
-tsx = ["dep:tree-sitter-typescript"]
-turtle = []
-twig = []
 typescript = ["dep:tree-sitter-typescript"]
-typespec = []
-typoscript = []
 typst = []
-udevrules = []
-ungrammar = []
 unison = []
 ursa = []
 usd = []
@@ -728,23 +543,11 @@ vhdl = []
 vim = []
 vrl = []
 vto = []
-vue = []
-wat = []
-wgsl = []
-wgsl_bevy = []
 wing = []
-wit = []
-wxml = []
-xcompose = []
-xdefaults = []
 xml = []
 yaml = ["dep:tree-sitter-yaml"]
 yang = []
-yuck = []
-zathurarc = []
 zig = ["dep:tree-sitter-zig"]
-ziggy = []
-ziggy_schema = []
 zsh = []
 
 [dependencies.tree-sitter-asm]
