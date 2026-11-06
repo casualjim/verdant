@@ -17,26 +17,21 @@ pub fn write() -> Result<()> {
 [features]
 #! ## Features
 default = []
-
-#! Every supported language has a feature with the same name as the respective public function.
-#! Additionally the three feature groups
-#! <span class="stab portability"><code>some</code></span>,
-#! <span class="stab portability"><code>most</code></span>, and
-#! <span class="stab portability"><code>all</code></span>
-#! are available.
-
-## Include parsers for the most widely known supported languages.
 "###;
+    toml += super::TOML_FEATURES_INTRO;
 
     toml += &super::parsers_toml_feature(Group::Some);
     toml += super::TOML_FEATURES_MOST;
     toml += &super::parsers_toml_feature(Group::Most);
     toml += super::TOML_FEATURES_ALL;
     toml += &super::parsers_toml_feature(Group::All);
+    toml += &super::parsers_toml_family_features(super::ParserCollection::Git);
 
     toml += super::TOML_FEATURES_DOCS;
 
     toml += &super::parsers_toml_lang_features(super::ParserCollection::Git);
+
+    super::check_crates_io_feature_limit(&toml, "verdant-parsers-git")?;
 
     fs::write(&toml_path, toml)?;
 

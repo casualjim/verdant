@@ -14,17 +14,21 @@ pub fn write() -> Result<()> {
     toml += super::TOML_AUTOGEN_HEADER;
 
     toml += super::TOML_FEATURES_HEAD;
+    toml += super::TOML_FEATURES_INTRO;
     toml += &super::parsers_toml_feature(Group::Some);
     toml += super::TOML_FEATURES_MOST;
     toml += &super::parsers_toml_feature(Group::Most);
     toml += super::TOML_FEATURES_ALL;
     toml += &super::parsers_toml_feature(Group::All);
+    toml += &super::parsers_toml_family_features(super::ParserCollection::Dep);
 
     toml += super::TOML_FEATURES_DOCS;
 
     toml += &super::parsers_toml_lang_features(super::ParserCollection::Dep);
 
     super::parsers_toml_deps(&mut toml, false);
+
+    super::check_crates_io_feature_limit(&toml, "verdant-parsers")?;
 
     fs::write(&toml_path, toml)?;
 

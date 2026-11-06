@@ -1,4 +1,4 @@
-use std::borrow::Cow;
+use std::{borrow::Cow, collections::HashSet};
 
 use heck::ToPascalCase;
 use once_cell::sync::Lazy;
@@ -52,17 +52,25 @@ fn not_wasm_cfg(lang: &Language) -> proc_macro2::TokenStream {
     }
 }
 
+/// The Cargo feature that enables `lang`.
+fn feature_of(lang: &Language) -> &str {
+    LANGUAGE_CONFIG.feature(lang)
+}
+
 fn lang_feature_target_cfg(lang: &Language) -> proc_macro2::TokenStream {
-    let name_str = &lang.name;
+    let feature = feature_of(lang);
     let not_wasm_cfg = not_wasm_cfg(lang);
-    quote! { all(feature = #name_str #not_wasm_cfg) }
+    quote! { all(feature = #feature #not_wasm_cfg) }
 }
 
 fn ffi_group_cfg(group: &FfiGroup<'_>) -> proc_macro2::TokenStream {
+    // aliases that are bundled with each other are enabled by the same feature
+    let mut seen = HashSet::new();
     let alias_cfgs = group
         .aliases
         .iter()
         .map(|lang| lang_feature_target_cfg(lang))
+        .filter(|cfg| seen.insert(cfg.to_string()))
         .collect::<Vec<_>>();
 
     match alias_cfgs.as_slice() {
@@ -115,7 +123,7 @@ pub fn parsers_ffi(_: TokenStream) -> TokenStream {
     let functions = LANGUAGE_CONFIG.languages.iter().map(|lang| {
         let feat = lang.group.to_string();
         let name = format_ident!("{}", lang.name);
-        let name_str = &lang.name;
+        let feature = feature_of(lang);
         let ffi_func = format_ident!("{}", lang.parser.ffi_func);
         let doc = format!(
             "Get the parser for [{}]({}/tree/{}). {}",
@@ -134,7 +142,7 @@ pub fn parsers_ffi(_: TokenStream) -> TokenStream {
         // disable unsupported parsers on wasm
         let not_wasm_cfg = not_wasm_cfg(lang);
         quote! {
-            #[cfg(all(any(feature = #feat, feature = #name_str) #not_wasm_cfg))]
+            #[cfg(all(any(feature = #feat, feature = #feature) #not_wasm_cfg))]
             #[doc = #doc]
             pub fn #name() -> ::verdant_core::language_set::Language {
                 #[cfg(not(all(feature = "docs", doc)))]
@@ -172,7 +180,7 @@ fn parsers_rust(crate_name: &str, crates_io: bool, query_suffix: &str) -> TokenS
     let functions = LANGUAGE_CONFIG.languages.iter().map(|lang| {
         let feat = lang.group.to_string();
         let name = format_ident!("{}", lang.name);
-        let name_str = &lang.name;
+        let feature = feature_of(lang);
         let (doc, body) = match (&lang.parser.rust_const, &lang.parser.rust_func) {
             (Some(ident), _) if lang.parser.supports(!crates_io) => {
                 let ident = format_ident!("{ident}");
@@ -203,7 +211,7 @@ fn parsers_rust(crate_name: &str, crates_io: bool, query_suffix: &str) -> TokenS
             ),
         };
         quote! {
-            #[cfg(any(feature = #feat, feature = #name_str))]
+            #[cfg(any(feature = #feat, feature = #feature))]
             #[doc = #doc]
             pub fn #name() -> ::verdant_core::language_set::Language {
                 #body
@@ -231,10 +239,10 @@ fn parsers(
         .iter()
         .filter(&filter)
         .map(|lang| {
-            let name_str = &lang.name;
+            let feature = feature_of(lang);
             let variant = format_ident!("{}", lang.name.to_pascal_case());
             let not_wasm_cfg = not_wasm_cfg(lang);
-            quote! { #[cfg(all(feature = #name_str #not_wasm_cfg))] Lang::#variant }
+            quote! { #[cfg(all(feature = #feature #not_wasm_cfg))] Lang::#variant }
         });
     let names_list = LANGUAGE_CONFIG
         .languages
@@ -242,21 +250,22 @@ fn parsers(
         .filter(&filter)
         .map(|lang| {
             let name_str = &lang.name;
+            let feature = feature_of(lang);
             let not_wasm_cfg = not_wasm_cfg(lang);
-            quote! { #[cfg(all(feature = #name_str #not_wasm_cfg))] #name_str }
+            quote! { #[cfg(all(feature = #feature #not_wasm_cfg))] #name_str }
         });
     let file_types = LANGUAGE_CONFIG
         .languages
         .iter()
         .filter(&filter)
         .flat_map(|lang| {
-            let name_str = &lang.name;
+            let feature = feature_of(lang);
             let variant = format_ident!("{}", lang.name.to_pascal_case());
             let not_wasm_cfg = not_wasm_cfg(lang);
             lang.file_types.iter().map(move |ft| {
                 let ft = format_ident!("{ft:?}");
                 quote! {
-                    #[cfg(all(feature = #name_str #not_wasm_cfg))]
+                    #[cfg(all(feature = #feature #not_wasm_cfg))]
                     (::verdant_core::language_set::FileType::#ft, Lang::#variant)
                 }
             })
@@ -264,11 +273,11 @@ fn parsers(
     let mut langs_sorted_by_group = LANGUAGE_CONFIG.languages.clone();
     langs_sorted_by_group.sort_by_key(|lang| lang.group);
     let func_map = langs_sorted_by_group.iter().filter(&filter).map(|lang| {
-        let name_str = &lang.name;
+        let feature = feature_of(lang);
         let variant = format_ident!("{}", lang.name.to_pascal_case());
         let not_wasm_cfg = not_wasm_cfg(lang);
         quote! {
-            #[cfg(all(feature = #name_str #not_wasm_cfg))]
+            #[cfg(all(feature = #feature #not_wasm_cfg))]
             {
                 _map.insert(Lang::#variant, _idx);
                 _idx += 1;
@@ -277,18 +286,18 @@ fn parsers(
     });
     let funcs = langs_sorted_by_group.iter().filter(&filter).map(|lang| {
         let name = format_ident!("{}", lang.name);
-        let name_str = &lang.name;
+        let feature = feature_of(lang);
         let not_wasm_cfg = not_wasm_cfg(lang);
-        quote! { #[cfg(all(feature = #name_str #not_wasm_cfg))] #name }
+        quote! { #[cfg(all(feature = #feature #not_wasm_cfg))] #name }
     });
     let queries = langs_sorted_by_group.iter().filter(&filter).map(|lang| {
-        let name_str = &lang.name;
+        let feature = feature_of(lang);
         let highlights = format_ident!("{}_HIGHLIGHTS{query_suffix}", lang.name.to_uppercase());
         let injections = format_ident!("{}_INJECTIONS{query_suffix}", lang.name.to_uppercase());
         let locals = format_ident!("{}_LOCALS{query_suffix}", lang.name.to_uppercase());
         let not_wasm_cfg = not_wasm_cfg(lang);
 
-        quote! { #[cfg(all(feature = #name_str #not_wasm_cfg))] [
+        quote! { #[cfg(all(feature = #feature #not_wasm_cfg))] [
             ::verdant_queries::#highlights,
             ::verdant_queries::#injections,
             ::verdant_queries::#locals,
@@ -302,6 +311,7 @@ fn parsers(
         .map(|lang| {
             let feat = lang.group.to_string();
             let name_str = &lang.name;
+            let feature = feature_of(lang);
             let ft_support = if lang.file_types.is_empty() {
                 Cow::Borrowed("supports no file types")
             } else {
@@ -322,7 +332,7 @@ fn parsers(
             let not_wasm_cfg = not_wasm_cfg(lang);
             quote! {
                 #[doc = #doc]
-                #[cfg(all(any(feature = #feat, feature = #name_str) #not_wasm_cfg))]
+                #[cfg(all(any(feature = #feat, feature = #feature) #not_wasm_cfg))]
                 #variant
             }
         });
@@ -332,11 +342,11 @@ fn parsers(
         .filter(&filter)
         .map(|lang| {
             let name = format_ident!("{}", lang.name);
-            let name_str = &lang.name;
+            let feature = feature_of(lang);
             let variant = format_ident!("{}", lang.name.to_pascal_case());
             let not_wasm_cfg = not_wasm_cfg(lang);
             quote! {
-                #[cfg(all(feature = #name_str #not_wasm_cfg))]
+                #[cfg(all(feature = #feature #not_wasm_cfg))]
                 Self::#variant => #name(),
             }
         });
@@ -349,11 +359,12 @@ fn parsers(
         .map(|lang| {
             let name = format_ident!("{}", lang.name);
             let name_str = &lang.name;
+            let feature = feature_of(lang);
             let variant = format_ident!("{}", lang.name.to_pascal_case());
             let not_wasm_cfg = not_wasm_cfg(lang);
             quote! {
                 #[test]
-                #[cfg(all(feature = #name_str #not_wasm_cfg))]
+                #[cfg(all(feature = #feature #not_wasm_cfg))]
                 fn #name() {
                     assert_eq!(crate::#name(), crate::Lang::#variant.get());
                     let set = crate::LanguageSetImpl::new();
@@ -675,29 +686,84 @@ mod tests {
     }
 
     #[test]
-    fn mixed_group_shared_ffi_cfgs_include_all_alias_features() {
-        for group in ffi_groups(&LANGUAGE_CONFIG.languages)
-            .into_iter()
-            .filter(|group| {
-                group
-                    .aliases
-                    .iter()
-                    .map(|lang| lang.group)
-                    .collect::<std::collections::BTreeSet<_>>()
-                    .len()
-                    > 1
-            })
-        {
+    fn shared_ffi_cfgs_include_every_alias_feature() {
+        for group in ffi_groups(&LANGUAGE_CONFIG.languages) {
             let cfg = normalize_tokens(ffi_group_cfg(&group));
-            assert!(cfg.starts_with("any("), "{cfg}");
 
             for alias in &group.aliases {
-                let feature = format!("feature=\"{}\"", alias.name);
+                let feature = format!("feature=\"{}\"", feature_of(alias));
                 assert!(
                     cfg.contains(&feature),
                     "shared ffi `{}` is missing alias `{}` in cfg `{cfg}`",
                     group.representative.parser.ffi_func,
                     alias.name,
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn bundled_languages_follow_their_owner() {
+        for lang in &LANGUAGE_CONFIG.languages {
+            let Some(owner_name) = &lang.bundled_with else {
+                continue;
+            };
+            let owner = LANGUAGE_CONFIG.owner(lang);
+
+            assert!(
+                owner.bundled_with.is_none(),
+                "`{}` is bundled with `{owner_name}`, which is bundled itself",
+                lang.name,
+            );
+            assert_eq!(
+                lang.group, owner.group,
+                "`{}` must be in the same group as `{owner_name}`",
+                lang.name,
+            );
+            assert_eq!(
+                lang.parser.git.rev, owner.parser.git.rev,
+                "`{}` must use the same parser revision as `{owner_name}`",
+                lang.name,
+            );
+            assert!(
+                lang.family.is_none(),
+                "`{}` takes the family of `{owner_name}`, remove its `family`",
+                lang.name,
+            );
+        }
+    }
+
+    #[test]
+    fn family_features_are_unique_names() {
+        for family in LANGUAGE_CONFIG
+            .languages
+            .iter()
+            .filter_map(|lang| lang.family.as_deref())
+        {
+            assert!(
+                !["default", "some", "most", "all", "docs"].contains(&family),
+                "family `{family}` clashes with a built-in feature",
+            );
+            assert!(
+                LANGUAGE_CONFIG
+                    .languages
+                    .iter()
+                    .all(|lang| lang.name != family),
+                "family `{family}` clashes with the language of the same name",
+            );
+        }
+    }
+
+    #[test]
+    fn families_never_require_parser_generation() {
+        // the READMEs promise that parsers needing a JavaScript runtime are only enabled by `all`
+        // or by their own feature
+        for lang in &LANGUAGE_CONFIG.languages {
+            if lang.parser.generate {
+                assert!(
+                    LANGUAGE_CONFIG.owner(lang).family.is_none(),
+                    "`{}` generates its parser and must not be part of a family",
+                    lang.name,
                 );
             }
         }

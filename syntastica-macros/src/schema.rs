@@ -8,6 +8,39 @@ pub struct LanguageConfig {
     pub languages: Vec<Language>,
 }
 
+impl LanguageConfig {
+    /// The language whose Cargo feature enables `lang`: `lang` itself, or the language it is
+    /// bundled with.
+    pub fn owner<'a>(&'a self, lang: &'a Language) -> &'a Language {
+        match &lang.bundled_with {
+            None => lang,
+            Some(owner) => self
+                .languages
+                .iter()
+                .find(|other| other.name == *owner)
+                .unwrap_or_else(|| {
+                    panic!("`{}` is bundled with unknown language `{owner}`", lang.name)
+                }),
+        }
+    }
+
+    /// The Cargo feature that enables `lang`: the feature named after it, or, for `all` languages
+    /// in a family, that family's feature.
+    pub fn feature<'a>(&'a self, lang: &'a Language) -> &'a str {
+        let owner = self.owner(lang);
+        match &owner.family {
+            Some(family) if owner.group == Group::All => family,
+            _ => &owner.name,
+        }
+    }
+
+    /// Whether a Cargo feature named after `lang` exists.
+    #[allow(dead_code)] // is used in `xtask/src/codegen.rs`
+    pub fn has_own_feature(&self, lang: &Language) -> bool {
+        self.feature(lang) == lang.name
+    }
+}
+
 fn default_true() -> bool {
     true
 }
@@ -17,6 +50,13 @@ fn default_true() -> bool {
 pub struct Language {
     pub name: String,
     pub group: Group,
+    /// A family feature (like `shell`) that enables this language along with the rest of the
+    /// family. `all` languages in a family have no feature of their own, `some` and `most`
+    /// languages keep theirs and are additionally listed by the family.
+    pub family: Option<String>,
+    /// A language from the same parser release that provides the Cargo feature (and group) for
+    /// this one, so they are enabled together.
+    pub bundled_with: Option<String>,
     pub file_types: Vec<FileType>,
     #[serde(default = "default_true")]
     pub wasm: bool,
